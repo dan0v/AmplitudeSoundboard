@@ -1,0 +1,93 @@
+<!--
+    AmplitudeSoundboard
+    Copyright (C) 2021 dan0v
+    https://git.dan0v.com/AmplitudeSoundboard
+
+    This file is part of AmplitudeSoundboard.
+
+    AmplitudeSoundboard is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    AmplitudeSoundboard is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Amplitude.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
+        xmlns:i18n="clr-namespace:Amplitude.Localization"
+        x:Class="Amplitude.Views.EditSoundClip"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="{i18n:Localize EditSoundClipTitle}"
+        Width="400" Height="400" MinWidth="275" MinHeight="375">
+
+    <Design.DataContext>
+        <vm:EditSoundClipViewModel/>
+    </Design.DataContext>
+
+  <StackPanel>
+    <!--Volume-->
+    <Border BorderThickness="1" BorderBrush="LightGray" Margin="5" Padding="5">
+      <Grid RowDefinitions="50,25,*">
+        <Label Grid.Row="0" Content="{i18n:Localize ClipVolumeLabel}" Target="{Binding #volumeSlider}" HorizontalAlignment="Center" Height="30"></Label>
+        <Label Grid.Row="1" Content="{Binding Model.Volume}" HorizontalAlignment="Center" Height="30"></Label>
+        <Grid Grid.Row="2" ColumnDefinitions="100,*,100">
+          <Button x:Name="btn_VolumeDown" Grid.Column="0" Margin="5,0,5,0" Command="{Binding DecreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Panel>
+              <Image Source="avares://amplitude_soundboard/Assets/img/ArrowLeft.png" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Panel>
+          </Button>
+          <Slider Grid.Column="1" VerticalAlignment="Center" Height="50" x:Name="volumeSlider" SmallChange="1" LargeChange="10" TickFrequency="1" Orientation="Horizontal" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickPlacement="None" Value="{Binding Path=Model.Volume, Mode=TwoWay}"></Slider>
+          <Button x:Name="btn_VolumeUp" Grid.Column="2" Margin="5,0,5,0" Command="{Binding IncreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Panel>
+              <Image Source="avares://amplitude_soundboard/Assets/img/ArrowRight.png" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Panel>
+          </Button>
+        </Grid>
+      </Grid>
+    </Border>
+
+    <!--File-->
+    <Border BorderThickness="1" BorderBrush="LightGray" Margin="5" Padding="5">
+      <StackPanel>
+        <Label Grid.Column="0" Grid.Row="1" Content="{i18n:Localize ClipFilePathLabel}" Target="{Binding #filePath}" HorizontalAlignment="Center" Height="30"></Label>
+        <Grid ColumnDefinitions="*,50">
+          <TextBox Grid.Column="0" Text="{Binding Model.FilePath}" Watermark="{i18n:Localize ClipFilePathPlaceholder}" ToolTip.Tip="{Binding Model.FilePath}"></TextBox>
+          <Button x:Name="btn_BrowseFilePath" Grid.Column="1" Margin="5,0,5,0">
+            <Panel>
+              <Image Source="avares://amplitude_soundboard/Assets/img/FileBrowse.png" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Panel>
+          </Button>
+        </Grid>
+      </StackPanel>
+    </Border>
+
+    <!--Hotkey-->
+    <Border BorderThickness="1" BorderBrush="LightGray" Margin="5" Padding="5">
+      <StackPanel>
+        <Label Content="{i18n:Localize ClipHotkeyLabel}" Target="{Binding #volumeSlider}" HorizontalAlignment="Center" Height="30"></Label>
+        <Grid ColumnDefinitions="*,50">
+          <TextBox Grid.Column="0" Watermark="Record a key combination..." DockPanel.Dock="Left" IsReadOnly="True" Focusable="False"></TextBox>
+          <Button Grid.Column="1" Content="Record" Margin="5,0,5,0" DockPanel.Dock="Right">
+            <Panel>
+              <Image Source="avares://amplitude_soundboard/Assets/img/Keyboard.png" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Panel>
+          </Button>
+        </Grid>
+        
+      </StackPanel>
+    </Border>
+
+    <Button Content="{i18n:Localize TestSound}" Command="{Binding PlaySound}" Margin="5,5,5,5"></Button>
+  </StackPanel>
+  
+</Window>

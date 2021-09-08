@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+	<id>amplitude_soundboard</id>
+	<metadata_license>CC0-1.0</metadata_license>
+	<project_license>GPLv3</project_license>
+	<name>Amplitude Soundboard</name>
+	<summary>A sleek soundboard</summary>
+	<description>
+		<p>A sleek soundboard.</p>
+	</description>
+	<launchable type="desktop-id">amplitude_soundboard.desktop</launchable>
+	<url type="homepage">https://git.dan0v.com/AmplitudeSoundboard</url>
+	<screenshots>
+		<screenshot type="default">
+			<image>https://raw.githubusercontent.com/dan0v/xdelta3-cross-gui/master/Extra%20Resources/Progress-demo.png</image>
+		</screenshot>
+	</screenshots>
+	<provides>
+		<id>amplitude_soundboard.desktop</id>
+	</provides>
+</component>

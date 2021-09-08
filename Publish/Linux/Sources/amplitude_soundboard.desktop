@@ -1,0 +1,8 @@
+# Desktop Entry Specification: https://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html
+[Desktop Entry]
+Type=Application
+Name=Amplitude Soundboard
+Comment=A sleek soundboard
+Icon=icn
+Exec=amplitude_soundboard
+Categories=Audio;AudioVideo;
