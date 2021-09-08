@@ -1,0 +1,4 @@
+AmplitudeSoundboard makes use of
+
+NAudio
+Copyright (C) 2020 Mark Heath
