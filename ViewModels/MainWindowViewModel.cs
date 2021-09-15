@@ -21,6 +21,7 @@
 
 using Amplitude.Helpers;
 using Amplitude.Views;
+using AmplitudeSoundboard;
 using Avalonia.Controls;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,11 @@ namespace Amplitude.ViewModels
             };
 
             sound.Show();
+        }
+
+        public void StopAudio()
+        {
+            App.SoundEngine.Reset();
         }
 
     }
