@@ -77,5 +77,10 @@ namespace Amplitude.ViewModels
             App.SoundEngine.Reset();
         }
 
+        public void CreateHotkey()
+        {
+
+        }
+
     }
 }
