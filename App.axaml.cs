@@ -31,6 +31,8 @@ namespace AmplitudeSoundboard
     public class App : Application
     {
         public static ISoundEngine SoundEngine => NSoundEngine.Instance;
+        public static KeyboardHook KeyboardHook => KeyboardHook.Instance;
+        public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
 
         private static ErrorList _errorListWindow;
         public static ErrorList ErrorListWindow {
