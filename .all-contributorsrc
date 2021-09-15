@@ -1,0 +1,33 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Taylor-Cozy",
+      "name": "Taylor Hetherington",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19821121?v=4",
+      "profile": "https://github.com/Taylor-Cozy",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "dan0v",
+      "name": "dan0v",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7658521?v=4",
+      "profile": "https://blog.dan0v.com",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "AmplitudeSoundboard",
+  "projectOwner": "dan0v",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
