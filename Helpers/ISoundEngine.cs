@@ -36,5 +36,7 @@ namespace Amplitude.Helpers
         public void Play(SoundClip source);
 
         public void Play(string fileName, float volume);
+
+        public void Reset();
     }
 }

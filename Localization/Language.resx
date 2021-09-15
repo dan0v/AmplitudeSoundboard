@@ -129,8 +129,26 @@
   <data name="ClipVolumeLabel" xml:space="preserve">
     <value>Clip volume</value>
   </data>
+  <data name="DismissWindow" xml:space="preserve">
+    <value>Dismiss</value>
+  </data>
   <data name="EditSoundClipTitle" xml:space="preserve">
     <value>Edit Sound Clip</value>
+  </data>
+  <data name="ErrorListTitle" xml:space="preserve">
+    <value>Error List</value>
+  </data>
+  <data name="FileBadFormatString" xml:space="preserve">
+    <value>The following file is an unplayable format: "{0}"</value>
+  </data>
+  <data name="FileBrowseAudio" xml:space="preserve">
+    <value>Select an audio file...</value>
+  </data>
+  <data name="FileBrowseImage" xml:space="preserve">
+    <value>Select an image file...</value>
+  </data>
+  <data name="FileMissingString" xml:space="preserve">
+    <value>The following file cannot be found: "{0}"</value>
   </data>
   <data name="FilePathPlaceholder" xml:space="preserve">
     <value>File path...</value>
@@ -141,8 +159,8 @@
   <data name="PlaySound" xml:space="preserve">
     <value>Play sound</value>
   </data>
-  <data name="SaveClip" xml:space="preserve">
-    <value>Save Clip</value>
+  <data name="StopAllAudio" xml:space="preserve">
+    <value>Stop audio playback</value>
   </data>
   <data name="TestSound" xml:space="preserve">
     <value>Test sound</value>

@@ -39,56 +39,56 @@ namespace Amplitude.Models
 
         public ConcurrentBag<Thread> ActiveThreads = new ConcurrentBag<Thread>();
 
-        private float volume = 100;
+        private float _volume = 100;
         public float Volume {
-            get => volume;
+            get => _volume;
             set
             {
-                if (value != volume)
+                if (value != _volume)
                 {
-                    volume = value;
+                    _volume = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private string name = "";
+        private string _name = "";
         public string Name
         {
-            get => name;
+            get => _name;
             set
             {
-                if (value != name)
+                if (value != _name)
                 {
-                    name = value;
+                    _name = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private string hotkey = "";
+        private string _hotkey = "";
         public string Hotkey
         {
-            get => hotkey;
+            get => _hotkey;
             set
             {
-                if (value != hotkey)
+                if (value != _hotkey)
                 {
-                    hotkey = value;
+                    _hotkey = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private string filePath = "";
+        private string _filePath = "";
         public string FilePath
         {
-            get => filePath;
+            get => _filePath;
             set
             {
-                if (value != filePath)
+                if (value != _filePath)
                 {
-                    filePath = value;
+                    _filePath = value;
                     OnPropertyChanged();
                 }
             }
@@ -97,6 +97,7 @@ namespace Amplitude.Models
         public SoundClip()
         {
             id = "temp";
+            // Get unique ID from soundclip manager
         }
 
         public static SoundClip? FromJSON(string json)

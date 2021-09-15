@@ -32,6 +32,18 @@ namespace AmplitudeSoundboard
     {
         public static ISoundEngine SoundEngine => NSoundEngine.Instance;
 
+        private static ErrorList _errorListWindow;
+        public static ErrorList ErrorListWindow {
+            get
+            {
+                if (_errorListWindow == null)
+                {
+                    _errorListWindow = new ErrorList();
+                }
+                return _errorListWindow;
+            }
+        }
+
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);

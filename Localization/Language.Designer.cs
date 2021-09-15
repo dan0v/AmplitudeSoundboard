@@ -97,11 +97,65 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dismiss.
+        /// </summary>
+        internal static string DismissWindow {
+            get {
+                return ResourceManager.GetString("DismissWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Sound Clip.
         /// </summary>
         internal static string EditSoundClipTitle {
             get {
                 return ResourceManager.GetString("EditSoundClipTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error List.
+        /// </summary>
+        internal static string ErrorListTitle {
+            get {
+                return ResourceManager.GetString("ErrorListTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following file is an unplayable format: &quot;{0}&quot;.
+        /// </summary>
+        internal static string FileBadFormatString {
+            get {
+                return ResourceManager.GetString("FileBadFormatString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select an audio file....
+        /// </summary>
+        internal static string FileBrowseAudio {
+            get {
+                return ResourceManager.GetString("FileBrowseAudio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select an image file....
+        /// </summary>
+        internal static string FileBrowseImage {
+            get {
+                return ResourceManager.GetString("FileBrowseImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following file cannot be found: &quot;{0}&quot;.
+        /// </summary>
+        internal static string FileMissingString {
+            get {
+                return ResourceManager.GetString("FileMissingString", resourceCulture);
             }
         }
         
@@ -133,11 +187,11 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save Clip.
+        ///   Looks up a localized string similar to Stop audio playback.
         /// </summary>
-        internal static string SaveClip {
+        internal static string StopAllAudio {
             get {
-                return ResourceManager.GetString("SaveClip", resourceCulture);
+                return ResourceManager.GetString("StopAllAudio", resourceCulture);
             }
         }
         
