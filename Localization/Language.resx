@@ -141,6 +141,9 @@
   <data name="PlaySound" xml:space="preserve">
     <value>Play sound</value>
   </data>
+  <data name="SaveClip" xml:space="preserve">
+    <value>Save Clip</value>
+  </data>
   <data name="TestSound" xml:space="preserve">
     <value>Test sound</value>
   </data>

@@ -87,7 +87,11 @@
       </StackPanel>
     </Border>
 
-    <Button Content="{i18n:Localize TestSound}" Command="{Binding PlaySound}" Margin="5,5,5,5"></Button>
+	<Grid ColumnDefinitions="*,50">
+		<Button Grid.Column="0" DockPanel.Dock="Left" Content="{i18n:Localize TestSound}" Command="{Binding PlaySound}" Margin="5,5,5,5"></Button>
+		<Button Grid.Column="1" DockPanel.Dock="Left" Content="{i18n:Localize SaveClip}" Command="{Binding PlaySound}" Margin="5,5,5,5"></Button>
+	</Grid>
+
   </StackPanel>
   
 </Window>

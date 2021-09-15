@@ -133,6 +133,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save Clip.
+        /// </summary>
+        internal static string SaveClip {
+            get {
+                return ResourceManager.GetString("SaveClip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test sound.
         /// </summary>
         internal static string TestSound {
