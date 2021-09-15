@@ -30,6 +30,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Collections.Concurrent;
+using AmplitudeSoundboard;
 
 namespace Amplitude.Models
 {
@@ -98,6 +99,11 @@ namespace Amplitude.Models
         {
             id = "temp";
             // Get unique ID from soundclip manager
+        }
+
+        public void PlayAudio()
+        {
+            App.SoundEngine.Play(this);
         }
 
         public static SoundClip? FromJSON(string json)

@@ -36,17 +36,26 @@ namespace Amplitude.ViewModels
 {
     public class EditSoundClipViewModel : ViewModelBase
     {
-        private SoundClip model = new SoundClip();
-        public SoundClip Model { get => model; }
+        private SoundClip _model;
+        public SoundClip Model { get => _model; }
 
         public EditSoundClipViewModel()
         {
+            _model = new SoundClip();
         }
 
+        /// <summary>
+        ///  Edit an existing soundclip from this EditSoundClip window
+        /// </summary>
+        /// <param name="model"></param>
+        public EditSoundClipViewModel(SoundClip model)
+        {
+            this._model = model;
+        }
 
         public void PlaySound()
         {
-            App.SoundEngine.Play(Model);
+            Model.PlayAudio();
         }
 
         public void SetClipFilePath(string[] url)
