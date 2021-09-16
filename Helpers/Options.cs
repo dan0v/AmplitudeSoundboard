@@ -29,12 +29,77 @@ using System.Threading.Tasks;
 
 namespace Amplitude.Helpers
 {
-    class Options : INotifyPropertyChanged
+    public class Options : INotifyPropertyChanged
     {
-        private string language = "English";
-        private int masterVolume = 100;
-        private string defaultOutputDevice = "";
-        private string killAudioHotkey;
+        private string _language = "English";
+        public string Language
+        {
+            get => _language;
+            set
+            {
+                if (value != _language)
+                {
+                    _language = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _theme = "Dark";
+        public string Theme
+        {
+            get => _theme;
+            set
+            {
+                if (value != _theme)
+                {
+                    _theme = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _masterVolume = 100;
+        public int MasterVolume
+        {
+            get => _masterVolume;
+            set
+            {
+                if (value != _masterVolume)
+                {
+                    _masterVolume = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _defaultOutputDevice = "";
+        public string DefaultOutputDevice
+        {
+            get => _defaultOutputDevice;
+            set
+            {
+                if (value != _defaultOutputDevice)
+                {
+                    _defaultOutputDevice = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _globalKillAudioHotkey;
+        public string GlobalKillAudioHotkey
+        {
+            get => _globalKillAudioHotkey;
+            set
+            {
+                if (value != _globalKillAudioHotkey)
+                {
+                    _globalKillAudioHotkey = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
 
         public event PropertyChangedEventHandler? PropertyChanged;

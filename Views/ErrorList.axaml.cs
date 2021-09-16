@@ -19,7 +19,9 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
 using Amplitude.Models;
+using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -33,6 +35,8 @@ namespace Amplitude.Views
     {
         private StackPanel sp_Errors;
         private Button btn_Dismiss;
+
+        public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
 
         public ErrorList()
         {

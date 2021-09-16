@@ -19,11 +19,10 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+#if Windows
+
 using NAudio.Wave;
 using System;
-using System.Diagnostics;
-using System.Threading;
-using System.Linq;
 using Amplitude.Models;
 using NAudio.Wave.SampleProviders;
 using System.IO;
@@ -169,3 +168,5 @@ namespace Amplitude.Helpers
         public WaveFormat WaveFormat { get; private set; }
     }
 }
+
+#endif

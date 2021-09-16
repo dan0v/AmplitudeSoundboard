@@ -25,6 +25,7 @@ using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using System.ComponentModel;
 using System.Threading;
 
@@ -32,6 +33,7 @@ namespace Amplitude.Views
 {
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();

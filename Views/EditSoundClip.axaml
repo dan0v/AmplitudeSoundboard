@@ -38,17 +38,10 @@
     </Design.DataContext>
   
     <Panel>
-      <ExperimentalAcrylicBorder IsHitTestVisible="False">
-        <ExperimentalAcrylicBorder.Material>
-          <ExperimentalAcrylicMaterial
-              BackgroundSource="Digger"
-              TintColor="Black"
-              TintOpacity="1"
-              MaterialOpacity="0.8" />
-        </ExperimentalAcrylicBorder.Material>
+      <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
       
-      <TextBlock Text="{i18n:Localize EditSoundClipTitle}" FontWeight="Bold" Margin="10,5,0,10"></TextBlock>
+      <TextBlock Text="{i18n:Localize EditSoundClipTitle}" FontWeight="Bold" Margin="10,5,0,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
       
       <StackPanel Margin="0,30,0,0">
         <!--Volume-->
@@ -59,13 +52,13 @@
             <Grid Grid.Row="2" ColumnDefinitions="100,*,100">
               <Button x:Name="btn_VolumeDown" Grid.Column="0" Margin="5,0,5,0" Cursor="Hand" Command="{Binding DecreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Panel>
-                  <Image Source="avares://amplitude_soundboard/Assets/img/ArrowLeft.png" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <Image Source="{Binding ThemeHandler.ArrowLeft}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Panel>
               </Button>
               <Slider Grid.Column="1" VerticalAlignment="Center" Height="50" Cursor="Hand" x:Name="volumeSlider" SmallChange="1" LargeChange="10" TickFrequency="1" Orientation="Horizontal" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickPlacement="None" Value="{Binding Path=Model.Volume, Mode=TwoWay}"></Slider>
               <Button x:Name="btn_VolumeUp" Grid.Column="2" Margin="5,0,5,0" Cursor="Hand" Command="{Binding IncreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Panel>
-                  <Image Source="avares://amplitude_soundboard/Assets/img/ArrowRight.png" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <Image Source="{Binding ThemeHandler.ArrowRight}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Panel>
               </Button>
             </Grid>
@@ -80,7 +73,7 @@
               <TextBox Grid.Column="0" Text="{Binding Model.FilePath}" Watermark="{i18n:Localize ClipFilePathPlaceholder}" ToolTip.Tip="{Binding Model.FilePath}"></TextBox>
               <Button x:Name="btn_BrowseFilePath" Cursor="Hand" Grid.Column="1" Margin="5,0,5,0">
                 <Panel>
-                  <Image Source="avares://amplitude_soundboard/Assets/img/FileBrowse.png" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <Image Source="{Binding ThemeHandler.FileBrowse}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Panel>
               </Button>
             </Grid>
@@ -95,7 +88,7 @@
               <TextBox Grid.Column="0" Watermark="Record a key combination..." DockPanel.Dock="Left" IsReadOnly="True" Focusable="False"></TextBox>
               <Button Grid.Column="1" Content="Record" Cursor="Hand" Margin="5,0,5,0" DockPanel.Dock="Right">
                 <Panel>
-                  <Image Source="avares://amplitude_soundboard/Assets/img/Keyboard.png" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <Image Source="{Binding ThemeHandler.Keyboard}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Panel>
               </Button>
             </Grid>

@@ -32,7 +32,6 @@ namespace Amplitude.Views
 {
     public partial class EditSoundClip : Window
     {
-
         private Button btn_BrowseFilePath;
 
         public EditSoundClip()

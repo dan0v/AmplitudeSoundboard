@@ -19,13 +19,8 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using NAudio.Wave;
 using System;
-using System.Diagnostics;
-using System.Threading;
-using System.Linq;
 using Amplitude.Models;
-using NAudio.Wave.SampleProviders;
 
 namespace Amplitude.Helpers
 {

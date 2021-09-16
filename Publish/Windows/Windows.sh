@@ -19,7 +19,7 @@ ORIGIN="$(pwd)"
 cd "../.."
 
 # RUN IN POWERSHELL
-#dotnet publish -r win-x86 -c Release -p:SelfContained=True -p:IncludeAllContentForSelfExtract=True -p:PublishSingleFile=True -o bin/Release/net5.0/publishWin
+#dotnet publish -r win-x64 -c Release -p:SelfContained=True -p:IncludeAllContentForSelfExtract=True -p:PublishSingleFile=True -o bin/Release/net5.0/publishWin
 cd "$ORIGIN"
 
 APP_NAME="Amplitude Soundboard"

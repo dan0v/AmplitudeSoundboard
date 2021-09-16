@@ -25,14 +25,24 @@ using Amplitude.Views;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Themes.Fluent;
 
 namespace AmplitudeSoundboard
 {
     public class App : Application
     {
+#if Windows
         public static ISoundEngine SoundEngine => NSoundEngine.Instance;
-        public static KeyboardHook KeyboardHook => KeyboardHook.Instance;
+        public static WinKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
+#else
+        public static ISoundEngine SoundEngine => TempSoundEngine.Instance;
+        //public static WinKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
+#endif
         public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
+
+        public static ThemeHandler ThemeHandler => ThemeHandler.Instance;
+
+        public static Options Options = new Options();
 
         private static ErrorList _errorListWindow;
         public static ErrorList ErrorListWindow {

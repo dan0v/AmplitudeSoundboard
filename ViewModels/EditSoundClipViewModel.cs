@@ -21,21 +21,14 @@
 
 using Amplitude.Helpers;
 using Amplitude.Models;
-using Amplitude.Views;
 using AmplitudeSoundboard;
-using Avalonia.Controls;
-using Avalonia.Interactivity;
-using ReactiveUI;
-using System;
-using System.Collections.Generic;
-using System.Reactive;
-using System.Text;
-using System.Windows.Input;
 
 namespace Amplitude.ViewModels
 {
     public class EditSoundClipViewModel : ViewModelBase
     {
+        public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+
         private SoundClip _model;
         public SoundClip Model { get => _model; }
 

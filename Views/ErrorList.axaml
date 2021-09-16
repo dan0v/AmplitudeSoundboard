@@ -29,22 +29,16 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="{i18n:Localize ErrorListTitle}"
         Width="400" Height="400" MinWidth="275" MinHeight="375"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
 
     <Panel>
-      <ExperimentalAcrylicBorder IsHitTestVisible="False">
-        <ExperimentalAcrylicBorder.Material>
-          <ExperimentalAcrylicMaterial
-              BackgroundSource="Digger"
-              TintColor="Black"
-              TintOpacity="1"
-              MaterialOpacity="0.8" />
-        </ExperimentalAcrylicBorder.Material>
+      <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
-      
-      <TextBlock Text="{i18n:Localize ErrorListTitle}" FontWeight="Bold" Margin="10,5,0,10"></TextBlock>
+
+      <TextBlock Text="{i18n:Localize ErrorListTitle}" FontWeight="Bold" Margin="10,5,0,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
       <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
         <ScrollViewer>

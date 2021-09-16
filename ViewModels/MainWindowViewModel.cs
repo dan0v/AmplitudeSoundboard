@@ -23,14 +23,13 @@ using Amplitude.Helpers;
 using Amplitude.Views;
 using AmplitudeSoundboard;
 using Avalonia.Controls;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Amplitude.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+
         public void AddSound()
         {
             Window sound = new EditSoundClip

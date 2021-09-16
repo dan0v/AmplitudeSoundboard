@@ -6,21 +6,29 @@
   "commit": false,
   "contributors": [
     {
+      "login": "dan0v",
+      "name": "dan0v",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7658521?v=4",
+      "profile": "https://github.com/dan0v",
+      "contributions": [
+        "code",
+        "bug",
+        "design",
+        "doc",
+        "maintenance",
+        "platform",
+        "review",
+        "userTesting"
+      ]
+    },
+    {
       "login": "Taylor-Cozy",
       "name": "Taylor Hetherington",
       "avatar_url": "https://avatars.githubusercontent.com/u/19821121?v=4",
       "profile": "https://github.com/Taylor-Cozy",
       "contributions": [
-        "code"
-      ]
-    },
-    {
-      "login": "dan0v",
-      "name": "dan0v",
-      "avatar_url": "https://avatars.githubusercontent.com/u/7658521?v=4",
-      "profile": "https://blog.dan0v.com",
-      "contributions": [
-        "code"
+        "code",
+        "userTesting"
       ]
     }
   ],

@@ -38,21 +38,17 @@
     </Design.DataContext>
   
     <Panel>
-      <ExperimentalAcrylicBorder IsHitTestVisible="False">
-        <ExperimentalAcrylicBorder.Material>
-          <ExperimentalAcrylicMaterial
-              BackgroundSource="Digger"
-              TintColor="Black"
-              TintOpacity="1"
-              MaterialOpacity="0.8" />
-        </ExperimentalAcrylicBorder.Material>
+      <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
       
-      <TextBlock Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,5,0,10"></TextBlock>
+      <TextBlock Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,5,0,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
       
-      <StackPanel Margin="0,30,0,0">
-        <Button Content="{i18n:Localize NewSoundClip}" Command="{Binding AddSound}" Cursor="Hand" Margin="5,5,5,5"></Button>
-        <Button Content="{i18n:Localize StopAllAudio}" Command="{Binding StopAudio}" Cursor="Hand" Margin="5,5,5,5"></Button>
+      <StackPanel Margin="5,30,5,0">
+        <Button Content="{i18n:Localize NewSoundClip}" Command="{Binding AddSound}" Cursor="Hand" Margin="0,5,0,5"></Button>
+        <Button Content="{i18n:Localize StopAllAudio}" Command="{Binding StopAudio}" Cursor="Hand" Margin="0,5,0,5"></Button>
+        <ComboBox AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,5,0,5" SelectedItem="{Binding ThemeHandler.SelectedTheme}" Items="{Binding ThemeHandler.ThemesList}">
+          
+        </ComboBox>
       </StackPanel>
     </Panel>
 </Window>
