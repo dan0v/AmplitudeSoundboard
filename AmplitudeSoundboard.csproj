@@ -26,6 +26,7 @@
     <Copyright>Copyright (C) 2021 dan0v</Copyright>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
