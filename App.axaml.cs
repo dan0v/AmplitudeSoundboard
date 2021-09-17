@@ -51,9 +51,10 @@ namespace AmplitudeSoundboard
 			}
 		}
 		
+        public static SoundClipManager SoundClipManager => SoundClipManager.Instance;
+		
 #if Windows
         public static ISoundEngine SoundEngine => NSoundEngine.Instance;
-        public static SoundClipManager SoundClipManager => SoundClipManager.Instance;
 		
         public static WinKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
 #else
