@@ -22,19 +22,41 @@
 using Amplitude.Helpers;
 using Amplitude.ViewModels;
 using Amplitude.Views;
+using Amplitude.Models;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using System.IO;
+using System;
+using static System.Environment;
 
 namespace AmplitudeSoundboard
 {
     public class App : Application
     {
         public static ISoundEngine SoundEngine => NSoundEngine.Instance;
+        public static SoundClipManager SoundClipManager => SoundClipManager.Instance;
+
+        public static string APP_STORAGE
+        {
+            get
+            {
+                string path = Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData, SpecialFolderOption.DoNotVerify), "amplitude-soundboard");
+
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                    
+                return path;
+            }
+        }
 
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
+
+            SoundClipManager.AddClip();
         }
 
         public override void OnFrameworkInitializationCompleted()

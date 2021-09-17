@@ -12,7 +12,6 @@
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
@@ -28,6 +27,9 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Language.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AllSoundClips.axaml.cs">
+      <DependentUpon>AllSoundClips.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

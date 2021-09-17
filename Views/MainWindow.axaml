@@ -36,6 +36,7 @@
 
   <StackPanel>
     <Button Content="{i18n:Localize NewSoundClip}" Command="{Binding AddSound}" Margin="5,5,5,5"></Button>
+    <Button Content="{i18n:Localize NewSoundClip}" Command="{Binding ViewAllSoundClips}" Margin="5,5,5,5"></Button>
 
   </StackPanel>
   
