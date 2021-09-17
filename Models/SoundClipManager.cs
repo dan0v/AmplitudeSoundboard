@@ -109,7 +109,7 @@ namespace Amplitude.Models
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                App.ErrorListWindow.AddErrorString(e.Message);
             }
             return null;
         }
@@ -127,7 +127,7 @@ namespace Amplitude.Models
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                App.ErrorListWindow.AddErrorString(e.Message);
             }
             return null;
         }
@@ -139,7 +139,7 @@ namespace Amplitude.Models
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                App.ErrorListWindow.AddErrorString(e.Message);
             }
         }
 

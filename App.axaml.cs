@@ -82,8 +82,6 @@ namespace AmplitudeSoundboard
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
-
-            SoundClipManager.AddClip();
         }
 
         public override void OnFrameworkInitializationCompleted()
