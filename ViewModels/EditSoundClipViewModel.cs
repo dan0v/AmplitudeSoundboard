@@ -21,32 +21,34 @@
 
 using Amplitude.Helpers;
 using Amplitude.Models;
-using Amplitude.Views;
 using AmplitudeSoundboard;
-using Avalonia.Controls;
-using Avalonia.Interactivity;
-using ReactiveUI;
-using System;
-using System.Collections.Generic;
-using System.Reactive;
-using System.Text;
-using System.Windows.Input;
 
 namespace Amplitude.ViewModels
 {
     public class EditSoundClipViewModel : ViewModelBase
     {
-        private SoundClip model = new SoundClip();
-        public SoundClip Model { get => model; }
+        public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+
+        private SoundClip _model;
+        public SoundClip Model { get => _model; }
 
         public EditSoundClipViewModel()
         {
+            _model = new SoundClip();
         }
 
+        /// <summary>
+        ///  Edit an existing soundclip from this EditSoundClip window
+        /// </summary>
+        /// <param name="model"></param>
+        public EditSoundClipViewModel(SoundClip model)
+        {
+            this._model = model;
+        }
 
         public void PlaySound()
         {
-            App.SoundEngine.Play(Model);
+            Model.PlayAudio();
         }
 
         public void SetClipFilePath(string[] url)
@@ -70,6 +72,16 @@ namespace Amplitude.ViewModels
             {
                 Model.Volume -= 1f;
             }
+        }
+
+        public void StopAudio()
+        {
+            App.SoundEngine.Reset();
+        }
+
+        public void CreateHotkey()
+        {
+
         }
 
     }

@@ -19,13 +19,14 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+#if Windows
+
 using NAudio.Wave;
 using System;
-using System.Diagnostics;
-using System.Threading;
-using System.Linq;
 using Amplitude.Models;
 using NAudio.Wave.SampleProviders;
+using System.IO;
+using AmplitudeSoundboard;
 
 namespace Amplitude.Helpers
 {
@@ -59,22 +60,40 @@ namespace Amplitude.Helpers
             outputDevice.Dispose();
         }
 
+        public bool CheckPlayableFileAndGenerateErrors(string fileName)
+        {
+            if (!File.Exists(fileName))
+            {
+                string errorMessage = String.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
+                App.ErrorListWindow.AddErrorString(errorMessage);
+                return false;
+            }
+
+            string fileType = Path.GetExtension(fileName).ToLower();
+            if (fileType != ".mp3" && fileType != ".wav" && fileType != ".aiff")
+            {
+                string errorMessage = String.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
+                App.ErrorListWindow.AddErrorString(errorMessage);
+                return false;
+            }
+
+            return true;
+        }
+
         public void Play(SoundClip source)
         {
             Play(source.FilePath, source.Volume);
         }
 
-
-
-        /// <summary>
-        /// Credit to Mark Heath
-        /// mark.heath@gmail.com
-        /// https://gist.github.com/markheath/8783999
-        /// </summary>
         public void Play(string fileName, float volume)
         {
+            if (!CheckPlayableFileAndGenerateErrors(fileName))
+            {
+                return;
+            }
+
             var input = new AudioFileReader(fileName);
-            input.Volume = volume / 100f; // Altered from original
+            input.Volume = volume / 100f;
             AddMixerInput(new AutoDisposeFileReader(input));
         }
         /// <summary>
@@ -101,7 +120,20 @@ namespace Amplitude.Helpers
         /// </summary>
         private void AddMixerInput(ISampleProvider input)
         {
-            mixer.AddMixerInput(ConvertToRightChannelCount(input));
+            try
+            {
+                mixer.AddMixerInput(ConvertToRightChannelCount(input));
+            }
+            catch (Exception e)
+            {
+                App.ErrorListWindow.AddErrorString(e.Message);
+            }
+        }
+
+        public void Reset()
+        {
+            this.Dispose();
+            _instance = new NSoundEngine();
         }
     }
 
@@ -136,3 +168,5 @@ namespace Amplitude.Helpers
         public WaveFormat WaveFormat { get; private set; }
     }
 }
+
+#endif

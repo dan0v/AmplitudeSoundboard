@@ -23,32 +23,30 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
-        x:Class="Amplitude.Views.MainWindow"
+        x:Class="Amplitude.Views.ErrorList"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Amplitude Soundboard"
-        MinWidth="275" MinHeight="275"
+        Title="{i18n:Localize ErrorListTitle}"
+        Width="400" Height="400" MinWidth="275" MinHeight="375"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
 
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-  
     <Panel>
       <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
-      
-      <TextBlock Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,5,0,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
-      
-      <StackPanel Margin="5,30,5,0">
-        <Button Content="{i18n:Localize NewSoundClip}" Command="{Binding AddSound}" Cursor="Hand" Margin="0,5,0,5"></Button>
-        <Button Content="{i18n:Localize StopAllAudio}" Command="{Binding StopAudio}" Cursor="Hand" Margin="0,5,0,5"></Button>
-        <ComboBox AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,5,0,5" SelectedItem="{Binding ThemeHandler.SelectedTheme}" Items="{Binding ThemeHandler.ThemesList}">
-          
-        </ComboBox>
-      </StackPanel>
+
+      <TextBlock Text="{i18n:Localize ErrorListTitle}" FontWeight="Bold" Margin="10,5,0,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+
+      <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
+        <ScrollViewer>
+          <StackPanel x:Name="sp_Errors"></StackPanel>
+        </ScrollViewer>
+
+        <Button x:Name="btn_Dismiss" Grid.Row="1" Cursor="Hand" Content="{i18n:Localize DismissWindow}" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Button>
+      </Grid>
     </Panel>
+  
 </Window>

@@ -19,7 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Models;
+using Amplitude.Helpers;
 using Amplitude.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
@@ -27,13 +27,11 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace Amplitude.Views
 {
     public partial class EditSoundClip : Window
     {
-
         private Button btn_BrowseFilePath;
 
         public EditSoundClip()
@@ -52,23 +50,13 @@ namespace Amplitude.Views
         {
             try
             {
-                string[] url = await this.OpenFileBrowser();
+                string[] url = await BrowseIO.OpenFileBrowser(GetWindow(), BrowseIO.FileBrowserType.AUDIO);
                 ((EditSoundClipViewModel)DataContext).SetClipFilePath(url);
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
-        }
-
-        private async Task<string[]> OpenFileBrowser()
-        {
-            var dialog = new OpenFileDialog()
-            {
-                Title = "Select audio file",
-                AllowMultiple = false,
-            };
-            return await dialog.ShowAsync(GetWindow());
         }
 
         Window GetWindow() => (Window)this.VisualRoot;

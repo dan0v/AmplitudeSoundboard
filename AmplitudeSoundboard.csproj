@@ -1,8 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x64'">$(DefineConstants);Windows</DefineConstants>
+    <DefineConstants Condition="'$(RuntimeIdentifier)' == 'osx-x64'">$(DefineConstants);MacOS</DefineConstants>
+    <DefineConstants Condition="'$(RuntimeIdentifier)' == 'linux-x64'">$(DefineConstants);Linux</DefineConstants>
+  </PropertyGroup>
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
+    <!--<TargetFramework Condition="'$(Windows)'=='false'">net5.0</TargetFramework>
+    <TargetFramework Condition="'$(Windows)'=='true'">net5.0-windows</TargetFramework>-->
     <TargetFramework>net5.0-windows</TargetFramework>
-    <RuntimeIdentifiers>win-x64;</RuntimeIdentifiers>
     <Authors>dan0v</Authors>
     <Description>A sleek soundboard</Description>
     <Nullable>enable</Nullable>
@@ -10,6 +19,11 @@
     <RootNamespace>Amplitude</RootNamespace>
     <NeutralLanguage>en</NeutralLanguage>
     <Platforms>AnyCPU;x64</Platforms>
+    <Version>1.0.0</Version>
+    <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>Link</TrimMode>
+    <Copyright>Copyright (C) 2021 dan0v</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
@@ -19,8 +33,8 @@
     <PackageReference Include="Avalonia.Desktop" Version="0.10.7" />
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.7" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.7" />
-    <PackageReference Include="NAudio" Version="2.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NAudio" Version="2.0.1" Condition="'$(TargetFramework)' == 'net5.0-windows'" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Localization\Language.Designer.cs">
@@ -28,8 +42,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\AllSoundClips.axaml.cs">
-      <DependentUpon>AllSoundClips.axaml</DependentUpon>
+    <Compile Update="Views\ErrorList.axaml.cs">
+      <DependentUpon>ErrorList.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

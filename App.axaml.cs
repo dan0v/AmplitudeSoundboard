@@ -29,13 +29,12 @@ using Avalonia.Markup.Xaml;
 using System.IO;
 using System;
 using static System.Environment;
+using Avalonia.Themes.Fluent;
 
 namespace AmplitudeSoundboard
 {
     public class App : Application
     {
-        public static ISoundEngine SoundEngine => NSoundEngine.Instance;
-        public static SoundClipManager SoundClipManager => SoundClipManager.Instance;
 
         public static string APP_STORAGE
         {
@@ -49,6 +48,33 @@ namespace AmplitudeSoundboard
                 }
                     
                 return path;
+			}
+		}
+		
+#if Windows
+        public static ISoundEngine SoundEngine => NSoundEngine.Instance;
+        public static SoundClipManager SoundClipManager => SoundClipManager.Instance;
+		
+        public static WinKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
+#else
+        public static ISoundEngine SoundEngine => TempSoundEngine.Instance;
+        //public static WinKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
+#endif
+        public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
+
+        public static ThemeHandler ThemeHandler => ThemeHandler.Instance;
+
+        public static Options Options = new Options();
+
+        private static ErrorList _errorListWindow;
+        public static ErrorList ErrorListWindow {
+            get
+            {
+                if (_errorListWindow == null)
+                {
+                    _errorListWindow = new ErrorList();
+                }
+                return _errorListWindow;
             }
         }
 
