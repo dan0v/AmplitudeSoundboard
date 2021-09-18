@@ -26,19 +26,20 @@
         mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.ErrorList"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/Icon.ico"
         Title="{i18n:Localize ErrorListTitle}"
-        Width="400" Height="400" MinWidth="275" MinHeight="375"
+        Width="400" Height="400" MinWidth="360" MinHeight="200"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
 
     <Panel>
+      
       <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
 
-      <TextBlock Text="{i18n:Localize ErrorListTitle}" FontWeight="Bold" Margin="10,5,0,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+      <TextBlock Text="{i18n:Localize ErrorListTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
       <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
         <ScrollViewer>

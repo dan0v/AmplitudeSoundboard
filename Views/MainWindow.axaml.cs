@@ -50,6 +50,7 @@ namespace Amplitude.Views
         protected override void OnClosing(CancelEventArgs e)
         {
             App.SoundEngine.Dispose();
+            App.KeyboardHook.Dispose();
             base.OnClosing(e);
         }
     }

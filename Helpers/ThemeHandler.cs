@@ -45,7 +45,28 @@ namespace Amplitude.Helpers
             }
         }
 
-        public string[] ThemesList { get => new string[]{ "Dark", "Light" }; }
+        public static string[] ThemesList { get => new string[] { "Dark", "Light" }; }
+
+        public FontFamily TitleFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/JosefinSans/#Josefin Sans");
+        public FontFamily BodyFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/Roboto/#Roboto");
+
+        public Color BorderColor
+        {
+            get
+            {
+                switch (SelectedTheme)
+                {
+                    case "Light":
+                        return Color.Parse("#252A36");
+                    case "Dark":
+                        return Color.Parse("#F08A5D");
+                    default:
+                        throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
+                }
+            }
+        }
+
+        //public Brush BorderBrush => new Brush();
 
         public Bitmap ArrowLeft { get => getBitmap(folder + "/ArrowLeft.png"); }
         public Bitmap ArrowRight { get => getBitmap(folder + "/ArrowRight.png"); }

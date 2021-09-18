@@ -26,9 +26,9 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/Icon.ico"
         Title="Amplitude Soundboard"
-        MinWidth="275" MinHeight="275"
+        MinWidth="550" MinHeight="375"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
@@ -38,10 +38,14 @@
     </Design.DataContext>
   
     <Panel>
+      <!--<Style Selector="TextBlock">
+        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      </Style>-->
+      
       <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
       
-      <TextBlock Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,5,0,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+      <TextBlock FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
       
       <StackPanel Margin="5,30,5,0">
         <Button Content="{i18n:Localize NewSoundClip}" Command="{Binding AddSound}" Cursor="Hand" Margin="0,5,0,5"></Button>
