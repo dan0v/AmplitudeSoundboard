@@ -32,7 +32,8 @@ namespace Amplitude.Views
 {
     public partial class EditSoundClip : Window
     {
-        private Button btn_BrowseFilePath;
+        private Button btn_BrowseAudioFilePath;
+        private Button btn_BrowseImageFilePath;
 
         public EditSoundClip()
         {
@@ -41,8 +42,11 @@ namespace Amplitude.Views
             this.AttachDevTools();
 #endif
 
-            btn_BrowseFilePath = this.FindControl<Button>("btn_BrowseFilePath");
-            btn_BrowseFilePath.Click += BrowseSoundClip;
+            btn_BrowseAudioFilePath = this.FindControl<Button>("btn_BrowseAudioFilePath");
+            btn_BrowseAudioFilePath.Click += BrowseSoundClip;
+
+            btn_BrowseImageFilePath = this.FindControl<Button>("btn_BrowseImageFilePath");
+            btn_BrowseImageFilePath.Click += BrowseImage;
 
         }
 
@@ -51,7 +55,20 @@ namespace Amplitude.Views
             try
             {
                 string[] url = await BrowseIO.OpenFileBrowser(GetWindow(), BrowseIO.FileBrowserType.AUDIO);
-                ((EditSoundClipViewModel)DataContext).SetClipFilePath(url);
+                ((EditSoundClipViewModel)DataContext).SetClipAudioFilePath(url);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
+
+        public async void BrowseImage(object? sender, RoutedEventArgs args)
+        {
+            try
+            {
+                string[] url = await BrowseIO.OpenFileBrowser(GetWindow(), BrowseIO.FileBrowserType.IMAGE);
+                ((EditSoundClipViewModel)DataContext).SetClipImageFilePath(url);
             }
             catch (Exception e)
             {

@@ -50,8 +50,8 @@
       <StackPanel Margin="5,30,5,0">
         <Button Content="{i18n:Localize NewSoundClip}" Command="{Binding AddSound}" Cursor="Hand" Margin="0,5,0,5"></Button>
         <Button Content="{i18n:Localize StopAllAudio}" Command="{Binding StopAudio}" Cursor="Hand" Margin="0,5,0,5"></Button>
+        <Button Content="Sound clip list" Command="{Binding ShowList}" Cursor="Hand" Margin="0,5,0,5"></Button>
         <ComboBox AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,5,0,5" SelectedItem="{Binding ThemeHandler.SelectedTheme}" Items="{Binding ThemeHandler.ThemesList}">
-          
         </ComboBox>
       </StackPanel>
     </Panel>

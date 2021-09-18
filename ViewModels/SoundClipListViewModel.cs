@@ -20,39 +20,28 @@
 */
 
 using Amplitude.Helpers;
+using Amplitude.Models;
 using Amplitude.Views;
 using AmplitudeSoundboard;
 using Avalonia.Controls;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Amplitude.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class SoundClipListViewModel : ViewModelBase
     {
         public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        public void AddSound()
+        SoundClipManager Manager => App.SoundClipManager;
+
+        public void EditSoundClip(string id)
         {
             Window sound = new EditSoundClip
             {
-                DataContext = new EditSoundClipViewModel(),
+                DataContext = new EditSoundClipViewModel(App.SoundClipManager.GetClip(id)),
             };
 
             sound.Show();
         }
-
-        public void ShowList()
-        {
-            Window list = new SoundClipList
-            {
-                DataContext = new SoundClipListViewModel(),
-            };
-
-            list.Show();
-        }
-
-        public void StopAudio()
-        {
-            App.SoundEngine.Reset();
-        }
-
     }
 }

@@ -36,9 +36,19 @@ namespace Amplitude.Models
 {
     public class SoundClip : INotifyPropertyChanged
     {
-        public readonly string id;
-
-        public ConcurrentBag<Thread> ActiveThreads = new ConcurrentBag<Thread>();
+        private string _id = null;
+        public string Id
+        {
+            get => _id;
+            set
+            {
+                if (value != _id)
+                {
+                    _id = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private float _volume = 100;
         public float Volume {
@@ -81,15 +91,29 @@ namespace Amplitude.Models
             }
         }
 
-        private string _filePath = "";
-        public string FilePath
+        private string _audioFilePath = "";
+        public string AudioFilePath
         {
-            get => _filePath;
+            get => _audioFilePath;
             set
             {
-                if (value != _filePath)
+                if (value != _audioFilePath)
                 {
-                    _filePath = value;
+                    _audioFilePath = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _imageFilePath = "";
+        public string ImageFilePath
+        {
+            get => _imageFilePath;
+            set
+            {
+                if (value != _imageFilePath)
+                {
+                    _imageFilePath = value;
                     OnPropertyChanged();
                 }
             }
@@ -97,7 +121,6 @@ namespace Amplitude.Models
 
         public SoundClip()
         {
-            id = "temp";
             // Get unique ID from soundclip manager
         }
 

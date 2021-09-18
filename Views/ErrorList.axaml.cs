@@ -72,20 +72,24 @@ namespace Amplitude.Views
         }
 
         // TODO update to display sound clip properties
-        public void AddErrorSoundClip(string id, ErrorType errorType)
+        public void AddErrorSoundClip(SoundClip clip, ErrorType errorType)
         {
             TextBlock txt_error = new TextBlock();
             txt_error.TextWrapping = Avalonia.Media.TextWrapping.Wrap;
 
-            //SoundClip clip = find by ID from dictionary
-
             switch (errorType)
             {
-                case ErrorType.BAD_FORMAT:
-                    //txt_error.Text = string.Format(Localization.Localizer.Instance["FileBadFormatString"], clip.FilePath);
+                case ErrorType.BAD_IMAGE_FORMAT:
+                    txt_error.Text = string.Format(Localization.Localizer.Instance["FileBadFormatString"], clip.ImageFilePath);
                     break;
-                case ErrorType.MISSING_FILE:
-                    //txt_error.Text = string.Format(Localization.Localizer.Instance["FileMissingString"], clip.FilePath);
+                case ErrorType.BAD_AUDIO_FORMAT:
+                    txt_error.Text = string.Format(Localization.Localizer.Instance["FileBadFormatString"], clip.AudioFilePath);
+                    break;
+                case ErrorType.MISSING_IMAGE_FILE:
+                    txt_error.Text = string.Format(Localization.Localizer.Instance["FileMissingString"], clip.ImageFilePath);
+                    break;
+                case ErrorType.MISSING_AUDIO_FILE:
+                    txt_error.Text = string.Format(Localization.Localizer.Instance["FileMissingString"], clip.AudioFilePath);
                     break;
             }
 
@@ -116,8 +120,10 @@ namespace Amplitude.Views
         
         public enum ErrorType
         {
-            MISSING_FILE,
-            BAD_FORMAT,
+            MISSING_IMAGE_FILE,
+            MISSING_AUDIO_FILE,
+            BAD_AUDIO_FORMAT,
+            BAD_IMAGE_FORMAT,
         }
 
         protected override void OnClosing(CancelEventArgs e)

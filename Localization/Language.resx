@@ -117,14 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClipFilePathLabel" xml:space="preserve">
-    <value>Clip file path</value>
+  <data name="ClipAudioFilePathLabel" xml:space="preserve">
+    <value>Sound clip file path</value>
   </data>
   <data name="ClipFilePathPlaceholder" xml:space="preserve">
     <value>Select a file path...</value>
   </data>
   <data name="ClipHotkeyLabel" xml:space="preserve">
     <value>Hotkey</value>
+  </data>
+  <data name="ClipImageFilePathLabel" xml:space="preserve">
+    <value>Background image file path</value>
+  </data>
+  <data name="ClipNameLabel" xml:space="preserve">
+    <value>Clip name</value>
+  </data>
+  <data name="ClipNamePlaceholder" xml:space="preserve">
+    <value>Enter a name...</value>
   </data>
   <data name="ClipVolumeLabel" xml:space="preserve">
     <value>Clip volume</value>
@@ -135,11 +144,14 @@
   <data name="EditSoundClipTitle" xml:space="preserve">
     <value>Edit Sound Clip</value>
   </data>
+  <data name="EditSoundClipTooltip" xml:space="preserve">
+    <value>Edit sound clip</value>
+  </data>
   <data name="ErrorListTitle" xml:space="preserve">
     <value>Error List</value>
   </data>
   <data name="FileBadFormatString" xml:space="preserve">
-    <value>The following file is an unplayable format: "{0}"</value>
+    <value>The following file is an unrecognized format: "{0}"</value>
   </data>
   <data name="FileBrowseAudio" xml:space="preserve">
     <value>Select an audio file...</value>
@@ -158,6 +170,15 @@
   </data>
   <data name="PlaySound" xml:space="preserve">
     <value>Play sound</value>
+  </data>
+  <data name="SaveSoundClip" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SoundClipListSearch" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="SoundClipListTitle" xml:space="preserve">
+    <value>Sound Clip List</value>
   </data>
   <data name="StopAllAudio" xml:space="preserve">
     <value>Stop audio playback</value>

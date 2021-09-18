@@ -61,11 +61,11 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clip file path.
+        ///   Looks up a localized string similar to Sound clip file path.
         /// </summary>
-        internal static string ClipFilePathLabel {
+        internal static string ClipAudioFilePathLabel {
             get {
-                return ResourceManager.GetString("ClipFilePathLabel", resourceCulture);
+                return ResourceManager.GetString("ClipAudioFilePathLabel", resourceCulture);
             }
         }
         
@@ -84,6 +84,33 @@ namespace Amplitude.Localization {
         internal static string ClipHotkeyLabel {
             get {
                 return ResourceManager.GetString("ClipHotkeyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Background image file path.
+        /// </summary>
+        internal static string ClipImageFilePathLabel {
+            get {
+                return ResourceManager.GetString("ClipImageFilePathLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clip name.
+        /// </summary>
+        internal static string ClipNameLabel {
+            get {
+                return ResourceManager.GetString("ClipNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a name....
+        /// </summary>
+        internal static string ClipNamePlaceholder {
+            get {
+                return ResourceManager.GetString("ClipNamePlaceholder", resourceCulture);
             }
         }
         
@@ -115,6 +142,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit sound clip.
+        /// </summary>
+        internal static string EditSoundClipTooltip {
+            get {
+                return ResourceManager.GetString("EditSoundClipTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error List.
         /// </summary>
         internal static string ErrorListTitle {
@@ -124,7 +160,7 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following file is an unplayable format: &quot;{0}&quot;.
+        ///   Looks up a localized string similar to The following file is an unrecognized format: &quot;{0}&quot;.
         /// </summary>
         internal static string FileBadFormatString {
             get {
@@ -183,6 +219,33 @@ namespace Amplitude.Localization {
         internal static string PlaySound {
             get {
                 return ResourceManager.GetString("PlaySound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string SaveSoundClip {
+            get {
+                return ResourceManager.GetString("SaveSoundClip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search....
+        /// </summary>
+        internal static string SoundClipListSearch {
+            get {
+                return ResourceManager.GetString("SoundClipListSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sound Clip List.
+        /// </summary>
+        internal static string SoundClipListTitle {
+            get {
+                return ResourceManager.GetString("SoundClipListTitle", resourceCulture);
             }
         }
         

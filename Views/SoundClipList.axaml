@@ -1,0 +1,80 @@
+<!--
+    AmplitudeSoundboard
+    Copyright (C) 2021 dan0v
+    https://git.dan0v.com/AmplitudeSoundboard
+
+    This file is part of AmplitudeSoundboard.
+
+    AmplitudeSoundboard is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    AmplitudeSoundboard is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Amplitude.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:i18n="clr-namespace:Amplitude.Localization"
+        x:Class="Amplitude.Views.SoundClipList"
+        Icon="/Assets/Icon.ico"
+        Title="{i18n:Localize SoundClipListTitle}"
+        MinWidth="550" MinHeight="375"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True">
+
+    <Design.DataContext>
+        <vm:SoundClipListViewModel/>
+    </Design.DataContext>
+  
+    <Panel>      
+      <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
+      </ExperimentalAcrylicBorder>
+      
+      <TextBlock FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="{i18n:Localize SoundClipListTitle}" FontWeight="Bold" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+
+      <StackPanel Margin="5,30,5,0">
+        <TextBox Watermark="{i18n:Localize SoundClipListSearch}" Text="{Binding Manager.SoundClipListFilter}"></TextBox>
+        <ScrollViewer>
+          <StackPanel>
+            <ItemsControl Items="{Binding Manager.FilteredSoundClipList}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+                    <Border.BorderBrush>
+                      <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeHandler.BorderColor}"/>
+                    </Border.BorderBrush>
+                    <Grid ColumnDefinitions="*,Auto,Auto">
+                      <TextBlock Grid.Column="0" Text="{Binding Name}"></TextBlock>
+                      <Button Grid.Column="1" Cursor="Hand" Command="{Binding PlayAudio}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize PlaySound}">
+                        <Panel>
+                          <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.Play}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Panel>
+                      </Button>
+                      <Button Grid.Column="2" Cursor="Hand" Command="{Binding $parent[ItemsControl].DataContext.EditSoundClip}" CommandParameter="{Binding Id}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize EditSoundClipTooltip}">
+                        <Panel>
+                          <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Panel>
+                      </Button>
+                    </Grid>
+                  </Border>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </StackPanel>
+        </ScrollViewer>
+      </StackPanel>
+      
+
+    </Panel>
+</Window>

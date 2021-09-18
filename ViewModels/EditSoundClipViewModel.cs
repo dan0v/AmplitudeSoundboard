@@ -28,7 +28,6 @@ namespace Amplitude.ViewModels
     public class EditSoundClipViewModel : ViewModelBase
     {
         public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-
         private SoundClip _model;
         public SoundClip Model { get => _model; }
 
@@ -43,7 +42,7 @@ namespace Amplitude.ViewModels
         /// <param name="model"></param>
         public EditSoundClipViewModel(SoundClip model)
         {
-            this._model = model;
+            _model = model;
         }
 
         public void PlaySound()
@@ -51,11 +50,19 @@ namespace Amplitude.ViewModels
             Model.PlayAudio();
         }
 
-        public void SetClipFilePath(string[] url)
+        public void SetClipAudioFilePath(string[] url)
         {
             if (url.Length > 0)
             {
-                Model.FilePath = url[0];
+                Model.AudioFilePath = url[0];
+            }
+        }
+
+        public void SetClipImageFilePath(string[] url)
+        {
+            if (url.Length > 0)
+            {
+                Model.ImageFilePath = url[0];
             }
         }
 
@@ -74,9 +81,12 @@ namespace Amplitude.ViewModels
             }
         }
 
-        public void StopAudio()
+        public void SaveClip()
         {
-            App.SoundEngine.Reset();
+            if (string.IsNullOrEmpty(Model.Id))
+            {
+                App.SoundClipManager.AddNewClip(Model);
+            }
         }
 
         public void CreateHotkey()

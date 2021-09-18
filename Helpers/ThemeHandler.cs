@@ -72,6 +72,8 @@ namespace Amplitude.Helpers
         public Bitmap ArrowRight { get => getBitmap(folder + "/ArrowRight.png"); }
         public Bitmap FileBrowse { get => getBitmap(folder + "/FileBrowse.png"); }
         public Bitmap Keyboard { get => getBitmap(folder + "/Keyboard.png"); }
+        public Bitmap Settings { get => getBitmap(folder + "/Settings.png"); }
+        public Bitmap Play { get => getBitmap(folder + "/Play.png"); }
 
         // TODO actually refactor this to enum after all to support string localization
         public string SelectedTheme

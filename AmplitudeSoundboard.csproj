@@ -46,6 +46,9 @@
     <Compile Update="Views\ErrorList.axaml.cs">
       <DependentUpon>ErrorList.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\SoundClipList.axaml.cs">
+      <DependentUpon>SoundClipList.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Localization\Language.resx">
