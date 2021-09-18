@@ -30,6 +30,16 @@
         "code",
         "userTesting"
       ]
+    },
+    {
+      "login": "John-Cozy",
+      "name": "John",
+      "avatar_url": "https://avatars.githubusercontent.com/u/36801893?v=4",
+      "profile": "https://github.com/John-Cozy",
+      "contributions": [
+        "code",
+        "userTesting"
+      ]
     }
   ],
   "contributorsPerLine": 7,
