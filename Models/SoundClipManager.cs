@@ -110,34 +110,37 @@ namespace Amplitude.Models
             }
         }
 
-        public void AddNewClip(SoundClip clip) 
+        /// <summary>
+        /// Save a new SoundClip and generate an ID, or overwrite an existing SoundClip
+        /// </summary>
+        /// <param name="clip"></param>
+        public void SaveClip(SoundClip clip)
         {
-            string id = DateTimeOffset.Now.ToUnixTimeMilliseconds() + clip.Name;
-            clip.Id = id;
             if (string.IsNullOrEmpty(clip.Name))
             {
                 clip.Name = clip.AudioFilePath ?? clip.Id;
             }
-            soundClips.Add(clip.Id, clip);
+
+            if (string.IsNullOrEmpty(clip.Id))
+            {
+                // New clip
+                string id = DateTimeOffset.Now.ToUnixTimeMilliseconds() + clip.GetHashCode() + "";
+                clip.Id = id;
+
+                soundClips.Add(clip.Id, clip);
+            }
+            else if (soundClips.ContainsKey(clip.Id))
+            {
+                // Overwrite existing clip
+                soundClips[clip.Id] = clip;
+            }
+            else
+            {
+                App.ErrorListWindow.AddErrorString("SoundClip with ID: " + clip.Id + " could not be saved (does not exist)!");
+            }
 
             StoreSavedSoundClips();
             OnPropertyChanged(nameof(FilteredSoundClipList));
-        }
-
-        public void SaveClip(string id)
-        {
-            if (soundClips.TryGetValue(id, out SoundClip clip))
-            {
-                if (string.IsNullOrEmpty(clip.Name))
-                {
-                    clip.Name = clip.AudioFilePath ?? clip.Id;
-                }
-
-                StoreSavedSoundClips();
-                OnPropertyChanged(nameof(FilteredSoundClipList));
-            }
-
-            App.ErrorListWindow.AddErrorString("SoundClip with ID: " + id + " could not be saved (does not exist)!");
         }
 
         public SoundClip? GetClip(string id) 

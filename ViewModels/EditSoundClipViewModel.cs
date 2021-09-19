@@ -34,20 +34,75 @@ namespace Amplitude.ViewModels
         public EditSoundClipViewModel()
         {
             _model = new SoundClip();
+            SetBindings();
         }
 
         /// <summary>
-        ///  Edit an existing soundclip from this EditSoundClip window
+        ///  Edit a (copy of an) existing SoundClip in this EditSoundClip window. Save to overwrite original with copy
         /// </summary>
         /// <param name="model"></param>
         public EditSoundClipViewModel(SoundClip model)
         {
-            _model = model;
+            _model = model.ShallowCopy();
+            SetBindings();
+        }
+
+        private void SetBindings()
+        {
+            Model.PropertyChanged += Model_PropertyChanged;
+            SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
+        }
+
+        /// <summary>
+        /// Update ViewModel properties when underlying model changes detected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Model_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Model.Name))
+            {
+                HasNameField = !string.IsNullOrEmpty(Model.Name);
+                SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
+            }
+        }
+
+        private bool _hasNameField;
+        public bool HasNameField
+        {
+            get => _hasNameField;
+            set
+            {
+                if (value != _hasNameField)
+                {
+                    _hasNameField = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _saveButtonTooltip = "";
+        public string SaveButtonTooltip
+        {
+            get => _saveButtonTooltip;
+            set
+            {
+                if (value != _saveButtonTooltip)
+                {
+                    _saveButtonTooltip = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public void PlaySound()
         {
             Model.PlayAudio();
+        }
+
+        public void StopAudio()
+        {
+            App.SoundEngine.Reset();
         }
 
         public void SetClipAudioFilePath(string[] url)
@@ -83,16 +138,14 @@ namespace Amplitude.ViewModels
 
         public void SaveClip()
         {
-            if (string.IsNullOrEmpty(Model.Id))
-            {
-                App.SoundClipManager.AddNewClip(Model);
-            }
+            App.SoundClipManager.SaveClip(Model);
+            _model = Model.ShallowCopy();
+            OnPropertyChanged(nameof(Model));
         }
 
         public void CreateHotkey()
         {
 
         }
-
     }
 }

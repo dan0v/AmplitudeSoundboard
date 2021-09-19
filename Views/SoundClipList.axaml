@@ -28,7 +28,8 @@
         x:Class="Amplitude.Views.SoundClipList"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize SoundClipListTitle}"
-        MinWidth="550" MinHeight="375"
+        MinWidth="400" MinHeight="200"
+        Width="550" Height="375"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
@@ -55,7 +56,7 @@
                       <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeHandler.BorderColor}"/>
                     </Border.BorderBrush>
                     <Grid ColumnDefinitions="*,Auto,Auto">
-                      <TextBlock Grid.Column="0" Text="{Binding Name}"></TextBlock>
+                      <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="{Binding Name}"></TextBlock>
                       <Button Grid.Column="1" Cursor="Hand" Command="{Binding PlayAudio}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize PlaySound}">
                         <Panel>
                           <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.Play}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -74,7 +75,5 @@
           </StackPanel>
         </ScrollViewer>
       </StackPanel>
-      
-
     </Panel>
 </Window>

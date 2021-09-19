@@ -146,6 +146,11 @@ namespace Amplitude.Models
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
+        public SoundClip ShallowCopy()
+        {
+            return (SoundClip)this.MemberwiseClone();
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {

@@ -23,12 +23,12 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="570"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="550"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.EditSoundClip"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize EditSoundClipTitle}"
-        Width="400" Height="570" MinWidth="400" MinHeight="375"
+        Width="400" Height="550" MinWidth="400" MinHeight="375"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
@@ -63,16 +63,16 @@
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
-            <Grid RowDefinitions="50,25,*">
+            <Grid RowDefinitions="30,20,Auto">
               <Label Grid.Row="0" Content="{i18n:Localize ClipVolumeLabel}" Target="{Binding #volumeSlider}" HorizontalAlignment="Center" Height="30"></Label>
               <Label Grid.Row="1" Content="{Binding Model.Volume}" HorizontalAlignment="Center" Height="30"></Label>
-              <Grid Grid.Row="2" ColumnDefinitions="100,*,100">
+              <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto">
                 <Button x:Name="btn_VolumeDown" Grid.Column="0" Margin="5,0,5,0" Cursor="Hand" Command="{Binding DecreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
                   <Panel>
                     <Image Source="{Binding ThemeHandler.ArrowLeft}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
                 </Button>
-                <Slider Background="#F08A5D" Foreground="#ebaeff" Grid.Column="1" VerticalAlignment="Center" Height="50" Cursor="Hand" x:Name="volumeSlider" SmallChange="1" LargeChange="10" TickFrequency="1" Orientation="Horizontal" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickPlacement="None" Value="{Binding Path=Model.Volume, Mode=TwoWay}"></Slider>
+                <Slider Background="#F08A5D" Foreground="#ebaeff" Grid.Column="1" VerticalAlignment="Center" Height="50" Cursor="Hand" x:Name="volumeSlider" SmallChange="1" LargeChange="10" TickFrequency="1" Orientation="Horizontal" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickPlacement="None" Value="{Binding Path=Model.Volume, Mode=TwoWay}" Padding="5,0,5,0"></Slider>
                 <Button x:Name="btn_VolumeUp" Grid.Column="2" Margin="5,0,5,0" Cursor="Hand" Command="{Binding IncreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
                   <Panel>
                     <Image Source="{Binding ThemeHandler.ArrowRight}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -89,7 +89,7 @@
             </Border.BorderBrush>
             <StackPanel>
               <Label Grid.Column="0" Grid.Row="1" Content="{i18n:Localize ClipAudioFilePathLabel}" HorizontalAlignment="Center" Height="30"></Label>
-              <Grid ColumnDefinitions="*,50">
+              <Grid ColumnDefinitions="*,Auto">
                 <TextBox Grid.Column="0" Text="{Binding Model.AudioFilePath}" Watermark="{i18n:Localize ClipFilePathPlaceholder}" ToolTip.Tip="{Binding Model.AudioFilePath}"></TextBox>
                 <Button x:Name="btn_BrowseAudioFilePath" Cursor="Hand" Grid.Column="1" Margin="5,0,5,0">
                   <Panel>
@@ -107,7 +107,7 @@
             </Border.BorderBrush>
             <StackPanel>
               <Label Grid.Column="0" Grid.Row="1" Content="{i18n:Localize ClipImageFilePathLabel}" HorizontalAlignment="Center" Height="30"></Label>
-              <Grid ColumnDefinitions="*,50">
+              <Grid ColumnDefinitions="*,Auto">
                 <TextBox Grid.Column="0" Text="{Binding Model.ImageFilePath}" Watermark="{i18n:Localize ClipFilePathPlaceholder}" ToolTip.Tip="{Binding Model.ImageFilePath}"></TextBox>
                 <Button x:Name="btn_BrowseImageFilePath" Cursor="Hand" Grid.Column="1" Margin="5,0,5,0">
                   <Panel>
@@ -125,7 +125,7 @@
             </Border.BorderBrush>
             <StackPanel>
               <Label Content="{i18n:Localize ClipHotkeyLabel}" Target="{Binding #volumeSlider}" HorizontalAlignment="Center" Height="30"></Label>
-              <Grid ColumnDefinitions="*,50">
+              <Grid ColumnDefinitions="*,Auto">
                 <TextBox Grid.Column="0" Watermark="Record a key combination..." DockPanel.Dock="Left" IsReadOnly="True" Focusable="False"></TextBox>
                 <Button Grid.Column="1" Content="Record" Cursor="Hand" Margin="5,0,5,0" DockPanel.Dock="Right">
                   <Panel>
@@ -137,10 +137,16 @@
             </StackPanel>
           </Border>
 
-          <Panel>
-            <Button Content="{i18n:Localize TestSound}" Cursor="Hand" Command="{Binding PlaySound}" Margin="5,5,5,5" HorizontalAlignment="Left"></Button>
-            <Button Content="{i18n:Localize SaveSoundClip}" Cursor="Hand" Command="{Binding SaveClip}" Margin="5,5,5,5" HorizontalAlignment="Right"></Button>
-          </Panel>
+          <Grid ColumnDefinitions="*,Auto">
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+              <Button Content="{i18n:Localize TestSound}" Cursor="Hand" Command="{Binding PlaySound}" Margin="5,5,5,5"></Button>
+              <Button Content="{i18n:Localize StopAllAudio}" Cursor="Hand" Command="{Binding StopAudio}" Margin="5,5,5,5"></Button>
+            </StackPanel>
+            <!--Can't put a tooltip on disabled elements and even putting it on the parent doesn't work, so I don't know how we can signal why this button is disabled-->
+            <Panel Grid.Column="1"> <!--ToolTip.Tip="{Binding SaveButtonTooltip}">-->
+              <Button Content="{i18n:Localize SaveSoundClip}" Cursor="Hand" Command="{Binding SaveClip}" IsEnabled="{Binding HasNameField}" Margin="5,5,5,5" HorizontalAlignment="Right"></Button>
+            </Panel>
+          </Grid>
 
         </StackPanel>
       </ScrollViewer>

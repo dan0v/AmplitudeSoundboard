@@ -223,6 +223,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a Sound Clip name.
+        /// </summary>
+        internal static string SaveButtonDisabledTooltip {
+            get {
+                return ResourceManager.GetString("SaveButtonDisabledTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string SaveSoundClip {
@@ -250,7 +259,7 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop audio playback.
+        ///   Looks up a localized string similar to Stop audio.
         /// </summary>
         internal static string StopAllAudio {
             get {

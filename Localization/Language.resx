@@ -171,6 +171,9 @@
   <data name="PlaySound" xml:space="preserve">
     <value>Play sound</value>
   </data>
+  <data name="SaveButtonDisabledTooltip" xml:space="preserve">
+    <value>Please enter a Sound Clip name</value>
+  </data>
   <data name="SaveSoundClip" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -181,7 +184,7 @@
     <value>Sound Clip List</value>
   </data>
   <data name="StopAllAudio" xml:space="preserve">
-    <value>Stop audio playback</value>
+    <value>Stop audio</value>
   </data>
   <data name="TestSound" xml:space="preserve">
     <value>Test sound</value>
