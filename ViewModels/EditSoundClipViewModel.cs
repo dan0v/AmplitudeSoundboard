@@ -49,8 +49,10 @@ namespace Amplitude.ViewModels
 
         private void SetBindings()
         {
-            Model.PropertyChanged += Model_PropertyChanged;
+            HasNameField = !string.IsNullOrEmpty(Model.Name);
+            HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
             SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
+            Model.PropertyChanged += Model_PropertyChanged;
         }
 
         /// <summary>
@@ -65,6 +67,10 @@ namespace Amplitude.ViewModels
                 HasNameField = !string.IsNullOrEmpty(Model.Name);
                 SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
             }
+            if (e.PropertyName == nameof(Model.AudioFilePath))
+            {
+                HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
+            }
         }
 
         private bool _hasNameField;
@@ -76,6 +82,20 @@ namespace Amplitude.ViewModels
                 if (value != _hasNameField)
                 {
                     _hasNameField = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _hasAudioFilePath;
+        public bool HasAudioFilePath
+        {
+            get => _hasAudioFilePath;
+            set
+            {
+                if (value != _hasAudioFilePath)
+                {
+                    _hasAudioFilePath = value;
                     OnPropertyChanged();
                 }
             }

@@ -76,6 +76,8 @@ namespace Amplitude.Models
             }
         }
 
+        private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
         private Dictionary<string, SoundClip> soundClips;
 
         private SoundClipManager()
@@ -86,7 +88,8 @@ namespace Amplitude.Models
             {
                 soundClips = retrievedClips;
 
-                // Notify user of problems with their linked audio and image files at startup
+                InitializeClipIds(soundClips);
+
                 ValidateSoundClips(soundClips);
             }
             else
@@ -95,6 +98,22 @@ namespace Amplitude.Models
             }
         }
 
+        /// <summary>
+        /// Set SoundClip Ids based on their Dictionary key
+        /// </summary>
+        /// <param name="soundClips"></param>
+        private void InitializeClipIds(Dictionary<string, SoundClip> soundClips)
+        {
+            foreach (KeyValuePair<string, SoundClip> item in soundClips)
+            {
+                item.Value.InitializeId(item.Key);
+            }
+        }
+
+        /// <summary>
+        /// Notify user of problems with their linked audio and image files at startup
+        /// </summary>
+        /// <param name="soundClips"></param>
         private void ValidateSoundClips(Dictionary<string, SoundClip> soundClips)
         {
             foreach (SoundClip clip in soundClips.Values)
@@ -123,11 +142,10 @@ namespace Amplitude.Models
 
             if (string.IsNullOrEmpty(clip.Id))
             {
-                // New clip
-                string id = DateTimeOffset.Now.ToUnixTimeMilliseconds() + clip.GetHashCode() + "";
-                clip.Id = id;
-
-                soundClips.Add(clip.Id, clip);
+                if (GenerateAndSetId(clip))
+                {
+                    soundClips.Add(clip.Id, clip);
+                }
             }
             else if (soundClips.ContainsKey(clip.Id))
             {
@@ -141,6 +159,36 @@ namespace Amplitude.Models
 
             StoreSavedSoundClips();
             OnPropertyChanged(nameof(FilteredSoundClipList));
+        }
+
+        private bool GenerateAndSetId(SoundClip clip)
+        {
+            // New clip
+            int hashCode = clip.GetHashCode();
+            string id = DateTimeOffset.Now.ToUnixTimeMilliseconds() + hashCode + "";
+            int attempt = 0;
+            while (soundClips.ContainsKey(id))
+            {
+                string suf = "";
+                if (attempt >= alphabet.Length)
+                {
+                    if (attempt / alphabet.Length >= alphabet.Length)
+                    {
+                        // Something has gone wrong, there has been easily enough time to find an Id
+                        App.ErrorListWindow.AddErrorString("A new Sound Clip could not be saved (could not generate Id, please try again later)!");
+                        return false;
+                    }
+                    suf += alphabet[attempt / alphabet.Length] + alphabet[attempt % alphabet.Length];
+                }
+                else
+                {
+                    suf = alphabet[attempt] + "";
+                }
+                id = DateTimeOffset.Now.ToUnixTimeMilliseconds() + hashCode + suf;
+                attempt++;
+            }
+            clip.InitializeId(id);
+            return true;
         }
 
         public SoundClip? GetClip(string id) 

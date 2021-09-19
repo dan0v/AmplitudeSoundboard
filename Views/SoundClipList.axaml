@@ -44,14 +44,14 @@
       
       <TextBlock FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="{i18n:Localize SoundClipListTitle}" FontWeight="Bold" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
-      <StackPanel Margin="5,30,5,0">
-        <TextBox Watermark="{i18n:Localize SoundClipListSearch}" Text="{Binding Manager.SoundClipListFilter}"></TextBox>
-        <ScrollViewer>
+      <Grid Margin="5,30,5,0" RowDefinitions="Auto,*">
+        <TextBox Grid.Row="0" Margin="10,0,10,5" Watermark="{i18n:Localize SoundClipListSearch}" Text="{Binding Manager.SoundClipListFilter}"></TextBox>
+        <ScrollViewer Grid.Row="1">
           <StackPanel>
             <ItemsControl Items="{Binding Manager.FilteredSoundClipList}">
               <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                  <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+                  <Border BorderThickness="2" CornerRadius="5" Margin="10,2,10,2" Padding="5">
                     <Border.BorderBrush>
                       <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeHandler.BorderColor}"/>
                     </Border.BorderBrush>
@@ -74,6 +74,6 @@
             </ItemsControl>
           </StackPanel>
         </ScrollViewer>
-      </StackPanel>
+      </Grid>
     </Panel>
 </Window>

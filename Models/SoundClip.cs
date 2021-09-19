@@ -40,13 +40,18 @@ namespace Amplitude.Models
         public string Id
         {
             get => _id;
-            set
+        }
+
+        public void InitializeId(string newId)
+        {
+            if (Id == null)
             {
-                if (value != _id)
-                {
-                    _id = value;
-                    OnPropertyChanged();
-                }
+                _id = newId;
+                OnPropertyChanged(nameof(Id));
+            }
+            else
+            {
+                throw new NotSupportedException("Do not alter Id once it has been set");
             }
         }
 
