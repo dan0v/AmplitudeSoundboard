@@ -45,6 +45,11 @@ namespace Amplitude.Helpers
             }
         }
 
+        private ThemeHandler()
+        {
+            RefreshTheme();
+        }
+
         public static string[] ThemesList { get => new string[] { "Dark", "Light" }; }
 
         public FontFamily TitleFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/JosefinSans/#Josefin Sans");

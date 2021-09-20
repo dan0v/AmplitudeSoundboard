@@ -51,7 +51,7 @@ namespace Amplitude.ViewModels
 
         public void StopAudio()
         {
-            App.SoundEngine.Reset();
+            App.SoundEngine.Reset(true);
         }
 
     }

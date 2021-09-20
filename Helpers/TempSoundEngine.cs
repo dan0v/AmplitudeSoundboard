@@ -58,12 +58,17 @@ namespace Amplitude.Helpers
             throw new NotImplementedException();
         }
 
-        public void Play(string fileName, float volume)
+        public void Play(string fileName, float volume, string id = null)
         {
             throw new NotImplementedException();
         }
 
-        public void Reset()
+        public void Reset(bool retainCache = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ClearSoundClipCache(string id)
         {
             throw new NotImplementedException();
         }

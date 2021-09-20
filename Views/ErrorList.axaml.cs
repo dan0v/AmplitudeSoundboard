@@ -59,7 +59,8 @@ namespace Amplitude.Views
             txt_error.Margin = Thickness.Parse("5,5,5,5");
             Border border = new Border();
             border.BorderThickness = Thickness.Parse("2,1,2,1");
-            border.BorderBrush = new SolidColorBrush(ThemeHandler.BorderColor); // TODO this doesn't currently update when theme is switched
+            // TODO this doesn't currently update when theme is switched during runtime
+            border.BorderBrush = new SolidColorBrush(ThemeHandler.BorderColor);
             border.CornerRadius = CornerRadius.Parse("5");
             border.Child = txt_error;
 

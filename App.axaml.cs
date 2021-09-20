@@ -52,7 +52,13 @@ namespace AmplitudeSoundboard
 		}
 		
         public static SoundClipManager SoundClipManager => SoundClipManager.Instance;
-		
+        
+        public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
+
+        public static ThemeHandler ThemeHandler => ThemeHandler.Instance;
+
+        public static Options Options = Options.RetrieveOptionsFromJSON();
+
 #if Windows
         public static ISoundEngine SoundEngine => NSoundEngine.Instance;
 		
@@ -61,11 +67,6 @@ namespace AmplitudeSoundboard
         public static ISoundEngine SoundEngine => TempSoundEngine.Instance;
         //public static WinKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
 #endif
-        public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
-
-        public static ThemeHandler ThemeHandler => ThemeHandler.Instance;
-
-        public static Options Options = new Options();
 
         private static ErrorList _errorListWindow;
         public static ErrorList ErrorListWindow {

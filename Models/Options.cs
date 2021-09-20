@@ -19,15 +19,18 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using AmplitudeSoundboard;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Amplitude.Helpers
+namespace Amplitude.Models
 {
     public class Options : INotifyPropertyChanged
     {
@@ -101,10 +104,46 @@ namespace Amplitude.Helpers
             }
         }
 
+        public Options() { }
+
+        public static Options RetrieveOptionsFromJSON()
+        {
+            try
+            {
+                if (File.Exists(Path.Join(App.APP_STORAGE, @"options.json")))
+                {
+                    string json = File.ReadAllText(Path.Join(App.APP_STORAGE, @"options.json"));
+                    return (Options?)JsonConvert.DeserializeObject(json, typeof(Options));
+                }
+            }
+            catch (Exception e)
+            {
+                App.ErrorListWindow.AddErrorString(e.Message);
+            }
+            return new Options();
+        }
+
+        public void SaveOptions()
+        {
+            try
+            {
+                File.WriteAllText(Path.Join(App.APP_STORAGE, @"options.json"), ToJSON());
+            }
+            catch (Exception e)
+            {
+                App.ErrorListWindow.AddErrorString(e.Message);
+            }
+        }
+
+        public string ToJSON()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
+            SaveOptions();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

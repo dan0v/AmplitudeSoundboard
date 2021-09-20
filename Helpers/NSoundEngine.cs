@@ -27,6 +27,8 @@ using Amplitude.Models;
 using NAudio.Wave.SampleProviders;
 using System.IO;
 using AmplitudeSoundboard;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Amplitude.Helpers
 {
@@ -45,11 +47,14 @@ namespace Amplitude.Helpers
         }
         private readonly IWavePlayer outputDevice;
         private readonly MixingSampleProvider mixer;
+        public const int SAMPLE_RATE = 44100;
 
-        private NSoundEngine(int sampleRate = 44100, int channelCount = 2)
+        private Dictionary<string, CachedSound> soundCache = new Dictionary<string, CachedSound>();
+
+        private NSoundEngine(int channelCount = 2)
         {
             outputDevice = new WaveOutEvent();
-            mixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, channelCount));
+            mixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(SAMPLE_RATE, channelCount));
             mixer.ReadFully = true;
             outputDevice.Init(mixer);
             outputDevice.Play();
@@ -80,21 +85,64 @@ namespace Amplitude.Helpers
             return true;
         }
 
+        /// <summary>
+        /// Play a soundclip with caching and sample rate conversion as neccesary
+        /// </summary>
+        /// <param name="source"></param>
         public void Play(SoundClip source)
         {
-            Play(source.AudioFilePath, source.Volume);
+            if (soundCache.TryGetValue(source.Id, out CachedSound sound))
+            {
+                Play(sound, (source.Volume / 100) * (App.Options.MasterVolume / 100f));
+            }
+            else
+            {
+                Play(source.AudioFilePath, (source.Volume / 100) * (App.Options.MasterVolume / 100f), source.Id);
+            }
         }
 
-        public void Play(string fileName, float volume)
+        /// <summary>
+        /// Directly play cached sound
+        /// </summary>
+        /// <param name="sound"></param>
+        private void Play(CachedSound sound, float volume)
+        {
+            sound.Volume = volume;
+            AddMixerInput(new CachedSoundSampleProvider(sound));
+        }
+
+        /// <summary>
+        /// Optionally cache sound if SoundClip Id is provided
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="volume"></param>
+        /// <param name="id"></param>
+        public void Play(string fileName, float volume, string id = null)
         {
             if (!CheckPlayableFileAndGenerateErrors(fileName))
             {
                 return;
             }
 
-            var input = new AudioFileReader(fileName);
-            input.Volume = volume / 100f;
-            AddMixerInput(new AutoDisposeFileReader(input));
+            AudioFileReader input = new AudioFileReader(fileName);
+            int sampleRate = input.WaveFormat.SampleRate;
+
+            // If sample rates don't match, resample audio clip and optionally keep it cached
+            if (sampleRate != SAMPLE_RATE)
+            {
+                CachedSound cachedSound = new CachedSound(input);
+
+                if (id != null)
+                {
+                    soundCache.Add(id, cachedSound);
+                }
+
+                Play(cachedSound, volume);
+            }
+            else
+            {
+                AddMixerInput(new AutoDisposeFileReader(input));
+            }
         }
         /// <summary>
         /// Credit to Mark Heath
@@ -130,10 +178,22 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void Reset()
+        public void Reset(bool retainCache = false)
         {
+            if (retainCache)
+            {
+                _instance = new NSoundEngine();
+                _instance.soundCache = this.soundCache;
+            }
             this.Dispose();
-            _instance = new NSoundEngine();
+        }
+
+        public void ClearSoundClipCache(string id)
+        {
+            if (id != null)
+            {
+                soundCache.Remove(id);
+            }
         }
     }
 
@@ -166,6 +226,70 @@ namespace Amplitude.Helpers
         }
 
         public WaveFormat WaveFormat { get; private set; }
+    }
+
+    /// <summary>
+    /// Credit to Mark Heath
+    /// mark.heath@gmail.com
+    /// https://gist.github.com/markheath/8783999
+    /// Altered to add volume and resampling
+    /// </summary>
+    class CachedSound
+    {
+        public float[] AudioData { get; private set; }
+        public WaveFormat WaveFormat { get; private set; }
+        public float Volume = 1f;
+        public CachedSound(AudioFileReader audioFileReader)
+        {
+            var resampler = new WdlResamplingSampleProvider(audioFileReader, NSoundEngine.SAMPLE_RATE);
+
+            WaveFormat = resampler.WaveFormat;
+            Volume = audioFileReader.Volume;
+
+            var wholeFile = new List<float>((int)(audioFileReader.Length / 4));
+            var readBuffer = new float[WaveFormat.SampleRate * WaveFormat.Channels];
+            int samplesRead;
+            while ((samplesRead = resampler.Read(readBuffer, 0, readBuffer.Length)) > 0)
+            {
+                wholeFile.AddRange(readBuffer.Take(samplesRead));
+            }
+            AudioData = wholeFile.ToArray();
+        }
+    }
+
+    /// <summary>
+    /// Credit to Mark Heath
+    /// mark.heath@gmail.com
+    /// https://gist.github.com/markheath/8783999
+    /// Altered to add volume
+    /// </summary>
+    class CachedSoundSampleProvider : ISampleProvider
+    {
+        private readonly CachedSound cachedSound;
+        private long position;
+
+        public CachedSoundSampleProvider(CachedSound cachedSound)
+        {
+            this.cachedSound = cachedSound;
+        }
+
+        public int Read(float[] buffer, int offset, int count)
+        {
+            var availableSamples = cachedSound.AudioData.Length - position;
+            var samplesToCopy = Math.Min(availableSamples, count);
+            Array.Copy(cachedSound.AudioData, position, buffer, offset, samplesToCopy);
+
+            // Shift sample volume
+            for (long index = offset; index < samplesToCopy; index++)
+            {
+                buffer[index] *= cachedSound.Volume;
+            }
+
+            position += samplesToCopy;
+            return (int)samplesToCopy;
+        }
+
+        public WaveFormat WaveFormat { get { return cachedSound.WaveFormat; } }
     }
 }
 

@@ -20,16 +20,10 @@
 */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System.Collections.Concurrent;
 using AmplitudeSoundboard;
 
 namespace Amplitude.Models
@@ -105,6 +99,8 @@ namespace Amplitude.Models
                 if (value != _audioFilePath)
                 {
                     _audioFilePath = value;
+                    // Clear possibly cached clip
+                    App.SoundEngine.ClearSoundClipCache(Id);
                     OnPropertyChanged();
                 }
             }
@@ -124,10 +120,7 @@ namespace Amplitude.Models
             }
         }
 
-        public SoundClip()
-        {
-            // Get unique ID from soundclip manager
-        }
+        public SoundClip() { }
 
         public void PlayAudio()
         {
