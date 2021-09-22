@@ -34,7 +34,13 @@
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
 
-    <Panel>
+  <Window.Styles>
+    <Style Selector="Image:disabled">
+      <Setter Property="Opacity" Value="0.5"/>
+    </Style>
+  </Window.Styles>
+
+  <Panel>
       
       <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>

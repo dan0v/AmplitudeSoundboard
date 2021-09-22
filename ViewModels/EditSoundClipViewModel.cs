@@ -22,18 +22,21 @@
 using Amplitude.Helpers;
 using Amplitude.Models;
 using AmplitudeSoundboard;
+using ReactiveUI;
+using System.Reactive;
 
 namespace Amplitude.ViewModels
 {
     public class EditSoundClipViewModel : ViewModelBase
     {
-        public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
         private SoundClip _model;
         public SoundClip Model { get => _model; }
 
         public EditSoundClipViewModel()
         {
             _model = new SoundClip();
+            _model.EditWindowOpen = true;
             SetBindings();
         }
 
@@ -43,6 +46,7 @@ namespace Amplitude.ViewModels
         /// <param name="model"></param>
         public EditSoundClipViewModel(SoundClip model)
         {
+            App.SoundClipManager.OpenedEditWindow(model.Id);
             _model = model.ShallowCopy();
             SetBindings();
         }
@@ -133,6 +137,11 @@ namespace Amplitude.ViewModels
             }
         }
 
+        public void DeleteSoundClip()
+        {
+            App.SoundClipManager.RemoveSoundClip(Model.Id);
+        }
+
         public void SetClipImageFilePath(string[] url)
         {
             if (url.Length > 0)
@@ -145,14 +154,14 @@ namespace Amplitude.ViewModels
         {
             if (Model.Volume < 100)
             {
-                Model.Volume += 1f;
+                Model.Volume += 1;
             }
         }
         public void DecreaseVolumeSmall()
         {
             if (Model.Volume > 0)
             {
-                Model.Volume -= 1f;
+                Model.Volume -= 1;
             }
         }
 

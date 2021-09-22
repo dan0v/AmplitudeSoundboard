@@ -19,44 +19,37 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
-using Amplitude.Models;
-using Amplitude.Views;
-using AmplitudeSoundboard;
+using Amplitude.ViewModels;
+using Avalonia;
 using Avalonia.Controls;
-using System.Collections.Generic;
-using System.Diagnostics;
+using Avalonia.Markup.Xaml;
+using System.ComponentModel;
 
-namespace Amplitude.ViewModels
+namespace Amplitude.Views
 {
-    public class SoundClipListViewModel : ViewModelBase
+    public partial class GlobalSettings : Window
     {
-        static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        static SoundClipManager Manager { get => App.SoundClipManager; }
+        public MainWindowViewModel MainWindow;
 
-        public SoundClipListViewModel()
+        public GlobalSettings()
         {
-            Manager.SoundClipListWindowOpen = true;
+            InitializeComponent();
+#if DEBUG
+            this.AttachDevTools();
+#endif
         }
 
-        public void EditSoundClip(string id)
-        {
-            Window sound = new EditSoundClip
-            {
-                DataContext = new EditSoundClipViewModel(Manager.GetClip(id)),
-            };
+        Window GetWindow() => (Window)this.VisualRoot;
 
-            sound.Show();
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
         }
 
-        public void AddSound()
+        protected override void OnClosing(CancelEventArgs e)
         {
-            Window sound = new EditSoundClip
-            {
-                DataContext = new EditSoundClipViewModel(),
-            };
-
-            sound.Show();
+            MainWindow.GlobalSettingsWindowOpen = false;
+            base.OnClosing(e);
         }
     }
 }

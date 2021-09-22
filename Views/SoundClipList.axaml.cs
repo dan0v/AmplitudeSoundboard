@@ -45,5 +45,11 @@ namespace Amplitude.Views
         {
             AvaloniaXamlLoader.Load(this);
         }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            App.SoundClipManager.SoundClipListWindowOpen = false;
+            base.OnClosing(e);
+        }
     }
 }

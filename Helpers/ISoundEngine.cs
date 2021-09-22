@@ -30,9 +30,11 @@ namespace Amplitude.Helpers
 
         public void Play(SoundClip source);
 
-        public void Play(string fileName, float volume, string id = null);
+        public void Play(string fileName, int volume, string? id = null);
 
         public void ClearSoundClipCache(string id);
+
+        public void PreCacheSoundClip(SoundClip clip);
 
         public void Reset(bool retainCache = false);
     }

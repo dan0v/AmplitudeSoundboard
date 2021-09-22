@@ -47,6 +47,7 @@ namespace Amplitude.Helpers
 
         private ThemeHandler()
         {
+            _selectedTheme = App.Options.Theme;
             RefreshTheme();
         }
 
@@ -71,6 +72,38 @@ namespace Amplitude.Helpers
             }
         }
 
+        public Color SliderForeground
+        {
+            get
+            {
+                switch (SelectedTheme)
+                {
+                    case "Light":
+                        return Color.Parse("#F08A5D");
+                    case "Dark":
+                        return Color.Parse("#EBAEFF");
+                    default:
+                        throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
+                }
+            }
+        }
+
+        public Color SliderBackground
+        {
+            get
+            {
+                switch (SelectedTheme)
+                {
+                    case "Light":
+                        return Color.Parse("#EBAEFF");
+                    case "Dark":
+                        return Color.Parse("#F08A5D");
+                    default:
+                        throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
+                }
+            }
+        }
+
         //public Brush BorderBrush => new Brush();
 
         public Bitmap ArrowLeft { get => getBitmap(folder + "/ArrowLeft.png"); }
@@ -81,14 +114,15 @@ namespace Amplitude.Helpers
         public Bitmap Play { get => getBitmap(folder + "/Play.png"); }
 
         // TODO actually refactor this to enum after all to support string localization
+        private string _selectedTheme;
         public string SelectedTheme
         {
-            get => App.Options.Theme;
+            get => _selectedTheme;
             set
             {
                 if (!string.IsNullOrEmpty(value) && Array.Exists<string>(ThemesList, t => t == value) && value != SelectedTheme)
                 {
-                    App.Options.Theme = value;
+                    _selectedTheme = value;
                     RefreshTheme();
                 }
             }

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AcceptButton" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="ClipAudioFilePathLabel" xml:space="preserve">
     <value>Sound clip file path</value>
   </data>
@@ -137,6 +143,15 @@
   </data>
   <data name="ClipVolumeLabel" xml:space="preserve">
     <value>Clip volume</value>
+  </data>
+  <data name="DeleteSoundClipButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteSoundClipConfirmationPrompt" xml:space="preserve">
+    <value>Are you sure you want to delete the Sound Clip "{0}"?</value>
+  </data>
+  <data name="DeleteSoundClipConfirmationTitle" xml:space="preserve">
+    <value>Confirm Deletion</value>
   </data>
   <data name="DismissWindow" xml:space="preserve">
     <value>Dismiss</value>
@@ -165,17 +180,26 @@
   <data name="FilePathPlaceholder" xml:space="preserve">
     <value>File path...</value>
   </data>
+  <data name="GlobalSettingsTitle" xml:space="preserve">
+    <value>Preferences</value>
+  </data>
+  <data name="HotkeyPlaceholder" xml:space="preserve">
+    <value>Record a key combination...</value>
+  </data>
+  <data name="MasterVolumeLabel" xml:space="preserve">
+    <value>Master volume</value>
+  </data>
   <data name="NewSoundClip" xml:space="preserve">
     <value>New sound clip</value>
   </data>
   <data name="PlaySound" xml:space="preserve">
     <value>Play sound</value>
   </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="SaveButtonDisabledTooltip" xml:space="preserve">
     <value>Please enter a Sound Clip name</value>
-  </data>
-  <data name="SaveSoundClip" xml:space="preserve">
-    <value>Save</value>
   </data>
   <data name="SoundClipListSearch" xml:space="preserve">
     <value>Search...</value>
@@ -186,7 +210,13 @@
   <data name="StopAllAudio" xml:space="preserve">
     <value>Stop audio</value>
   </data>
+  <data name="StopAllAudioHotkeyLabel" xml:space="preserve">
+    <value>Stop all audio hotkey</value>
+  </data>
   <data name="TestSound" xml:space="preserve">
     <value>Test sound</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Theme</value>
   </data>
 </root>

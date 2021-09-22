@@ -33,6 +33,12 @@
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
+  
+    <Window.Styles>
+      <Style Selector="Image:disabled">
+        <Setter Property="Opacity" Value="0.5"/>
+      </Style>
+    </Window.Styles>
 
     <Design.DataContext>
         <vm:SoundClipListViewModel/>
@@ -43,8 +49,8 @@
       </ExperimentalAcrylicBorder>
       
       <TextBlock FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="{i18n:Localize SoundClipListTitle}" FontWeight="Bold" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
-
-      <Grid Margin="5,30,5,0" RowDefinitions="Auto,*">
+      
+      <Grid Margin="5,30,5,0" RowDefinitions="Auto,*,Auto">
         <TextBox Grid.Row="0" Margin="10,0,10,5" Watermark="{i18n:Localize SoundClipListSearch}" Text="{Binding Manager.SoundClipListFilter}"></TextBox>
         <ScrollViewer Grid.Row="1">
           <StackPanel>
@@ -57,12 +63,12 @@
                     </Border.BorderBrush>
                     <Grid ColumnDefinitions="*,Auto,Auto">
                       <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="{Binding Name}"></TextBlock>
-                      <Button Grid.Column="1" Cursor="Hand" Command="{Binding PlayAudio}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize PlaySound}">
+                      <Button Grid.Column="1" Cursor="Hand" Command="{Binding PlayAudio}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize PlaySound}" Margin="5,0,5,0">
                         <Panel>
                           <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.Play}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Panel>
                       </Button>
-                      <Button Grid.Column="2" Cursor="Hand" Command="{Binding $parent[ItemsControl].DataContext.EditSoundClip}" CommandParameter="{Binding Id}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize EditSoundClipTooltip}">
+                      <Button Grid.Column="2" Cursor="Hand" Command="{Binding $parent[ItemsControl].DataContext.EditSoundClip}" CommandParameter="{Binding Id}" IsEnabled="{Binding !EditWindowOpen}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize EditSoundClipTooltip}">
                         <Panel>
                           <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Panel>
@@ -74,6 +80,9 @@
             </ItemsControl>
           </StackPanel>
         </ScrollViewer>
+        <StackPanel Grid.Row="2" Margin="5,0,5,5">
+          <Button Content="{i18n:Localize NewSoundClip}" Command="{Binding AddSound}" Cursor="Hand" Margin="0,5,0,5"></Button>
+        </StackPanel>
       </Grid>
     </Panel>
 </Window>

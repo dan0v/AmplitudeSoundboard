@@ -86,6 +86,22 @@ namespace Amplitude.Helpers
         }
 
         /// <summary>
+        /// Resample and cache this soundclip
+        /// </summary>
+        /// <param name="clip"></param>
+        public void PreCacheSoundClip(SoundClip clip)
+        {
+            if (!soundCache.ContainsKey(clip.Id))
+            {
+                using (AudioFileReader input = new AudioFileReader(clip.AudioFilePath))
+                {
+                    CachedSound cachedSound = new CachedSound(input);
+                    soundCache.Add(clip.Id, cachedSound);
+                }
+            }
+        }
+
+        /// <summary>
         /// Play a soundclip with caching and sample rate conversion as neccesary
         /// </summary>
         /// <param name="source"></param>
@@ -93,11 +109,12 @@ namespace Amplitude.Helpers
         {
             if (soundCache.TryGetValue(source.Id, out CachedSound sound))
             {
-                Play(sound, (source.Volume / 100) * (App.Options.MasterVolume / 100f));
+                Play(sound, source.Volume);
             }
             else
             {
-                Play(source.AudioFilePath, (source.Volume / 100) * (App.Options.MasterVolume / 100f), source.Id);
+                // TODO Do not cache all audio files for now, maybe pass Id if required
+                Play(source.AudioFilePath, source.Volume, null);
             }
         }
 
@@ -105,9 +122,9 @@ namespace Amplitude.Helpers
         /// Directly play cached sound
         /// </summary>
         /// <param name="sound"></param>
-        private void Play(CachedSound sound, float volume)
+        private void Play(CachedSound sound, int volume)
         {
-            sound.Volume = volume;
+            sound.Volume = (volume / 100f) *(App.Options.MasterVolume / 100f);
             AddMixerInput(new CachedSoundSampleProvider(sound));
         }
 
@@ -117,7 +134,7 @@ namespace Amplitude.Helpers
         /// <param name="fileName"></param>
         /// <param name="volume"></param>
         /// <param name="id"></param>
-        public void Play(string fileName, float volume, string id = null)
+        public void Play(string fileName, int volume, string? id = null)
         {
             if (!CheckPlayableFileAndGenerateErrors(fileName))
             {
@@ -134,13 +151,18 @@ namespace Amplitude.Helpers
 
                 if (id != null)
                 {
-                    soundCache.Add(id, cachedSound);
+                    // Recheck dictionary just in case
+                    if (!soundCache.ContainsKey(id))
+                    {
+                        soundCache.Add(id, cachedSound);
+                    }
                 }
 
                 Play(cachedSound, volume);
             }
             else
             {
+                input.Volume = (volume / 100f) * (App.Options.MasterVolume / 100f);
                 AddMixerInput(new AutoDisposeFileReader(input));
             }
         }
@@ -190,7 +212,7 @@ namespace Amplitude.Helpers
 
         public void ClearSoundClipCache(string id)
         {
-            if (id != null)
+            if (id != null && soundCache.ContainsKey(id))
             {
                 soundCache.Remove(id);
             }

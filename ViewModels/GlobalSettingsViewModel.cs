@@ -21,42 +21,48 @@
 
 using Amplitude.Helpers;
 using Amplitude.Models;
-using Amplitude.Views;
 using AmplitudeSoundboard;
-using Avalonia.Controls;
-using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Amplitude.ViewModels
 {
-    public class SoundClipListViewModel : ViewModelBase
+    public class GlobalSettingsViewModel : ViewModelBase
     {
         static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        static SoundClipManager Manager { get => App.SoundClipManager; }
 
-        public SoundClipListViewModel()
+        private Options _model;
+        public Options Model { get => _model; }
+
+        public GlobalSettingsViewModel()
         {
-            Manager.SoundClipListWindowOpen = true;
+            _model = App.Options.ShallowCopy();
         }
 
-        public void EditSoundClip(string id)
+        public void CreateHotkey()
         {
-            Window sound = new EditSoundClip
-            {
-                DataContext = new EditSoundClipViewModel(Manager.GetClip(id)),
-            };
 
-            sound.Show();
         }
 
-        public void AddSound()
+        public void IncreaseVolumeSmall()
         {
-            Window sound = new EditSoundClip
+            if (Model.MasterVolume < 100)
             {
-                DataContext = new EditSoundClipViewModel(),
-            };
+                Model.MasterVolume += 1;
+            }
+        }
+        public void DecreaseVolumeSmall()
+        {
+            if (Model.MasterVolume > 0)
+            {
+                Model.MasterVolume -= 1;
+            }
+        }
 
-            sound.Show();
+        public void SaveOptions()
+        {
+            Model.SaveOptions();
+            App.Options = Model;
+            _model = Model.ShallowCopy();
+            OnPropertyChanged(nameof(Model));
         }
     }
 }

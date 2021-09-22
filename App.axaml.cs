@@ -27,9 +27,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using System.IO;
-using System;
 using static System.Environment;
-using Avalonia.Themes.Fluent;
 
 namespace AmplitudeSoundboard
 {

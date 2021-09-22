@@ -49,8 +49,8 @@ namespace Amplitude.Models
             }
         }
 
-        private float _volume = 100;
-        public float Volume {
+        private int _volume = 100;
+        public int Volume {
             get => _volume;
             set
             {
@@ -115,6 +115,35 @@ namespace Amplitude.Models
                 if (value != _imageFilePath)
                 {
                     _imageFilePath = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _preCache = false;
+        public bool PreCache
+        {
+            get => _preCache;
+            set
+            {
+                if (value != _preCache)
+                {
+                    _preCache = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _editWindowOpen = false;
+        [JsonIgnore]
+        public bool EditWindowOpen
+        {
+            get => _editWindowOpen;
+            set
+            {
+                if (value != _editWindowOpen)
+                {
+                    _editWindowOpen = value;
                     OnPropertyChanged();
                 }
             }

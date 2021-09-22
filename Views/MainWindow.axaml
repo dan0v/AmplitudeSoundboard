@@ -23,16 +23,23 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.MainWindow"
         Icon="/Assets/Icon.ico"
         Title="Amplitude Soundboard"
-        MinWidth="550" MinHeight="375"
+        MinWidth="450" MinHeight="300"
+        Width="450" Height="300"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
 
+    <Window.Styles>
+      <Style Selector="Image:disabled">
+        <Setter Property="Opacity" Value="0.5"/>
+      </Style>
+    </Window.Styles>
+  
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
@@ -47,12 +54,10 @@
       
       <TextBlock FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
       
-      <StackPanel Margin="5,30,5,0">
-        <Button Content="{i18n:Localize NewSoundClip}" Command="{Binding AddSound}" Cursor="Hand" Margin="0,5,0,5"></Button>
-        <Button Content="{i18n:Localize StopAllAudio}" Command="{Binding StopAudio}" Cursor="Hand" Margin="0,5,0,5"></Button>
-        <Button Content="Sound clip list" Command="{Binding ShowList}" Cursor="Hand" Margin="0,5,0,5"></Button>
-        <ComboBox AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,5,0,5" SelectedItem="{Binding ThemeHandler.SelectedTheme}" Items="{Binding ThemeHandler.ThemesList}">
-        </ComboBox>
+      <StackPanel Margin="5,30,5,0" VerticalAlignment="Top" Orientation="Horizontal">
+        <Button Content="{i18n:Localize SoundClipListTitle}" IsEnabled="{Binding !Manager.SoundClipListWindowOpen}" Command="{Binding ShowList}" Cursor="Hand" Margin="5,5,5,5"></Button>
+        <Button Content="{i18n:Localize GlobalSettingsTitle}" IsEnabled="{Binding !GlobalSettingsWindowOpen}" Command="{Binding ShowGlobalSettings}" Cursor="Hand" Margin="5,5,5,5"></Button>
+        <Button Content="{i18n:Localize StopAllAudio}" Command="{Binding StopAudio}" Cursor="Hand" Margin="5,5,5,5"></Button>
       </StackPanel>
     </Panel>
 </Window>

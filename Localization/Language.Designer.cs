@@ -61,6 +61,24 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        internal static string AcceptButton {
+            get {
+                return ResourceManager.GetString("AcceptButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string CancelButton {
+            get {
+                return ResourceManager.GetString("CancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sound clip file path.
         /// </summary>
         internal static string ClipAudioFilePathLabel {
@@ -120,6 +138,33 @@ namespace Amplitude.Localization {
         internal static string ClipVolumeLabel {
             get {
                 return ResourceManager.GetString("ClipVolumeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string DeleteSoundClipButton {
+            get {
+                return ResourceManager.GetString("DeleteSoundClipButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the Sound Clip &quot;{0}&quot;?.
+        /// </summary>
+        internal static string DeleteSoundClipConfirmationPrompt {
+            get {
+                return ResourceManager.GetString("DeleteSoundClipConfirmationPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Deletion.
+        /// </summary>
+        internal static string DeleteSoundClipConfirmationTitle {
+            get {
+                return ResourceManager.GetString("DeleteSoundClipConfirmationTitle", resourceCulture);
             }
         }
         
@@ -205,6 +250,33 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preferences.
+        /// </summary>
+        internal static string GlobalSettingsTitle {
+            get {
+                return ResourceManager.GetString("GlobalSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record a key combination....
+        /// </summary>
+        internal static string HotkeyPlaceholder {
+            get {
+                return ResourceManager.GetString("HotkeyPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Master volume.
+        /// </summary>
+        internal static string MasterVolumeLabel {
+            get {
+                return ResourceManager.GetString("MasterVolumeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New sound clip.
         /// </summary>
         internal static string NewSoundClip {
@@ -223,20 +295,20 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string SaveButton {
+            get {
+                return ResourceManager.GetString("SaveButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter a Sound Clip name.
         /// </summary>
         internal static string SaveButtonDisabledTooltip {
             get {
                 return ResourceManager.GetString("SaveButtonDisabledTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save.
-        /// </summary>
-        internal static string SaveSoundClip {
-            get {
-                return ResourceManager.GetString("SaveSoundClip", resourceCulture);
             }
         }
         
@@ -268,11 +340,29 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stop all audio hotkey.
+        /// </summary>
+        internal static string StopAllAudioHotkeyLabel {
+            get {
+                return ResourceManager.GetString("StopAllAudioHotkeyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test sound.
         /// </summary>
         internal static string TestSound {
             get {
                 return ResourceManager.GetString("TestSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        internal static string ThemeLabel {
+            get {
+                return ResourceManager.GetString("ThemeLabel", resourceCulture);
             }
         }
     }

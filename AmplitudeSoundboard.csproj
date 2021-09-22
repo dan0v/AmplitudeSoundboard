@@ -42,6 +42,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\GlobalSettings.axaml.cs">
+      <DependentUpon>GlobalSettings.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ErrorList.axaml.cs">
       <DependentUpon>ErrorList.axaml</DependentUpon>
     </Compile>
@@ -56,6 +59,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets\Styles\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

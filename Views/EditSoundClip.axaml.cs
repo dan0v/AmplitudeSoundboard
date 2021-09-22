@@ -21,11 +21,13 @@
 
 using Amplitude.Helpers;
 using Amplitude.ViewModels;
+using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Amplitude.Views
@@ -34,6 +36,7 @@ namespace Amplitude.Views
     {
         private Button btn_BrowseAudioFilePath;
         private Button btn_BrowseImageFilePath;
+        private Button btn_Delete;
 
         public EditSoundClip()
         {
@@ -47,6 +50,9 @@ namespace Amplitude.Views
 
             btn_BrowseImageFilePath = this.FindControl<Button>("btn_BrowseImageFilePath");
             btn_BrowseImageFilePath.Click += BrowseImage;
+
+            btn_Delete = this.FindControl<Button>("btn_Delete");
+            btn_Delete.Click += DeleteSoundClip;
 
         }
 
@@ -74,6 +80,18 @@ namespace Amplitude.Views
             {
                 Debug.WriteLine(e);
             }
+        }
+
+        public void DeleteSoundClip(object? sender, RoutedEventArgs args)
+        {
+            ((EditSoundClipViewModel)this.DataContext).DeleteSoundClip();
+            this.Close();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            App.SoundClipManager.ClosedEditWindow(((EditSoundClipViewModel)this.DataContext).Model.Id);
+            base.OnClosing(e);
         }
 
         Window GetWindow() => (Window)this.VisualRoot;

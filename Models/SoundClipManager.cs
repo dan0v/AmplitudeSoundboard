@@ -25,7 +25,6 @@ using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using System.IO;
 using AmplitudeSoundboard;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -76,6 +75,20 @@ namespace Amplitude.Models
             }
         }
 
+        private bool _soundClipListOpen = false;
+        public bool SoundClipListWindowOpen
+        {
+            get => _soundClipListOpen;
+            set
+            {
+                if (value != _soundClipListOpen)
+                {
+                    _soundClipListOpen = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         private Dictionary<string, SoundClip> soundClips;
@@ -87,10 +100,7 @@ namespace Amplitude.Models
             if (retrievedClips != null)
             {
                 soundClips = retrievedClips;
-
-                InitializeClipIds(soundClips);
-
-                ValidateSoundClips(soundClips);
+                InitializeSoundClips(soundClips);
             }
             else
             {
@@ -98,15 +108,13 @@ namespace Amplitude.Models
             }
         }
 
-        /// <summary>
-        /// Set SoundClip Ids based on their Dictionary key
-        /// </summary>
-        /// <param name="soundClips"></param>
-        private void InitializeClipIds(Dictionary<string, SoundClip> soundClips)
+        private void InitializeSoundClips(Dictionary<string, SoundClip> soundClips)
         {
             foreach (KeyValuePair<string, SoundClip> item in soundClips)
             {
                 item.Value.InitializeId(item.Key);
+                ValidateSoundClip(item.Value);
+                PreCacheSoundClipIfRequested(item.Value);
             }
         }
 
@@ -114,18 +122,23 @@ namespace Amplitude.Models
         /// Notify user of problems with their linked audio and image files at startup
         /// </summary>
         /// <param name="soundClips"></param>
-        private void ValidateSoundClips(Dictionary<string, SoundClip> soundClips)
+        private void ValidateSoundClip(SoundClip clip)
         {
-            foreach (SoundClip clip in soundClips.Values)
+            if (!string.IsNullOrEmpty(clip.AudioFilePath) && !File.Exists(clip.AudioFilePath))
             {
-                if (!string.IsNullOrEmpty(clip.AudioFilePath) && !File.Exists(clip.AudioFilePath))
-                {
-                    App.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_AUDIO_FILE);
-                }
-                if (!string.IsNullOrEmpty(clip.ImageFilePath) && !File.Exists(clip.ImageFilePath))
-                {
-                    App.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_IMAGE_FILE);
-                }
+                App.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_AUDIO_FILE);
+            }
+            if (!string.IsNullOrEmpty(clip.ImageFilePath) && !File.Exists(clip.ImageFilePath))
+            {
+                App.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_IMAGE_FILE);
+            }
+        }
+
+        private void PreCacheSoundClipIfRequested(SoundClip clip)
+        {
+            if (clip.PreCache)
+            {
+                App.SoundEngine.PreCacheSoundClip(clip);
             }
         }
 
@@ -159,6 +172,35 @@ namespace Amplitude.Models
 
             StoreSavedSoundClips();
             OnPropertyChanged(nameof(FilteredSoundClipList));
+        }
+
+        public void RemoveSoundClip(string id)
+        {
+            // TODO unregister hotkey
+            if (soundClips.ContainsKey(id))
+            {
+                App.SoundEngine.ClearSoundClipCache(id);
+                soundClips.Remove(id);
+
+                StoreSavedSoundClips();
+                OnPropertyChanged(nameof(FilteredSoundClipList));
+            }
+        }
+
+        public void OpenedEditWindow(string id)
+        {
+            if (soundClips.TryGetValue(id, out SoundClip value))
+            {
+                value.EditWindowOpen = true;
+            }
+        }
+
+        public void ClosedEditWindow(string id)
+        {
+            if (soundClips.TryGetValue(id, out SoundClip value))
+            {
+                value.EditWindowOpen = false;
+            }
         }
 
         private bool GenerateAndSetId(SoundClip clip)

@@ -20,6 +20,7 @@
 */
 
 using Amplitude.Helpers;
+using Amplitude.Models;
 using Amplitude.Views;
 using AmplitudeSoundboard;
 using Avalonia.Controls;
@@ -28,15 +29,21 @@ namespace Amplitude.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        public void AddSound()
-        {
-            Window sound = new EditSoundClip
-            {
-                DataContext = new EditSoundClipViewModel(),
-            };
+        static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        static SoundClipManager Manager { get => App.SoundClipManager; }
 
-            sound.Show();
+        public bool _globalSettingsWindowOpen = false;
+        public bool GlobalSettingsWindowOpen
+        {
+            get => _globalSettingsWindowOpen;
+            set
+            {
+                if (value != _globalSettingsWindowOpen)
+                {
+                    _globalSettingsWindowOpen = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public void ShowList()
@@ -47,6 +54,18 @@ namespace Amplitude.ViewModels
             };
 
             list.Show();
+        }
+
+        public void ShowGlobalSettings()
+        {
+            GlobalSettingsWindowOpen = true;
+            Window settings = new GlobalSettings
+            {
+                MainWindow = this,
+                DataContext = new GlobalSettingsViewModel(),
+            };
+
+            settings.Show();
         }
 
         public void StopAudio()

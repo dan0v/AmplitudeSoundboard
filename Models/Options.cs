@@ -125,6 +125,7 @@ namespace Amplitude.Models
 
         public void SaveOptions()
         {
+            App.ThemeHandler.SelectedTheme = Theme;
             try
             {
                 File.WriteAllText(Path.Join(App.APP_STORAGE, @"options.json"), ToJSON());
@@ -140,10 +141,14 @@ namespace Amplitude.Models
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
+        public Options ShallowCopy()
+        {
+            return (Options)this.MemberwiseClone();
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
-            SaveOptions();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

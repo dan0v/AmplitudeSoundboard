@@ -23,16 +23,22 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="550"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="560"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.EditSoundClip"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize EditSoundClipTitle}"
-        Width="400" Height="550" MinWidth="400" MinHeight="375"
+        Width="400" Height="560" MinWidth="400" MinHeight="375"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
 
+    <Window.Styles>
+      <Style Selector="Image:disabled">
+        <Setter Property="Opacity" Value="0.5"/>
+      </Style>
+    </Window.Styles>
+  
     <Design.DataContext>
         <vm:EditSoundClipViewModel/>
     </Design.DataContext>
@@ -72,7 +78,14 @@
                     <Image Source="{Binding ThemeHandler.ArrowLeft}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
                 </Button>
-                <Slider Background="#F08A5D" Foreground="#ebaeff" Grid.Column="1" VerticalAlignment="Center" Height="50" Cursor="Hand" x:Name="volumeSlider" SmallChange="1" LargeChange="10" TickFrequency="1" Orientation="Horizontal" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickPlacement="None" Value="{Binding Path=Model.Volume, Mode=TwoWay}" Padding="5,0,5,0"></Slider>
+                <Slider Grid.Column="1" VerticalAlignment="Center" Height="50" Cursor="Hand" x:Name="volumeSlider" SmallChange="1" LargeChange="10" TickFrequency="1" Orientation="Horizontal" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickPlacement="None" Value="{Binding Path=Model.Volume, Mode=TwoWay}" Padding="5,0,5,0">
+                  <Slider.Foreground>
+                    <SolidColorBrush Color="{Binding ThemeHandler.SliderForeground}"/>
+                  </Slider.Foreground>
+                  <Slider.Background>
+                    <SolidColorBrush Color="{Binding ThemeHandler.SliderBackground}"/>
+                  </Slider.Background>
+                </Slider>
                 <Button x:Name="btn_VolumeUp" Grid.Column="2" Margin="5,0,5,0" Cursor="Hand" Command="{Binding IncreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
                   <Panel>
                     <Image Source="{Binding ThemeHandler.ArrowRight}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -90,8 +103,8 @@
             <StackPanel>
               <Label Grid.Column="0" Grid.Row="1" Content="{i18n:Localize ClipAudioFilePathLabel}" HorizontalAlignment="Center" Height="30"></Label>
               <Grid ColumnDefinitions="*,Auto">
-                <TextBox Grid.Column="0" Text="{Binding Model.AudioFilePath}" Watermark="{i18n:Localize ClipFilePathPlaceholder}" ToolTip.Tip="{Binding Model.AudioFilePath}"></TextBox>
-                <Button x:Name="btn_BrowseAudioFilePath" Cursor="Hand" Grid.Column="1" Margin="5,0,5,0">
+                <TextBox Grid.Column="0" Text="{Binding Model.AudioFilePath}" Watermark="{i18n:Localize ClipFilePathPlaceholder}" ToolTip.Tip="{Binding Model.AudioFilePath}" Margin="5,0,5,5"></TextBox>
+                <Button x:Name="btn_BrowseAudioFilePath" Cursor="Hand" Grid.Column="1" Margin="5,0,5,5">
                   <Panel>
                     <Image Source="{Binding ThemeHandler.FileBrowse}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
@@ -108,8 +121,8 @@
             <StackPanel>
               <Label Grid.Column="0" Grid.Row="1" Content="{i18n:Localize ClipImageFilePathLabel}" HorizontalAlignment="Center" Height="30"></Label>
               <Grid ColumnDefinitions="*,Auto">
-                <TextBox Grid.Column="0" Text="{Binding Model.ImageFilePath}" Watermark="{i18n:Localize ClipFilePathPlaceholder}" ToolTip.Tip="{Binding Model.ImageFilePath}"></TextBox>
-                <Button x:Name="btn_BrowseImageFilePath" Cursor="Hand" Grid.Column="1" Margin="5,0,5,0">
+                <TextBox Grid.Column="0" Text="{Binding Model.ImageFilePath}" Watermark="{i18n:Localize ClipFilePathPlaceholder}" ToolTip.Tip="{Binding Model.ImageFilePath}" Margin="5,0,5,5"></TextBox>
+                <Button x:Name="btn_BrowseImageFilePath" Cursor="Hand" Grid.Column="1" Margin="5,0,5,5">
                   <Panel>
                     <Image Source="{Binding ThemeHandler.FileBrowse}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
@@ -124,10 +137,10 @@
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
             <StackPanel>
-              <Label Content="{i18n:Localize ClipHotkeyLabel}" Target="{Binding #volumeSlider}" HorizontalAlignment="Center" Height="30"></Label>
+              <Label Content="{i18n:Localize ClipHotkeyLabel}" HorizontalAlignment="Center" Height="30"></Label>
               <Grid ColumnDefinitions="*,Auto">
-                <TextBox Grid.Column="0" Watermark="Record a key combination..." DockPanel.Dock="Left" IsReadOnly="True" Focusable="False"></TextBox>
-                <Button Grid.Column="1" Content="Record" Cursor="Hand" Margin="5,0,5,0" DockPanel.Dock="Right">
+                <TextBox Grid.Column="0" Watermark="{i18n:Localize HotkeyPlaceholder}" DockPanel.Dock="Left" IsReadOnly="True" Focusable="False" Text="{Binding Model.Hotkey}" Margin="5,0,5,5"></TextBox>
+                <Button Grid.Column="1" Content="Record" Cursor="Hand" Margin="5,0,5,5" DockPanel.Dock="Right">
                   <Panel>
                     <Image Source="{Binding ThemeHandler.Keyboard}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
@@ -138,13 +151,14 @@
 
           <Grid ColumnDefinitions="*,Auto">
             <StackPanel Orientation="Horizontal" Grid.Column="0" IsEnabled="{Binding HasAudioFilePath}">
-              <Button Content="{i18n:Localize TestSound}" Cursor="Hand" Command="{Binding PlaySound}" Margin="5,5,5,5"></Button>
+              <Button Content="{i18n:Localize TestSound}" Cursor="Hand" Command="{Binding PlaySound}" Margin="10,5,5,5"></Button>
               <Button Content="{i18n:Localize StopAllAudio}" Cursor="Hand" Command="{Binding StopAudio}" Margin="5,5,5,5"></Button>
             </StackPanel>
             <!--Can't put a tooltip on disabled elements and even putting it on the parent doesn't work, so I don't know how we can signal why this button is disabled-->
-            <Panel Grid.Column="1"> <!--ToolTip.Tip="{Binding SaveButtonTooltip}">-->
-              <Button Content="{i18n:Localize SaveSoundClip}" Cursor="Hand" Command="{Binding SaveClip}" IsEnabled="{Binding HasNameField}" Margin="5,5,5,5" HorizontalAlignment="Right"></Button>
-            </Panel>
+            <StackPanel Orientation="Horizontal" Grid.Column="1">
+              <Button x:Name="btn_Delete" Content="{i18n:Localize DeleteSoundClipButton}" Cursor="Hand" IsEnabled="{Binding Model.Id, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Margin="5,5,10,5" HorizontalAlignment="Left"></Button>
+              <Button Content="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveClip}" IsEnabled="{Binding HasNameField}" Margin="5,5,10,5" HorizontalAlignment="Right"></Button>
+            </StackPanel>
           </Grid>
 
         </StackPanel>
