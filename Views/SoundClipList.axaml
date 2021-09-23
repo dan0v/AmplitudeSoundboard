@@ -68,7 +68,7 @@
                           <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.Play}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Panel>
                       </Button>
-                      <Button Grid.Column="2" Cursor="Hand" Command="{Binding $parent[ItemsControl].DataContext.EditSoundClip}" CommandParameter="{Binding Id}" IsEnabled="{Binding !EditWindowOpen}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize EditSoundClipTooltip}">
+                      <Button Grid.Column="2" Cursor="Hand" Command="{Binding $parent[ItemsControl].DataContext.EditSoundClip}" CommandParameter="{Binding Id}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize EditSoundClipTooltip}">
                         <Panel>
                           <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Panel>

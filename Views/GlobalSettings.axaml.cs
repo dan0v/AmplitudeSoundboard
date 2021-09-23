@@ -20,6 +20,7 @@
 */
 
 using Amplitude.ViewModels;
+using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
@@ -37,6 +38,7 @@ namespace Amplitude.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
+            App.WindowManager.GlobalSettingsWindow = this;
         }
 
         Window GetWindow() => (Window)this.VisualRoot;
@@ -48,7 +50,7 @@ namespace Amplitude.Views
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            MainWindow.GlobalSettingsWindowOpen = false;
+            App.WindowManager.GlobalSettingsWindow = null;
             base.OnClosing(e);
         }
     }

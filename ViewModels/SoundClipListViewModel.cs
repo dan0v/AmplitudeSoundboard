@@ -34,19 +34,24 @@ namespace Amplitude.ViewModels
         static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
         static SoundClipManager Manager { get => App.SoundClipManager; }
 
-        public SoundClipListViewModel()
-        {
-            Manager.SoundClipListWindowOpen = true;
-        }
+        public SoundClipListViewModel() { }
 
         public void EditSoundClip(string id)
         {
-            Window sound = new EditSoundClip
+            if (App.WindowManager.EditSoundClipWindows.TryGetValue(id, out EditSoundClip window))
             {
-                DataContext = new EditSoundClipViewModel(Manager.GetClip(id)),
-            };
+                window.Activate();
+            }
+            else
+            {
 
-            sound.Show();
+                Window sound = new EditSoundClip
+                {
+                    DataContext = new EditSoundClipViewModel(Manager.GetClip(id)),
+                };
+
+                sound.Show();
+            }
         }
 
         public void AddSound()

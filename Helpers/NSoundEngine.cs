@@ -35,7 +35,8 @@ namespace Amplitude.Helpers
     class NSoundEngine : ISoundEngine
     {
         private static NSoundEngine? _instance;
-        public static NSoundEngine Instance {
+        public static NSoundEngine Instance
+        {
             get
             {
                 if (_instance == null)
@@ -70,7 +71,7 @@ namespace Amplitude.Helpers
             if (!File.Exists(fileName))
             {
                 string errorMessage = String.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
-                App.ErrorListWindow.AddErrorString(errorMessage);
+                App.WindowManager.ErrorListWindow.AddErrorString(errorMessage);
                 return false;
             }
 
@@ -78,7 +79,7 @@ namespace Amplitude.Helpers
             if (fileType != ".mp3" && fileType != ".wav" && fileType != ".aiff")
             {
                 string errorMessage = String.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
-                App.ErrorListWindow.AddErrorString(errorMessage);
+                App.WindowManager.ErrorListWindow.AddErrorString(errorMessage);
                 return false;
             }
 
@@ -196,7 +197,7 @@ namespace Amplitude.Helpers
             }
             catch (Exception e)
             {
-                App.ErrorListWindow.AddErrorString(e.Message);
+                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
             }
         }
 

@@ -33,7 +33,6 @@ namespace AmplitudeSoundboard
 {
     public class App : Application
     {
-
         public static string APP_STORAGE
         {
             get
@@ -55,6 +54,8 @@ namespace AmplitudeSoundboard
 
         public static ThemeHandler ThemeHandler => ThemeHandler.Instance;
 
+        public static WindowManager WindowManager => WindowManager.Instance;
+
         public static Options Options = Options.RetrieveOptionsFromJSON();
 
 #if Windows
@@ -65,18 +66,6 @@ namespace AmplitudeSoundboard
         public static ISoundEngine SoundEngine => TempSoundEngine.Instance;
         //public static WinKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
 #endif
-
-        private static ErrorList _errorListWindow;
-        public static ErrorList ErrorListWindow {
-            get
-            {
-                if (_errorListWindow == null)
-                {
-                    _errorListWindow = new ErrorList();
-                }
-                return _errorListWindow;
-            }
-        }
 
         public override void Initialize()
         {

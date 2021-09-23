@@ -34,6 +34,7 @@ namespace Amplitude.Views
 {
     public partial class EditSoundClip : Window
     {
+        private TextBlock txt_blk_SoundClipId;
         private Button btn_BrowseAudioFilePath;
         private Button btn_BrowseImageFilePath;
         private Button btn_Delete;
@@ -44,6 +45,8 @@ namespace Amplitude.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
+            txt_blk_SoundClipId = this.FindControl<TextBlock>("txt_blk_SoundClipId");
+            txt_blk_SoundClipId.PropertyChanged += Txt_blk_SoundClipId_PropertyChanged;
 
             btn_BrowseAudioFilePath = this.FindControl<Button>("btn_BrowseAudioFilePath");
             btn_BrowseAudioFilePath.Click += BrowseSoundClip;
@@ -54,6 +57,17 @@ namespace Amplitude.Views
             btn_Delete = this.FindControl<Button>("btn_Delete");
             btn_Delete.Click += DeleteSoundClip;
 
+        }
+
+        private void Txt_blk_SoundClipId_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+        {
+            if (e.Property == TextBlock.TextProperty)
+            {
+                if (e.NewValue != null && e.NewValue != e.OldValue)
+                {
+                    App.WindowManager.OpenedEditSoundClipWindow(((EditSoundClipViewModel)this.DataContext).Model.Id, this);
+                }
+            }
         }
 
         public async void BrowseSoundClip(object? sender, RoutedEventArgs args)
@@ -90,7 +104,7 @@ namespace Amplitude.Views
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            App.SoundClipManager.ClosedEditWindow(((EditSoundClipViewModel)this.DataContext).Model.Id);
+            App.WindowManager.ClosedEditSoundClipWindow(((EditSoundClipViewModel)this.DataContext).Model.Id);
             base.OnClosing(e);
         }
 

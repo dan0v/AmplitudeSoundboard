@@ -50,6 +50,7 @@
       
       <TextBlock Text="{i18n:Localize EditSoundClipTitle}" Classes="TITLE" FontFamily="{Binding ThemeHandler.TitleFont}" FontWeight="Bold" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
+      <TextBlock x:Name="txt_blk_SoundClipId" Text="{Binding Model.Id}" IsVisible="false"></TextBlock>
       <ScrollViewer Margin="0,30,0,0">
         <StackPanel>
           

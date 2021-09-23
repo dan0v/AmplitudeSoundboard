@@ -55,8 +55,8 @@
       <TextBlock FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
       
       <StackPanel Margin="5,30,5,0" VerticalAlignment="Top" Orientation="Horizontal">
-        <Button Content="{i18n:Localize SoundClipListTitle}" IsEnabled="{Binding !Manager.SoundClipListWindowOpen}" Command="{Binding ShowList}" Cursor="Hand" Margin="5,5,5,5"></Button>
-        <Button Content="{i18n:Localize GlobalSettingsTitle}" IsEnabled="{Binding !GlobalSettingsWindowOpen}" Command="{Binding ShowGlobalSettings}" Cursor="Hand" Margin="5,5,5,5"></Button>
+        <Button Content="{i18n:Localize SoundClipListTitle}" Command="{Binding ShowList}" Cursor="Hand" Margin="5,5,5,5"></Button>
+        <Button Content="{i18n:Localize GlobalSettingsTitle}" Command="{Binding ShowGlobalSettings}" Cursor="Hand" Margin="5,5,5,5"></Button>
         <Button Content="{i18n:Localize StopAllAudio}" Command="{Binding StopAudio}" Cursor="Hand" Margin="5,5,5,5"></Button>
       </StackPanel>
     </Panel>

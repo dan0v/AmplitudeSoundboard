@@ -39,6 +39,7 @@ namespace Amplitude.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
+            App.WindowManager.SoundClipListWindow = this;
         }
 
         private void InitializeComponent()
@@ -48,7 +49,7 @@ namespace Amplitude.Views
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            App.SoundClipManager.SoundClipListWindowOpen = false;
+            App.WindowManager.SoundClipListWindow = null;
             base.OnClosing(e);
         }
     }

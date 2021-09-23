@@ -75,20 +75,6 @@ namespace Amplitude.Models
             }
         }
 
-        private bool _soundClipListOpen = false;
-        public bool SoundClipListWindowOpen
-        {
-            get => _soundClipListOpen;
-            set
-            {
-                if (value != _soundClipListOpen)
-                {
-                    _soundClipListOpen = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         private Dictionary<string, SoundClip> soundClips;
@@ -126,11 +112,11 @@ namespace Amplitude.Models
         {
             if (!string.IsNullOrEmpty(clip.AudioFilePath) && !File.Exists(clip.AudioFilePath))
             {
-                App.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_AUDIO_FILE);
+                App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_AUDIO_FILE);
             }
             if (!string.IsNullOrEmpty(clip.ImageFilePath) && !File.Exists(clip.ImageFilePath))
             {
-                App.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_IMAGE_FILE);
+                App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_IMAGE_FILE);
             }
         }
 
@@ -167,7 +153,7 @@ namespace Amplitude.Models
             }
             else
             {
-                App.ErrorListWindow.AddErrorString("SoundClip with ID: " + clip.Id + " could not be saved (does not exist)!");
+                App.WindowManager.ErrorListWindow.AddErrorString("SoundClip with ID: " + clip.Id + " could not be saved (does not exist)!");
             }
 
             StoreSavedSoundClips();
@@ -187,22 +173,6 @@ namespace Amplitude.Models
             }
         }
 
-        public void OpenedEditWindow(string id)
-        {
-            if (soundClips.TryGetValue(id, out SoundClip value))
-            {
-                value.EditWindowOpen = true;
-            }
-        }
-
-        public void ClosedEditWindow(string id)
-        {
-            if (soundClips.TryGetValue(id, out SoundClip value))
-            {
-                value.EditWindowOpen = false;
-            }
-        }
-
         private bool GenerateAndSetId(SoundClip clip)
         {
             // New clip
@@ -217,7 +187,7 @@ namespace Amplitude.Models
                     if (attempt / alphabet.Length >= alphabet.Length)
                     {
                         // Something has gone wrong, there has been easily enough time to find an Id
-                        App.ErrorListWindow.AddErrorString("A new Sound Clip could not be saved (could not generate Id, please try again later)!");
+                        App.WindowManager.ErrorListWindow.AddErrorString("A new Sound Clip could not be saved (could not generate Id, please try again later)!");
                         return false;
                     }
                     suf += alphabet[attempt / alphabet.Length] + alphabet[attempt % alphabet.Length];
@@ -233,13 +203,16 @@ namespace Amplitude.Models
             return true;
         }
 
-        public SoundClip? GetClip(string id) 
+        public SoundClip? GetClip(string id, bool ignoreErrors = false) 
         {
             if (soundClips.TryGetValue(id, out SoundClip clip))
             {
                 return clip;
             }
-            App.ErrorListWindow.AddErrorString("SoundClip with ID: " + id + " does not exist!");
+            if (!ignoreErrors)
+            {
+                App.WindowManager.ErrorListWindow.AddErrorString("SoundClip with ID: " + id + " does not exist!");
+            }
             return null;
         }
 
@@ -271,7 +244,7 @@ namespace Amplitude.Models
             }
             catch (Exception e)
             {
-                App.ErrorListWindow.AddErrorString(e.Message);
+                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
             }
             return null;
         }
@@ -292,7 +265,7 @@ namespace Amplitude.Models
             }
             catch (Exception e)
             {
-                App.ErrorListWindow.AddErrorString(e.Message);
+                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
             }
             return null;
         }
@@ -304,7 +277,7 @@ namespace Amplitude.Models
             }
             catch (Exception e)
             {
-                App.ErrorListWindow.AddErrorString(e.Message);
+                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
             }
         }
 

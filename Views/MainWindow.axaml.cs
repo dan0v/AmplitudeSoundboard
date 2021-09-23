@@ -40,6 +40,12 @@ namespace Amplitude.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
+            PositionChanged += MainWindow_PositionChanged;
+        }
+
+        private void MainWindow_PositionChanged(object? sender, PixelPointEventArgs e)
+        {
+            ((MainWindowViewModel)DataContext).WindowPosition = (e.Point.X, e.Point.Y);
         }
 
         private void InitializeComponent()

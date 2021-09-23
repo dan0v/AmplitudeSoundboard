@@ -32,40 +32,47 @@ namespace Amplitude.ViewModels
         static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
         static SoundClipManager Manager { get => App.SoundClipManager; }
 
-        public bool _globalSettingsWindowOpen = false;
-        public bool GlobalSettingsWindowOpen
-        {
-            get => _globalSettingsWindowOpen;
-            set
-            {
-                if (value != _globalSettingsWindowOpen)
-                {
-                    _globalSettingsWindowOpen = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public (int x, int y) WindowPosition = (0, 0);
+
+        public bool GlobalSettingsWindowOpen { get => App.WindowManager.GlobalSettingsWindow != null; }
 
         public void ShowList()
         {
-            Window list = new SoundClipList
+            SoundClipList window = App.WindowManager.SoundClipListWindow;
+            if (window != null)
             {
-                DataContext = new SoundClipListViewModel(),
-            };
+                window.Activate();
+            }
+            else
+            {
+                window = new SoundClipList
+                {
+                    DataContext = new SoundClipListViewModel(),
+                    Position = new Avalonia.PixelPoint(WindowPosition.x + 200, WindowPosition.y + 200)
+                };
+                window.Show();
+            }
 
-            list.Show();
         }
 
         public void ShowGlobalSettings()
         {
-            GlobalSettingsWindowOpen = true;
-            Window settings = new GlobalSettings
+            GlobalSettings window = App.WindowManager.GlobalSettingsWindow;
+            if (window != null)
             {
-                MainWindow = this,
-                DataContext = new GlobalSettingsViewModel(),
-            };
+                window.Activate();
+            }
+            else
+            {
+                window = new GlobalSettings
+                {
+                    MainWindow = this,
+                    DataContext = new GlobalSettingsViewModel(),
+                    Position = new Avalonia.PixelPoint(WindowPosition.x + 150, WindowPosition.y + 150)
+                };
+                window.Show();
+            }
 
-            settings.Show();
         }
 
         public void StopAudio()

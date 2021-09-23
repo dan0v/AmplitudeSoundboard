@@ -36,7 +36,6 @@ namespace Amplitude.ViewModels
         public EditSoundClipViewModel()
         {
             _model = new SoundClip();
-            _model.EditWindowOpen = true;
             SetBindings();
         }
 
@@ -46,7 +45,6 @@ namespace Amplitude.ViewModels
         /// <param name="model"></param>
         public EditSoundClipViewModel(SoundClip model)
         {
-            App.SoundClipManager.OpenedEditWindow(model.Id);
             _model = model.ShallowCopy();
             SetBindings();
         }
@@ -167,8 +165,10 @@ namespace Amplitude.ViewModels
 
         public void SaveClip()
         {
-            App.SoundClipManager.SaveClip(Model);
-            _model = Model.ShallowCopy();
+            SoundClip toSave = Model.ShallowCopy();
+            App.SoundClipManager.SaveClip(toSave);
+            // Copy back and forth to delay ID update until fully saved
+            _model = toSave.ShallowCopy();
             OnPropertyChanged(nameof(Model));
         }
 

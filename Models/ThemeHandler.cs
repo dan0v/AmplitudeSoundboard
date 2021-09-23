@@ -28,7 +28,7 @@ using Avalonia.Platform;
 using Avalonia.Styling;
 using System;
 
-namespace Amplitude.Helpers
+namespace Amplitude.Models
 {
     public class ThemeHandler
     {

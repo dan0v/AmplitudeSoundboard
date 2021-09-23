@@ -134,21 +134,6 @@ namespace Amplitude.Models
             }
         }
 
-        private bool _editWindowOpen = false;
-        [JsonIgnore]
-        public bool EditWindowOpen
-        {
-            get => _editWindowOpen;
-            set
-            {
-                if (value != _editWindowOpen)
-                {
-                    _editWindowOpen = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         public SoundClip() { }
 
         public void PlayAudio()

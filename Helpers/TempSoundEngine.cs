@@ -27,7 +27,8 @@ namespace Amplitude.Helpers
     class TempSoundEngine : ISoundEngine
     {
         private static TempSoundEngine? _instance;
-        public static TempSoundEngine Instance {
+        public static TempSoundEngine Instance
+        {
             get
             {
                 if (_instance == null)
