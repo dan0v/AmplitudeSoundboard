@@ -57,7 +57,7 @@ namespace Amplitude.Helpers
 
         public void OpenedEditSoundClipWindow(string id, EditSoundClip editSoundClip)
         {
-            if (!EditSoundClipWindows.ContainsKey(id))
+            if (id != null && !EditSoundClipWindows.ContainsKey(id))
             {
                 EditSoundClipWindows.Add(id, editSoundClip);
                 OnPropertyChanged(nameof(EditSoundClipWindows));
@@ -66,7 +66,7 @@ namespace Amplitude.Helpers
 
         public void ClosedEditSoundClipWindow(string id)
         {
-            if (EditSoundClipWindows.ContainsKey(id))
+            if (id != null && EditSoundClipWindows.ContainsKey(id))
             {
                 EditSoundClipWindows.Remove(id);
                 OnPropertyChanged(nameof(EditSoundClipWindows));

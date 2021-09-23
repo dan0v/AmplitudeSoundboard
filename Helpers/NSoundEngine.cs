@@ -76,7 +76,11 @@ namespace Amplitude.Helpers
             }
 
             string fileType = Path.GetExtension(fileName).ToLower();
-            if (fileType != ".mp3" && fileType != ".wav" && fileType != ".aiff")
+            if (fileType.Length >= 1)
+            {
+                fileType = fileType.Substring(1);
+            }
+            if (BrowseIO.AudioFileTypesFilter.Extensions.Where(a => a.ToLower() == fileType).Count() < 1)
             {
                 string errorMessage = String.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
                 App.WindowManager.ErrorListWindow.AddErrorString(errorMessage);
@@ -108,7 +112,7 @@ namespace Amplitude.Helpers
         /// <param name="source"></param>
         public void Play(SoundClip source)
         {
-            if (soundCache.TryGetValue(source.Id, out CachedSound sound))
+            if (source.Id != null && soundCache.TryGetValue(source.Id, out CachedSound sound))
             {
                 Play(sound, source.Volume);
             }
