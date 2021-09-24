@@ -66,7 +66,7 @@
           </Border>
           
           <!--Volume-->
-          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5" IsEnabled="{Binding HasNameField}">
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
@@ -97,7 +97,7 @@
           </Border>
 
           <!--Audio File-->
-          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5" IsEnabled="{Binding HasNameField}">
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
@@ -105,7 +105,7 @@
               <Label Grid.Column="0" Grid.Row="1" Content="{i18n:Localize ClipAudioFilePathLabel}" HorizontalAlignment="Center" Height="30"></Label>
               <Grid ColumnDefinitions="*,Auto">
                 <TextBox Grid.Column="0" Text="{Binding Model.AudioFilePath}" Watermark="{i18n:Localize ClipFilePathPlaceholder}" ToolTip.Tip="{Binding Model.AudioFilePath}" Margin="5,0,5,5"></TextBox>
-                <Button x:Name="btn_BrowseAudioFilePath" Cursor="Hand" Grid.Column="1" Margin="5,0,5,5">
+                <Button x:Name="btn_BrowseAudioFilePath" Cursor="Hand" Grid.Column="1" Margin="5,0,5,5" ToolTip.Tip="{i18n:Localize ClipFilePathPlaceholder}">
                   <Panel>
                     <Image Source="{Binding ThemeHandler.FileBrowse}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
@@ -115,7 +115,7 @@
           </Border>
 
           <!--Image File-->
-          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5" IsEnabled="{Binding HasNameField}">
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
@@ -123,7 +123,7 @@
               <Label Grid.Column="0" Grid.Row="1" Content="{i18n:Localize ClipImageFilePathLabel}" HorizontalAlignment="Center" Height="30"></Label>
               <Grid ColumnDefinitions="*,Auto">
                 <TextBox Grid.Column="0" Text="{Binding Model.ImageFilePath}" Watermark="{i18n:Localize ClipFilePathPlaceholder}" ToolTip.Tip="{Binding Model.ImageFilePath}" Margin="5,0,5,5"></TextBox>
-                <Button x:Name="btn_BrowseImageFilePath" Cursor="Hand" Grid.Column="1" Margin="5,0,5,5">
+                <Button x:Name="btn_BrowseImageFilePath" Cursor="Hand" Grid.Column="1" ToolTip.Tip="{i18n:Localize ClipFilePathPlaceholder}" Margin="5,0,5,5">
                   <Panel>
                     <Image Source="{Binding ThemeHandler.FileBrowse}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
@@ -133,15 +133,19 @@
           </Border>
 
           <!--Hotkey-->
-          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5" IsEnabled="{Binding HasNameField}">
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
             <StackPanel>
               <Label Content="{i18n:Localize ClipHotkeyLabel}" HorizontalAlignment="Center" Height="30"></Label>
               <Grid ColumnDefinitions="*,Auto">
-                <TextBox Grid.Column="0" Watermark="{i18n:Localize HotkeyPlaceholder}" DockPanel.Dock="Left" IsReadOnly="True" Focusable="False" Text="{Binding Model.Hotkey}" Margin="5,0,5,5"></TextBox>
-                <Button Grid.Column="1" Content="Record" Cursor="Hand" Margin="5,0,5,5" DockPanel.Dock="Right">
+                <TextBox Grid.Column="0" IsReadOnly="True" IsHitTestVisible="False" Watermark="{i18n:Localize HotkeyPlaceholder}" DockPanel.Dock="Left" Focusable="False" Text="{Binding Model.Hotkey}" Margin="5,0,5,5">
+                  <TextBox.Background>
+                    <SolidColorBrush Color="{Binding HotkeyBackgroundColor}"></SolidColorBrush>
+                  </TextBox.Background>
+                </TextBox>
+                <Button Grid.Column="1" Command="{Binding RecordHotkey}" Cursor="Hand" Margin="5,0,5,5" DockPanel.Dock="Right" ToolTip.Tip="{i18n:Localize HotkeyPlaceholder}">
                   <Panel>
                     <Image Source="{Binding ThemeHandler.Keyboard}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
@@ -153,12 +157,12 @@
           <Grid ColumnDefinitions="*,Auto">
             <StackPanel Orientation="Horizontal" Grid.Column="0" IsEnabled="{Binding HasAudioFilePath}">
               <Button Content="{i18n:Localize TestSound}" Cursor="Hand" Command="{Binding PlaySound}" Margin="10,5,5,5"></Button>
-              <Button Content="{i18n:Localize StopAllAudio}" Cursor="Hand" Command="{Binding StopAudio}" Margin="5,5,5,5"></Button>
+              <Button Content="{i18n:Localize StopAllAudio}" Cursor="Hand" Command="{Binding StopAudio}" ToolTip.Tip="{Binding StopAudioHotkey}" Margin="5,5,5,5"></Button>
             </StackPanel>
             <!--Can't put a tooltip on disabled elements and even putting it on the parent doesn't work, so I don't know how we can signal why this button is disabled-->
             <StackPanel Orientation="Horizontal" Grid.Column="1">
               <Button x:Name="btn_Delete" Content="{i18n:Localize DeleteSoundClipButton}" Cursor="Hand" IsEnabled="{Binding Model.Id, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Margin="5,5,10,5" HorizontalAlignment="Left"></Button>
-              <Button Content="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveClip}" IsEnabled="{Binding HasNameField}" Margin="5,5,10,5" HorizontalAlignment="Right"></Button>
+              <Button Content="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveClip}" IsEnabled="{Binding CanSave}" Margin="5,5,10,5" HorizontalAlignment="Right"></Button>
             </StackPanel>
           </Grid>
 

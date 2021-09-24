@@ -19,7 +19,6 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
 using Amplitude.Models;
 using AmplitudeSoundboard;
 using Avalonia;

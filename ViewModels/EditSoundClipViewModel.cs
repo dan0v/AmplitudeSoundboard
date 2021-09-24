@@ -19,17 +19,18 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
 using Amplitude.Models;
 using AmplitudeSoundboard;
-using ReactiveUI;
-using System.Reactive;
+using Avalonia.Media;
 
 namespace Amplitude.ViewModels
 {
     public class EditSoundClipViewModel : ViewModelBase
     {
         static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        private OptionsManager OptionsManager { get => App.OptionsManager; }
+        private string StopAudioHotkey => OptionsManager.Options.GlobalKillAudioHotkey;
+
         private SoundClip _model;
         public SoundClip Model { get => _model; }
 
@@ -55,6 +56,15 @@ namespace Amplitude.ViewModels
             HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
             SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
             Model.PropertyChanged += Model_PropertyChanged;
+            OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
+        }
+
+        private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(OptionsManager.Options))
+            {
+                OnPropertyChanged(nameof(StopAudioHotkey));
+            }
         }
 
         /// <summary>
@@ -73,6 +83,18 @@ namespace Amplitude.ViewModels
             {
                 HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
             }
+            if (e.PropertyName == nameof(Model.Hotkey))
+            {
+                WaitingForHotkey = false;
+            }
+        }
+
+        public bool CanSave
+        {
+            get
+            {
+                return HasNameField && !WaitingForHotkey;
+            }
         }
 
         private bool _hasNameField;
@@ -85,6 +107,23 @@ namespace Amplitude.ViewModels
                 {
                     _hasNameField = value;
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(CanSave));
+                }
+            }
+        }
+
+        private bool _waitingForHotkey;
+        public bool WaitingForHotkey
+        {
+            get => _waitingForHotkey;
+            set
+            {
+                if (value != _waitingForHotkey)
+                {
+                    _waitingForHotkey = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(CanSave));
+                    OnPropertyChanged(nameof(HotkeyBackgroundColor));
                 }
             }
         }
@@ -116,6 +155,8 @@ namespace Amplitude.ViewModels
                 }
             }
         }
+
+        public Color HotkeyBackgroundColor => WaitingForHotkey ? ThemeHandler.TextBoxHighlightedColor : ThemeHandler.TextBoxNormalColor;
 
         public void PlaySound()
         {
@@ -172,9 +213,17 @@ namespace Amplitude.ViewModels
             OnPropertyChanged(nameof(Model));
         }
 
-        public void CreateHotkey()
+        public void RecordHotkey()
         {
+            WaitingForHotkey = true;
+            App.HotkeysManager.RecordSoundClipHotkey(Model);
+        }
 
+        public override void Dispose()
+        {
+            Model.PropertyChanged -= Model_PropertyChanged;
+            OptionsManager.PropertyChanged -= OptionsManager_PropertyChanged;
+            base.Dispose();
         }
     }
 }

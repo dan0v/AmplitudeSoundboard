@@ -101,7 +101,13 @@ namespace Amplitude.Models
                 item.Value.InitializeId(item.Key);
                 ValidateSoundClip(item.Value);
                 PreCacheSoundClipIfRequested(item.Value);
+                RegisterSoundClipHotkey(item.Value);
             }
+        }
+
+        private void RegisterSoundClipHotkey(SoundClip value)
+        {
+            App.HotkeysManager.RegisterHotkeyAtStartup(value.Id, value.Hotkey);
         }
 
         /// <summary>
@@ -146,9 +152,14 @@ namespace Amplitude.Models
                     soundClips.Add(clip.Id, clip);
                 }
             }
-            else if (soundClips.ContainsKey(clip.Id))
+            else if (soundClips.TryGetValue(clip.Id, out SoundClip oldClip))
             {
                 // Overwrite existing clip
+                App.HotkeysManager.RemoveHotkey(clip.Id, oldClip.Hotkey);
+                if (!string.IsNullOrEmpty(clip.Hotkey))
+                {
+                    App.HotkeysManager.RegisterHotkeyAtStartup(clip.Id, clip.Hotkey);
+                }
                 soundClips[clip.Id] = clip;
             }
             else
@@ -160,11 +171,17 @@ namespace Amplitude.Models
             OnPropertyChanged(nameof(FilteredSoundClipList));
         }
 
-        public void RemoveSoundClip(string id)
+        public void RemoveSoundClip(string? id)
         {
-            // TODO unregister hotkey
-            if (soundClips.ContainsKey(id))
+            if (string.IsNullOrEmpty(id))
             {
+                return;
+            }
+
+            if (soundClips.TryGetValue(id, out SoundClip clip))
+            {
+                App.HotkeysManager.RemoveHotkey(id, clip.Hotkey);
+
                 App.SoundEngine.ClearSoundClipCache(id);
                 soundClips.Remove(id);
 
@@ -203,8 +220,13 @@ namespace Amplitude.Models
             return true;
         }
 
-        public SoundClip? GetClip(string id, bool ignoreErrors = false) 
+        public SoundClip? GetClip(string? id, bool ignoreErrors = false) 
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return null;
+            }
+
             if (soundClips.TryGetValue(id, out SoundClip clip))
             {
                 return clip;
@@ -216,10 +238,11 @@ namespace Amplitude.Models
             return null;
         }
 
-        public Dictionary<string, SoundClip>? RetrieveSavedSoundClips() {
+        public Dictionary<string, SoundClip>? RetrieveSavedSoundClips()
+        {
             string? clipsInJson = RetrieveJSONFromFile();
 
-            if (clipsInJson != null)
+            if (!string.IsNullOrEmpty(clipsInJson))
             {
                 return ConvertClipsFromJSON(clipsInJson);
             }
@@ -251,7 +274,7 @@ namespace Amplitude.Models
 
         private string ConvertClipsToJSON()
         {
-            return JsonConvert.SerializeObject(soundClips);
+            return JsonConvert.SerializeObject(soundClips, Formatting.Indented);
         }
 
         private string? RetrieveJSONFromFile()

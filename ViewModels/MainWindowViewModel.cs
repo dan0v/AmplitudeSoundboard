@@ -19,11 +19,9 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
 using Amplitude.Models;
 using Amplitude.Views;
 using AmplitudeSoundboard;
-using Avalonia.Controls;
 
 namespace Amplitude.ViewModels
 {
@@ -36,9 +34,26 @@ namespace Amplitude.ViewModels
 
         public bool GlobalSettingsWindowOpen { get => App.WindowManager.GlobalSettingsWindow != null; }
 
+        private OptionsManager OptionsManager { get => App.OptionsManager; }
+
+        private string StopAudioHotkey => OptionsManager.Options.GlobalKillAudioHotkey;
+
+        public MainWindowViewModel()
+        {
+            OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
+        }
+
+        private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(OptionsManager.Options))
+            {
+                OnPropertyChanged(nameof(StopAudioHotkey));
+            }
+        }
+
         public void ShowList()
         {
-            SoundClipList window = App.WindowManager.SoundClipListWindow;
+            SoundClipList? window = App.WindowManager.SoundClipListWindow;
             if (window != null)
             {
                 window.Activate();
@@ -57,7 +72,7 @@ namespace Amplitude.ViewModels
 
         public void ShowGlobalSettings()
         {
-            GlobalSettings window = App.WindowManager.GlobalSettingsWindow;
+            GlobalSettings? window = App.WindowManager.GlobalSettingsWindow;
             if (window != null)
             {
                 window.Activate();
@@ -80,5 +95,10 @@ namespace Amplitude.ViewModels
             App.SoundEngine.Reset(true);
         }
 
+        public override void Dispose()
+        {
+            OptionsManager.PropertyChanged -= OptionsManager_PropertyChanged;
+            base.Dispose();
+        }
     }
 }

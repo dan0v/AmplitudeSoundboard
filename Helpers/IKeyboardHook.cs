@@ -1,4 +1,4 @@
-/*
+﻿/*
     AmplitudeSoundboard
     Copyright (C) 2021 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
@@ -19,34 +19,14 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using AmplitudeSoundboard;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using System.ComponentModel;
+using Amplitude.Models;
+using System;
 
-namespace Amplitude.Views
+namespace Amplitude.Helpers
 {
-    public partial class SoundClipList : Window
+    public interface IKeyboardHook : IDisposable
     {
-        public SoundClipList()
-        {
-            InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
-            App.WindowManager.SoundClipListWindow = this;
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            App.WindowManager.SoundClipListWindow = null;
-            base.OnClosing(e);
-        }
+        public void SetSoundClipHotkey(SoundClip clip, Action<SoundClip, string> callback);
+        public void SetGlobalStopHotkey(Options options, Action<Options, string> callback);
     }
 }

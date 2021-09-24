@@ -63,7 +63,7 @@
                     </Border.BorderBrush>
                     <Grid ColumnDefinitions="*,Auto,Auto">
                       <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="{Binding Name}"></TextBlock>
-                      <Button Grid.Column="1" Cursor="Hand" Command="{Binding PlayAudio}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize PlaySound}" Margin="5,0,5,0">
+                      <Button Grid.Column="1" Cursor="Hand" Command="{Binding PlayAudio}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{Binding Hotkey}" Margin="5,0,5,0">
                         <Panel>
                           <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.Play}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Panel>

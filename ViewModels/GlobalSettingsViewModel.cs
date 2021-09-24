@@ -19,9 +19,9 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
 using Amplitude.Models;
 using AmplitudeSoundboard;
+using Avalonia.Media;
 
 namespace Amplitude.ViewModels
 {
@@ -34,12 +34,48 @@ namespace Amplitude.ViewModels
 
         public GlobalSettingsViewModel()
         {
-            _model = App.Options.ShallowCopy();
+            _model = App.OptionsManager.Options.ShallowCopy();
+            Model.PropertyChanged += Model_PropertyChanged;
         }
 
-        public void CreateHotkey()
+        private void Model_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            if (e.PropertyName == nameof(Model.GlobalKillAudioHotkey))
+            {
+                WaitingForHotkey = false;
+            }
+        }
 
+        public bool CanSave
+        {
+            get
+            {
+                return !WaitingForHotkey;
+            }
+        }
+
+        private bool _waitingForHotkey;
+        public bool WaitingForHotkey
+        {
+            get => _waitingForHotkey;
+            set
+            {
+                if (value != _waitingForHotkey)
+                {
+                    _waitingForHotkey = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(CanSave));
+                    OnPropertyChanged(nameof(HotkeyBackgroundColor));
+                }
+            }
+        }
+
+        public Color HotkeyBackgroundColor => WaitingForHotkey ? ThemeHandler.TextBoxHighlightedColor : ThemeHandler.TextBoxNormalColor;
+
+        public void RecordHotkey()
+        {
+            WaitingForHotkey = true;
+            App.HotkeysManager.RecordGlobalStopSoundHotkey(Model);
         }
 
         public void IncreaseVolumeSmall()
@@ -59,10 +95,15 @@ namespace Amplitude.ViewModels
 
         public void SaveOptions()
         {
-            Model.SaveOptions();
-            App.Options = Model;
+            App.OptionsManager.SaveAndOverwriteOptions(Model);
             _model = Model.ShallowCopy();
             OnPropertyChanged(nameof(Model));
+        }
+
+        public override void Dispose()
+        {
+            Model.PropertyChanged -= Model_PropertyChanged;
+            base.Dispose();
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Amplitude.Models
 
         private ThemeHandler()
         {
-            _selectedTheme = App.Options.Theme;
+            _selectedTheme = App.OptionsManager.Options.Theme;
             RefreshTheme();
         }
 
@@ -104,7 +104,29 @@ namespace Amplitude.Models
             }
         }
 
-        //public Brush BorderBrush => new Brush();
+        public Color TextBoxNormalColor
+        {
+            get
+            {
+                switch (SelectedTheme)
+                {
+                    case "Light":
+                        return Color.Parse("#66ffffff");
+                    case "Dark":
+                        return Color.Parse("#66000000");
+                    default:
+                        throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
+                }
+            }
+        }
+
+        public Color TextBoxHighlightedColor
+        {
+            get
+            {
+                return SliderForeground;
+            }
+        }
 
         public Bitmap ArrowLeft { get => getBitmap(folder + "/ArrowLeft.png"); }
         public Bitmap ArrowRight { get => getBitmap(folder + "/ArrowRight.png"); }

@@ -112,7 +112,7 @@ namespace Amplitude.Helpers
         /// <param name="source"></param>
         public void Play(SoundClip source)
         {
-            if (source.Id != null && soundCache.TryGetValue(source.Id, out CachedSound sound))
+            if (!string.IsNullOrEmpty(source.Id) && soundCache.TryGetValue(source.Id, out CachedSound sound))
             {
                 Play(sound, source.Volume);
             }
@@ -129,7 +129,7 @@ namespace Amplitude.Helpers
         /// <param name="sound"></param>
         private void Play(CachedSound sound, int volume)
         {
-            sound.Volume = (volume / 100f) *(App.Options.MasterVolume / 100f);
+            sound.Volume = (volume / 100f) *(App.OptionsManager.Options.MasterVolume / 100f);
             AddMixerInput(new CachedSoundSampleProvider(sound));
         }
 
@@ -154,7 +154,7 @@ namespace Amplitude.Helpers
             {
                 CachedSound cachedSound = new CachedSound(input);
 
-                if (id != null)
+                if (!string.IsNullOrEmpty(id))
                 {
                     // Recheck dictionary just in case
                     if (!soundCache.ContainsKey(id))
@@ -167,7 +167,7 @@ namespace Amplitude.Helpers
             }
             else
             {
-                input.Volume = (volume / 100f) * (App.Options.MasterVolume / 100f);
+                input.Volume = (volume / 100f) * (App.OptionsManager.Options.MasterVolume / 100f);
                 AddMixerInput(new AutoDisposeFileReader(input));
             }
         }
@@ -217,7 +217,7 @@ namespace Amplitude.Helpers
 
         public void ClearSoundClipCache(string id)
         {
-            if (id != null && soundCache.ContainsKey(id))
+            if (!string.IsNullOrEmpty(id) && soundCache.ContainsKey(id))
             {
                 soundCache.Remove(id);
             }

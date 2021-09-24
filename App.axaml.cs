@@ -56,15 +56,15 @@ namespace AmplitudeSoundboard
 
         public static WindowManager WindowManager => WindowManager.Instance;
 
-        public static Options Options = Options.RetrieveOptionsFromJSON();
+        public static OptionsManager OptionsManager => OptionsManager.Instance;
 
 #if Windows
         public static ISoundEngine SoundEngine => NSoundEngine.Instance;
 		
-        public static WinKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
+        public static IKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
 #else
         public static ISoundEngine SoundEngine => TempSoundEngine.Instance;
-        //public static WinKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
+        //public static IKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
 #endif
 
         public override void Initialize()
@@ -80,6 +80,15 @@ namespace AmplitudeSoundboard
                 {
                     DataContext = new MainWindowViewModel(),
                 };
+
+                // Initialize managers to make sure they are active
+                var se = SoundEngine;
+                var k = KeyboardHook;
+                var o = OptionsManager;
+                var s = SoundClipManager;
+                var h = HotkeysManager;
+                var t = ThemeHandler;
+                var w = WindowManager;
             }
 
             base.OnFrameworkInitializationCompleted();

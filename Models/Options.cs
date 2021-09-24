@@ -19,16 +19,9 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using AmplitudeSoundboard;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Amplitude.Models
 {
@@ -90,7 +83,7 @@ namespace Amplitude.Models
             }
         }
 
-        private string _globalKillAudioHotkey;
+        private string _globalKillAudioHotkey = "";
         public string GlobalKillAudioHotkey
         {
             get => _globalKillAudioHotkey;
@@ -99,42 +92,12 @@ namespace Amplitude.Models
                 if (value != _globalKillAudioHotkey)
                 {
                     _globalKillAudioHotkey = value;
-                    OnPropertyChanged();
                 }
+                OnPropertyChanged(); // Alert even if not changed
             }
         }
 
         public Options() { }
-
-        public static Options RetrieveOptionsFromJSON()
-        {
-            try
-            {
-                if (File.Exists(Path.Join(App.APP_STORAGE, @"options.json")))
-                {
-                    string json = File.ReadAllText(Path.Join(App.APP_STORAGE, @"options.json"));
-                    return (Options?)JsonConvert.DeserializeObject(json, typeof(Options));
-                }
-            }
-            catch (Exception e)
-            {
-                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
-            }
-            return new Options();
-        }
-
-        public void SaveOptions()
-        {
-            App.ThemeHandler.SelectedTheme = Theme;
-            try
-            {
-                File.WriteAllText(Path.Join(App.APP_STORAGE, @"options.json"), ToJSON());
-            }
-            catch (Exception e)
-            {
-                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
-            }
-        }
 
         public string ToJSON()
         {

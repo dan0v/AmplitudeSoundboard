@@ -63,7 +63,7 @@ namespace Amplitude.Views
         {
             if (e.Property == TextBlock.TextProperty)
             {
-                if (e.NewValue != null && e.NewValue != e.OldValue)
+                if (!string.IsNullOrEmpty((string)e.NewValue) && e.NewValue != e.OldValue)
                 {
                     App.WindowManager.OpenedEditSoundClipWindow(((EditSoundClipViewModel)this.DataContext).Model.Id, this);
                 }

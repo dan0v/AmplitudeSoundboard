@@ -23,23 +23,14 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System;
+using Amplitude.Models;
+using AmplitudeSoundboard;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Amplitude.Helpers
 {
     public class HotkeysManager
     {
-        /*
-         * Functionality:
-         *  List of hotkeys
-         *  Register a hotkey
-         *  Remove a hotkey
-         */
-
         private static HotkeysManager _instance;
         public static HotkeysManager Instance
         {
@@ -53,6 +44,9 @@ namespace Amplitude.Helpers
             }
         }
 
+        public const string UNBIND_HOTKEY = "UNBIND_HOTKEY";
+        public const string MASTER_STOP_SOUND_HOTKEY = "MASTER_STOP_SOUND_HOTKEY";
+
         private HotkeysManager()
         {
 
@@ -60,8 +54,12 @@ namespace Amplitude.Helpers
 
         public Dictionary<string, List<string>> Hotkeys = new Dictionary<string, List<string>>();
 
-        void RegisterHotkey(string hotkeyString, string id)
+        public void RegisterHotkeyAtStartup(string? id, string hotkeyString)
         {
+            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(hotkeyString))
+            {
+                return;
+            }
 
             // Add hotkey to dict
             if (Hotkeys.TryGetValue(hotkeyString, out List<string> val))
@@ -72,11 +70,65 @@ namespace Amplitude.Helpers
             {
                 Hotkeys.Add(hotkeyString, new List<string> { id });
             }
-
         }
 
-        void RemoveHotkey(string hotkeyString, string id)
+        public void RecordGlobalStopSoundHotkey(Options options)
         {
+            App.KeyboardHook.SetGlobalStopHotkey(options, RecordGlobalStopSoundHotkeyCallback);
+        }
+
+        public void RecordGlobalStopSoundHotkeyCallback(Options options, string hotkeyString)
+        {
+            if (string.IsNullOrEmpty(hotkeyString))
+            {
+                return;
+            }
+
+            if (options != null)
+            {
+                if (hotkeyString == UNBIND_HOTKEY)
+                {
+                    options.GlobalKillAudioHotkey = "";
+                }
+                else
+                {
+                    options.GlobalKillAudioHotkey = hotkeyString;
+                }
+            }
+        }
+
+        public void RecordSoundClipHotkey(SoundClip clip)
+        {
+            App.KeyboardHook.SetSoundClipHotkey(clip, RecordSoundClipHotkeyCallback);
+        }
+
+        public void RecordSoundClipHotkeyCallback(SoundClip clip, string hotkeyString)
+        {
+            if (string.IsNullOrEmpty(hotkeyString))
+            {
+                return;
+            }
+
+            if (clip != null)
+            {
+                if (hotkeyString == UNBIND_HOTKEY)
+                {
+                    clip.Hotkey = "";
+                }
+                else
+                {
+                    clip.Hotkey = hotkeyString;
+                }
+            }
+        }
+
+        public void RemoveHotkey(string? id, string? hotkeyString)
+        {
+            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(hotkeyString))
+            {
+                return;
+            }
+
             if (Hotkeys.TryGetValue(hotkeyString, out List<string> val))
             {
                 if (val.Count <= 1)
@@ -88,6 +140,21 @@ namespace Amplitude.Helpers
                     val.Remove(id);
                 }
             }
+
+            if (id != MASTER_STOP_SOUND_HOTKEY)
+            {
+                SoundClip clip = App.SoundClipManager.GetClip(id);
+
+                if (clip != null)
+                {
+                    clip.Hotkey = "";
+                }
+            }
+        }
+
+        public static void StopAllSound()
+        {
+            App.SoundEngine.Reset(true);
         }
     }
 }

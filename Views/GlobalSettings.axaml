@@ -102,8 +102,12 @@
             <StackPanel>
               <Label Content="{i18n:Localize StopAllAudioHotkeyLabel}" HorizontalAlignment="Center" Height="30"></Label>
               <Grid ColumnDefinitions="*,Auto">
-                <TextBox Grid.Column="0" Watermark="{i18n:Localize HotkeyPlaceholder}" DockPanel.Dock="Left" IsReadOnly="True" Focusable="False" Text="{Binding Model.GlobalKillAudioHotkey}" Margin="5,0,5,5"></TextBox>
-                <Button Grid.Column="1" Content="Record" Cursor="Hand" Margin="5,0,5,5" DockPanel.Dock="Right">
+                <TextBox IsHitTestVisible="False" Grid.Column="0" Watermark="{i18n:Localize HotkeyPlaceholder}" DockPanel.Dock="Left" IsReadOnly="True" Focusable="False" Text="{Binding Model.GlobalKillAudioHotkey}" Margin="5,0,5,5">
+                <TextBox.Background>
+                  <SolidColorBrush Color="{Binding HotkeyBackgroundColor}"></SolidColorBrush>
+                </TextBox.Background>
+                </TextBox>
+                <Button Grid.Column="1" Cursor="Hand" Margin="5,0,5,5" ToolTip.Tip="{i18n:Localize HotkeyPlaceholder}" DockPanel.Dock="Right" Command="{Binding RecordHotkey}">
                   <Panel>
                     <Image Source="{Binding ThemeHandler.Keyboard}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
@@ -117,7 +121,7 @@
             <!--Can't put a tooltip on disabled elements and even putting it on the parent doesn't work, so I don't know how we can signal why this button is disabled-->
             <Panel Grid.Column="1">
               <!--ToolTip.Tip="{Binding SaveButtonTooltip}">-->
-              <Button Content="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveOptions}" Margin="5,5,10,5" HorizontalAlignment="Right"></Button>
+              <Button Content="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveOptions}" IsEnabled="{Binding CanSave}" Margin="5,5,10,5" HorizontalAlignment="Right"></Button>
             </Panel>
           </Grid>
         </StackPanel>

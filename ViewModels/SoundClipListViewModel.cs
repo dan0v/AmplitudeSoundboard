@@ -19,13 +19,10 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
 using Amplitude.Models;
 using Amplitude.Views;
 using AmplitudeSoundboard;
 using Avalonia.Controls;
-using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Amplitude.ViewModels
 {

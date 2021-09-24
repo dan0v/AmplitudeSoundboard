@@ -31,6 +31,8 @@ namespace Amplitude.Models
     public class SoundClip : INotifyPropertyChanged
     {
         private string _id = null;
+        // Do not write to JSON, since it is stored in dictionary anyway
+        [JsonIgnore]
         public string Id
         {
             get => _id;
@@ -38,7 +40,7 @@ namespace Amplitude.Models
 
         public void InitializeId(string newId)
         {
-            if (Id == null)
+            if (string.IsNullOrEmpty(Id))
             {
                 _id = newId;
                 OnPropertyChanged(nameof(Id));
@@ -85,8 +87,8 @@ namespace Amplitude.Models
                 if (value != _hotkey)
                 {
                     _hotkey = value;
-                    OnPropertyChanged();
                 }
+                OnPropertyChanged(); // Alert even if not changed
             }
         }
 
@@ -164,7 +166,7 @@ namespace Amplitude.Models
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        public virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
