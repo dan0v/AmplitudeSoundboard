@@ -313,6 +313,24 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is a new version available.
+        /// </summary>
+        internal static string NewVersionAvailable {
+            get {
+                return ResourceManager.GetString("NewVersionAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0} can be downloaded from the releases page on GitHub..
+        /// </summary>
+        internal static string NewVersionCanBeDownloaded {
+            get {
+                return ResourceManager.GetString("NewVersionCanBeDownloaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notice.
         /// </summary>
         internal static string NoticeLabel {
@@ -417,6 +435,24 @@ namespace Amplitude.Localization {
         internal static string ThemeLabel {
             get {
                 return ResourceManager.GetString("ThemeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Available.
+        /// </summary>
+        internal static string UpdatePromptTitle {
+            get {
+                return ResourceManager.GetString("UpdatePromptTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View releases.
+        /// </summary>
+        internal static string ViewReleases {
+            get {
+                return ResourceManager.GetString("ViewReleases", resourceCulture);
             }
         }
     }

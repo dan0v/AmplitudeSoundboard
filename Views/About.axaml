@@ -44,7 +44,7 @@
       <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
 
-      <TextBlock Text="{i18n:Localize AboutTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+      <TextBlock Text="{i18n:Localize AboutTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
       <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
         <DockPanel Grid.Row="0">
@@ -88,9 +88,9 @@
         </Grid>
         </DockPanel>
 
-        <Grid Grid.Row="1" ColumnDefinitions="*,Auto">
-          <TextBlock Grid.Column="0" x:Name="txt_blk_Version" HorizontalAlignment="Left" Text="Version X.X.X" Margin="10,10,10,5" VerticalAlignment="Center"></TextBlock>
-          <Button Grid.Column="1" x:Name="btn_Dismiss" Cursor="Hand" Content="{i18n:Localize DismissWindow}" Margin="10,10,10,5" HorizontalAlignment="Right"></Button>
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Margin="10,0,10,10">
+          <TextBlock Grid.Column="0" x:Name="txt_blk_Version" HorizontalAlignment="Left" Text="Version X.X.X" VerticalAlignment="Center"></TextBlock>
+          <Button Grid.Column="1" Command="{Binding Dismiss}" Cursor="Hand" Content="{i18n:Localize DismissWindow}" HorizontalAlignment="Right"></Button>
         </Grid>
         </Grid>
     </Panel>

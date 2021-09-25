@@ -31,6 +31,7 @@ using static System.Environment;
 using System.Reflection;
 using System;
 using System.Diagnostics;
+using System.Net.Http;
 
 namespace AmplitudeSoundboard
 {
@@ -75,6 +76,9 @@ namespace AmplitudeSoundboard
             }
         }
 
+        public const string VERSION_CHECK_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/version.txt";
+        public const string RELEASES_PAGE = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/";
+
 #if Windows
         public static ISoundEngine SoundEngine => NSoundEngine.Instance;
 		
@@ -106,9 +110,32 @@ namespace AmplitudeSoundboard
                 var h = HotkeysManager;
                 var t = ThemeHandler;
                 var w = WindowManager;
+
+                CheckForUpdates();
             }
 
             base.OnFrameworkInitializationCompleted();
+        }
+
+        private async void CheckForUpdates()
+        {
+            try
+            {
+                HttpResponseMessage response = await new HttpClient().GetAsync(VERSION_CHECK_URL);
+                response.EnsureSuccessStatusCode();
+                string newVer = await response.Content.ReadAsStringAsync();
+                newVer = newVer.Trim();
+                if (!string.IsNullOrEmpty(newVer) && newVer != VERSION.Trim())
+                {
+                    UpdatePrompt updateDialog = new UpdatePrompt(newVer);
+                    updateDialog.Show();
+                    updateDialog.Activate();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
     }
 }

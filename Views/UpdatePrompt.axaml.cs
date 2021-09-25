@@ -19,6 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Localization;
 using Amplitude.Models;
 using AmplitudeSoundboard;
 using Avalonia;
@@ -33,56 +34,43 @@ using System.IO;
 
 namespace Amplitude.Views
 {
-    public partial class About : Window
+    public partial class UpdatePrompt : Window
     {
-        private TextBox txt_bx_License;
-        private TextBox txt_bx_Notice;
-        private TextBlock txt_blk_Copyright;
-        private TextBlock txt_blk_Version;
-        private TextBlock txt_blk_URL;
-        private string projectUrl = "https://git.dan0v.com/AmplitudeSoundboard";
-
         public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        private TextBlock txt_blk_Prompt;
 
-        public About()
+        public UpdatePrompt()
         {
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
 #endif
-            this.txt_bx_License = this.FindControl<TextBox>("txt_bx_License");
-            this.txt_bx_License.Text = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Doc", "LICENSE.txt"));
-
-            this.txt_bx_Notice = this.FindControl<TextBox>("txt_bx_Notice");
-            this.txt_bx_Notice.Text = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Doc", "NOTICE.txt"));
-
-            this.txt_blk_Copyright = this.FindControl<TextBlock>("txt_blk_Copyright");
-            this.txt_blk_Copyright.Text = @"AmplitudeSoundboard
-Copyright © 2021 dan0v";
-
-            this.txt_blk_Version = this.FindControl<TextBlock>("txt_blk_Version");
-            this.txt_blk_Version.Text = "Version " + App.VERSION;
-
-            this.txt_blk_URL = this.FindControl<TextBlock>("txt_blk_URL");
-            this.txt_blk_URL.Text = projectUrl;
-            this.txt_blk_URL.PointerPressed += Txt_blk_URL_PointerPressed;
-
         }
 
-        private void Txt_blk_URL_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+        public UpdatePrompt(string newVersion)
+        {
+            InitializeComponent();
+#if DEBUG
+            this.AttachDevTools();
+#endif
+            this.txt_blk_Prompt = this.FindControl<TextBlock>("txt_blk_Prompt");
+            txt_blk_Prompt.Text = string.Format(Localizer.Instance["NewVersionCanBeDownloaded"], newVersion);
+        }
+
+        private void GoToReleases()
         {
             try
             {
                 ProcessStartInfo url = new ProcessStartInfo
                 {
-                    FileName = projectUrl,
+                    FileName = App.RELEASES_PAGE,
                     UseShellExecute = true
                 };
                 Process.Start(url);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                App.WindowManager.ErrorListWindow.AddErrorString(ex.Message);
+                Debug.WriteLine(e);
             }
         }
 
@@ -100,8 +88,6 @@ Copyright © 2021 dan0v";
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            App.WindowManager.AboutWindow = null;
-            this.txt_blk_URL.PointerPressed -= Txt_blk_URL_PointerPressed;
             base.OnClosing(e);
         }
     }

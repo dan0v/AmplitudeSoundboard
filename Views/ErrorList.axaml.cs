@@ -34,7 +34,6 @@ namespace Amplitude.Views
     public partial class ErrorList : Window
     {
         private StackPanel sp_Errors;
-        private Button btn_Dismiss;
 
         public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
 
@@ -44,11 +43,7 @@ namespace Amplitude.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
-            this.btn_Dismiss = this.FindControl<Button>("btn_Dismiss");
             this.sp_Errors = this.FindControl<StackPanel>("sp_Errors");
-
-            this.btn_Dismiss.Click += Dismiss;
-
         }
 
         public void AddErrorString(string error)
@@ -124,7 +119,7 @@ namespace Amplitude.Views
             }
         }
 
-        private void Dismiss(object? sender, RoutedEventArgs args)
+        private void Dismiss()
         {
             this.sp_Errors.Children.Clear();
             this.Hide();

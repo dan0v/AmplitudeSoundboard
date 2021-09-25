@@ -22,12 +22,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
+        mc:Ignorable="d" d:DesignWidth="420" d:DesignHeight="170"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
-        x:Class="Amplitude.Views.ErrorList"
+        x:Class="Amplitude.Views.UpdatePrompt"
         Icon="/Assets/Icon.ico"
-        Title="{i18n:Localize ErrorListTitle}"
-        Width="400" Height="400" MinWidth="360" MinHeight="200"
+        Title="{i18n:Localize UpdatePromptTitle}"
+        Width="420" Height="170" MinWidth="420" MinHeight="170" MaxHeight="170" MaxWidth="420"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
@@ -44,14 +44,20 @@
       <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
 
-      <TextBlock Text="{i18n:Localize ErrorListTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+      <TextBlock Text="{i18n:Localize UpdatePromptTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
       <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
-        <ScrollViewer>
-          <StackPanel x:Name="sp_Errors"></StackPanel>
-        </ScrollViewer>
-
-        <Button Grid.Row="1" Command="{Binding Dismiss}" Cursor="Hand" Content="{i18n:Localize DismissWindow}" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Button>
+        <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+          <Border.BorderBrush>
+            <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+          </Border.BorderBrush>
+            <Grid RowDefinitions="*,Auto">
+              <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{i18n:Localize NewVersionAvailable}" Margin="10"></TextBlock>
+              <TextBlock x:Name="txt_blk_Prompt" Grid.Row="1" TextWrapping="Wrap" Margin="10" TextAlignment="Center" Text="Version xxx can be downloaded from the releases page on GitHub"></TextBlock>
+            </Grid>
+          </Border>
+          <Button Grid.Row="1" Content="{i18n:Localize ViewReleases}" Command="{Binding GoToReleases}" Cursor="Hand" HorizontalAlignment="Left" Margin="10"></Button>
+          <Button Grid.Row="1" Content="{i18n:Localize DismissWindow}" Command="{Binding Dismiss}" Cursor="Hand" HorizontalAlignment="Right" Margin="10" ></Button>
       </Grid>
     </Panel>
   

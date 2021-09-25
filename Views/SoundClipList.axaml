@@ -48,7 +48,7 @@
       <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
       
-      <TextBlock FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="{i18n:Localize SoundClipListTitle}" FontWeight="Bold" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+      <TextBlock FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="{i18n:Localize SoundClipListTitle}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
       
       <Grid Margin="5,30,5,0" RowDefinitions="Auto,*,Auto">
         <TextBox Grid.Row="0" Margin="10,0,10,5" Watermark="{i18n:Localize SoundClipListSearch}" Text="{Binding Manager.SoundClipListFilter}"></TextBox>

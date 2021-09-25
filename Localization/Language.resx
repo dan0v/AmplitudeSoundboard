@@ -201,6 +201,12 @@
   <data name="NewSoundClip" xml:space="preserve">
     <value>New sound clip</value>
   </data>
+  <data name="NewVersionAvailable" xml:space="preserve">
+    <value>There is a new version available</value>
+  </data>
+  <data name="NewVersionCanBeDownloaded" xml:space="preserve">
+    <value>Version {0} can be downloaded from the releases page on GitHub.</value>
+  </data>
   <data name="NoticeLabel" xml:space="preserve">
     <value>Notice</value>
   </data>
@@ -236,5 +242,11 @@
   </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Theme</value>
+  </data>
+  <data name="UpdatePromptTitle" xml:space="preserve">
+    <value>Update Available</value>
+  </data>
+  <data name="ViewReleases" xml:space="preserve">
+    <value>View releases</value>
   </data>
 </root>
