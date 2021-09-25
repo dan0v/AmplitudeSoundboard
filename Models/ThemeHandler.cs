@@ -63,7 +63,7 @@ namespace Amplitude.Models
                 switch (SelectedTheme)
                 {
                     case "Light":
-                        return Color.Parse("#252A36");
+                        return Color.Parse("#F08A5D");
                     case "Dark":
                         return Color.Parse("#F08A5D");
                     default:
@@ -79,7 +79,7 @@ namespace Amplitude.Models
                 switch (SelectedTheme)
                 {
                     case "Light":
-                        return Color.Parse("#F08A5D");
+                        return Color.Parse("#252A36");
                     case "Dark":
                         return Color.Parse("#EBAEFF");
                     default:
@@ -153,7 +153,7 @@ namespace Amplitude.Models
         private static ExperimentalAcrylicMaterial darkAcrylic = new ExperimentalAcrylicMaterial
         {
             BackgroundSource = AcrylicBackgroundSource.Digger,
-            TintColor = Color.Parse("Black"),
+            TintColor = Color.Parse("#0b1932"), // Should be #252A36, but material shifts the color, so current value unshifts it 
             TintOpacity = 1,
             MaterialOpacity = 0.8d
         };
