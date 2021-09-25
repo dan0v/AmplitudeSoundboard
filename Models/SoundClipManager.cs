@@ -27,6 +27,7 @@ using System.IO;
 using AmplitudeSoundboard;
 using System.Collections.Generic;
 using System.Linq;
+using Amplitude.Helpers;
 
 namespace Amplitude.Models
 {
@@ -124,6 +125,12 @@ namespace Amplitude.Models
             {
                 App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_IMAGE_FILE);
             }
+            if (string.IsNullOrEmpty(clip.DeviceName))
+            {
+                clip.DeviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
+            }
+
+            App.SoundEngine.CheckDeviceExistsAndGenerateErrors(clip);
         }
 
         private void PreCacheSoundClipIfRequested(SoundClip clip)
@@ -150,6 +157,10 @@ namespace Amplitude.Models
                 if (GenerateAndSetId(clip))
                 {
                     soundClips.Add(clip.Id, clip);
+                    if (!string.IsNullOrEmpty(clip.Hotkey))
+                    {
+                        App.HotkeysManager.RegisterHotkeyAtStartup(clip.Id, clip.Hotkey);
+                    }
                 }
             }
             else if (soundClips.TryGetValue(clip.Id, out SoundClip oldClip))

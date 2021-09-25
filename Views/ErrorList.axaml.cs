@@ -26,6 +26,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using System;
 using System.ComponentModel;
 
 namespace Amplitude.Views
@@ -80,21 +81,39 @@ namespace Amplitude.Views
             switch (errorType)
             {
                 case ErrorType.BAD_IMAGE_FORMAT:
-                    txt_error.Text = string.Format(Localization.Localizer.Instance["FileBadFormatString"], clip.ImageFilePath);
+                    txt_error.Text = string.Format(Localization.Localizer.Instance["SoundClipError"], clip.Name, string.Format(Localization.Localizer.Instance["FileBadFormatString"], clip.ImageFilePath));
                     break;
                 case ErrorType.BAD_AUDIO_FORMAT:
-                    txt_error.Text = string.Format(Localization.Localizer.Instance["FileBadFormatString"], clip.AudioFilePath);
+                    txt_error.Text = string.Format(Localization.Localizer.Instance["SoundClipError"], clip.Name, string.Format(Localization.Localizer.Instance["FileBadFormatString"], clip.AudioFilePath));
                     break;
                 case ErrorType.MISSING_IMAGE_FILE:
-                    txt_error.Text = string.Format(Localization.Localizer.Instance["FileMissingString"], clip.ImageFilePath);
+                    txt_error.Text = string.Format(Localization.Localizer.Instance["SoundClipError"], clip.Name, string.Format(Localization.Localizer.Instance["FileMissingString"], clip.ImageFilePath));
                     break;
                 case ErrorType.MISSING_AUDIO_FILE:
-                    txt_error.Text = string.Format(Localization.Localizer.Instance["FileMissingString"], clip.AudioFilePath);
+                    txt_error.Text = string.Format(Localization.Localizer.Instance["SoundClipError"], clip.Name, string.Format(Localization.Localizer.Instance["FileMissingString"], clip.AudioFilePath));
+                    break;
+                case ErrorType.MISSING_DEVICE:
+                    txt_error.Text = string.Format(Localization.Localizer.Instance["SoundClipError"], clip.Name, string.Format(Localization.Localizer.Instance["MissingDeviceString"], clip.DeviceName));
                     break;
             }
 
+            string[] lines = txt_error.Text.Split('\n');
+
+            if (lines.Length > 1)
+            {
+                txt_error.Text = "";
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    txt_error.Text += (i < lines.Length - 1) ? lines[i] + Environment.NewLine : lines[i];
+                }
+            }
+
+            txt_error.Margin = Thickness.Parse("5,5,5,5");
             Border border = new Border();
-            border.BorderThickness = Thickness.Parse("1");
+            border.BorderThickness = Thickness.Parse("2,1,2,1");
+            // TODO this doesn't currently update when theme is switched during runtime
+            border.BorderBrush = new SolidColorBrush(ThemeHandler.BorderColor);
+            border.CornerRadius = CornerRadius.Parse("5");
             border.Child = txt_error;
 
             this.sp_Errors.Children.Add(border);
@@ -124,6 +143,7 @@ namespace Amplitude.Views
             MISSING_AUDIO_FILE,
             BAD_AUDIO_FORMAT,
             BAD_IMAGE_FORMAT,
+            MISSING_DEVICE,
         }
 
         protected override void OnClosing(CancelEventArgs e)

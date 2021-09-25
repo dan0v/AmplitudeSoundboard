@@ -189,8 +189,14 @@
   <data name="MasterVolumeLabel" xml:space="preserve">
     <value>Master volume</value>
   </data>
+  <data name="MissingDeviceString" xml:space="preserve">
+    <value>The output device "{0}" is missing and cannot be used for playback!</value>
+  </data>
   <data name="NewSoundClip" xml:space="preserve">
     <value>New sound clip</value>
+  </data>
+  <data name="OutputDeviceLabel" xml:space="preserve">
+    <value>Output device</value>
   </data>
   <data name="PlaySound" xml:space="preserve">
     <value>Play sound</value>
@@ -200,6 +206,9 @@
   </data>
   <data name="SaveButtonDisabledTooltip" xml:space="preserve">
     <value>Please enter a Sound Clip name</value>
+  </data>
+  <data name="SoundClipError" xml:space="preserve">
+    <value>The Sound Clip "{0}" has errors:\\n{1}</value>
   </data>
   <data name="SoundClipListSearch" xml:space="preserve">
     <value>Search...</value>

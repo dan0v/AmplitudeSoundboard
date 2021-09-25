@@ -23,12 +23,12 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="560"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="630"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.EditSoundClip"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize EditSoundClipTitle}"
-        Width="400" Height="560" MinWidth="400" MinHeight="375"
+        Width="400" Height="630" MinWidth="400" MinHeight="375"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
@@ -96,6 +96,19 @@
             </Grid>
           </Border>
 
+          <!--Device selection-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+            </Border.BorderBrush>
+            <StackPanel>
+              <Grid ColumnDefinitions="*,*">
+                <Label Grid.Column="0" Content="{i18n:Localize OutputDeviceLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" x:Name="cmb_DeviceSelector" Margin="0,5,0,5" SelectedItem="{Binding Model.DeviceName}" Items="{Binding DeviceList}" HorizontalAlignment="Center"></ComboBox>
+              </Grid>
+            </StackPanel>
+          </Border>
+          
           <!--Audio File-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>

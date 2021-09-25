@@ -25,6 +25,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using AmplitudeSoundboard;
+using Amplitude.Helpers;
 
 namespace Amplitude.Models
 {
@@ -131,6 +132,20 @@ namespace Amplitude.Models
                 if (value != _preCache)
                 {
                     _preCache = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _deviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
+        public string DeviceName
+        {
+            get => _deviceName;
+            set
+            {
+                if (value != _deviceName)
+                {
+                    _deviceName = value;
                     OnPropertyChanged();
                 }
             }

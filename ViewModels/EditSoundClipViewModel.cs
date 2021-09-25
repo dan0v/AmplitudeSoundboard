@@ -22,6 +22,7 @@
 using Amplitude.Models;
 using AmplitudeSoundboard;
 using Avalonia.Media;
+using System.Collections.Generic;
 
 namespace Amplitude.ViewModels
 {
@@ -157,6 +158,8 @@ namespace Amplitude.ViewModels
         }
 
         public Color HotkeyBackgroundColor => WaitingForHotkey ? ThemeHandler.TextBoxHighlightedColor : ThemeHandler.TextBoxNormalColor;
+
+        public List<string> DeviceList => App.SoundEngine.OutputDeviceList;
 
         public void PlaySound()
         {

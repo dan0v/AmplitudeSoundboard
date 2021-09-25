@@ -277,11 +277,29 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The output device &quot;{0}&quot; is missing and cannot be used for playback!.
+        /// </summary>
+        internal static string MissingDeviceString {
+            get {
+                return ResourceManager.GetString("MissingDeviceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New sound clip.
         /// </summary>
         internal static string NewSoundClip {
             get {
                 return ResourceManager.GetString("NewSoundClip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output device.
+        /// </summary>
+        internal static string OutputDeviceLabel {
+            get {
+                return ResourceManager.GetString("OutputDeviceLabel", resourceCulture);
             }
         }
         
@@ -309,6 +327,15 @@ namespace Amplitude.Localization {
         internal static string SaveButtonDisabledTooltip {
             get {
                 return ResourceManager.GetString("SaveButtonDisabledTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Sound Clip &quot;{0}&quot; has errors:\\n{1}.
+        /// </summary>
+        internal static string SoundClipError {
+            get {
+                return ResourceManager.GetString("SoundClipError", resourceCulture);
             }
         }
         

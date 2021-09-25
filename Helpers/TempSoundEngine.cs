@@ -20,6 +20,7 @@
 */
 
 using System;
+using System.Collections.Generic;
 using Amplitude.Models;
 
 namespace Amplitude.Helpers
@@ -39,17 +40,9 @@ namespace Amplitude.Helpers
             }
         }
 
+        public List<string> OutputDeviceList => throw new NotImplementedException();
+
         private TempSoundEngine()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckPlayableFileAndGenerateErrors(string fileName)
         {
             throw new NotImplementedException();
         }
@@ -59,12 +52,7 @@ namespace Amplitude.Helpers
             throw new NotImplementedException();
         }
 
-        public void Play(string fileName, int volume, string? id = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Reset(bool retainCache = false)
+        public void Play(string fileName, int volume, string playerDeviceName, string? id = null)
         {
             throw new NotImplementedException();
         }
@@ -75,6 +63,21 @@ namespace Amplitude.Helpers
         }
 
         public void PreCacheSoundClip(SoundClip clip)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CheckDeviceExistsAndGenerateErrors(SoundClip clip)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Reset(bool retainCache = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
         {
             throw new NotImplementedException();
         }
