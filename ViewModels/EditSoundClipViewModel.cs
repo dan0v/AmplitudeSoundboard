@@ -19,15 +19,18 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
 using Amplitude.Models;
 using AmplitudeSoundboard;
+using Avalonia.Media;
+using System.Collections.Generic;
 
 namespace Amplitude.ViewModels
 {
     public class EditSoundClipViewModel : ViewModelBase
     {
-        public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        private OptionsManager OptionsManager { get => App.OptionsManager; }
+        private string StopAudioHotkey => OptionsManager.Options.GlobalKillAudioHotkey;
 
         private SoundClip _model;
         public SoundClip Model { get => _model; }
@@ -35,27 +38,157 @@ namespace Amplitude.ViewModels
         public EditSoundClipViewModel()
         {
             _model = new SoundClip();
+            SetBindings();
         }
 
         /// <summary>
-        ///  Edit an existing soundclip from this EditSoundClip window
+        ///  Edit a (copy of an) existing SoundClip in this EditSoundClip window. Save to overwrite original with copy
         /// </summary>
         /// <param name="model"></param>
         public EditSoundClipViewModel(SoundClip model)
         {
-            this._model = model;
+            _model = model.ShallowCopy();
+            SetBindings();
         }
+
+        private void SetBindings()
+        {
+            HasNameField = !string.IsNullOrEmpty(Model.Name);
+            HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
+            SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
+            Model.PropertyChanged += Model_PropertyChanged;
+            OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
+        }
+
+        private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(OptionsManager.Options))
+            {
+                OnPropertyChanged(nameof(StopAudioHotkey));
+            }
+        }
+
+        /// <summary>
+        /// Update ViewModel properties when underlying model changes detected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Model_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Model.Name))
+            {
+                HasNameField = !string.IsNullOrEmpty(Model.Name);
+                SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
+            }
+            if (e.PropertyName == nameof(Model.AudioFilePath))
+            {
+                HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
+            }
+            if (e.PropertyName == nameof(Model.Hotkey))
+            {
+                WaitingForHotkey = false;
+            }
+        }
+
+        public bool CanSave
+        {
+            get
+            {
+                return HasNameField && !WaitingForHotkey;
+            }
+        }
+
+        private bool _hasNameField;
+        public bool HasNameField
+        {
+            get => _hasNameField;
+            set
+            {
+                if (value != _hasNameField)
+                {
+                    _hasNameField = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(CanSave));
+                }
+            }
+        }
+
+        private bool _waitingForHotkey;
+        public bool WaitingForHotkey
+        {
+            get => _waitingForHotkey;
+            set
+            {
+                if (value != _waitingForHotkey)
+                {
+                    _waitingForHotkey = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(CanSave));
+                    OnPropertyChanged(nameof(HotkeyBackgroundColor));
+                }
+            }
+        }
+
+        private bool _hasAudioFilePath;
+        public bool HasAudioFilePath
+        {
+            get => _hasAudioFilePath;
+            set
+            {
+                if (value != _hasAudioFilePath)
+                {
+                    _hasAudioFilePath = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _saveButtonTooltip = "";
+        public string SaveButtonTooltip
+        {
+            get => _saveButtonTooltip;
+            set
+            {
+                if (value != _saveButtonTooltip)
+                {
+                    _saveButtonTooltip = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Color HotkeyBackgroundColor => WaitingForHotkey ? ThemeHandler.TextBoxHighlightedColor : ThemeHandler.TextBoxNormalColor;
+
+        public List<string> DeviceList => App.SoundEngine.OutputDeviceList;
 
         public void PlaySound()
         {
             Model.PlayAudio();
         }
 
-        public void SetClipFilePath(string[] url)
+        public void StopAudio()
+        {
+            App.SoundEngine.Reset(true);
+        }
+
+        public void SetClipAudioFilePath(string[] url)
         {
             if (url.Length > 0)
             {
-                Model.FilePath = url[0];
+                Model.AudioFilePath = url[0];
+            }
+        }
+
+        public void DeleteSoundClip()
+        {
+            App.SoundClipManager.RemoveSoundClip(Model.Id);
+        }
+
+        public void SetClipImageFilePath(string[] url)
+        {
+            if (url.Length > 0)
+            {
+                Model.ImageFilePath = url[0];
             }
         }
 
@@ -63,26 +196,37 @@ namespace Amplitude.ViewModels
         {
             if (Model.Volume < 100)
             {
-                Model.Volume += 1f;
+                Model.Volume += 1;
             }
         }
         public void DecreaseVolumeSmall()
         {
             if (Model.Volume > 0)
             {
-                Model.Volume -= 1f;
+                Model.Volume -= 1;
             }
         }
 
-        public void StopAudio()
+        public void SaveClip()
         {
-            App.SoundEngine.Reset();
+            SoundClip toSave = Model.ShallowCopy();
+            App.SoundClipManager.SaveClip(toSave);
+            // Copy back and forth to delay ID update until fully saved
+            _model = toSave.ShallowCopy();
+            OnPropertyChanged(nameof(Model));
         }
 
-        public void CreateHotkey()
+        public void RecordHotkey()
         {
-
+            WaitingForHotkey = true;
+            App.HotkeysManager.RecordSoundClipHotkey(Model);
         }
 
+        public override void Dispose()
+        {
+            Model.PropertyChanged -= Model_PropertyChanged;
+            OptionsManager.PropertyChanged -= OptionsManager_PropertyChanged;
+            base.Dispose();
+        }
     }
 }

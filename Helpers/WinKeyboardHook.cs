@@ -27,7 +27,7 @@ using System.Runtime.InteropServices;
 
 namespace Amplitude.Helpers
 {
-    public class WinKeyboardHook
+    public class WinKeyboardHook : IKeyboardHook
     {
         #region WinAPI Definitions
         [DllImport("user32.dll")]
@@ -45,9 +45,18 @@ namespace Amplitude.Helpers
 
         private delegate int LowLevelKeyboardProcDelegate(int nCode, int wParam, ref KBDLLHOOKSTRUCT lParam);
 
+        private static List<(SoundClip clip, Action<SoundClip, string> callback)> soundClipCallbacks = new List<(SoundClip, Action<SoundClip, string>)>();
+        private static (Options options, Action<Options, string> callback) globalStopCallback;
+
+        // Kind of janky, but works for now
+        public const long KEYPRESSTIMEOUT = 150;
+        private static string currentKey = "";
+
         static LowLevelKeyboardProcDelegate hook;
         const int WH_KEYBOARD_LL = 13;
         private IntPtr winHook;
+
+        private static SortedSet<string> specialKey = new SortedSet<string>();
 
         private static WinKeyboardHook _instance;
         public static WinKeyboardHook Instance
@@ -72,33 +81,196 @@ namespace Amplitude.Helpers
         private static int LowLevelKeyboardProc(int nCode, int wParam, ref KBDLLHOOKSTRUCT lParam)
         {
             if (nCode >= 0)
+            {
                 switch (wParam)
                 {
+                    // KeyUp and SysKeyUp
+                    case 257:
+                    case 261:
+                        {
+                            currentKey = GetFriendlyKeyName(lParam.vkCode);
+                            if (KeySpecial(currentKey))
+                            {
+                                specialKey.Remove(currentKey);
+                                break;
+                            }
+                            break;
+                        }
+                    // KeyDown and SysKeyDown
                     case 256:
                     case 260:
-                        string key = lParam.vkCode + "|" + lParam.flags; // Subject to change based on json implementation
-
-                        // Call the hotkeys manager
-
-                        if (App.HotkeysManager.Hotkeys.TryGetValue(key, out List<string> values))
                         {
-                            // Go through and call all the Play methods on these id's
-                            foreach (string item in values)
-                            {
-                                // DICTIONARYofSOUNDCLIPS.Get(item).PlayAudio();
-                                // Sound clip manager instance
-                            }
-                        }
+                            currentKey = GetFriendlyKeyName(lParam.vkCode);
 
-                        break;
+                            if (currentKey == "" || currentKey == "LWin" || currentKey == "RWin")
+                            {
+                                break;
+                            }
+
+                            if (currentKey == "Esc")
+                            {
+                                currentKey = HotkeysManager.UNBIND_HOTKEY;
+                            }
+
+                            if (KeySpecial(currentKey))
+                            {
+                                specialKey.Add(currentKey);
+                                break;
+                            }
+
+                            if (!KeySpecial(currentKey))
+                            {
+                                if (globalStopCallback.options != null)
+                                {
+                                    globalStopCallback.callback(globalStopCallback.options, fullKey);
+                                    globalStopCallback.options = null;
+                                }
+                                else if (soundClipCallbacks.Count > 0)
+                                {
+                                    foreach (var callback in soundClipCallbacks)
+                                    {
+                                        callback.callback(callback.clip, fullKey);
+                                    }
+                                    soundClipCallbacks.Clear();
+                                }
+                                else if (currentKey != HotkeysManager.UNBIND_HOTKEY && App.HotkeysManager.Hotkeys.TryGetValue(fullKey, out List<string> values))
+                                {
+                                    // Go through and call all the Play methods on these id's
+                                    foreach (string item in values)
+                                    {
+                                        if (item == HotkeysManager.MASTER_STOP_SOUND_HOTKEY)
+                                        {
+                                            HotkeysManager.StopAllSound();
+                                        }
+                                        else
+                                        {
+                                            SoundClip clip = App.SoundClipManager.GetClip(item);
+
+                                            if (clip != null)
+                                            {
+                                                clip.PlayAudio();
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+
+                            break;
+                        }
                 }
+            }
+
             return CallNextHookEx(0, nCode, wParam, ref lParam);
+        }
+
+        private static string fullKey
+        {
+            get
+            {
+                if (specialKey.Count > 0)
+                {
+                    string full = "";
+                    foreach (string key in specialKey)
+                    {
+                        full += key + "|";
+                    }
+                    return full + currentKey;
+                }
+                else
+                {
+                    return currentKey;
+                }
+            }
+        }
+
+        private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private static string GetFriendlyKeyName(int keycode)
+        {
+            //Debug.WriteLine(keycode);
+            if (keycode >= 48 && keycode <= 57)
+            {
+                return (keycode - 48) + "";
+            }
+            if (keycode >= 65 && keycode <= 90)
+            {
+                return alphabet[keycode - 65] + "";
+            }
+            if (keycode >= 96 && keycode <= 105)
+            {
+                return "Num" + (keycode - 96);
+            }
+            if (keycode >= 112 && keycode <= 123)
+            {
+                return "F" + (keycode - 111);
+            }
+            switch (keycode)
+            {
+                case 9: return "Tab";
+                case 13: return "Enter";
+                case 20: return "Caps";
+                case 27: return "Esc";
+                case 32: return "Space";
+                case 33: return "PgUp";
+                case 34: return "PgDown";
+                case 35: return "End";
+                case 36: return "Home";
+                case 37: return "LArrow";
+                case 38: return "UArrow";
+                case 39: return "RArrow";
+                case 40: return "DArrow";
+                case 46: return "Del";
+                case 91: return "LWin";
+                case 92: return "RWin";
+                case 106: return "Num*";
+                case 107: return "Num+";
+                case 109: return "Num-";
+                case 110: return ".";
+                case 111: return "Num/";
+                case 144: return "NumLck";
+                case 160: return "LShift";
+                case 161: return "RShift";
+                case 162: return "LCtrl";
+                case 163: return "RCtrl";
+                case 164: return "LAlt";
+                case 165: return "RAlt";
+                case 186: return ";";
+                case 187: return "=";
+                case 188: return ",";
+                case 189: return "-";
+                case 191: return "/";
+                case 219: return "[";
+                case 220: return "\\";
+                case 221: return "]";
+                case 222: return "\'";
+            }
+            return "";
+            
+        }
+
+        public void SetSoundClipHotkey(SoundClip clip, Action<SoundClip, string> callback)
+        {
+            soundClipCallbacks.Add((clip, callback));
+        }
+
+        public void SetGlobalStopHotkey(Options options, Action<Options, string> callback)
+        {
+            globalStopCallback = (options, callback);
         }
 
         public void Dispose()
         {
             _instance = null;
             UnhookWindowsHookEx(winHook);
+        }
+
+        private static bool KeySpecial(string key)
+        {
+            if (key == "LAlt" || key == "RAlt" || key == "LCtrl" || key == "RCtrl" || key == "LShift" || key == "RShift")
+            {
+                return true;
+            }
+            return false;
         }
 
         private struct KBDLLHOOKSTRUCT

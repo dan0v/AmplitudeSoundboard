@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClipFilePathLabel" xml:space="preserve">
-    <value>Clip file path</value>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AcceptButton" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ClipAudioFilePathLabel" xml:space="preserve">
+    <value>Sound clip file path</value>
   </data>
   <data name="ClipFilePathPlaceholder" xml:space="preserve">
     <value>Select a file path...</value>
@@ -126,8 +135,26 @@
   <data name="ClipHotkeyLabel" xml:space="preserve">
     <value>Hotkey</value>
   </data>
+  <data name="ClipImageFilePathLabel" xml:space="preserve">
+    <value>Background image file path</value>
+  </data>
+  <data name="ClipNameLabel" xml:space="preserve">
+    <value>Clip name</value>
+  </data>
+  <data name="ClipNamePlaceholder" xml:space="preserve">
+    <value>Enter a name...</value>
+  </data>
   <data name="ClipVolumeLabel" xml:space="preserve">
     <value>Clip volume</value>
+  </data>
+  <data name="DeleteSoundClipButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteSoundClipConfirmationPrompt" xml:space="preserve">
+    <value>Are you sure you want to delete the Sound Clip "{0}"?</value>
+  </data>
+  <data name="DeleteSoundClipConfirmationTitle" xml:space="preserve">
+    <value>Confirm Deletion</value>
   </data>
   <data name="DismissWindow" xml:space="preserve">
     <value>Dismiss</value>
@@ -135,11 +162,14 @@
   <data name="EditSoundClipTitle" xml:space="preserve">
     <value>Edit Sound Clip</value>
   </data>
+  <data name="EditSoundClipTooltip" xml:space="preserve">
+    <value>Edit sound clip</value>
+  </data>
   <data name="ErrorListTitle" xml:space="preserve">
     <value>Error List</value>
   </data>
   <data name="FileBadFormatString" xml:space="preserve">
-    <value>The following file is an unplayable format: "{0}"</value>
+    <value>The following file is an unrecognized format: "{0}"</value>
   </data>
   <data name="FileBrowseAudio" xml:space="preserve">
     <value>Select an audio file...</value>
@@ -153,16 +183,58 @@
   <data name="FilePathPlaceholder" xml:space="preserve">
     <value>File path...</value>
   </data>
+  <data name="GlobalSettingsTitle" xml:space="preserve">
+    <value>Preferences</value>
+  </data>
+  <data name="HotkeyPlaceholder" xml:space="preserve">
+    <value>Record a key combination...</value>
+  </data>
+  <data name="LicenseLabel" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="MasterVolumeLabel" xml:space="preserve">
+    <value>Master volume</value>
+  </data>
+  <data name="MissingDeviceString" xml:space="preserve">
+    <value>The output device "{0}" is missing and cannot be used for playback!</value>
+  </data>
   <data name="NewSoundClip" xml:space="preserve">
     <value>New sound clip</value>
+  </data>
+  <data name="NoticeLabel" xml:space="preserve">
+    <value>Notice</value>
+  </data>
+  <data name="OutputDeviceLabel" xml:space="preserve">
+    <value>Output device</value>
   </data>
   <data name="PlaySound" xml:space="preserve">
     <value>Play sound</value>
   </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SaveButtonDisabledTooltip" xml:space="preserve">
+    <value>Please enter a Sound Clip name</value>
+  </data>
+  <data name="SoundClipError" xml:space="preserve">
+    <value>The Sound Clip "{0}" has errors:\\n{1}</value>
+  </data>
+  <data name="SoundClipListSearch" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="SoundClipListTitle" xml:space="preserve">
+    <value>Sound Clip List</value>
+  </data>
   <data name="StopAllAudio" xml:space="preserve">
-    <value>Stop audio playback</value>
+    <value>Stop audio</value>
+  </data>
+  <data name="StopAllAudioHotkeyLabel" xml:space="preserve">
+    <value>Stop all audio hotkey</value>
   </data>
   <data name="TestSound" xml:space="preserve">
     <value>Test sound</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Theme</value>
   </data>
 </root>

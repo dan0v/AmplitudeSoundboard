@@ -20,19 +20,14 @@
 */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System.Collections.Concurrent;
 using System.IO;
 using AmplitudeSoundboard;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Linq;
+using Amplitude.Helpers;
 
 namespace Amplitude.Models
 {
@@ -51,40 +46,214 @@ namespace Amplitude.Models
             }
         }
 
-        private ObservableCollection<SoundClip> soundClips;
+        private string _soundClipListFilter = "";
+        public string SoundClipListFilter
+        {
+            get => _soundClipListFilter;
+            set
+            {
+                if (value != _soundClipListFilter)
+                {
+                    _soundClipListFilter = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(FilteredSoundClipList));
+                }
+            }
+        }
+
+        public List<SoundClip> FilteredSoundClipList
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(SoundClipListFilter))
+                {
+                    return soundClips.Values.OrderBy(c => c.Name).ToList();
+                }
+                else
+                {
+                    return soundClips.Values.Where(c => c.Name.ToLowerInvariant().Contains(SoundClipListFilter.ToLowerInvariant())).OrderBy(c => c.Name).ToList();
+                }
+            }
+        }
+
+        private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        private Dictionary<string, SoundClip> soundClips;
 
         private SoundClipManager()
         {
-            ObservableCollection<SoundClip>? retrievedClips = RetrieveSavedSoundClips();
+            Dictionary<string, SoundClip>? retrievedClips = RetrieveSavedSoundClips();
 
             if (retrievedClips != null)
             {
                 soundClips = retrievedClips;
+                InitializeSoundClips(soundClips);
             }
             else
             {
-                soundClips = new ObservableCollection<SoundClip>();
+                soundClips = new Dictionary<string, SoundClip>();
+            }
+        }
+
+        private void InitializeSoundClips(Dictionary<string, SoundClip> soundClips)
+        {
+            foreach (KeyValuePair<string, SoundClip> item in soundClips)
+            {
+                item.Value.InitializeId(item.Key);
+                ValidateSoundClip(item.Value);
+                PreCacheSoundClipIfRequested(item.Value);
+                RegisterSoundClipHotkey(item.Value);
+            }
+        }
+
+        private void RegisterSoundClipHotkey(SoundClip value)
+        {
+            App.HotkeysManager.RegisterHotkeyAtStartup(value.Id, value.Hotkey);
+        }
+
+        /// <summary>
+        /// Notify user of problems with their linked audio and image files at startup
+        /// </summary>
+        /// <param name="soundClips"></param>
+        private void ValidateSoundClip(SoundClip clip)
+        {
+            if (!string.IsNullOrEmpty(clip.AudioFilePath) && !File.Exists(clip.AudioFilePath))
+            {
+                App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_AUDIO_FILE);
+            }
+            if (!string.IsNullOrEmpty(clip.ImageFilePath) && !File.Exists(clip.ImageFilePath))
+            {
+                App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_IMAGE_FILE);
+            }
+            if (string.IsNullOrEmpty(clip.DeviceName))
+            {
+                clip.DeviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
             }
 
-            AddClip();
+            App.SoundEngine.CheckDeviceExistsAndGenerateErrors(clip);
         }
 
-        public void AddClip() 
+        private void PreCacheSoundClipIfRequested(SoundClip clip)
         {
-            soundClips.Add(new SoundClip());
+            if (clip.PreCache)
+            {
+                App.SoundEngine.PreCacheSoundClip(clip);
+            }
+        }
+
+        /// <summary>
+        /// Save a new SoundClip and generate an ID, or overwrite an existing SoundClip
+        /// </summary>
+        /// <param name="clip"></param>
+        public void SaveClip(SoundClip clip)
+        {
+            if (string.IsNullOrEmpty(clip.Name))
+            {
+                clip.Name = clip.AudioFilePath ?? clip.Id;
+            }
+
+            if (string.IsNullOrEmpty(clip.Id))
+            {
+                if (GenerateAndSetId(clip))
+                {
+                    soundClips.Add(clip.Id, clip);
+                    if (!string.IsNullOrEmpty(clip.Hotkey))
+                    {
+                        App.HotkeysManager.RegisterHotkeyAtStartup(clip.Id, clip.Hotkey);
+                    }
+                }
+            }
+            else if (soundClips.TryGetValue(clip.Id, out SoundClip oldClip))
+            {
+                // Overwrite existing clip
+                App.HotkeysManager.RemoveHotkey(clip.Id, oldClip.Hotkey);
+                if (!string.IsNullOrEmpty(clip.Hotkey))
+                {
+                    App.HotkeysManager.RegisterHotkeyAtStartup(clip.Id, clip.Hotkey);
+                }
+                soundClips[clip.Id] = clip;
+            }
+            else
+            {
+                App.WindowManager.ErrorListWindow.AddErrorString("SoundClip with ID: " + clip.Id + " could not be saved (does not exist)!");
+            }
 
             StoreSavedSoundClips();
+            OnPropertyChanged(nameof(FilteredSoundClipList));
         }
 
-        public SoundClip GetClip(int index) 
+        public void RemoveSoundClip(string? id)
         {
-            return soundClips[index];
+            if (string.IsNullOrEmpty(id))
+            {
+                return;
+            }
+
+            if (soundClips.TryGetValue(id, out SoundClip clip))
+            {
+                App.HotkeysManager.RemoveHotkey(id, clip.Hotkey);
+
+                App.SoundEngine.ClearSoundClipCache(id);
+                soundClips.Remove(id);
+
+                StoreSavedSoundClips();
+                OnPropertyChanged(nameof(FilteredSoundClipList));
+            }
         }
 
-        public ObservableCollection<SoundClip>? RetrieveSavedSoundClips() {
+        private bool GenerateAndSetId(SoundClip clip)
+        {
+            // New clip
+            int hashCode = clip.GetHashCode();
+            string id = DateTimeOffset.Now.ToUnixTimeMilliseconds() + hashCode + "";
+            int attempt = 0;
+            while (soundClips.ContainsKey(id))
+            {
+                string suf = "";
+                if (attempt >= alphabet.Length)
+                {
+                    if (attempt / alphabet.Length >= alphabet.Length)
+                    {
+                        // Something has gone wrong, there has been easily enough time to find an Id
+                        App.WindowManager.ErrorListWindow.AddErrorString("A new Sound Clip could not be saved (could not generate Id, please try again later)!");
+                        return false;
+                    }
+                    suf += alphabet[attempt / alphabet.Length] + alphabet[attempt % alphabet.Length];
+                }
+                else
+                {
+                    suf = alphabet[attempt] + "";
+                }
+                id = DateTimeOffset.Now.ToUnixTimeMilliseconds() + hashCode + suf;
+                attempt++;
+            }
+            clip.InitializeId(id);
+            return true;
+        }
+
+        public SoundClip? GetClip(string? id, bool ignoreErrors = false) 
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return null;
+            }
+
+            if (soundClips.TryGetValue(id, out SoundClip clip))
+            {
+                return clip;
+            }
+            if (!ignoreErrors)
+            {
+                App.WindowManager.ErrorListWindow.AddErrorString("SoundClip with ID: " + id + " does not exist!");
+            }
+            return null;
+        }
+
+        public Dictionary<string, SoundClip>? RetrieveSavedSoundClips()
+        {
             string? clipsInJson = RetrieveJSONFromFile();
 
-            if (clipsInJson != null)
+            if (!string.IsNullOrEmpty(clipsInJson))
             {
                 return ConvertClipsFromJSON(clipsInJson);
             }
@@ -101,15 +270,15 @@ namespace Amplitude.Models
             SaveJSONToFile(clipsInJson);
         }
 
-        private static ObservableCollection<SoundClip>? ConvertClipsFromJSON(string json)
+        private static Dictionary<string, SoundClip>? ConvertClipsFromJSON(string json)
         {
             try
             {
-                return (ObservableCollection<SoundClip>?)JsonConvert.DeserializeObject(json, typeof(ObservableCollection<SoundClip>));
+                return (Dictionary<string, SoundClip>?)JsonConvert.DeserializeObject(json, typeof(Dictionary<string, SoundClip>));
             }
             catch (Exception e)
             {
-                App.ErrorListWindow.AddErrorString(e.Message);
+                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
             }
             return null;
         }
@@ -123,11 +292,14 @@ namespace Amplitude.Models
         {
             try
             {
-                return File.ReadAllText(Path.Join(App.APP_STORAGE, @"soundclips.json"));
+                if (File.Exists(Path.Join(App.APP_STORAGE, @"soundclips.json")))
+                {
+                    return File.ReadAllText(Path.Join(App.APP_STORAGE, @"soundclips.json"));
+                }
             }
             catch (Exception e)
             {
-                App.ErrorListWindow.AddErrorString(e.Message);
+                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
             }
             return null;
         }
@@ -139,7 +311,7 @@ namespace Amplitude.Models
             }
             catch (Exception e)
             {
-                App.ErrorListWindow.AddErrorString(e.Message);
+                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
             }
         }
 

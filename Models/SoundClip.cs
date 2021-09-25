@@ -20,28 +20,40 @@
 */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System.Collections.Concurrent;
 using AmplitudeSoundboard;
+using Amplitude.Helpers;
 
 namespace Amplitude.Models
 {
     public class SoundClip : INotifyPropertyChanged
     {
-        public readonly string id;
+        private string _id = null;
+        // Do not write to JSON, since it is stored in dictionary anyway
+        [JsonIgnore]
+        public string Id
+        {
+            get => _id;
+        }
 
-        public ConcurrentBag<Thread> ActiveThreads = new ConcurrentBag<Thread>();
+        public void InitializeId(string newId)
+        {
+            if (string.IsNullOrEmpty(Id))
+            {
+                _id = newId;
+                OnPropertyChanged(nameof(Id));
+            }
+            else
+            {
+                throw new NotSupportedException("Do not alter Id once it has been set");
+            }
+        }
 
-        private float _volume = 100;
-        public float Volume {
+        private int _volume = 100;
+        public int Volume {
             get => _volume;
             set
             {
@@ -76,30 +88,70 @@ namespace Amplitude.Models
                 if (value != _hotkey)
                 {
                     _hotkey = value;
-                    OnPropertyChanged();
                 }
+                OnPropertyChanged(); // Alert even if not changed
             }
         }
 
-        private string _filePath = "";
-        public string FilePath
+        private string _audioFilePath = "";
+        public string AudioFilePath
         {
-            get => _filePath;
+            get => _audioFilePath;
             set
             {
-                if (value != _filePath)
+                if (value != _audioFilePath)
                 {
-                    _filePath = value;
+                    _audioFilePath = value;
+                    // Clear possibly cached clip
+                    App.SoundEngine.ClearSoundClipCache(Id);
                     OnPropertyChanged();
                 }
             }
         }
 
-        public SoundClip()
+        private string _imageFilePath = "";
+        public string ImageFilePath
         {
-            id = "temp";
-            // Get unique ID from soundclip manager
+            get => _imageFilePath;
+            set
+            {
+                if (value != _imageFilePath)
+                {
+                    _imageFilePath = value;
+                    OnPropertyChanged();
+                }
+            }
         }
+
+        private bool _preCache = false;
+        public bool PreCache
+        {
+            get => _preCache;
+            set
+            {
+                if (value != _preCache)
+                {
+                    _preCache = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _deviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
+        public string DeviceName
+        {
+            get => _deviceName;
+            set
+            {
+                if (value != _deviceName)
+                {
+                    _deviceName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public SoundClip() { }
 
         public void PlayAudio()
         {
@@ -123,8 +175,13 @@ namespace Amplitude.Models
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
+        public SoundClip ShallowCopy()
+        {
+            return (SoundClip)this.MemberwiseClone();
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        public virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

@@ -1,0 +1,98 @@
+<!--
+    AmplitudeSoundboard
+    Copyright (C) 2021 dan0v
+    https://git.dan0v.com/AmplitudeSoundboard
+
+    This file is part of AmplitudeSoundboard.
+
+    AmplitudeSoundboard is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    AmplitudeSoundboard is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
+        xmlns:i18n="clr-namespace:Amplitude.Localization"
+        x:Class="Amplitude.Views.About"
+        Icon="/Assets/Icon.ico"
+        Title="{i18n:Localize AboutTitle}"
+        Width="400" Height="400" MinWidth="360" MinHeight="200"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True">
+
+  <Window.Styles>
+    <Style Selector="Image:disabled">
+      <Setter Property="Opacity" Value="0.5"/>
+    </Style>
+  </Window.Styles>
+
+  <Panel>
+      
+      <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
+      </ExperimentalAcrylicBorder>
+
+      <TextBlock Text="{i18n:Localize AboutTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+
+      <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
+        <DockPanel Grid.Row="0">
+          <Grid RowDefinitions="Auto,*,*">
+            <!--Copyright-->
+            <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="10,5,10,5" Padding="5">
+              <Border.BorderBrush>
+                <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              </Border.BorderBrush>
+              <StackPanel>
+                <TextBlock TextAlignment="Center" x:Name="txt_blk_Copyright" Text="COPYRIGHT"></TextBlock>
+                <TextBlock Foreground="#0066FF" x:Name="txt_blk_URL" TextDecorations="Underline" Cursor="Hand" TextAlignment="Center" Text="URL STRING"></TextBlock>
+              </StackPanel>
+            </Border>
+
+            <!--License-->
+            <Border Grid.Row="1" BorderThickness="2" CornerRadius="5" Margin="10,5,10,5" Padding="5">
+              <Border.BorderBrush>
+                <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              </Border.BorderBrush>
+              <Grid RowDefinitions="Auto,*">
+                <TextBlock HorizontalAlignment="Center" Grid.Row="0" Margin="5,5,5,5" Text="{i18n:Localize LicenseLabel}"></TextBlock>
+                <ScrollViewer Grid.Row="1">
+                  <TextBox IsReadOnly="True" x:Name="txt_bx_License" Text="LICENSE TEXT" TextWrapping="Wrap"></TextBox>
+                </ScrollViewer>
+              </Grid>
+            </Border>
+          
+          <!--Notice-->
+          <Border Grid.Row="2" BorderThickness="2" CornerRadius="5" Margin="10,5,10,5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+            </Border.BorderBrush>
+            <Grid RowDefinitions="Auto,*">
+              <TextBlock HorizontalAlignment="Center" Grid.Row="0" Margin="5,5,5,5" Text="{i18n:Localize NoticeLabel}"></TextBlock>
+              <ScrollViewer Grid.Row="1">
+                <TextBox IsReadOnly="True"  x:Name="txt_bx_Notice" Text="NOTICE TEXT" TextWrapping="Wrap"></TextBox>
+              </ScrollViewer>
+            </Grid>
+          </Border>
+        </Grid>
+        </DockPanel>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto">
+          <TextBlock Grid.Column="0" x:Name="txt_blk_Version" HorizontalAlignment="Left" Text="Version X.X.X" Margin="10,10,10,5" VerticalAlignment="Center"></TextBlock>
+          <Button Grid.Column="1" x:Name="btn_Dismiss" Cursor="Hand" Content="{i18n:Localize DismissWindow}" Margin="10,10,10,5" HorizontalAlignment="Right"></Button>
+        </Grid>
+        </Grid>
+    </Panel>
+  
+</Window>

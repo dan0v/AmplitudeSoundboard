@@ -24,10 +24,24 @@
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>Link</TrimMode>
     <Copyright>Copyright (C) 2021 dan0v</Copyright>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageIconUrl />
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Remove="Assets\Doc\LICENSE.txt" />
+    <AvaloniaResource Remove="Assets\Doc\NOTICE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Doc\LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Doc\NOTICE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.7" />
@@ -43,8 +57,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\About.axaml.cs">
+      <DependentUpon>About.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GlobalSettings.axaml.cs">
+      <DependentUpon>GlobalSettings.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ErrorList.axaml.cs">
       <DependentUpon>ErrorList.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SoundClipList.axaml.cs">
+      <DependentUpon>SoundClipList.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -54,7 +77,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets\Styles\" />
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Branding\Icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="PowerShell -ExecutionPolicy Unrestricted $(ProjectDir)Publish\getVersion.ps1 -TargetDir $(TargetDir)&#xD;&#xA;&#xD;&#xA;echo $(Version)&gt;  $(ProjectDir)Publish/version.txt" />

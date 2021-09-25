@@ -19,31 +19,62 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
+using Amplitude.Models;
 using Amplitude.Views;
 using AmplitudeSoundboard;
-using Avalonia.Controls;
 
 namespace Amplitude.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        static SoundClipManager Manager { get => App.SoundClipManager; }
 
-        public void AddSound()
+        public (int x, int y) WindowPosition = (0, 0);
+
+        public bool GlobalSettingsWindowOpen { get => App.WindowManager.GlobalSettingsWindow != null; }
+
+        private OptionsManager OptionsManager { get => App.OptionsManager; }
+
+        private string StopAudioHotkey => OptionsManager.Options.GlobalKillAudioHotkey;
+
+        public MainWindowViewModel()
         {
-            Window sound = new EditSoundClip
-            {
-                DataContext = new EditSoundClipViewModel(),
-            };
+            OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
+        }
 
-            sound.Show();
+        private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(OptionsManager.Options))
+            {
+                OnPropertyChanged(nameof(StopAudioHotkey));
+            }
+        }
+
+        public void ShowList()
+        {
+            App.WindowManager.ShowSoundClipListWindow(new Avalonia.PixelPoint(WindowPosition.x + 200, WindowPosition.y + 200));
+        }
+
+        public void ShowGlobalSettings()
+        {
+            App.WindowManager.ShowGlobalSettingsWindow(new Avalonia.PixelPoint(WindowPosition.x + 150, WindowPosition.y + 150));
+        }
+        
+        public void ShowAbout()
+        {
+            App.WindowManager.ShowAboutWindow(new Avalonia.PixelPoint(WindowPosition.x + 100, WindowPosition.y + 100));
         }
 
         public void StopAudio()
         {
-            App.SoundEngine.Reset();
+            App.SoundEngine.Reset(true);
         }
 
+        public override void Dispose()
+        {
+            OptionsManager.PropertyChanged -= OptionsManager_PropertyChanged;
+            base.Dispose();
+        }
     }
 }

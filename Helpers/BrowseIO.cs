@@ -32,33 +32,41 @@ namespace Amplitude.Helpers
             IMAGE
         }
 
-        private static FileDialogFilter audioFileTypesFilter = new FileDialogFilter
+        private static FileDialogFilter _audioFileTypesFilter = new FileDialogFilter
         {
             Name = "Audio file",
-            Extensions = { "wav", "oiff", "mp3" }
+            Extensions = { "wav", "aiff", "mp3", "m4a", "mp4" }
         };
-
-        private static FileDialogFilter imageFileTypesFilter = new FileDialogFilter
+        public static FileDialogFilter AudioFileTypesFilter
         {
-            Name = "Audio file",
+            get => _audioFileTypesFilter;
+        }
+
+        private static FileDialogFilter _imageFileTypesFilter = new FileDialogFilter
+        {
+            Name = "Image file",
             Extensions = { "png", "jpg", "jpeg", "gif" }
         };
+        public static FileDialogFilter ImageFileTypesFilter
+        {
+            get => _imageFileTypesFilter;
+        }
 
         public static async Task<string[]> OpenFileBrowser(Window parent, FileBrowserType type, bool allowMultiple = false)
         {
             string title = "";
 
-            FileDialogFilter filter = audioFileTypesFilter;
+            FileDialogFilter filter = AudioFileTypesFilter;
 
             switch (type)
             {
                 case FileBrowserType.AUDIO:
                     title = Localization.Localizer.Instance["FileBrowseAudio"];
-                    filter = audioFileTypesFilter;
+                    filter = AudioFileTypesFilter;
                     break;
                 case FileBrowserType.IMAGE:
                     title = Localization.Localizer.Instance["FileBrowseImage"];
-                    filter = imageFileTypesFilter;
+                    filter = ImageFileTypesFilter;
                     break;
             }
 

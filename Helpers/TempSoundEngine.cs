@@ -20,6 +20,7 @@
 */
 
 using System;
+using System.Collections.Generic;
 using Amplitude.Models;
 
 namespace Amplitude.Helpers
@@ -27,7 +28,8 @@ namespace Amplitude.Helpers
     class TempSoundEngine : ISoundEngine
     {
         private static TempSoundEngine? _instance;
-        public static TempSoundEngine Instance {
+        public static TempSoundEngine Instance
+        {
             get
             {
                 if (_instance == null)
@@ -38,17 +40,9 @@ namespace Amplitude.Helpers
             }
         }
 
+        public List<string> OutputDeviceList => throw new NotImplementedException();
+
         private TempSoundEngine()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckPlayableFileAndGenerateErrors(string fileName)
         {
             throw new NotImplementedException();
         }
@@ -58,12 +52,32 @@ namespace Amplitude.Helpers
             throw new NotImplementedException();
         }
 
-        public void Play(string fileName, float volume)
+        public void Play(string fileName, int volume, string playerDeviceName, string? id = null)
         {
             throw new NotImplementedException();
         }
 
-        public void Reset()
+        public void ClearSoundClipCache(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PreCacheSoundClip(SoundClip clip)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CheckDeviceExistsAndGenerateErrors(SoundClip clip)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Reset(bool retainCache = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
         {
             throw new NotImplementedException();
         }

@@ -19,15 +19,12 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
 using Amplitude.ViewModels;
 using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.Media;
 using System.ComponentModel;
-using System.Threading;
 
 namespace Amplitude.Views
 {
@@ -40,6 +37,12 @@ namespace Amplitude.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
+            PositionChanged += MainWindow_PositionChanged;
+        }
+
+        private void MainWindow_PositionChanged(object? sender, PixelPointEventArgs e)
+        {
+            ((MainWindowViewModel)DataContext).WindowPosition = (e.Point.X, e.Point.Y);
         }
 
         private void InitializeComponent()
@@ -50,6 +53,8 @@ namespace Amplitude.Views
         protected override void OnClosing(CancelEventArgs e)
         {
             App.SoundEngine.Dispose();
+            App.KeyboardHook.Dispose();
+            ((MainWindowViewModel)DataContext).Dispose();
             base.OnClosing(e);
         }
     }

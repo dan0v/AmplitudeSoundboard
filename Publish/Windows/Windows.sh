@@ -26,7 +26,7 @@ APP_NAME="Amplitude Soundboard"
 APP_OUTPUT_PATH="Build"
 PUBLISH_OUTPUT_DIRECTORY="../../bin/Release/net5.0/publishWin/."
 APP_TAR_NAME1="Amplitude_Soundboard_"
-APP_TAR_NAME2="_win_x86"
+APP_TAR_NAME2="_win_x64"
 
 if [ -d "$APP_OUTPUT_PATH" ]
 then

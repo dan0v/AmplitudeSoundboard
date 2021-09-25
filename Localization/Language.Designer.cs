@@ -61,11 +61,38 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clip file path.
+        ///   Looks up a localized string similar to About.
         /// </summary>
-        internal static string ClipFilePathLabel {
+        internal static string AboutTitle {
             get {
-                return ResourceManager.GetString("ClipFilePathLabel", resourceCulture);
+                return ResourceManager.GetString("AboutTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        internal static string AcceptButton {
+            get {
+                return ResourceManager.GetString("AcceptButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string CancelButton {
+            get {
+                return ResourceManager.GetString("CancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sound clip file path.
+        /// </summary>
+        internal static string ClipAudioFilePathLabel {
+            get {
+                return ResourceManager.GetString("ClipAudioFilePathLabel", resourceCulture);
             }
         }
         
@@ -88,11 +115,65 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Background image file path.
+        /// </summary>
+        internal static string ClipImageFilePathLabel {
+            get {
+                return ResourceManager.GetString("ClipImageFilePathLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clip name.
+        /// </summary>
+        internal static string ClipNameLabel {
+            get {
+                return ResourceManager.GetString("ClipNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a name....
+        /// </summary>
+        internal static string ClipNamePlaceholder {
+            get {
+                return ResourceManager.GetString("ClipNamePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clip volume.
         /// </summary>
         internal static string ClipVolumeLabel {
             get {
                 return ResourceManager.GetString("ClipVolumeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string DeleteSoundClipButton {
+            get {
+                return ResourceManager.GetString("DeleteSoundClipButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the Sound Clip &quot;{0}&quot;?.
+        /// </summary>
+        internal static string DeleteSoundClipConfirmationPrompt {
+            get {
+                return ResourceManager.GetString("DeleteSoundClipConfirmationPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Deletion.
+        /// </summary>
+        internal static string DeleteSoundClipConfirmationTitle {
+            get {
+                return ResourceManager.GetString("DeleteSoundClipConfirmationTitle", resourceCulture);
             }
         }
         
@@ -115,6 +196,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit sound clip.
+        /// </summary>
+        internal static string EditSoundClipTooltip {
+            get {
+                return ResourceManager.GetString("EditSoundClipTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error List.
         /// </summary>
         internal static string ErrorListTitle {
@@ -124,7 +214,7 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following file is an unplayable format: &quot;{0}&quot;.
+        ///   Looks up a localized string similar to The following file is an unrecognized format: &quot;{0}&quot;.
         /// </summary>
         internal static string FileBadFormatString {
             get {
@@ -169,11 +259,74 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preferences.
+        /// </summary>
+        internal static string GlobalSettingsTitle {
+            get {
+                return ResourceManager.GetString("GlobalSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record a key combination....
+        /// </summary>
+        internal static string HotkeyPlaceholder {
+            get {
+                return ResourceManager.GetString("HotkeyPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License.
+        /// </summary>
+        internal static string LicenseLabel {
+            get {
+                return ResourceManager.GetString("LicenseLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Master volume.
+        /// </summary>
+        internal static string MasterVolumeLabel {
+            get {
+                return ResourceManager.GetString("MasterVolumeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The output device &quot;{0}&quot; is missing and cannot be used for playback!.
+        /// </summary>
+        internal static string MissingDeviceString {
+            get {
+                return ResourceManager.GetString("MissingDeviceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New sound clip.
         /// </summary>
         internal static string NewSoundClip {
             get {
                 return ResourceManager.GetString("NewSoundClip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notice.
+        /// </summary>
+        internal static string NoticeLabel {
+            get {
+                return ResourceManager.GetString("NoticeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output device.
+        /// </summary>
+        internal static string OutputDeviceLabel {
+            get {
+                return ResourceManager.GetString("OutputDeviceLabel", resourceCulture);
             }
         }
         
@@ -187,11 +340,65 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop audio playback.
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string SaveButton {
+            get {
+                return ResourceManager.GetString("SaveButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a Sound Clip name.
+        /// </summary>
+        internal static string SaveButtonDisabledTooltip {
+            get {
+                return ResourceManager.GetString("SaveButtonDisabledTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Sound Clip &quot;{0}&quot; has errors:\\n{1}.
+        /// </summary>
+        internal static string SoundClipError {
+            get {
+                return ResourceManager.GetString("SoundClipError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search....
+        /// </summary>
+        internal static string SoundClipListSearch {
+            get {
+                return ResourceManager.GetString("SoundClipListSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sound Clip List.
+        /// </summary>
+        internal static string SoundClipListTitle {
+            get {
+                return ResourceManager.GetString("SoundClipListTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop audio.
         /// </summary>
         internal static string StopAllAudio {
             get {
                 return ResourceManager.GetString("StopAllAudio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop all audio hotkey.
+        /// </summary>
+        internal static string StopAllAudioHotkeyLabel {
+            get {
+                return ResourceManager.GetString("StopAllAudioHotkeyLabel", resourceCulture);
             }
         }
         
@@ -201,6 +408,15 @@ namespace Amplitude.Localization {
         internal static string TestSound {
             get {
                 return ResourceManager.GetString("TestSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        internal static string ThemeLabel {
+            get {
+                return ResourceManager.GetString("ThemeLabel", resourceCulture);
             }
         }
     }

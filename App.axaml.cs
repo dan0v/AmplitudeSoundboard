@@ -27,15 +27,15 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using System.IO;
-using System;
 using static System.Environment;
-using Avalonia.Themes.Fluent;
+using System.Reflection;
+using System;
+using System.Diagnostics;
 
 namespace AmplitudeSoundboard
 {
     public class App : Application
     {
-
         public static string APP_STORAGE
         {
             get
@@ -52,32 +52,37 @@ namespace AmplitudeSoundboard
 		}
 		
         public static SoundClipManager SoundClipManager => SoundClipManager.Instance;
-		
-#if Windows
-        public static ISoundEngine SoundEngine => NSoundEngine.Instance;
-		
-        public static WinKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
-#else
-        public static ISoundEngine SoundEngine => TempSoundEngine.Instance;
-        //public static WinKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
-#endif
+        
         public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
 
         public static ThemeHandler ThemeHandler => ThemeHandler.Instance;
 
-        public static Options Options = new Options();
+        public static WindowManager WindowManager => WindowManager.Instance;
 
-        private static ErrorList _errorListWindow;
-        public static ErrorList ErrorListWindow {
+        public static OptionsManager OptionsManager => OptionsManager.Instance;
+
+        public static string VERSION
+        {
             get
             {
-                if (_errorListWindow == null)
+                string version = "";
+                try
                 {
-                    _errorListWindow = new ErrorList();
+                    version = System.Reflection.Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
                 }
-                return _errorListWindow;
+                catch (Exception e) { Debug.WriteLine(e); }
+                return version;
             }
         }
+
+#if Windows
+        public static ISoundEngine SoundEngine => NSoundEngine.Instance;
+		
+        public static IKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
+#else
+        public static ISoundEngine SoundEngine => TempSoundEngine.Instance;
+        //public static IKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
+#endif
 
         public override void Initialize()
         {
@@ -92,6 +97,15 @@ namespace AmplitudeSoundboard
                 {
                     DataContext = new MainWindowViewModel(),
                 };
+
+                // Initialize managers to make sure they are active
+                var se = SoundEngine;
+                var k = KeyboardHook;
+                var o = OptionsManager;
+                var s = SoundClipManager;
+                var h = HotkeysManager;
+                var t = ThemeHandler;
+                var w = WindowManager;
             }
 
             base.OnFrameworkInitializationCompleted();
