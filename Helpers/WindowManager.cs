@@ -19,7 +19,10 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.ViewModels;
 using Amplitude.Views;
+using Avalonia;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -101,6 +104,20 @@ namespace Amplitude.Helpers
             }
         }
 
+        private About? _aboutWindow = null;
+        public About? AboutWindow
+        {
+            get => _aboutWindow;
+            set
+            {
+                if (value != _aboutWindow)
+                {
+                    _aboutWindow = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private ErrorList _errorListWindow;
         public ErrorList ErrorListWindow
         {
@@ -111,6 +128,63 @@ namespace Amplitude.Helpers
                     _errorListWindow = new ErrorList();
                 }
                 return _errorListWindow;
+            }
+        }
+
+        public void ShowSoundClipListWindow(PixelPoint? desiredPosition)
+        {
+            if (SoundClipListWindow != null)
+            {
+                SoundClipListWindow.Activate();
+            }
+            else
+            {
+                SoundClipListWindow = new SoundClipList
+                {
+                    DataContext = new SoundClipListViewModel(),
+                };
+                if (desiredPosition != null)
+                {
+                    SoundClipListWindow.Position = (PixelPoint)desiredPosition;
+                }
+                SoundClipListWindow.Show();
+            }
+        }
+
+        public void ShowGlobalSettingsWindow(PixelPoint? desiredPosition)
+        {
+            if (GlobalSettingsWindow != null)
+            {
+                GlobalSettingsWindow.Activate();
+            }
+            else
+            {
+                GlobalSettingsWindow = new GlobalSettings
+                {
+                    DataContext = new GlobalSettingsViewModel(),
+                };
+                if (desiredPosition != null)
+                {
+                    GlobalSettingsWindow.Position = (PixelPoint)desiredPosition;
+                }
+                GlobalSettingsWindow.Show();
+            }
+        }
+
+        public void ShowAboutWindow(PixelPoint? desiredPosition)
+        {
+            if (AboutWindow != null)
+            {
+                AboutWindow.Activate();
+            }
+            else
+            {
+                AboutWindow = new About();
+                if (desiredPosition != null)
+                {
+                    AboutWindow.Position = (PixelPoint)desiredPosition;
+                }
+                AboutWindow.Show();
             }
         }
 

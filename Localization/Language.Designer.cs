@@ -61,6 +61,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string AboutTitle {
+            get {
+                return ResourceManager.GetString("AboutTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accept.
         /// </summary>
         internal static string AcceptButton {
@@ -268,6 +277,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to License.
+        /// </summary>
+        internal static string LicenseLabel {
+            get {
+                return ResourceManager.GetString("LicenseLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Master volume.
         /// </summary>
         internal static string MasterVolumeLabel {
@@ -291,6 +309,15 @@ namespace Amplitude.Localization {
         internal static string NewSoundClip {
             get {
                 return ResourceManager.GetString("NewSoundClip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notice.
+        /// </summary>
+        internal static string NoticeLabel {
+            get {
+                return ResourceManager.GetString("NoticeLabel", resourceCulture);
             }
         }
         

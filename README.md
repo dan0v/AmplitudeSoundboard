@@ -6,6 +6,13 @@
 
 This project is a work in progress. Please do not report issues until a stable release has been reached.
 
+
+## Installation
+### Windows *(x64)*
+1. Download and unzip [latest Windows build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/) from the Releases page
+2. Run executable (`amplitude_soundboard.exe`)
+3. If you would like to play sound through an input device like a microphone, set up [Virtual Audio Cable](https://vac.muzychenko.net/en/download.htm) and set the newly created virtual cable as your clip output device
+
 ## Contributors
 
 Many thanks to all these people! ([emoji key](https://allcontributors.org/docs/en/emoji-key)):

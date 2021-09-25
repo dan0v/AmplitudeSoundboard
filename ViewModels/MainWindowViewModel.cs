@@ -53,41 +53,17 @@ namespace Amplitude.ViewModels
 
         public void ShowList()
         {
-            SoundClipList? window = App.WindowManager.SoundClipListWindow;
-            if (window != null)
-            {
-                window.Activate();
-            }
-            else
-            {
-                window = new SoundClipList
-                {
-                    DataContext = new SoundClipListViewModel(),
-                    Position = new Avalonia.PixelPoint(WindowPosition.x + 200, WindowPosition.y + 200)
-                };
-                window.Show();
-            }
-
+            App.WindowManager.ShowSoundClipListWindow(new Avalonia.PixelPoint(WindowPosition.x + 200, WindowPosition.y + 200));
         }
 
         public void ShowGlobalSettings()
         {
-            GlobalSettings? window = App.WindowManager.GlobalSettingsWindow;
-            if (window != null)
-            {
-                window.Activate();
-            }
-            else
-            {
-                window = new GlobalSettings
-                {
-                    MainWindow = this,
-                    DataContext = new GlobalSettingsViewModel(),
-                    Position = new Avalonia.PixelPoint(WindowPosition.x + 150, WindowPosition.y + 150)
-                };
-                window.Show();
-            }
-
+            App.WindowManager.ShowGlobalSettingsWindow(new Avalonia.PixelPoint(WindowPosition.x + 150, WindowPosition.y + 150));
+        }
+        
+        public void ShowAbout()
+        {
+            App.WindowManager.ShowAboutWindow(new Avalonia.PixelPoint(WindowPosition.x + 100, WindowPosition.y + 100));
         }
 
         public void StopAudio()

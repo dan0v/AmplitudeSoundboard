@@ -19,6 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.ViewModels;
 using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
@@ -46,6 +47,7 @@ namespace Amplitude.Views
         protected override void OnClosing(CancelEventArgs e)
         {
             App.WindowManager.SoundClipListWindow = null;
+            ((SoundClipListViewModel)DataContext).Dispose();
             base.OnClosing(e);
         }
     }

@@ -28,6 +28,9 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using System.IO;
 using static System.Environment;
+using System.Reflection;
+using System;
+using System.Diagnostics;
 
 namespace AmplitudeSoundboard
 {
@@ -57,6 +60,20 @@ namespace AmplitudeSoundboard
         public static WindowManager WindowManager => WindowManager.Instance;
 
         public static OptionsManager OptionsManager => OptionsManager.Instance;
+
+        public static string VERSION
+        {
+            get
+            {
+                string version = "";
+                try
+                {
+                    version = System.Reflection.Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+                }
+                catch (Exception e) { Debug.WriteLine(e); }
+                return version;
+            }
+        }
 
 #if Windows
         public static ISoundEngine SoundEngine => NSoundEngine.Instance;

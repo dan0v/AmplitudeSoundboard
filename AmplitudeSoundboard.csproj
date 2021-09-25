@@ -32,6 +32,18 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
+    <AvaloniaResource Remove="Assets\Doc\LICENSE.txt" />
+    <AvaloniaResource Remove="Assets\Doc\NOTICE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Doc\LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Doc\NOTICE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.7" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.7" />
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.7" />
@@ -44,6 +56,9 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Language.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\About.axaml.cs">
+      <DependentUpon>About.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\GlobalSettings.axaml.cs">
       <DependentUpon>GlobalSettings.axaml</DependentUpon>

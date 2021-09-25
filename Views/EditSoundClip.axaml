@@ -60,8 +60,8 @@
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
             <StackPanel>
-              <Label Grid.Column="0" Grid.Row="1" Content="{i18n:Localize ClipNameLabel}" HorizontalAlignment="Center" Height="30"></Label>
-              <TextBox Grid.Column="0" Text="{Binding Model.Name}" Watermark="{i18n:Localize ClipNamePlaceholder}" ToolTip.Tip="{Binding Model.Name}"></TextBox>
+              <Label Content="{i18n:Localize ClipNameLabel}" HorizontalAlignment="Center" Height="30"></Label>
+              <TextBox Text="{Binding Model.Name}" Watermark="{i18n:Localize ClipNamePlaceholder}" ToolTip.Tip="{Binding Model.Name}"></TextBox>
             </StackPanel>
           </Border>
           
@@ -115,7 +115,7 @@
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
             <StackPanel>
-              <Label Grid.Column="0" Grid.Row="1" Content="{i18n:Localize ClipAudioFilePathLabel}" HorizontalAlignment="Center" Height="30"></Label>
+              <Label Content="{i18n:Localize ClipAudioFilePathLabel}" HorizontalAlignment="Center" Height="30"></Label>
               <Grid ColumnDefinitions="*,Auto">
                 <TextBox Grid.Column="0" Text="{Binding Model.AudioFilePath}" Watermark="{i18n:Localize ClipFilePathPlaceholder}" ToolTip.Tip="{Binding Model.AudioFilePath}" Margin="5,0,5,5"></TextBox>
                 <Button x:Name="btn_BrowseAudioFilePath" Cursor="Hand" Grid.Column="1" Margin="5,0,5,5" ToolTip.Tip="{i18n:Localize ClipFilePathPlaceholder}">
@@ -133,7 +133,7 @@
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
             <StackPanel>
-              <Label Grid.Column="0" Grid.Row="1" Content="{i18n:Localize ClipImageFilePathLabel}" HorizontalAlignment="Center" Height="30"></Label>
+              <Label Content="{i18n:Localize ClipImageFilePathLabel}" HorizontalAlignment="Center" Height="30"></Label>
               <Grid ColumnDefinitions="*,Auto">
                 <TextBox Grid.Column="0" Text="{Binding Model.ImageFilePath}" Watermark="{i18n:Localize ClipFilePathPlaceholder}" ToolTip.Tip="{Binding Model.ImageFilePath}" Margin="5,0,5,5"></TextBox>
                 <Button x:Name="btn_BrowseImageFilePath" Cursor="Hand" Grid.Column="1" ToolTip.Tip="{i18n:Localize ClipFilePathPlaceholder}" Margin="5,0,5,5">

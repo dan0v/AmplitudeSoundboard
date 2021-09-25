@@ -54,6 +54,7 @@ namespace Amplitude.Views
         {
             App.SoundEngine.Dispose();
             App.KeyboardHook.Dispose();
+            ((MainWindowViewModel)DataContext).Dispose();
             base.OnClosing(e);
         }
     }

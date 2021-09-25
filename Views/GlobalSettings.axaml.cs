@@ -30,15 +30,12 @@ namespace Amplitude.Views
 {
     public partial class GlobalSettings : Window
     {
-        public MainWindowViewModel MainWindow;
-
         public GlobalSettings()
         {
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
 #endif
-            App.WindowManager.GlobalSettingsWindow = this;
         }
 
         Window GetWindow() => (Window)this.VisualRoot;
@@ -51,6 +48,7 @@ namespace Amplitude.Views
         protected override void OnClosing(CancelEventArgs e)
         {
             App.WindowManager.GlobalSettingsWindow = null;
+            ((GlobalSettingsViewModel)DataContext).Dispose();
             base.OnClosing(e);
         }
     }

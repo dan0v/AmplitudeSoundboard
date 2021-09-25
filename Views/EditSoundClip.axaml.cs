@@ -105,6 +105,7 @@ namespace Amplitude.Views
         protected override void OnClosing(CancelEventArgs e)
         {
             App.WindowManager.ClosedEditSoundClipWindow(((EditSoundClipViewModel)this.DataContext).Model.Id);
+            ((EditSoundClipViewModel)DataContext).Dispose();
             base.OnClosing(e);
         }
 
