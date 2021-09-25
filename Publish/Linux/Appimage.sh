@@ -26,7 +26,7 @@ APP_NAME="Amplitude Soundboard"
 APP_OUTPUT_PATH="Build"
 PUBLISH_OUTPUT_DIRECTORY="../../bin/Release/net5.0/publishLinux/."
 APP_TAR_NAME1="amplitude_soundboard_"
-APP_TAR_NAME2="_linux_AppImage_x86_64"
+APP_TAR_NAME2="linux_AppImage_x86_64"
 
 if [ -d "$APP_OUTPUT_PATH" ]
 then
@@ -47,7 +47,8 @@ chmod 755 "$APP_OUTPUT_PATH/$APP_NAME/AppRun"
 cp "../../NOTICE.txt" "$APP_OUTPUT_PATH/NOTICE.txt"
 cp "../../LICENSE.txt" "$APP_OUTPUT_PATH/LICENSE.txt"
 
-VERSION=$(cat ../version.txt | sed 's/ *$//g' | sed 's/\r//' | sed ':a;N;$!ba;s/\n//g')
+#VERSION=$(cat ../version.txt | sed 's/ *$//g' | sed 's/\r//' | sed ':a;N;$!ba;s/\n//g')
+VERSION=""
 
 cd "$APP_OUTPUT_PATH"
 

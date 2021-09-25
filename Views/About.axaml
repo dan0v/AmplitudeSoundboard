@@ -56,7 +56,7 @@
               </Border.BorderBrush>
               <StackPanel>
                 <TextBlock TextAlignment="Center" x:Name="txt_blk_Copyright" Text="COPYRIGHT"></TextBlock>
-                <TextBlock Foreground="#0066FF" x:Name="txt_blk_URL" TextDecorations="Underline" Cursor="Hand" TextAlignment="Center" Text="URL STRING"></TextBlock>
+                <TextBlock Foreground="#0094ff" x:Name="txt_blk_URL" TextDecorations="Underline" Cursor="Hand" TextAlignment="Center" Text="URL STRING"></TextBlock>
               </StackPanel>
             </Border>
 
