@@ -20,6 +20,7 @@
 */
 
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -95,6 +96,101 @@ namespace Amplitude.Models
                 }
                 OnPropertyChanged(); // Alert even if not changed
             }
+        }
+
+        private int _gridRows = 5;
+        public int GridRows
+        {
+            get => _gridRows;
+            set
+            {
+                if (value != _gridRows)
+                {
+                    _gridRows = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _gridColumns = 5;
+        public int GridColumns
+        {
+            get => _gridColumns;
+            set
+            {
+                if (value != _gridColumns)
+                {
+                    _gridColumns = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _gridTileHeight = 100;
+        public int GridTileHeight
+        {
+            get => _gridTileHeight;
+            set
+            {
+                if (value != _gridTileHeight)
+                {
+                    _gridTileHeight = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _gridTileWidth = 100;
+        public int GridTileWidth
+        {
+            get => _gridTileWidth;
+            set
+            {
+                if (value != _gridTileWidth)
+                {
+                    _gridTileWidth = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _hideTutorial = false;
+        public bool HideTutorial
+        {
+            get => _hideTutorial;
+            set
+            {
+                if (value != _hideTutorial)
+                {
+                    _hideTutorial = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string[,] GridSoundClipIds = new string[5, 5];
+
+        public void UpdateGridSize()
+        {
+            string[,] newGrid = new string[_gridRows, _gridColumns];
+
+            for (int row = 0; row <= newGrid.GetUpperBound(0); row++)
+            {
+                if (row > GridSoundClipIds.GetUpperBound(0))
+                {
+                    break;
+                }
+                for (int col = 0; col <= newGrid.GetUpperBound(1); col++)
+                {
+                    if (col > GridSoundClipIds.GetUpperBound(1))
+                    {
+                        break;
+                    }
+                    newGrid[row, col] = GridSoundClipIds[row, col];
+                }
+            }
+
+            GridSoundClipIds = newGrid;
         }
 
         public Options() { }

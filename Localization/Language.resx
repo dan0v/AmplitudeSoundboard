@@ -126,6 +126,9 @@
   <data name="CancelButton" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ClearTile" xml:space="preserve">
+    <value>Clear tile</value>
+  </data>
   <data name="ClipAudioFilePathLabel" xml:space="preserve">
     <value>Sound clip file path</value>
   </data>
@@ -147,6 +150,9 @@
   <data name="ClipVolumeLabel" xml:space="preserve">
     <value>Clip volume</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
   <data name="DeleteSoundClipButton" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -164,6 +170,9 @@
   </data>
   <data name="EditSoundClipTooltip" xml:space="preserve">
     <value>Edit sound clip</value>
+  </data>
+  <data name="EmptyTilePrompt" xml:space="preserve">
+    <value>Drag a Sound Clip here to bind it!</value>
   </data>
   <data name="ErrorListTitle" xml:space="preserve">
     <value>Error List</value>
@@ -185,6 +194,18 @@
   </data>
   <data name="GlobalSettingsTitle" xml:space="preserve">
     <value>Preferences</value>
+  </data>
+  <data name="GridSizeLabel" xml:space="preserve">
+    <value>Grid size</value>
+  </data>
+  <data name="GridTileSizeLabel" xml:space="preserve">
+    <value>Grid tiles size</value>
+  </data>
+  <data name="GridTutorial" xml:space="preserve">
+    <value>Copy a Sound Clip from the Sound Clip List and paste it into any Grid Tile using right click!</value>
+  </data>
+  <data name="HideTutorial" xml:space="preserve">
+    <value>Hide tutorial</value>
   </data>
   <data name="HotkeyPlaceholder" xml:space="preserve">
     <value>Record a key combination...</value>
@@ -216,8 +237,11 @@
   <data name="OutputDeviceLabel" xml:space="preserve">
     <value>Output device</value>
   </data>
+  <data name="PasteClip" xml:space="preserve">
+    <value>Paste clip to tile</value>
+  </data>
   <data name="PlaySound" xml:space="preserve">
-    <value>Play sound</value>
+    <value>Play audio</value>
   </data>
   <data name="SaveButton" xml:space="preserve">
     <value>Save</value>
@@ -241,7 +265,7 @@
     <value>Stop all audio hotkey</value>
   </data>
   <data name="TestSound" xml:space="preserve">
-    <value>Test sound</value>
+    <value>Test audio</value>
   </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Theme</value>

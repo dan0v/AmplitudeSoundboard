@@ -169,13 +169,29 @@
 
           <Grid ColumnDefinitions="*,Auto">
             <StackPanel Orientation="Horizontal" Grid.Column="0" IsEnabled="{Binding HasAudioFilePath}">
-              <Button Content="{i18n:Localize TestSound}" Cursor="Hand" Command="{Binding PlaySound}" Margin="10,5,5,5"></Button>
-              <Button Content="{i18n:Localize StopAllAudio}" Cursor="Hand" Command="{Binding StopAudio}" ToolTip.Tip="{Binding StopAudioHotkey}" Margin="5,5,5,5"></Button>
+              <Button ToolTip.Tip="{i18n:Localize TestSound}" Cursor="Hand" Command="{Binding PlaySound}" Margin="10,5,5,5">
+                <Panel>
+                  <Image Source="{Binding ThemeHandler.Play}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Panel>
+              </Button>
+              <Button Cursor="Hand" Command="{Binding StopAudio}" ToolTip.Tip="{Binding StopAudioHotkey}" Margin="5,5,5,5">
+                <Panel>
+                  <Image Source="{Binding ThemeHandler.StopSound}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Panel>
+              </Button>
             </StackPanel>
             <!--Can't put a tooltip on disabled elements and even putting it on the parent doesn't work, so I don't know how we can signal why this button is disabled-->
             <StackPanel Orientation="Horizontal" Grid.Column="1">
-              <Button x:Name="btn_Delete" Content="{i18n:Localize DeleteSoundClipButton}" Cursor="Hand" IsEnabled="{Binding Model.Id, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Margin="5,5,10,5" HorizontalAlignment="Left"></Button>
-              <Button Content="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveClip}" IsEnabled="{Binding CanSave}" Margin="5,5,10,5" HorizontalAlignment="Right"></Button>
+              <Button x:Name="btn_Delete" ToolTip.Tip="{i18n:Localize DeleteSoundClipButton}" Cursor="Hand" IsEnabled="{Binding Model.Id, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Margin="5,5,10,5" HorizontalAlignment="Left">
+                <Panel>
+                  <Image Source="{Binding ThemeHandler.Delete}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Panel>
+              </Button>
+              <Button ToolTip.Tip="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveClip}" IsEnabled="{Binding CanSave}" Margin="5,5,10,5" HorizontalAlignment="Right">
+                <Panel>
+                  <Image Source="{Binding ThemeHandler.Save}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Panel>
+              </Button>
             </StackPanel>
           </Grid>
 

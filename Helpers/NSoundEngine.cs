@@ -129,30 +129,6 @@ namespace Amplitude.Helpers
             }
         }
 
-        public bool CheckPlayableFileAndGenerateErrors(string fileName)
-        {
-            if (!File.Exists(fileName))
-            {
-                string errorMessage = String.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
-                App.WindowManager.ErrorListWindow.AddErrorString(errorMessage);
-                return false;
-            }
-
-            string fileType = Path.GetExtension(fileName).ToLower();
-            if (fileType.Length >= 1)
-            {
-                fileType = fileType.Substring(1);
-            }
-            if (BrowseIO.AudioFileTypesFilter.Extensions.Where(a => a.ToLower() == fileType).Count() < 1)
-            {
-                string errorMessage = String.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
-                App.WindowManager.ErrorListWindow.AddErrorString(errorMessage);
-                return false;
-            }
-
-            return true;
-        }
-
         /// <summary>
         /// Resample and cache this soundclip
         /// </summary>
@@ -204,7 +180,7 @@ namespace Amplitude.Helpers
         /// <param name="id"></param>
         public void Play(string fileName, int volume, string playerDeviceName, string? id = null)
         {
-            if (!CheckPlayableFileAndGenerateErrors(fileName))
+            if (!BrowseIO.ValidAudioFile(fileName))
             {
                 return;
             }

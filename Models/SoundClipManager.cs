@@ -76,9 +76,24 @@ namespace Amplitude.Models
             }
         }
 
+        private string _copiedClipId = "";
+        public string CopiedClipId
+        {
+            get => _copiedClipId;
+            set
+            {
+                if (value != _copiedClipId)
+                {
+                    _copiedClipId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         private Dictionary<string, SoundClip> soundClips;
+        public Dictionary<string, SoundClip> SoundClips { get => soundClips; }
 
         private SoundClipManager()
         {
@@ -177,9 +192,10 @@ namespace Amplitude.Models
             {
                 App.WindowManager.ErrorListWindow.AddErrorString("SoundClip with ID: " + clip.Id + " could not be saved (does not exist)!");
             }
-
+            ValidateSoundClip(clip);
             StoreSavedSoundClips();
             OnPropertyChanged(nameof(FilteredSoundClipList));
+            OnPropertyChanged(nameof(SoundClips));
         }
 
         public void RemoveSoundClip(string? id)
@@ -198,6 +214,7 @@ namespace Amplitude.Models
 
                 StoreSavedSoundClips();
                 OnPropertyChanged(nameof(FilteredSoundClipList));
+                OnPropertyChanged(nameof(SoundClips));
             }
         }
 

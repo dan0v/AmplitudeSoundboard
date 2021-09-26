@@ -88,6 +88,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear tile.
+        /// </summary>
+        internal static string ClearTile {
+            get {
+                return ResourceManager.GetString("ClearTile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sound clip file path.
         /// </summary>
         internal static string ClipAudioFilePathLabel {
@@ -151,6 +160,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy to clipboard.
+        /// </summary>
+        internal static string CopyToClipboard {
+            get {
+                return ResourceManager.GetString("CopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string DeleteSoundClipButton {
@@ -201,6 +219,15 @@ namespace Amplitude.Localization {
         internal static string EditSoundClipTooltip {
             get {
                 return ResourceManager.GetString("EditSoundClipTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drag a Sound Clip here to bind it!.
+        /// </summary>
+        internal static string EmptyTilePrompt {
+            get {
+                return ResourceManager.GetString("EmptyTilePrompt", resourceCulture);
             }
         }
         
@@ -264,6 +291,42 @@ namespace Amplitude.Localization {
         internal static string GlobalSettingsTitle {
             get {
                 return ResourceManager.GetString("GlobalSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grid size.
+        /// </summary>
+        internal static string GridSizeLabel {
+            get {
+                return ResourceManager.GetString("GridSizeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grid tiles size.
+        /// </summary>
+        internal static string GridTileSizeLabel {
+            get {
+                return ResourceManager.GetString("GridTileSizeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy a Sound Clip from the Sound Clip List and paste it into any Grid Tile using right click!.
+        /// </summary>
+        internal static string GridTutorial {
+            get {
+                return ResourceManager.GetString("GridTutorial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide tutorial.
+        /// </summary>
+        internal static string HideTutorial {
+            get {
+                return ResourceManager.GetString("HideTutorial", resourceCulture);
             }
         }
         
@@ -358,7 +421,16 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Play sound.
+        ///   Looks up a localized string similar to Paste clip to tile.
+        /// </summary>
+        internal static string PasteClip {
+            get {
+                return ResourceManager.GetString("PasteClip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play audio.
         /// </summary>
         internal static string PlaySound {
             get {
@@ -430,7 +502,7 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Test sound.
+        ///   Looks up a localized string similar to Test audio.
         /// </summary>
         internal static string TestSound {
             get {

@@ -57,9 +57,9 @@
             </Grid>
           </Border>
         <Grid Grid.Row="1" ColumnDefinitions="Auto,*,Auto">
-          <Button Grid.Column="0" Content="{i18n:Localize UpdateLabel}" Command="{Binding Update}" Cursor="Hand" HorizontalAlignment="Left" Margin="10"></Button>
+          <Button Grid.Column="0" IsEnabled="{Binding !Updating}" Content="{i18n:Localize UpdateLabel}" Command="{Binding Update}" Cursor="Hand" HorizontalAlignment="Left" Margin="10"></Button>
           <ProgressBar Grid.Column="1" IsVisible="{Binding Updating}" HorizontalAlignment="Center" IsIndeterminate="True"></ProgressBar>
-          <Button Grid.Column="2" Content="{i18n:Localize DismissWindow}" Command="{Binding Dismiss}" Cursor="Hand" HorizontalAlignment="Right" Margin="10" ></Button>
+          <Button Grid.Column="2" IsEnabled="{Binding !Updating}" Content="{i18n:Localize DismissWindow}" Command="{Binding Dismiss}" Cursor="Hand" HorizontalAlignment="Right" Margin="10" ></Button>
         </Grid>
       </Grid>
     </Panel>

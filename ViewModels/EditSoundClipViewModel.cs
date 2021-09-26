@@ -30,73 +30,13 @@ namespace Amplitude.ViewModels
     {
         static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
         private OptionsManager OptionsManager { get => App.OptionsManager; }
-        private string StopAudioHotkey => OptionsManager.Options.GlobalKillAudioHotkey;
+
+        private string StopAudioHotkey => string.IsNullOrEmpty(OptionsManager.Options.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + OptionsManager.Options.GlobalKillAudioHotkey;
 
         private SoundClip _model;
         public SoundClip Model { get => _model; }
 
-        public EditSoundClipViewModel()
-        {
-            _model = new SoundClip();
-            SetBindings();
-        }
-
-        /// <summary>
-        ///  Edit a (copy of an) existing SoundClip in this EditSoundClip window. Save to overwrite original with copy
-        /// </summary>
-        /// <param name="model"></param>
-        public EditSoundClipViewModel(SoundClip model)
-        {
-            _model = model.ShallowCopy();
-            SetBindings();
-        }
-
-        private void SetBindings()
-        {
-            HasNameField = !string.IsNullOrEmpty(Model.Name);
-            HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
-            SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
-            Model.PropertyChanged += Model_PropertyChanged;
-            OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
-        }
-
-        private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(OptionsManager.Options))
-            {
-                OnPropertyChanged(nameof(StopAudioHotkey));
-            }
-        }
-
-        /// <summary>
-        /// Update ViewModel properties when underlying model changes detected
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Model_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(Model.Name))
-            {
-                HasNameField = !string.IsNullOrEmpty(Model.Name);
-                SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
-            }
-            if (e.PropertyName == nameof(Model.AudioFilePath))
-            {
-                HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
-            }
-            if (e.PropertyName == nameof(Model.Hotkey))
-            {
-                WaitingForHotkey = false;
-            }
-        }
-
-        public bool CanSave
-        {
-            get
-            {
-                return HasNameField && !WaitingForHotkey;
-            }
-        }
+        public bool CanSave { get => HasNameField && !WaitingForHotkey; }
 
         private bool _hasNameField;
         public bool HasNameField
@@ -160,6 +100,61 @@ namespace Amplitude.ViewModels
         public Color HotkeyBackgroundColor => WaitingForHotkey ? ThemeHandler.TextBoxHighlightedColor : ThemeHandler.TextBoxNormalColor;
 
         public List<string> DeviceList => App.SoundEngine.OutputDeviceList;
+
+        public EditSoundClipViewModel()
+        {
+            _model = new SoundClip();
+            SetBindings();
+        }
+
+        /// <summary>
+        ///  Edit a (copy of an) existing SoundClip in this EditSoundClip window. Save to overwrite original with copy
+        /// </summary>
+        /// <param name="model"></param>
+        public EditSoundClipViewModel(SoundClip model)
+        {
+            _model = model.ShallowCopy();
+            SetBindings();
+        }
+
+        private void SetBindings()
+        {
+            HasNameField = !string.IsNullOrEmpty(Model.Name);
+            HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
+            SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
+            Model.PropertyChanged += Model_PropertyChanged;
+            OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
+        }
+
+        private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(OptionsManager.Options))
+            {
+                OnPropertyChanged(nameof(StopAudioHotkey));
+            }
+        }
+
+        /// <summary>
+        /// Update ViewModel properties when underlying model changes detected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Model_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Model.Name))
+            {
+                HasNameField = !string.IsNullOrEmpty(Model.Name);
+                SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
+            }
+            if (e.PropertyName == nameof(Model.AudioFilePath))
+            {
+                HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
+            }
+            if (e.PropertyName == nameof(Model.Hotkey))
+            {
+                WaitingForHotkey = false;
+            }
+        }
 
         public void PlaySound()
         {

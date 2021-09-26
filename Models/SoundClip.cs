@@ -26,19 +26,12 @@ using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using AmplitudeSoundboard;
 using Amplitude.Helpers;
+using Avalonia.Media.Imaging;
 
 namespace Amplitude.Models
 {
     public class SoundClip : INotifyPropertyChanged
     {
-        private string _id = null;
-        // Do not write to JSON, since it is stored in dictionary anyway
-        [JsonIgnore]
-        public string Id
-        {
-            get => _id;
-        }
-
         public void InitializeId(string newId)
         {
             if (string.IsNullOrEmpty(Id))
@@ -90,6 +83,7 @@ namespace Amplitude.Models
                     _hotkey = value;
                 }
                 OnPropertyChanged(); // Alert even if not changed
+                OnPropertyChanged(nameof(PlayAudioTooltip));
             }
         }
 
@@ -119,6 +113,16 @@ namespace Amplitude.Models
                 {
                     _imageFilePath = value;
                     OnPropertyChanged();
+
+                    if (BrowseIO.ValidImage(_imageFilePath, false))
+                    {
+                        _backgroundImage = new Bitmap(_imageFilePath);
+                    }
+                    else
+                    {
+                        _backgroundImage = null;
+                    }
+                    OnPropertyChanged(nameof(BackgroundImage));
                 }
             }
         }
@@ -151,11 +155,39 @@ namespace Amplitude.Models
             }
         }
 
+        private string _id = null;
+        // Do not write to JSON, since it is stored in dictionary anyway
+        [JsonIgnore]
+        public string Id
+        {
+            get => _id;
+        }
+
+        private Bitmap _backgroundImage = null;
+        [JsonIgnore]
+        public Bitmap BackgroundImage
+        {
+            get => _backgroundImage;
+        }
+
+        [JsonIgnore]
+        public string? PlayAudioTooltip { get => string.IsNullOrEmpty(Id) ? null : string.IsNullOrEmpty(Hotkey) ? Localization.Localizer.Instance["PlaySound"] : Localization.Localizer.Instance["PlaySound"] + ": " + Hotkey; }
+
         public SoundClip() { }
 
         public void PlayAudio()
         {
             App.SoundEngine.Play(this);
+        }
+
+        public void CopySoundClipId()
+        {
+            App.SoundClipManager.CopiedClipId = Id;
+        }
+
+        public void OpenEditSoundClipWindow()
+        {
+            App.WindowManager.OpenEditSoundClipWindow(Id);
         }
 
         public static SoundClip? FromJSON(string json)

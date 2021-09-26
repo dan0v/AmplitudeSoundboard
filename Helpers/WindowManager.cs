@@ -21,7 +21,9 @@
 
 using Amplitude.ViewModels;
 using Amplitude.Views;
+using AmplitudeSoundboard;
 using Avalonia;
+using Avalonia.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,6 +57,24 @@ namespace Amplitude.Helpers
                     _editSoundClipWindows = value;
                     OnPropertyChanged();
                 }
+            }
+        }
+
+        public void OpenEditSoundClipWindow(string id)
+        {
+            if (App.WindowManager.EditSoundClipWindows.TryGetValue(id, out EditSoundClip window))
+            {
+                window.Activate();
+            }
+            else
+            {
+
+                Window sound = new EditSoundClip
+                {
+                    DataContext = new EditSoundClipViewModel(App.SoundClipManager.GetClip(id)),
+                };
+
+                sound.Show();
             }
         }
 

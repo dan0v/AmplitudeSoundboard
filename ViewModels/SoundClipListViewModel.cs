@@ -19,6 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
 using Amplitude.Models;
 using Amplitude.Views;
 using AmplitudeSoundboard;
@@ -30,26 +31,9 @@ namespace Amplitude.ViewModels
     {
         static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
         static SoundClipManager Manager { get => App.SoundClipManager; }
+        static WindowManager WindowManager { get => App.WindowManager; }
 
         public SoundClipListViewModel() { }
-
-        public void EditSoundClip(string id)
-        {
-            if (App.WindowManager.EditSoundClipWindows.TryGetValue(id, out EditSoundClip window))
-            {
-                window.Activate();
-            }
-            else
-            {
-
-                Window sound = new EditSoundClip
-                {
-                    DataContext = new EditSoundClipViewModel(Manager.GetClip(id)),
-                };
-
-                sound.Show();
-            }
-        }
 
         public void AddSound()
         {

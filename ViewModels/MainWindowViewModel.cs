@@ -20,27 +20,33 @@
 */
 
 using Amplitude.Models;
-using Amplitude.Views;
 using AmplitudeSoundboard;
+using System.Collections.ObjectModel;
 
 namespace Amplitude.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        static SoundClipManager Manager { get => App.SoundClipManager; }
+        private static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        private static SoundClipManager Manager { get => App.SoundClipManager; }
+        private static OptionsManager OptionsManager { get => App.OptionsManager; }
 
         public (int x, int y) WindowPosition = (0, 0);
 
-        public bool GlobalSettingsWindowOpen { get => App.WindowManager.GlobalSettingsWindow != null; }
+        private bool GlobalSettingsWindowOpen { get => App.WindowManager.GlobalSettingsWindow != null; }
 
-        private OptionsManager OptionsManager { get => App.OptionsManager; }
-
-        private string StopAudioHotkey => OptionsManager.Options.GlobalKillAudioHotkey;
+        private string StopAudioHotkey => string.IsNullOrEmpty(OptionsManager.Options.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + OptionsManager.Options.GlobalKillAudioHotkey;
 
         public MainWindowViewModel()
         {
             OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
+
+            GridItemsRows.Clear();
+            foreach (GridItemRow temp in App.OptionsManager.GetGridLayout())
+            {
+                GridItemsRows.Add(temp);
+            }
+            OnPropertyChanged(nameof(GridItemsRows));
         }
 
         private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -48,8 +54,18 @@ namespace Amplitude.ViewModels
             if (e.PropertyName == nameof(OptionsManager.Options))
             {
                 OnPropertyChanged(nameof(StopAudioHotkey));
+
+                GridItemsRows.Clear();
+                foreach (GridItemRow temp in App.OptionsManager.GetGridLayout())
+                {
+                    GridItemsRows.Add(temp);
+                }
+                OnPropertyChanged(nameof(GridItemsRows));
             }
         }
+
+        private ObservableCollection<GridItemRow> _gridItemsRows  = new();
+        private ObservableCollection<GridItemRow> GridItemsRows { get => _gridItemsRows; }
 
         public void ShowList()
         {

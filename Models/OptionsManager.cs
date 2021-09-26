@@ -26,6 +26,8 @@ using Newtonsoft.Json;
 using System.IO;
 using AmplitudeSoundboard;
 using Amplitude.Helpers;
+using System.Collections.Generic;
+using Amplitude.ViewModels;
 
 namespace Amplitude.Models
 {
@@ -76,16 +78,17 @@ namespace Amplitude.Models
             App.ThemeHandler.SelectedTheme = options.Theme;
             try
             {
+                options.UpdateGridSize();
                 File.WriteAllText(Path.Join(App.APP_STORAGE, OPTIONS_FILE_NAME), options.ToJSON());
                 App.HotkeysManager.RemoveHotkey(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, Options.GlobalKillAudioHotkey);
                 App.HotkeysManager.RegisterHotkeyAtStartup(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, options.GlobalKillAudioHotkey);
                 _options = options;
-                OnPropertyChanged(nameof(Options));
             }
             catch (Exception e)
             {
                 App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
             }
+            OnPropertyChanged(nameof(Options));
         }
 
         public Options? RetrieveOptionsFromFile()
@@ -103,6 +106,21 @@ namespace Amplitude.Models
                 App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
             }
             return null;
+        }
+
+        public List<GridItemRow> GetGridLayout()
+        {
+            List<GridItemRow> list = new();
+            for (int row = 0; row <= Options.GridSoundClipIds.GetUpperBound(0); row++)
+            {
+                GridItemRow rowItem = new GridItemRow();
+                for (int col = 0; col <= Options.GridSoundClipIds.GetUpperBound(1); col++)
+                {
+                    rowItem.List.Add(new SoundBoardGridItemViewModel(Options.GridSoundClipIds[row, col], row, col));
+                }
+                list.Add(rowItem);
+            }
+            return list;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

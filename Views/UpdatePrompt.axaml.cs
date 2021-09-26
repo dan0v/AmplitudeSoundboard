@@ -169,6 +169,10 @@ namespace Amplitude.Views
 
         protected override void OnClosing(CancelEventArgs e)
         {
+            if (Updating)
+            {
+                e.Cancel = true;
+            }
             base.OnClosing(e);
         }
 
