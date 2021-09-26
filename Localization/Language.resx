@@ -205,7 +205,10 @@
     <value>There is a new version available</value>
   </data>
   <data name="NewVersionCanBeDownloaded" xml:space="preserve">
-    <value>Version {0} can be downloaded from the releases page on GitHub.</value>
+    <value>Version {0} can be downloaded from the releases page on GitHub</value>
+  </data>
+  <data name="NewVersionCanBeInstalled" xml:space="preserve">
+    <value>Version {0} can be installed now</value>
   </data>
   <data name="NoticeLabel" xml:space="preserve">
     <value>Notice</value>
@@ -242,6 +245,9 @@
   </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Theme</value>
+  </data>
+  <data name="UpdateLabel" xml:space="preserve">
+    <value>Update</value>
   </data>
   <data name="UpdatePromptTitle" xml:space="preserve">
     <value>Update Available</value>

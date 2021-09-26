@@ -41,7 +41,7 @@ namespace AmplitudeSoundboard
         {
             get
             {
-                string path = Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData, SpecialFolderOption.DoNotVerify), "amplitude-soundboard");
+                string path = Path.Join(GetFolderPath(SpecialFolder.LocalApplicationData, SpecialFolderOption.DoNotVerify), "amplitude-soundboard");
 
                 if (!Directory.Exists(path))
                 {
@@ -77,6 +77,7 @@ namespace AmplitudeSoundboard
         }
 
         public const string VERSION_CHECK_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/version.txt";
+        public const string DOWNLOAD_WIN_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip";
         public const string RELEASES_PAGE = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/";
 
 #if Windows
@@ -111,7 +112,9 @@ namespace AmplitudeSoundboard
                 var t = ThemeHandler;
                 var w = WindowManager;
 
+#if !DEBUG
                 CheckForUpdates();
+#endif
             }
 
             base.OnFrameworkInitializationCompleted();

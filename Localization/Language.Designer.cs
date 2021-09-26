@@ -322,11 +322,20 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Version {0} can be downloaded from the releases page on GitHub..
+        ///   Looks up a localized string similar to Version {0} can be downloaded from the releases page on GitHub.
         /// </summary>
         internal static string NewVersionCanBeDownloaded {
             get {
                 return ResourceManager.GetString("NewVersionCanBeDownloaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0} can be installed now.
+        /// </summary>
+        internal static string NewVersionCanBeInstalled {
+            get {
+                return ResourceManager.GetString("NewVersionCanBeInstalled", resourceCulture);
             }
         }
         
@@ -435,6 +444,15 @@ namespace Amplitude.Localization {
         internal static string ThemeLabel {
             get {
                 return ResourceManager.GetString("ThemeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        internal static string UpdateLabel {
+            get {
+                return ResourceManager.GetString("UpdateLabel", resourceCulture);
             }
         }
         

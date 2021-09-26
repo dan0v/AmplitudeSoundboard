@@ -24,20 +24,44 @@ using Amplitude.Models;
 using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Avalonia.Media;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
+using System.Net;
+using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace Amplitude.Views
 {
-    public partial class UpdatePrompt : Window
+    public partial class UpdatePrompt : Window, INotifyPropertyChanged
     {
         public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        private TextBlock txt_blk_Prompt;
+
+        private string newVersion = "";
+
+        private bool _updating = false;
+        public bool Updating
+        {
+            get => _updating;
+            set
+            {
+                if (value != _updating)
+                {
+                    _updating = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+#if Windows
+        public string UpdatePromptText => string.Format(Localizer.Instance["NewVersionCanBeInstalled"], newVersion);
+#else
+        public string UpdatePromptText => string.Format(Localizer.Instance["NewVersionCanBeDownloaded"], newVersion);
+#endif
 
         public UpdatePrompt()
         {
@@ -53,24 +77,81 @@ namespace Amplitude.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
-            this.txt_blk_Prompt = this.FindControl<TextBlock>("txt_blk_Prompt");
-            txt_blk_Prompt.Text = string.Format(Localizer.Instance["NewVersionCanBeDownloaded"], newVersion);
+            this.newVersion = newVersion;
+            OnPropertyChanged(nameof(UpdatePromptText));
         }
 
-        private void GoToReleases()
+        private void Update()
+        {
+            new Thread(() =>
+            {
+                RunUpdate();
+            })
+            {
+                IsBackground = true
+            }.Start();
+        }
+
+        private void RunUpdate()
         {
             try
             {
+#if Windows
+                Updating = true;
+                string? currentFileName = Process.GetCurrentProcess().MainModule?.FileName;
+                string? currentDirectory = Path.GetDirectoryName(currentFileName);
+
+                if (!string.IsNullOrEmpty(currentDirectory))
+                {
+                    string oldFilePath = Path.Join(currentDirectory, "amplitude_soundboard.OLD.exe");
+
+                    if (File.Exists(oldFilePath))
+                    {
+                        File.Delete(oldFilePath);
+                    }
+
+                    File.Move(currentFileName, oldFilePath);
+
+                    string zipPath = Path.Join(currentDirectory, "AmplitudeUpdate.zip");
+                    string outputPath = Path.Join(currentDirectory, "AmplitudeUpdate");
+
+                    using (WebClient myWebClient = new WebClient())
+                    {
+                        myWebClient.DownloadFile(App.DOWNLOAD_WIN_URL, zipPath);
+                    }
+
+                    ZipFile.ExtractToDirectory(zipPath, outputPath);
+
+                    // Overwrite current app
+                    File.Move(Path.Join(outputPath, "Amplitude Soundboard", "amplitude_soundboard.exe"), currentFileName);
+
+                    // Delete update files
+                    File.Delete(zipPath);
+                    Directory.Delete(outputPath, true);
+
+                    Updating = false;
+
+                    // Start new version and quit current
+                    Process.Start(currentFileName);
+                    using (var lifetime = (ClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime)
+                    {
+                        lifetime.Shutdown(0);
+                    }
+                }
+#else
                 ProcessStartInfo url = new ProcessStartInfo
                 {
                     FileName = App.RELEASES_PAGE,
                     UseShellExecute = true
                 };
                 Process.Start(url);
+#endif
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Debug.WriteLine(e);
+                Updating = false;
+                Debug.WriteLine(ex);
+                App.WindowManager.ErrorListWindow.AddErrorString(ex.Message);
             }
         }
 
@@ -89,6 +170,12 @@ namespace Amplitude.Views
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

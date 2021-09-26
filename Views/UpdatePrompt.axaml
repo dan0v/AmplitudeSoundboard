@@ -53,11 +53,14 @@
           </Border.BorderBrush>
             <Grid RowDefinitions="*,Auto">
               <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{i18n:Localize NewVersionAvailable}" Margin="10"></TextBlock>
-              <TextBlock x:Name="txt_blk_Prompt" Grid.Row="1" TextWrapping="Wrap" Margin="10" TextAlignment="Center" Text="Version xxx can be downloaded from the releases page on GitHub"></TextBlock>
+              <TextBlock Grid.Row="1" TextWrapping="Wrap" Margin="10" TextAlignment="Center" Text="{Binding UpdatePromptText}"></TextBlock>
             </Grid>
           </Border>
-          <Button Grid.Row="1" Content="{i18n:Localize ViewReleases}" Command="{Binding GoToReleases}" Cursor="Hand" HorizontalAlignment="Left" Margin="10"></Button>
-          <Button Grid.Row="1" Content="{i18n:Localize DismissWindow}" Command="{Binding Dismiss}" Cursor="Hand" HorizontalAlignment="Right" Margin="10" ></Button>
+        <Grid Grid.Row="1" ColumnDefinitions="Auto,*,Auto">
+          <Button Grid.Column="0" Content="{i18n:Localize UpdateLabel}" Command="{Binding Update}" Cursor="Hand" HorizontalAlignment="Left" Margin="10"></Button>
+          <ProgressBar Grid.Column="1" IsVisible="{Binding Updating}" HorizontalAlignment="Center" IsIndeterminate="True"></ProgressBar>
+          <Button Grid.Column="2" Content="{i18n:Localize DismissWindow}" Command="{Binding Dismiss}" Cursor="Hand" HorizontalAlignment="Right" Margin="10" ></Button>
+        </Grid>
       </Grid>
     </Panel>
   
