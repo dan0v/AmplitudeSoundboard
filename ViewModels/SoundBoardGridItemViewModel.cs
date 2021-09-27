@@ -41,8 +41,6 @@ namespace Amplitude.ViewModels
         private int row = 0;
         private int col = 0;
 
-        private string ModelName { get => SoundClipExists ? Model.Name : ""; }//Localization.Localizer.Instance["EmptyTilePrompt"]; }
-
         private Cursor Cursor { get => SoundClipExists ? new Cursor(StandardCursorType.Hand) : new Cursor(StandardCursorType.Arrow); }
 
         private bool _soundClipExists = false;
@@ -56,7 +54,6 @@ namespace Amplitude.ViewModels
                     _soundClipExists = value;
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(Cursor));
-                    OnPropertyChanged(nameof(ModelName));
                 }
             }
         }
@@ -131,6 +128,7 @@ namespace Amplitude.ViewModels
             Manager.PropertyChanged += Manager_PropertyChanged;
             OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
             WindowManager.PropertyChanged += WindowManager_PropertyChanged;
+            Model.PropertyChanged += Model_PropertyChanged;
 
             if (WindowManager.GlobalSettingsWindow == null)
             {
@@ -142,6 +140,7 @@ namespace Amplitude.ViewModels
             }
 
             this.soundClipId = clipId;
+            Model.LoadBackgroundImage = true;
         }
 
         private void WindowManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -169,18 +168,23 @@ namespace Amplitude.ViewModels
 
         public void Unbind()
         {
+            Model.LoadBackgroundImage = false;
             this.soundClipId = "";
+            OptionsManager.Options.GridSoundClipIds[row, col] = null;
             OnPropertyChanged(nameof(Model));
-            OnPropertyChanged(nameof(ModelName));
+            OptionsManager.SaveAndOverwriteOptions(OptionsManager.Options);
         }
 
         public void PasteClip()
         {
+            if (!string.IsNullOrEmpty(soundClipId))
+            {
+                Model.LoadBackgroundImage = false;
+            }
             soundClipId = Manager.CopiedClipId;
             Manager.CopiedClipId = "";
             OptionsManager.Options.GridSoundClipIds[row, col] = soundClipId;
             OnPropertyChanged(nameof(Model));
-            OnPropertyChanged(nameof(ModelName));
             OptionsManager.SaveAndOverwriteOptions(OptionsManager.Options);
         }
 
@@ -194,9 +198,12 @@ namespace Amplitude.ViewModels
 
         private void Model_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(Model.ImageFilePath))
+            if (e.PropertyName == nameof(Model.LoadBackgroundImage))
             {
-                OnPropertyChanged(ModelName);
+                if (!Model.LoadBackgroundImage)
+                {
+                    Model.LoadBackgroundImage = true;
+                }
             }
         }
 
@@ -205,6 +212,7 @@ namespace Amplitude.ViewModels
             Manager.PropertyChanged -= Manager_PropertyChanged;
             OptionsManager.PropertyChanged -= OptionsManager_PropertyChanged;
             WindowManager.PropertyChanged -= WindowManager_PropertyChanged;
+            Model.PropertyChanged -= Model_PropertyChanged;
             base.Dispose();
         }
     }

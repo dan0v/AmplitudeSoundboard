@@ -89,6 +89,7 @@ namespace Amplitude.Models
                 App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
             }
             OnPropertyChanged(nameof(Options));
+            App.SoundClipManager.RescaleAllBackgroundImages();
         }
 
         public Options? RetrieveOptionsFromFile()

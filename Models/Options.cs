@@ -28,6 +28,8 @@ namespace Amplitude.Models
 {
     public class Options : INotifyPropertyChanged
     {
+        public string[,] GridSoundClipIds = new string[5, 5];
+
         private string _language = "English";
         public string Language
         {
@@ -168,7 +170,7 @@ namespace Amplitude.Models
             }
         }
 
-        public string[,] GridSoundClipIds = new string[5, 5];
+        public Options() { }
 
         public void UpdateGridSize()
         {
@@ -192,8 +194,6 @@ namespace Amplitude.Models
 
             GridSoundClipIds = newGrid;
         }
-
-        public Options() { }
 
         public string ToJSON()
         {

@@ -160,6 +160,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Columns.
+        /// </summary>
+        internal static string ColumnsPlaceholder {
+            get {
+                return ResourceManager.GetString("ColumnsPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy to clipboard.
         /// </summary>
         internal static string CopyToClipboard {
@@ -322,6 +331,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        internal static string HeightPlaceholder {
+            get {
+                return ResourceManager.GetString("HeightPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide tutorial.
         /// </summary>
         internal static string HideTutorial {
@@ -439,6 +457,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rows.
+        /// </summary>
+        internal static string RowsPlaceholder {
+            get {
+                return ResourceManager.GetString("RowsPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string SaveButton {
@@ -543,6 +570,15 @@ namespace Amplitude.Localization {
         internal static string ViewReleases {
             get {
                 return ResourceManager.GetString("ViewReleases", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        internal static string WidthPlaceholder {
+            get {
+                return ResourceManager.GetString("WidthPlaceholder", resourceCulture);
             }
         }
     }

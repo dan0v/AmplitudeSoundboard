@@ -27,6 +27,7 @@ using Newtonsoft.Json;
 using AmplitudeSoundboard;
 using Amplitude.Helpers;
 using Avalonia.Media.Imaging;
+using Avalonia;
 
 namespace Amplitude.Models
 {
@@ -113,16 +114,7 @@ namespace Amplitude.Models
                 {
                     _imageFilePath = value;
                     OnPropertyChanged();
-
-                    if (BrowseIO.ValidImage(_imageFilePath, false))
-                    {
-                        _backgroundImage = new Bitmap(_imageFilePath);
-                    }
-                    else
-                    {
-                        _backgroundImage = null;
-                    }
-                    OnPropertyChanged(nameof(BackgroundImage));
+                    SetAndRescaleBackgroundImage();
                 }
             }
         }
@@ -170,6 +162,23 @@ namespace Amplitude.Models
             get => _backgroundImage;
         }
 
+        private bool _loadBackgroundImage = false;
+        [JsonIgnore]
+        public bool LoadBackgroundImage
+        {
+            get => _loadBackgroundImage;
+            set
+            {
+                if (value != _loadBackgroundImage)
+                {
+                    _loadBackgroundImage = value;
+                    OnPropertyChanged();
+                    SetAndRescaleBackgroundImage();
+                }
+            }
+        }
+
+
         [JsonIgnore]
         public string? PlayAudioTooltip { get => string.IsNullOrEmpty(Id) ? null : string.IsNullOrEmpty(Hotkey) ? Localization.Localizer.Instance["PlaySound"] : Localization.Localizer.Instance["PlaySound"] + ": " + Hotkey; }
 
@@ -188,6 +197,25 @@ namespace Amplitude.Models
         public void OpenEditSoundClipWindow()
         {
             App.WindowManager.OpenEditSoundClipWindow(Id);
+        }
+
+        public void SetAndRescaleBackgroundImage()
+        {
+            if (LoadBackgroundImage && BrowseIO.ValidImage(_imageFilePath, false))
+            {
+                _backgroundImage = new Bitmap(_imageFilePath);
+                double initialWidth = _backgroundImage.PixelSize.Width;
+                double initialHeight = _backgroundImage.PixelSize.Height;
+                double intendedHeight = App.OptionsManager.Options.GridTileHeight;
+                double intendedWidth = App.OptionsManager.Options.GridTileWidth;
+                double scaleFactor = initialHeight > initialWidth ? initialWidth / intendedWidth : initialHeight / intendedHeight;
+                _backgroundImage = _backgroundImage.CreateScaledBitmap(new PixelSize((int)(initialWidth / scaleFactor), (int)(initialHeight / scaleFactor)), Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode.HighQuality);
+            }
+            else
+            {
+                _backgroundImage = null;
+            }
+            OnPropertyChanged(nameof(BackgroundImage));
         }
 
         public static SoundClip? FromJSON(string json)

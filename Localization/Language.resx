@@ -150,6 +150,9 @@
   <data name="ClipVolumeLabel" xml:space="preserve">
     <value>Clip volume</value>
   </data>
+  <data name="ColumnsPlaceholder" xml:space="preserve">
+    <value>Columns</value>
+  </data>
   <data name="CopyToClipboard" xml:space="preserve">
     <value>Copy to clipboard</value>
   </data>
@@ -204,6 +207,9 @@
   <data name="GridTutorial" xml:space="preserve">
     <value>Copy a Sound Clip from the Sound Clip List and paste it into any Grid Tile using right click!</value>
   </data>
+  <data name="HeightPlaceholder" xml:space="preserve">
+    <value>Height</value>
+  </data>
   <data name="HideTutorial" xml:space="preserve">
     <value>Hide tutorial</value>
   </data>
@@ -243,6 +249,9 @@
   <data name="PlaySound" xml:space="preserve">
     <value>Play audio</value>
   </data>
+  <data name="RowsPlaceholder" xml:space="preserve">
+    <value>Rows</value>
+  </data>
   <data name="SaveButton" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -278,5 +287,8 @@
   </data>
   <data name="ViewReleases" xml:space="preserve">
     <value>View releases</value>
+  </data>
+  <data name="WidthPlaceholder" xml:space="preserve">
+    <value>Width</value>
   </data>
 </root>

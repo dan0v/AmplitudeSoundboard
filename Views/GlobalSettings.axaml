@@ -102,9 +102,9 @@
             <StackPanel>
               <Label Content="{i18n:Localize GridSizeLabel}" HorizontalAlignment="Center" Height="30"></Label>
               <Grid ColumnDefinitions="*,Auto,*">
-                <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="0" Text="{Binding Model.GridRows}" ></TextBox>
+                <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="2" Text="{Binding Model.GridColumns}" Watermark="{i18n:Localize ColumnsPlaceholder}" ></TextBox>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="10,0,10,0">X</TextBlock>
-                <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="2" Text="{Binding Model.GridColumns}" ></TextBox>
+                <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="0" Text="{Binding Model.GridRows}" Watermark="{i18n:Localize RowsPlaceholder}" ></TextBox>
               </Grid>
             </StackPanel>
           </Border>
@@ -117,9 +117,9 @@
             <StackPanel>
               <Label Content="{i18n:Localize GridTileSizeLabel}" HorizontalAlignment="Center" Height="30"></Label>
               <Grid ColumnDefinitions="*,Auto,*">
-                <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="0" Text="{Binding Model.GridTileHeight}" ></TextBox>
+                <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="2" Text="{Binding Model.GridTileWidth}" Watermark="{i18n:Localize WidthPlaceholder}" ></TextBox>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="10,0,10,0">X</TextBlock>
-                <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="2" Text="{Binding Model.GridTileWidth}" ></TextBox>
+                <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="0" Text="{Binding Model.GridTileHeight}" Watermark="{i18n:Localize HeightPlaceholder}" ></TextBox>
               </Grid>
             </StackPanel>
           </Border>
