@@ -4,9 +4,6 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-This project is a work in progress. Please do not report issues until a stable release has been reached.
-
-
 ## Installation
 ### Windows *(x64)*
 1. Download and unzip [latest Windows build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/) from the Releases page
