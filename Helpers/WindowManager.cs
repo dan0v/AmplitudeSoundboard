@@ -74,6 +74,12 @@ namespace Amplitude.Helpers
                     DataContext = new EditSoundClipViewModel(App.SoundClipManager.GetClip(id)),
                 };
 
+                PixelPoint? pos = SoundClipListWindow?.Position ?? MainWindow?.Position;
+                if (pos != null)
+                {
+                    sound.Position = new PixelPoint(pos.Value.X + 50, pos.Value.Y + 50);
+                }
+
                 sound.Show();
             }
         }
@@ -93,6 +99,20 @@ namespace Amplitude.Helpers
             {
                 EditSoundClipWindows.Remove(id);
                 OnPropertyChanged(nameof(EditSoundClipWindows));
+            }
+        }
+
+        public MainWindow? _mainWindow = null;
+        public MainWindow? MainWindow
+        {
+            get => _mainWindow;
+            set
+            {
+                if (value != _mainWindow)
+                {
+                    _mainWindow = value;
+                    OnPropertyChanged();
+                }
             }
         }
 

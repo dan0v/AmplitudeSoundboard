@@ -112,6 +112,8 @@ namespace AmplitudeSoundboard
                 var t = ThemeHandler;
                 var w = WindowManager;
 
+                w.MainWindow = (MainWindow)desktop.MainWindow;
+
 #if !DEBUG
                 CheckForUpdates();
 #endif

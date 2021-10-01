@@ -56,6 +56,23 @@ namespace Amplitude.Models
         public FontFamily TitleFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/JosefinSans/#Josefin Sans");
         public FontFamily BodyFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/Roboto/#Roboto");
 
+
+        public Color FadedTextBackgroundColor
+        {
+            get
+            {
+                switch (SelectedTheme)
+                {
+                    case "Light":
+                        return Color.Parse("#FFFFFF");
+                    case "Dark":
+                        return Color.Parse("#252A36");
+                    default:
+                        throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
+                }
+            }
+        }
+
         public Color BorderColor
         {
             get
