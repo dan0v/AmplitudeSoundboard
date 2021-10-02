@@ -37,62 +37,70 @@
     <Style Selector="Image:disabled">
       <Setter Property="Opacity" Value="0.5"/>
     </Style>
+    <Style Selector="TextBlock">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
+    <Style Selector="Button">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
   </Window.Styles>
 
   <Panel>
       
-      <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
-      </ExperimentalAcrylicBorder>
+    <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
+    </ExperimentalAcrylicBorder>
 
-      <TextBlock Text="{i18n:Localize AboutTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+    <TextBlock Text="{i18n:Localize AboutTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
-      <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
-        <DockPanel Grid.Row="0">
-          <Grid RowDefinitions="Auto,*,*">
-            <!--Copyright-->
-            <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="10,5,10,5" Padding="5">
-              <Border.BorderBrush>
-                <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
-              </Border.BorderBrush>
-              <StackPanel>
-                <TextBlock TextAlignment="Center" x:Name="txt_blk_Copyright" Text="COPYRIGHT"></TextBlock>
-                <TextBlock Foreground="#0094ff" x:Name="txt_blk_URL" TextDecorations="Underline" Cursor="Hand" TextAlignment="Center" Text="URL STRING"></TextBlock>
-              </StackPanel>
-            </Border>
+    <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
+      <DockPanel Grid.Row="0">
+        <Grid RowDefinitions="Auto,*,*">
+          <!--Copyright-->
+          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="10,5,10,5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+            </Border.BorderBrush>
+            <StackPanel>
+              <TextBlock TextAlignment="Center" x:Name="txt_blk_Copyright" Text="COPYRIGHT"></TextBlock>
+              <TextBlock Foreground="#0094ff" x:Name="txt_blk_URL" TextDecorations="Underline" Cursor="Hand" TextAlignment="Center" Text="URL STRING"></TextBlock>
+            </StackPanel>
+          </Border>
 
-            <!--License-->
-            <Border Grid.Row="1" BorderThickness="2" CornerRadius="5" Margin="10,5,10,5" Padding="5">
-              <Border.BorderBrush>
-                <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
-              </Border.BorderBrush>
-              <Grid RowDefinitions="Auto,*">
-                <TextBlock HorizontalAlignment="Center" Grid.Row="0" Margin="5,5,5,5" Text="{i18n:Localize LicenseLabel}"></TextBlock>
-                <ScrollViewer Grid.Row="1">
-                  <TextBox IsReadOnly="True" x:Name="txt_bx_License" Text="LICENSE TEXT" TextWrapping="Wrap"></TextBox>
-                </ScrollViewer>
-              </Grid>
-            </Border>
-          
-          <!--Notice-->
-          <Border Grid.Row="2" BorderThickness="2" CornerRadius="5" Margin="10,5,10,5" Padding="5">
+          <!--License-->
+          <Border Grid.Row="1" BorderThickness="2" CornerRadius="5" Margin="10,5,10,5" Padding="5">
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
             <Grid RowDefinitions="Auto,*">
-              <TextBlock HorizontalAlignment="Center" Grid.Row="0" Margin="5,5,5,5" Text="{i18n:Localize NoticeLabel}"></TextBlock>
+              <TextBlock HorizontalAlignment="Center" Grid.Row="0" Margin="5,5,5,5" Text="{i18n:Localize LicenseLabel}"></TextBlock>
               <ScrollViewer Grid.Row="1">
-                <TextBox IsReadOnly="True"  x:Name="txt_bx_Notice" Text="NOTICE TEXT" TextWrapping="Wrap"></TextBox>
+                <TextBox IsReadOnly="True" x:Name="txt_bx_License" Text="LICENSE TEXT" TextWrapping="Wrap"></TextBox>
               </ScrollViewer>
             </Grid>
           </Border>
-        </Grid>
-        </DockPanel>
+          
+        <!--Notice-->
+        <Border Grid.Row="2" BorderThickness="2" CornerRadius="5" Margin="10,5,10,5" Padding="5">
+          <Border.BorderBrush>
+            <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+          </Border.BorderBrush>
+          <Grid RowDefinitions="Auto,*">
+            <TextBlock HorizontalAlignment="Center" Grid.Row="0" Margin="5,5,5,5" Text="{i18n:Localize NoticeLabel}"></TextBlock>
+            <ScrollViewer Grid.Row="1">
+              <TextBox IsReadOnly="True"  x:Name="txt_bx_Notice" Text="NOTICE TEXT" TextWrapping="Wrap"></TextBox>
+            </ScrollViewer>
+          </Grid>
+        </Border>
+       </Grid>
+      </DockPanel>
 
-        <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Margin="10,0,10,10">
-          <TextBlock Grid.Column="0" x:Name="txt_blk_Version" HorizontalAlignment="Left" Text="Version X.X.X" VerticalAlignment="Center"></TextBlock>
-          <Button Grid.Column="1" Command="{Binding Dismiss}" Cursor="Hand" Content="{i18n:Localize DismissWindow}" HorizontalAlignment="Right"></Button>
-        </Grid>
-        </Grid>
-    </Panel>
-  
+      <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Margin="10,0,10,10">
+        <TextBlock Grid.Column="0" x:Name="txt_blk_Version" HorizontalAlignment="Left" Text="Version X.X.X" VerticalAlignment="Center"></TextBlock>
+        <Button Grid.Column="1" Command="{Binding Dismiss}" Cursor="Hand" Content="{i18n:Localize DismissWindow}" HorizontalAlignment="Right"></Button>
+      </Grid>
+    </Grid>
+  </Panel>
 </Window>

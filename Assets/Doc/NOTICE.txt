@@ -11,5 +11,5 @@ NAudio
 Copyright (C) 2020 Mark Heath
 https://github.com/naudio/NAudio
 
-Roboto
-https://github.com/googlefonts/roboto
+Noto Sans Display
+https://github.com/googlefonts/noto-fonts

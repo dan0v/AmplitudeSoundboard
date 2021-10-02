@@ -34,10 +34,19 @@
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
-
+  
     <Window.Styles>
       <Style Selector="Image:disabled">
         <Setter Property="Opacity" Value="0.5"/>
+      </Style>
+      <Style Selector="TextBlock">
+        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      </Style>
+      <Style Selector="TextBox">
+        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      </Style>
+      <Style Selector="Button">
+        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
       </Style>
     </Window.Styles>
   
@@ -80,7 +89,7 @@
             </Button>
           </StackPanel>
           <Grid Grid.Column="1" RowDefinitions="*,Auto">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="0" Padding="10">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="0" Padding="10,10,10,5">
               <ItemsControl Items="{Binding GridItemsRows}">
                 <ItemsControl.ItemTemplate>
                   <DataTemplate>
@@ -105,7 +114,7 @@
             </ScrollViewer>
           </Grid>
         </Grid>
-        <TextBlock IsVisible="{Binding !OptionsManager.Options.HideTutorial}" Grid.Row="1" Margin="5,5,5,5" Text="{i18n:Localize GridTutorial}" TextWrapping="Wrap" TextAlignment="Center" ToolTip.Tip="{i18n:Localize GridTutorial}" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock IsVisible="{Binding !OptionsManager.Options.HideTutorial}" Grid.Row="1" Margin="5,0,5,5" Text="{i18n:Localize GridTutorial}" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize GridTutorial}" HorizontalAlignment="Center"></TextBlock>
       </Grid>
       
     </Panel>

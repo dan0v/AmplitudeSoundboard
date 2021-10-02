@@ -54,7 +54,7 @@ namespace Amplitude.Models
         public static string[] ThemesList { get => new string[] { "Dark", "Light" }; }
 
         public FontFamily TitleFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/JosefinSans/#Josefin Sans");
-        public FontFamily BodyFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/Roboto/#Roboto");
+        public FontFamily BodyFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/NotoSansDisplay/");
 
 
         public Color FadedTextBackgroundColor
@@ -64,7 +64,7 @@ namespace Amplitude.Models
                 switch (SelectedTheme)
                 {
                     case "Light":
-                        return Color.Parse("#EBEBEB");
+                        return Color.Parse("#bfbfc1");
                     case "Dark":
                         return Color.Parse("#171a21");
                     default:

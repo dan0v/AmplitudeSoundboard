@@ -33,12 +33,21 @@
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
-  
-    <Window.Styles>
-      <Style Selector="Image:disabled">
-        <Setter Property="Opacity" Value="0.5"/>
-      </Style>
-    </Window.Styles>
+
+  <Window.Styles>
+    <Style Selector="Image:disabled">
+      <Setter Property="Opacity" Value="0.5"/>
+    </Style>
+    <Style Selector="TextBlock">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
+    <Style Selector="Button">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
+  </Window.Styles>
 
     <Design.DataContext>
         <vm:SoundClipListViewModel/>

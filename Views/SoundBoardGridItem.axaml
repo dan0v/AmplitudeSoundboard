@@ -11,6 +11,15 @@
     <Style Selector="Image:disabled">
       <Setter Property="Opacity" Value="0.5"/>
     </Style>
+    <Style Selector="TextBlock">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
+    <Style Selector="Button">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
   </UserControl.Styles>
 
   <Design.DataContext>
@@ -45,7 +54,7 @@
 
         <!--Conditional XAML is kind of terrible when having to use IsVisible... Center Model.Name if no background image set, otherwise push to bottom with semi-transparent background-->
         <Panel Grid.Row="0" IsVisible="{Binding Model.ImageFilePath, Converter={x:Static StringConverters.IsNullOrEmpty}}">
-          <TextBlock IsVisible="{Binding Model.NameVisibleOnGridTile}" Opacity="{Binding BackgroundOpacity}" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Model.Name}" Margin="2"></TextBlock>
+          <TextBlock IsVisible="{Binding Model.NameVisibleOnGridTile}" Opacity="{Binding BackgroundOpacity}" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" Text="{Binding Model.Name}" Margin="2"></TextBlock>
         </Panel>
 
         <Panel Grid.Row="1" IsVisible="{Binding Model.ImageFilePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
@@ -57,7 +66,7 @@
               <Panel.Background>
                 <SolidColorBrush Color="{Binding ThemeHandler.FadedTextBackgroundColor}" Opacity="0.4"/>
               </Panel.Background>
-              <TextBlock Opacity="{Binding BackgroundOpacity}" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Model.Name}" Margin="2"></TextBlock>
+              <TextBlock Opacity="{Binding BackgroundOpacity}" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" Text="{Binding Model.Name}" Margin="2"></TextBlock>
             </Panel>
           </Border>
         </Panel>

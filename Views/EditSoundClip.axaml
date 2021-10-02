@@ -37,6 +37,15 @@
       <Style Selector="Image:disabled">
         <Setter Property="Opacity" Value="0.5"/>
       </Style>
+      <Style Selector="TextBlock">
+        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      </Style>
+      <Style Selector="TextBox">
+        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      </Style>
+      <Style Selector="Button">
+        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      </Style>
     </Window.Styles>
   
     <Design.DataContext>
@@ -66,7 +75,7 @@
               <!--Show name in grid tile toggle-->
               <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
                 <Label VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" Content="{i18n:Localize ShowNameOnGridTile}" ></Label>
-                <CheckBox HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.NameVisibleOnGridTile}"/>
+                <CheckBox Cursor="Hand" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.NameVisibleOnGridTile}"/>
               </StackPanel>
             </StackPanel>
           </Border>
