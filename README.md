@@ -4,6 +4,21 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+## Features
+- Play audio files
+  - AIFF
+  - FLAC
+  - M4A
+  - MP3
+  - MP4
+  - WAV
+- Customize a grid view of your sound clips to your liking
+- Trigger sound clips with custom hotkeys or a button press
+- Set output device and volume at a per-clip level
+- Toggle between light and dark theme
+- Automatically update to the newest version if desired
+- Localized versions available (work in progress)
+
 ## Installation
 ### Windows *(x64)*
 1. Download and unzip [latest Windows build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/) from the Releases page
