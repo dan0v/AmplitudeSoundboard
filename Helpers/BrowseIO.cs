@@ -38,7 +38,7 @@ namespace Amplitude.Helpers
         private static FileDialogFilter _audioFileTypesFilter = new FileDialogFilter
         {
             Name = "Audio file",
-            Extensions = { "wav", "aiff", "mp3", "m4a", "mp4" }
+            Extensions = { "wav", "aiff", "mp3", "m4a", "mp4", "flac" }
         };
         public static FileDialogFilter AudioFileTypesFilter
         {
@@ -48,7 +48,7 @@ namespace Amplitude.Helpers
         private static FileDialogFilter _imageFileTypesFilter = new FileDialogFilter
         {
             Name = "Image file",
-            Extensions = { "png", "jpg", "jpeg", "gif" }
+            Extensions = { "png", "jpg", "jpeg", "gif", "bmp" }
         };
         public static FileDialogFilter ImageFileTypesFilter
         {
