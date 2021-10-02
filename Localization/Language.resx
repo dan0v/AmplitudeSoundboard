@@ -258,6 +258,9 @@
   <data name="SaveButtonDisabledTooltip" xml:space="preserve">
     <value>Please enter a Sound Clip name</value>
   </data>
+  <data name="ShowNameOnGridTile" xml:space="preserve">
+    <value>Show name in grid tile view</value>
+  </data>
   <data name="SoundClipError" xml:space="preserve">
     <value>The Sound Clip "{0}" has errors:\\n{1}</value>
   </data>

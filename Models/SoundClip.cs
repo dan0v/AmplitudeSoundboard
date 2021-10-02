@@ -133,6 +133,20 @@ namespace Amplitude.Models
             }
         }
 
+        private bool _nameVisibleOnGridTile = true;
+        public bool NameVisibleOnGridTile
+        {
+            get => _nameVisibleOnGridTile;
+            set
+            {
+                if (value != _nameVisibleOnGridTile)
+                {
+                    _nameVisibleOnGridTile = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private string _deviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
         public string DeviceName
         {

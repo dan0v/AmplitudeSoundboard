@@ -23,12 +23,12 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="630"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="660"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.EditSoundClip"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize EditSoundClipTitle}"
-        Width="400" Height="630" MinWidth="400" MinHeight="375"
+        Width="400" Height="660" MinWidth="400" MinHeight="375"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
@@ -62,6 +62,12 @@
             <StackPanel>
               <Label Content="{i18n:Localize ClipNameLabel}" HorizontalAlignment="Center" Height="30"></Label>
               <TextBox Text="{Binding Model.Name}" Watermark="{i18n:Localize ClipNamePlaceholder}" ToolTip.Tip="{Binding Model.Name}"></TextBox>
+
+              <!--Show name in grid tile toggle-->
+              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                <Label VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" Content="{i18n:Localize ShowNameOnGridTile}" ></Label>
+                <CheckBox HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.NameVisibleOnGridTile}"/>
+              </StackPanel>
             </StackPanel>
           </Border>
           

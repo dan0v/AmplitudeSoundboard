@@ -64,9 +64,9 @@ namespace Amplitude.Models
                 switch (SelectedTheme)
                 {
                     case "Light":
-                        return Color.Parse("#FFFFFF");
+                        return Color.Parse("#EBEBEB");
                     case "Dark":
-                        return Color.Parse("#252A36");
+                        return Color.Parse("#171a21");
                     default:
                         throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
                 }

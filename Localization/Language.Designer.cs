@@ -484,6 +484,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show name in grid tile view.
+        /// </summary>
+        internal static string ShowNameOnGridTile {
+            get {
+                return ResourceManager.GetString("ShowNameOnGridTile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Sound Clip &quot;{0}&quot; has errors:\\n{1}.
         /// </summary>
         internal static string SoundClipError {

@@ -21,7 +21,8 @@
     <Border.BorderBrush>
       <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
     </Border.BorderBrush>
-    <Grid x:Name="grd_Control" RowDefinitions="*,Auto" Cursor="{Binding Cursor}" ToolTip.Tip="{Binding Model.PlayAudioTooltip}" Background="Transparent">
+    
+    <Grid x:Name="grd_Control" Cursor="{Binding Cursor}" ToolTip.Tip="{Binding Model.PlayAudioTooltip}" Background="Transparent">
       <Grid.ContextMenu>
         <ContextMenu>
           <MenuItem IsEnabled="{Binding SoundClipExists}" Command="{Binding Model.CopySoundClipId}" Header="{i18n:Localize CopyToClipboard}"></MenuItem>
@@ -30,26 +31,37 @@
           <MenuItem IsEnabled="{Binding SoundClipExists}" Command="{Binding Unbind}" Header="{i18n:Localize ClearTile}"></MenuItem>
         </ContextMenu>
       </Grid.ContextMenu>
-      <Grid.Background>
-        <ImageBrush Source="{Binding Model.BackgroundImage}" Stretch="UniformToFill" Opacity="{Binding BackgroundOpacity}">
-        </ImageBrush>
-      </Grid.Background>
 
-      <!--Conditional XAML is kind of terrible when having to use IsVisible... Center Model.Name if no background image set, otherwise push to bottom with semi-transparent background-->
-      <TextBlock Grid.Row="0" IsVisible="{Binding Model.ImageFilePath, Converter={x:Static StringConverters.IsNullOrEmpty}}" Opacity="{Binding BackgroundOpacity}" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Model.Name}" Margin="2"></TextBlock>
+      <Grid IsVisible="{Binding Model.Id, Converter={x:Static StringConverters.IsNullOrEmpty}}" >
+        <Grid.Background>
+          <SolidColorBrush Color="{Binding ThemeHandler.FadedTextBackgroundColor}" Opacity="0.5"/>
+        </Grid.Background>
+      </Grid>
+        
+      <Grid IsVisible="{Binding Model.Id, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" RowDefinitions="*,Auto" >
+        <Grid.Background>
+          <ImageBrush Source="{Binding Model.BackgroundImage}" Stretch="UniformToFill" Opacity="{Binding BackgroundOpacity}"/>
+        </Grid.Background>
 
-      <Border Grid.Row="1" IsVisible="{Binding Model.ImageFilePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" BorderThickness="0,1,0,0" >
-        <Border.BorderBrush>
-          <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
-        </Border.BorderBrush>
-        <Panel>
-          <Panel.Background>
-            <SolidColorBrush Color="{Binding ThemeHandler.FadedTextBackgroundColor}" Opacity="0.5"/>
-          </Panel.Background>
-          <TextBlock Opacity="{Binding BackgroundOpacity}" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Model.Name}" Margin="2"></TextBlock>
+        <!--Conditional XAML is kind of terrible when having to use IsVisible... Center Model.Name if no background image set, otherwise push to bottom with semi-transparent background-->
+        <Panel Grid.Row="0" IsVisible="{Binding Model.ImageFilePath, Converter={x:Static StringConverters.IsNullOrEmpty}}">
+          <TextBlock IsVisible="{Binding Model.NameVisibleOnGridTile}" Opacity="{Binding BackgroundOpacity}" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Model.Name}" Margin="2"></TextBlock>
         </Panel>
-      </Border>
 
+        <Panel Grid.Row="1" IsVisible="{Binding Model.ImageFilePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+          <Border Grid.Row="1" IsVisible="{Binding Model.NameVisibleOnGridTile}" BorderThickness="0,1,0,0" >
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+            </Border.BorderBrush>
+            <Panel>
+              <Panel.Background>
+                <SolidColorBrush Color="{Binding ThemeHandler.FadedTextBackgroundColor}" Opacity="0.4"/>
+              </Panel.Background>
+              <TextBlock Opacity="{Binding BackgroundOpacity}" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Model.Name}" Margin="2"></TextBlock>
+            </Panel>
+          </Border>
+        </Panel>
+      </Grid>
     </Grid>
   </Border>
 </UserControl>

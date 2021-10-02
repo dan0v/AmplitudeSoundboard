@@ -8,7 +8,7 @@ namespace Amplitude.Views
 {
     public partial class SoundBoardGridItem : UserControl
     {
-        private Grid grd_Control;
+        private Panel grd_Control;
 
         public SoundBoardGridItem()
         {
