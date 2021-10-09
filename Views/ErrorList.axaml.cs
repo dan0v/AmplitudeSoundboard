@@ -68,7 +68,7 @@ namespace Amplitude.Views
         }
 
         // TODO update to display sound clip properties
-        public void AddErrorSoundClip(SoundClip clip, ErrorType errorType)
+        public void AddErrorSoundClip(SoundClip clip, ErrorType errorType, string? additionalData = null)
         {
             TextBlock txt_error = new TextBlock();
             txt_error.TextWrapping = Avalonia.Media.TextWrapping.Wrap;
@@ -88,7 +88,7 @@ namespace Amplitude.Views
                     txt_error.Text = string.Format(Localization.Localizer.Instance["SoundClipError"], clip.Name, string.Format(Localization.Localizer.Instance["FileMissingString"], clip.AudioFilePath));
                     break;
                 case ErrorType.MISSING_DEVICE:
-                    txt_error.Text = string.Format(Localization.Localizer.Instance["SoundClipError"], clip.Name, string.Format(Localization.Localizer.Instance["MissingDeviceString"], clip.DeviceName));
+                    txt_error.Text = string.Format(Localization.Localizer.Instance["SoundClipError"], clip.Name, string.Format(Localization.Localizer.Instance["MissingDeviceString"], additionalData ?? ""));
                     break;
             }
 

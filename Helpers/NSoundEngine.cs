@@ -153,12 +153,18 @@ namespace Amplitude.Helpers
         {
             if (!string.IsNullOrEmpty(source.Id) && soundCache.TryGetValue(source.Id, out CachedSound sound))
             {
-                Play(sound, source.DeviceName, source.Volume);
+                foreach (OutputSettings settings in source.OutputSettings)
+                {
+                    Play(sound, settings.Volume, settings.DeviceName);
+                }
             }
             else
             {
-                // TODO Do not cache all audio files for now, maybe pass Id if required
-                Play(source.AudioFilePath, source.Volume, source.DeviceName, null);
+                foreach (OutputSettings settings in source.OutputSettings)
+                {
+                    // TODO Do not cache all audio files for now, maybe pass Id if required
+                    Play(source.AudioFilePath, settings.Volume, settings.DeviceName, null);
+                }
             }
         }
 
@@ -166,10 +172,11 @@ namespace Amplitude.Helpers
         /// Directly play cached sound
         /// </summary>
         /// <param name="sound"></param>
-        private void Play(CachedSound sound, string playerDeviceName, int volume)
+        private void Play(CachedSound sound, int volume, string playerDeviceName)
         {
-            sound.Volume = (volume / 100f) *(App.OptionsManager.Options.MasterVolume / 100f);
-            AddMixerInput(playerDeviceName, new CachedSoundSampleProvider(sound));
+            var copy = sound.ShallowCopy();
+            copy.Volume = (volume / 100f) *(App.OptionsManager.Options.MasterVolume / 100f);
+            AddMixerInput(playerDeviceName, new CachedSoundSampleProvider(copy));
         }
 
         /// <summary>
@@ -202,7 +209,7 @@ namespace Amplitude.Helpers
                     }
                 }
 
-                Play(cachedSound, playerDeviceName, volume);
+                Play(cachedSound, volume, playerDeviceName);
             }
             else
             {
@@ -273,11 +280,14 @@ namespace Amplitude.Helpers
 
         public void CheckDeviceExistsAndGenerateErrors(SoundClip clip)
         {
-            if (GetOutputPlayerByName(clip.DeviceName) == null)
+            foreach (OutputSettings settings in clip.OutputSettings)
             {
-                if (clip != null)
+                if (GetOutputPlayerByName(settings.DeviceName) == null)
                 {
-                    App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_DEVICE);
+                    if (clip != null)
+                    {
+                        App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_DEVICE, settings.DeviceName);
+                    }
                 }
             }
         }
@@ -340,6 +350,11 @@ namespace Amplitude.Helpers
                 wholeFile.AddRange(readBuffer.Take(samplesRead));
             }
             AudioData = wholeFile.ToArray();
+        }
+
+        public CachedSound ShallowCopy()
+        {
+            return (CachedSound)this.MemberwiseClone();
         }
     }
 

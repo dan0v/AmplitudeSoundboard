@@ -147,8 +147,8 @@
   <data name="ClipNamePlaceholder" xml:space="preserve">
     <value>Enter a name...</value>
   </data>
-  <data name="ClipVolumeLabel" xml:space="preserve">
-    <value>Clip volume</value>
+  <data name="OutputVolumeLabel" xml:space="preserve">
+    <value>Output volume</value>
   </data>
   <data name="ColumnsPlaceholder" xml:space="preserve">
     <value>Columns</value>
@@ -293,5 +293,11 @@
   </data>
   <data name="WidthPlaceholder" xml:space="preserve">
     <value>Width</value>
+  </data>
+  <data name="AddSoundClipOutput" xml:space="preserve">
+    <value>Add output device</value>
+  </data>
+  <data name="RemoveSoundClipOutput" xml:space="preserve">
+    <value>Remove output device</value>
   </data>
 </root>

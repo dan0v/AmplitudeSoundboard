@@ -97,6 +97,20 @@ namespace Amplitude.ViewModels
             }
         }
 
+        private bool _canRemoveOutputDevices = false;
+        public bool CanRemoveOutputDevices
+        {
+            get => _canRemoveOutputDevices;
+            set
+            {
+                if (value != _canRemoveOutputDevices)
+                {
+                    _canRemoveOutputDevices = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public Color HotkeyBackgroundColor => WaitingForHotkey ? ThemeHandler.TextBoxHighlightedColor : ThemeHandler.TextBoxNormalColor;
 
         public List<string> DeviceList => App.SoundEngine.OutputDeviceList;
@@ -104,6 +118,8 @@ namespace Amplitude.ViewModels
         public EditSoundClipViewModel()
         {
             _model = new SoundClip();
+            Model.OutputSettings.Add(new OutputSettings());
+            CanRemoveOutputDevices = Model.OutputSettings.Count > 1;
             SetBindings();
         }
 
@@ -113,7 +129,8 @@ namespace Amplitude.ViewModels
         /// <param name="model"></param>
         public EditSoundClipViewModel(SoundClip model)
         {
-            _model = model.ShallowCopy();
+            _model = model.CreateCopy();
+            CanRemoveOutputDevices = Model.OutputSettings.Count > 1;
             SetBindings();
         }
 
@@ -123,7 +140,13 @@ namespace Amplitude.ViewModels
             HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
             SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
             Model.PropertyChanged += Model_PropertyChanged;
+            Model.OutputSettings.CollectionChanged += OutputSettings_CollectionChanged;
             OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
+        }
+
+        private void OutputSettings_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            CanRemoveOutputDevices = Model.OutputSettings.Count > 1;
         }
 
         private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -187,28 +210,26 @@ namespace Amplitude.ViewModels
             }
         }
 
-        public void IncreaseVolumeSmall()
+        public void SaveClip()
         {
-            if (Model.Volume < 100)
-            {
-                Model.Volume += 1;
-            }
+            SoundClip toSave = Model.CreateCopy();
+            App.SoundClipManager.SaveClip(toSave);
+            // Copy back and forth to delay ID update until fully saved
+            _model = toSave.CreateCopy();
+            OnPropertyChanged(nameof(Model));
         }
-        public void DecreaseVolumeSmall()
+
+        public void RemoveOutputDevice()
         {
-            if (Model.Volume > 0)
+            if (Model.OutputSettings.Count > 0)
             {
-                Model.Volume -= 1;
+                Model.OutputSettings.RemoveAt(Model.OutputSettings.Count - 1);
             }
         }
 
-        public void SaveClip()
+        public void AddOutputDevice()
         {
-            SoundClip toSave = Model.ShallowCopy();
-            App.SoundClipManager.SaveClip(toSave);
-            // Copy back and forth to delay ID update until fully saved
-            _model = toSave.ShallowCopy();
-            OnPropertyChanged(nameof(Model));
+            Model.OutputSettings.Add(new OutputSettings());
         }
 
         public void RecordHotkey()

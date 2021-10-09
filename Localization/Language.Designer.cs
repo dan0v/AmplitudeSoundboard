@@ -79,6 +79,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add output device.
+        /// </summary>
+        internal static string AddSoundClipOutput {
+            get {
+                return ResourceManager.GetString("AddSoundClipOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string CancelButton {
@@ -147,15 +156,6 @@ namespace Amplitude.Localization {
         internal static string ClipNamePlaceholder {
             get {
                 return ResourceManager.GetString("ClipNamePlaceholder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clip volume.
-        /// </summary>
-        internal static string ClipVolumeLabel {
-            get {
-                return ResourceManager.GetString("ClipVolumeLabel", resourceCulture);
             }
         }
         
@@ -439,6 +439,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output volume.
+        /// </summary>
+        internal static string OutputVolumeLabel {
+            get {
+                return ResourceManager.GetString("OutputVolumeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Paste clip to tile.
         /// </summary>
         internal static string PasteClip {
@@ -453,6 +462,15 @@ namespace Amplitude.Localization {
         internal static string PlaySound {
             get {
                 return ResourceManager.GetString("PlaySound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove output device.
+        /// </summary>
+        internal static string RemoveSoundClipOutput {
+            get {
+                return ResourceManager.GetString("RemoveSoundClipOutput", resourceCulture);
             }
         }
         

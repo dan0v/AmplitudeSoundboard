@@ -148,9 +148,12 @@ namespace Amplitude.Models
             {
                 App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_IMAGE_FILE);
             }
-            if (string.IsNullOrEmpty(clip.DeviceName))
+            foreach (OutputSettings settings in clip.OutputSettings)
             {
-                clip.DeviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
+                if (string.IsNullOrEmpty(settings.DeviceName))
+                {
+                    settings.DeviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
+                }
             }
 
             App.SoundEngine.CheckDeviceExistsAndGenerateErrors(clip);

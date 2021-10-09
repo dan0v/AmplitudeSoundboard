@@ -28,6 +28,8 @@ using AmplitudeSoundboard;
 using Amplitude.Helpers;
 using Avalonia.Media.Imaging;
 using Avalonia;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Amplitude.Models
 {
@@ -43,19 +45,6 @@ namespace Amplitude.Models
             else
             {
                 throw new NotSupportedException("Do not alter Id once it has been set");
-            }
-        }
-
-        private int _volume = 100;
-        public int Volume {
-            get => _volume;
-            set
-            {
-                if (value != _volume)
-                {
-                    _volume = value;
-                    OnPropertyChanged();
-                }
             }
         }
 
@@ -147,15 +136,47 @@ namespace Amplitude.Models
             }
         }
 
+        // legacy soundclips loading
         private string _deviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
+        [Obsolete]
         public string DeviceName
         {
-            get => _deviceName;
+            internal get => _deviceName;
             set
             {
-                if (value != _deviceName)
+                if (OutputSettings.Count <= 0)
                 {
-                    _deviceName = value;
+                    OutputSettings.Add(new OutputSettings());
+                }
+                OutputSettings[0].DeviceName = value;
+            }
+        }
+
+        // legacy soundclips loading
+        private int _volume = 100;
+        [Obsolete]
+        public int Volume
+        {
+            internal get => _volume;
+            set
+            {
+                if (OutputSettings.Count <= 0)
+                {
+                    OutputSettings.Add(new OutputSettings());
+                }
+                OutputSettings[0].Volume = value;
+            }
+        }
+
+        private ObservableCollection<OutputSettings> _outputSettings = new ObservableCollection<OutputSettings>();
+        public ObservableCollection<OutputSettings> OutputSettings
+        {
+            get => _outputSettings;
+            set
+            {
+                if (value != _outputSettings)
+                {
+                    _outputSettings = value;
                     OnPropertyChanged();
                 }
             }
@@ -249,9 +270,17 @@ namespace Amplitude.Models
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
-        public SoundClip ShallowCopy()
+        public SoundClip CreateCopy()
         {
-            return (SoundClip)this.MemberwiseClone();
+            var copy = (SoundClip)this.MemberwiseClone();
+            copy.OutputSettings = new ObservableCollection<OutputSettings>();
+
+            foreach (var setting in OutputSettings)
+            {
+                copy.OutputSettings.Add(setting.ShallowCopy());
+            }
+
+            return copy;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
