@@ -23,12 +23,12 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="685"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="635"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.EditSoundClip"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize EditSoundClipTitle}"
-        Width="400" Height="685" MinWidth="400" MinHeight="450"
+        Width="400" Height="635" MinWidth="400" MinHeight="500"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
@@ -100,39 +100,45 @@
                   <ItemsControl Items="{Binding Model.OutputSettings}">
                     <ItemsControl.ItemTemplate>
                       <DataTemplate>
-                        <Border BorderThickness="2" CornerRadius="5" Margin="5,5,5,0" Padding="5">
+                        <Border BorderThickness="2" CornerRadius="5" Margin="5,5,5,0" Padding="5" Height="60">
                           <Border.BorderBrush>
                             <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeHandler.BorderColor}"/>
                           </Border.BorderBrush>
-                          <Grid RowDefinitions="Auto,20,20,Auto">
-                            <Label Grid.Row="0" Content="{i18n:Localize OutputVolumeLabel}" Margin="0,10,0,0" HorizontalAlignment="Center" Height="30"></Label>
-                            <Label Grid.Row="1" Content="{Binding Volume}" HorizontalAlignment="Center" Height="30"></Label>
-                            <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto" Margin="0,-20,0,0">
+                          <Grid RowDefinitions="Auto,20,20">
+                            
+                            <Grid Grid.Row="2" Margin="0,-20,0,0">
+                              <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="150"/>
+                              </Grid.ColumnDefinitions>
                               <Button Grid.Column="0" Margin="5,0,5,0" Cursor="Hand" Command="{Binding DecreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Panel>
                                   <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.ArrowLeft}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 </Panel>
                               </Button>
-                              <Slider Grid.Column="1" VerticalAlignment="Center" Height="50" Cursor="Hand" SmallChange="1" LargeChange="10" TickFrequency="1" Orientation="Horizontal" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickPlacement="None" Value="{Binding Path=Volume, Mode=TwoWay}" Padding="5,0,5,0">
-                                <Slider.Foreground>
-                                  <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeHandler.SliderForeground}"/>
-                                </Slider.Foreground>
-                                <Slider.Background>
-                                  <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeHandler.SliderBackground}"/>
-                                </Slider.Background>
-                              </Slider>
+                              <Grid Grid.Column="1" RowDefinitions="*,20">
+                                <StackPanel HorizontalAlignment="Center" Grid.Row="0" Orientation="Horizontal">
+                                  <Label Content="{i18n:Localize VolumeLabel}"></Label>
+                                  <Label Content="{Binding Volume}" HorizontalAlignment="Center"></Label>
+                                </StackPanel>
+                                <Slider Grid.Row="1" VerticalAlignment="Center" Height="50" Cursor="Hand" SmallChange="1" LargeChange="10" TickFrequency="1" Orientation="Horizontal" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickPlacement="None" Value="{Binding Path=Volume, Mode=TwoWay}" Padding="5,0,5,0">
+                                  <Slider.Foreground>
+                                    <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeHandler.SliderForeground}"/>
+                                  </Slider.Foreground>
+                                  <Slider.Background>
+                                    <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeHandler.SliderBackground}"/>
+                                  </Slider.Background>
+                                </Slider>
+                              </Grid>
                               <Button Grid.Column="2" Margin="5,0,5,0" Cursor="Hand" Command="{Binding IncreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Panel>
                                   <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.ArrowRight}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 </Panel>
                               </Button>
+                              <ComboBox Width="150" Grid.Column="3" AutoScrollToSelectedItem="True" Margin="0,5,0,5" SelectedItem="{Binding DeviceName}" Items="{Binding $parent[ItemsControl].DataContext.DeviceList}" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize OutputDeviceLabel}"></ComboBox>
                             </Grid>
-                            <StackPanel Grid.Row="3">
-                              <Grid ColumnDefinitions="*,*">
-                                <Label Grid.Column="0" Content="{i18n:Localize OutputDeviceLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-                                <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" Margin="0,5,0,5" SelectedItem="{Binding DeviceName}" Items="{Binding $parent[ItemsControl].DataContext.DeviceList}" HorizontalAlignment="Center"></ComboBox>
-                              </Grid>
-                            </StackPanel>
                           </Grid>
                         </Border>
                       </DataTemplate>

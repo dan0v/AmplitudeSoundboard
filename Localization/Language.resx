@@ -300,4 +300,7 @@
   <data name="RemoveSoundClipOutput" xml:space="preserve">
     <value>Remove output device</value>
   </data>
+  <data name="VolumeLabel" xml:space="preserve">
+    <value>Volume</value>
+  </data>
 </root>
