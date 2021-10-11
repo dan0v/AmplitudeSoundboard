@@ -19,7 +19,9 @@
 - Set output device and volume at a per-clip level
 - Toggle between light and dark theme
 - Automatically update to the newest version if desired
-- Localized versions available (work in progress)
+- Localized versions available ([work in progress](https://github.com/dan0v/AmplitudeSoundboard/issues/7))
+  - English
+  - Español
 
 ## Installation
 ### Windows *(x64)*
