@@ -23,6 +23,7 @@ using Amplitude.Helpers;
 using Amplitude.ViewModels;
 using Amplitude.Views;
 using Amplitude.Models;
+using Amplitude.Localization;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;

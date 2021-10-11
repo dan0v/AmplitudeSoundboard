@@ -28,6 +28,7 @@ using AmplitudeSoundboard;
 using Amplitude.Helpers;
 using System.Collections.Generic;
 using Amplitude.ViewModels;
+using Amplitude.Localization;
 
 namespace Amplitude.Models
 {
@@ -58,6 +59,7 @@ namespace Amplitude.Models
             if (retrievedOptions != null)
             {
                 _options = retrievedOptions;
+                Localizer.Instance.ChangeLanguage(_options.Language);
                 RegisterOptionsHotkeys(Options);
             }
             else
@@ -78,11 +80,12 @@ namespace Amplitude.Models
             App.ThemeHandler.SelectedTheme = options.Theme;
             try
             {
-                options.UpdateGridSize();
+                options.ApplyGridSizing();
                 File.WriteAllText(Path.Join(App.APP_STORAGE, OPTIONS_FILE_NAME), options.ToJSON());
                 App.HotkeysManager.RemoveHotkey(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, Options.GlobalKillAudioHotkey);
                 App.HotkeysManager.RegisterHotkeyAtStartup(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, options.GlobalKillAudioHotkey);
                 _options = options;
+                Localizer.Instance.ChangeLanguage(options.Language);
             }
             catch (Exception e)
             {

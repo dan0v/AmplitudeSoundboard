@@ -22,6 +22,7 @@
 using Amplitude.Models;
 using AmplitudeSoundboard;
 using Avalonia.Media;
+using System.Linq;
 
 namespace Amplitude.ViewModels
 {
@@ -31,6 +32,7 @@ namespace Amplitude.ViewModels
 
         private Options _model;
         public Options Model { get => _model; }
+        public string[] Languages { get => Localization.Localizer.Languages.Keys.ToArray(); } 
 
         public GlobalSettingsViewModel()
         {

@@ -303,4 +303,7 @@
   <data name="VolumeLabel" xml:space="preserve">
     <value>Volume</value>
   </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Language</value>
+  </data>
 </root>

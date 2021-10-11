@@ -23,12 +23,12 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="585"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="655"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.GlobalSettings"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize GlobalSettingsTitle}"
-        Width="400" Height="585" MinWidth="400" MinHeight="320"
+        Width="400" Height="655" MinWidth="400" MinHeight="320"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
@@ -61,6 +61,17 @@
 
       <ScrollViewer Margin="0,30,0,0">
         <StackPanel>
+          <!--Language-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+            </Border.BorderBrush>
+            <Grid ColumnDefinitions="*,*">
+              <Label Grid.Column="0" Content="{i18n:Localize LanguageLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+              <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" Margin="0,5,0,5" SelectedItem="{Binding Model.Language}" Items="{Binding Languages}" HorizontalAlignment="Center"></ComboBox>
+            </Grid>
+          </Border>
+          
           <!--Theme-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
