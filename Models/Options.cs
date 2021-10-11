@@ -20,7 +20,6 @@
 */
 
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -172,7 +171,7 @@ namespace Amplitude.Models
 
         public Options() { }
 
-        public void UpdateGridSize()
+        public void ApplyGridSizing()
         {
             string[,] newGrid = new string[_gridRows, _gridColumns];
 

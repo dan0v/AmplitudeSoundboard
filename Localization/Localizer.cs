@@ -19,8 +19,10 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using AmplitudeSoundboard;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Resources;
 
 namespace Amplitude.Localization
@@ -29,10 +31,8 @@ namespace Amplitude.Localization
     {
         public static readonly Dictionary<string, string> Languages = new Dictionary<string, string>
         {
-            { "Deutsch", "de"},
             { "English", "en-US" },
             { "Español", "es" },
-            { "Magyar", "hu" }
         };
 
         private const string IndexerName = "Item";
@@ -49,6 +49,18 @@ namespace Amplitude.Localization
         {
             resources = new ResourceManager(typeof(Language));
             Invalidate();
+        }
+
+        public void ChangeLanguage(string language)
+        {
+            if (string.IsNullOrEmpty(language) || !Languages.ContainsKey(language))
+            {
+                language = "English";
+                App.OptionsManager.Options.Language = language;
+            }
+
+            CultureInfo.CurrentUICulture = new CultureInfo(Languages[language]);
+            LoadLanguage();
         }
 
         public string Language { get; private set; }

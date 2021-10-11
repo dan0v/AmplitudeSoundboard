@@ -81,7 +81,7 @@
               <TextBox Text="{Binding Model.Name}" Watermark="{i18n:Localize ClipNamePlaceholder}" ToolTip.Tip="{Binding Model.Name}"></TextBox>
 
               <!--Show name in grid tile toggle-->
-              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" Content="{i18n:Localize ShowNameOnGridTile}" ></Label>
                 <CheckBox Cursor="Hand" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.NameVisibleOnGridTile}"/>
               </StackPanel>

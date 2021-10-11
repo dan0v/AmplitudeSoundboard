@@ -28,7 +28,6 @@ using AmplitudeSoundboard;
 using Amplitude.Helpers;
 using Avalonia.Media.Imaging;
 using Avalonia;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Amplitude.Models

@@ -166,7 +166,7 @@
     <value>Confirmar la eliminación</value>
   </data>
   <data name="DismissWindow" xml:space="preserve">
-    <value>Despedir</value>
+    <value>Descartar</value>
   </data>
   <data name="EditSoundClipTitle" xml:space="preserve">
     <value>Editar Clip de Sonido</value>
@@ -302,5 +302,8 @@
   </data>
   <data name="VolumeLabel" xml:space="preserve">
     <value>Volumen</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Idioma</value>
   </data>
 </root>
