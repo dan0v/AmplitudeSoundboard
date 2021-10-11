@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/* Colours:
+  #252A36; Dark
+  #FFFFFF; Light
+  #EBAEFF; Pink
+  #F08A5D; Orange
+*/
+
+html, body {
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:0;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  overflow:auto;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+  transition: color .2s;
+  text-shadow: 2px 2px #232323;
+}
+
+h1 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 3.5em;
+    margin: 0;
+    /*text-shadow: 4px 4px #EBAEFF;*/
+}
+
+h2 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1.5em;
+    float: right;
+    margin: 0;
+    margin-top: -.3em;
+    color: #EBAEFF;
+}
+
+.container {
+    display: inline-block;
+}
+
+.orange-border {
+    border-color: #F08A5D;
+    border-width: 0.4em;
+    border-style: solid;
+    border-radius: 3.55em;
+}
+
+.split {
+    float:left;
+    width: 50%;
+    margin: 0;
+}
+
+.screenshot {
+    width:100%;
+}
+
+.bold {
+    font-weight: bold;
+    color:#F08A5D;
+}
+
+.button {
+    display: block;
+    float: right;
+    background-color: #272C34;
+    border-width: 0.15em;
+    border-radius: .5em;
+    width: 10em;
+    margin: .5em;
+    transition: 0.1s;
+}
+
+.button:hover {
+    background-color: #1a1d22;
+}
+
+.button-text {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+#download {
+    background-color: #F08A5D;
+    border-color: #272C34;
+}
+
+#download:hover {
+    background-color: #c06f4c;
+}
+
+#blurb {
+    margin-top: 3em;
+    font-size: 1.2em;
+}
+
+#cont1 {
+    width: 100%;
+    background-image: linear-gradient(to bottom right, #EBAEFF, #F08A5D);
+}
+
+#cont2 {
+    position: fixed;
+    height: 100%;
+    width: 20%;
+}
+
+#cont2 img {
+    height: 20em;
+    margin-left: 2em;
+    margin-top: 2em;
+}
+
+#cont3 {
+    float:right;
+    background: #252A36;
+    width: 70%;
+    margin: 2em;
+    padding: 2em;
+    padding-left: 3em;
+}
