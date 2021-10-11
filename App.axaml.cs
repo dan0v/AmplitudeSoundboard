@@ -31,6 +31,7 @@ using static System.Environment;
 using System.Reflection;
 using System;
 using System.Diagnostics;
+using System.Net.Http;
 
 namespace AmplitudeSoundboard
 {
@@ -40,7 +41,7 @@ namespace AmplitudeSoundboard
         {
             get
             {
-                string path = Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData, SpecialFolderOption.DoNotVerify), "amplitude-soundboard");
+                string path = Path.Join(GetFolderPath(SpecialFolder.LocalApplicationData, SpecialFolderOption.DoNotVerify), "amplitude-soundboard");
 
                 if (!Directory.Exists(path))
                 {
@@ -75,6 +76,10 @@ namespace AmplitudeSoundboard
             }
         }
 
+        public const string VERSION_CHECK_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/version.txt";
+        public const string DOWNLOAD_WIN_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip";
+        public const string RELEASES_PAGE = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/";
+
 #if Windows
         public static ISoundEngine SoundEngine => NSoundEngine.Instance;
 		
@@ -106,9 +111,36 @@ namespace AmplitudeSoundboard
                 var h = HotkeysManager;
                 var t = ThemeHandler;
                 var w = WindowManager;
+
+                w.MainWindow = (MainWindow)desktop.MainWindow;
+
+#if !DEBUG
+                CheckForUpdates();
+#endif
             }
 
             base.OnFrameworkInitializationCompleted();
+        }
+
+        private async void CheckForUpdates()
+        {
+            try
+            {
+                HttpResponseMessage response = await new HttpClient().GetAsync(VERSION_CHECK_URL);
+                response.EnsureSuccessStatusCode();
+                string newVer = await response.Content.ReadAsStringAsync();
+                newVer = newVer.Trim();
+                if (!string.IsNullOrEmpty(newVer) && newVer != VERSION.Trim())
+                {
+                    UpdatePrompt updateDialog = new UpdatePrompt(newVer);
+                    updateDialog.Show();
+                    updateDialog.Activate();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
     }
 }

@@ -23,12 +23,12 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="360"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="585"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.GlobalSettings"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize GlobalSettingsTitle}"
-        Width="400" Height="320" MinWidth="400" MinHeight="320"
+        Width="400" Height="585" MinWidth="400" MinHeight="320"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
@@ -36,6 +36,15 @@
     <Window.Styles>
       <Style Selector="Image:disabled">
         <Setter Property="Opacity" Value="0.5"/>
+      </Style>
+      <Style Selector="TextBlock">
+        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      </Style>
+      <Style Selector="TextBox">
+        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      </Style>
+      <Style Selector="Button">
+        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
       </Style>
     </Window.Styles>
   
@@ -48,7 +57,7 @@
       <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
       
-      <TextBlock Text="{i18n:Localize GlobalSettingsTitle}" Classes="TITLE" FontFamily="{Binding ThemeHandler.TitleFont}" FontWeight="Bold" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+      <TextBlock Text="{i18n:Localize GlobalSettingsTitle}" Classes="TITLE" FontFamily="{Binding ThemeHandler.TitleFont}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
       <ScrollViewer Margin="0,30,0,0">
         <StackPanel>
@@ -94,6 +103,36 @@
             </Grid>
           </Border>
 
+          <!--Grid size-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+            </Border.BorderBrush>
+            <StackPanel>
+              <Label Content="{i18n:Localize GridSizeLabel}" HorizontalAlignment="Center" Height="30"></Label>
+              <Grid ColumnDefinitions="*,Auto,*">
+                <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="2" Text="{Binding Model.GridColumns}" Watermark="{i18n:Localize ColumnsPlaceholder}" ></TextBox>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="10,0,10,0">X</TextBlock>
+                <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="0" Text="{Binding Model.GridRows}" Watermark="{i18n:Localize RowsPlaceholder}" ></TextBox>
+              </Grid>
+            </StackPanel>
+          </Border>
+
+          <!--Grid Tile size-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+            </Border.BorderBrush>
+            <StackPanel>
+              <Label Content="{i18n:Localize GridTileSizeLabel}" HorizontalAlignment="Center" Height="30"></Label>
+              <Grid ColumnDefinitions="*,Auto,*">
+                <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="2" Text="{Binding Model.GridTileWidth}" Watermark="{i18n:Localize WidthPlaceholder}" ></TextBox>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="10,0,10,0">X</TextBlock>
+                <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="0" Text="{Binding Model.GridTileHeight}" Watermark="{i18n:Localize HeightPlaceholder}" ></TextBox>
+              </Grid>
+            </StackPanel>
+          </Border>
+
           <!--Hotkey-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
@@ -115,13 +154,28 @@
               </Grid>
             </StackPanel>
           </Border>
+
+          <!--Tutorial-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+            </Border.BorderBrush>
+              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                <Label VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" Content="{i18n:Localize HideTutorial}" ></Label>
+                <CheckBox HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.HideTutorial}" Cursor="Hand"/>
+              </StackPanel>
+          </Border>
           
           <!--Save button-->
           <Grid ColumnDefinitions="*,Auto">
             <!--Can't put a tooltip on disabled elements and even putting it on the parent doesn't work, so I don't know how we can signal why this button is disabled-->
             <Panel Grid.Column="1">
               <!--ToolTip.Tip="{Binding SaveButtonTooltip}">-->
-              <Button Content="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveOptions}" IsEnabled="{Binding CanSave}" Margin="5,5,10,5" HorizontalAlignment="Right"></Button>
+              <Button ToolTip.Tip="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveOptions}" IsEnabled="{Binding CanSave}" Margin="5,5,10,5" HorizontalAlignment="Right">
+                <Panel>
+                  <Image Source="{Binding ThemeHandler.Save}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Panel>
+              </Button>
             </Panel>
           </Grid>
         </StackPanel>

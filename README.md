@@ -4,14 +4,30 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-This project is a work in progress. Please do not report issues until a stable release has been reached.
-
+## Features
+- Play audio files
+  - AIFF
+  - FLAC
+  - M4A
+  - MP3
+  - MP4
+  - WAV
+- Customize a grid view of your sound clips to your liking
+- Trigger sound clips with custom hotkeys or a button press
+- Set output device and volume at a per-clip level
+- Toggle between light and dark theme
+- Automatically update to the newest version if desired
+- Localized versions available (work in progress)
 
 ## Installation
 ### Windows *(x64)*
 1. Download and unzip [latest Windows build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/) from the Releases page
 2. Run executable (`amplitude_soundboard.exe`)
 3. If you would like to play sound through an input device like a microphone, set up [Virtual Audio Cable](https://vac.muzychenko.net/en/download.htm) and set the newly created virtual cable as your clip output device
+
+## Updating
+### Windows
+A dialog automatically notifies users of available updates at application startup. To automatically update, click `Update`, or, to manually update, just download the [latest Windows build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/) from the Releases page and replace your `amplitude_soundboard.exe` with the new version.
 
 ## Contributors
 

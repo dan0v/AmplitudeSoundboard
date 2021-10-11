@@ -2,40 +2,81 @@
 	<img src="./Icon.png" height="200px" width="200px" style="margin-left: auto; margin-right:auto"></img>
 </div>
 
-<h1>Branding Guide</h1>
-<h2>Font</h2>
-<h3>Titles</h3>
-<p style="font-family: 'Josefin Sans';">Josefin Sans Regular, by Santiago Orozco (SIL Open Font License 1.1)</p>
-
-<h3>Application font</h3>
-<p>Roboto, by Christian Robertson (Apache License Version 2.0)</p>
-
-<h2>Color</h2>
-
-<h3>Background</h3>
-<div class="color_block">
-	<p class="color_swatch" style="background-color:#252A36;"></p>
-	<p style="margin-left: 5px;">#252A36; Dark(with acrylic transparency)</p>
-</div>
-<div class="color_block">
-	<p class="color_swatch" style="background-color:#FFFFFF;"></p>
-	<p style="margin-left: 5px;">#FFFFFF; Light (with acrylic transparency);</p>
+<h1 style="text-align:center">Branding Guide</h1>
+<div class="fonts">
+	<h2>Font</h2>
+	<h3>Titles</h3>
+	<p style="font-family: 'Josefin Sans';">Josefin Sans Regular, by Santiago Orozco (SIL Open Font License 1.1)</p>
+	<h3>Application font</h3>
+	<p>Roboto, by Christian Robertson (Apache License Version 2.0)</p>
 </div>
 
-<h3>Borders</h3>
-<div class="color_block">
-	<p class="color_swatch" style="background-color:#EBAEFF;"></p>
-	<p style="margin-left: 5px;">#EBAEFF; Dark</p>
-</div>
-<div class="color_block">
-	<p class="color_swatch" style="background-color:#252A36;"></p>
-	<p style="margin-left: 5px;">#252A36; Light</p>
+<div class="light_theme" style="margin-top:10px;">
+<h2>Light theme</h2>
+	<h3>Background</h3>
+	<div class="color_block">
+		<p class="color_swatch" style="background-color:#FFFFFF;"></p>
+		<p class="color_swatch_label">#FFFFFF; Light (with acrylic transparency);</p>
+	</div>
+
+	<h3>Borders</h3>
+	<div class="color_block">
+		<p class="color_swatch" style="background-color:#F08A5D;"></p>
+		<p class="color_swatch_label">#F08A5D; Light</p>
+	</div>
+
+	<h3>Sliders</h3>
+	<h4>Foreground</h4>
+	<div class="color_block">
+		<p class="color_swatch" style="background-color:#252A36;"></p>
+		<p class="color_swatch_label">#252A36; Light</p>
+	</div>
+	<h4>Background</h4>
+	<div class="color_block">
+		<p class="color_swatch" style="background-color:#EBAEFF;"></p>
+		<p class="color_swatch_label">#EBAEFF; Light</p>
+	</div>
+
+	<h3>Selections</h3>
+	<div class="color_block">
+		<p class="color_swatch" style="background-color:#F08A5D;"></p>
+		<p class="color_swatch_label">#F08A5D</p>
+	</div>
 </div>
 
-<h3>Selections</h3>
-<div class="color_block">
-	<p class="color_swatch" style="background-color:#F08A5D;"></p>
-	<p style="margin-left: 5px;">#F08A5D</p>
+
+<div class="dark_theme" style="margin-top:10px;">
+	<h2>Dark theme</h2>
+	<h3>Background</h3>
+	<div class="color_block">
+		<p class="color_swatch" style="background-color:#252A36;"></p>
+		<p class="color_swatch_label">#252A36; Dark (with acrylic transparency)</p>
+	</div>
+
+	<h3>Borders</h3>
+	<div class="color_block">
+		<p class="color_swatch" style="background-color:#F08A5D;"></p>
+		<p class="color_swatch_label">#F08A5D; Dark</p>
+	</div>
+
+	<h3>Sliders</h3>
+	<h4>Foreground</h4>
+	<div class="color_block">
+		<p class="color_swatch" style="background-color:#EBAEFF;"></p>
+		<p class="color_swatch_label">#EBAEFF; Dark</p>
+	</div>
+
+	<h4>Background</h4>
+	<div class="color_block">
+		<p class="color_swatch" style="background-color:#F08A5D;"></p>
+		<p class="color_swatch_label">#F08A5D; Dark</p>
+	</div>
+
+	<h3>Selections</h3>
+	<div class="color_block">
+		<p class="color_swatch" style="background-color:#F08A5D;"></p>
+		<p class="color_swatch_label">#F08A5D</p>
+	</div>
 </div>
 
 
@@ -45,6 +86,9 @@
 
 	body {
 		font-family: 'Roboto', sans-serif;
+		background-color: #252A36;
+		color: white;
+		text-align: center;
 	}
 	.color_block {
 		display:flex;
@@ -55,6 +99,51 @@
 		height:20px;
 		border:1px solid #000;
 		margin-left:3px; 
+		margin-left: auto;
+		margin-right: 5px;
+	}
+	
+	.color_swatch_label {
+		margin-right: auto;
+		margin-left: 5px;
+	}
+	
+	.fonts {
+	text-align: center;
+		border-radius: 3em;
+		padding-left: 30px;
+		padding-top: 1px;
+		padding-bottom: 1px;
+		padding-right: 30px;
+		border-color: #F08A5D;
+		border-width: 5px;
+		border-style: solid;
+	}
+	
+	.light_theme {
+		background-color: white;
+		color: black;
+		border-radius: 3em;
+		padding-left: 30px;
+		padding-top: 1px;
+		padding-bottom: 1px;
+		padding-right: 30px;
+		border-color: #F08A5D;
+		border-width: 5px;
+		border-style: solid;
+	}
+	
+	.dark_theme {
+		background-color: #252A36;
+		color: white;
+		border-radius: 3em;
+		padding-left: 30px;
+		padding-top: 1px;
+		padding-bottom: 1px;
+		padding-right: 30px;
+		border-color: #F08A5D;
+		border-width: 5px;
+		border-style: solid;
 	}
 
 </style>

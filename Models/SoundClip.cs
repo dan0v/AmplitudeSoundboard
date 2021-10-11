@@ -26,19 +26,15 @@ using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using AmplitudeSoundboard;
 using Amplitude.Helpers;
+using Avalonia.Media.Imaging;
+using Avalonia;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Amplitude.Models
 {
     public class SoundClip : INotifyPropertyChanged
     {
-        private string _id = null;
-        // Do not write to JSON, since it is stored in dictionary anyway
-        [JsonIgnore]
-        public string Id
-        {
-            get => _id;
-        }
-
         public void InitializeId(string newId)
         {
             if (string.IsNullOrEmpty(Id))
@@ -49,19 +45,6 @@ namespace Amplitude.Models
             else
             {
                 throw new NotSupportedException("Do not alter Id once it has been set");
-            }
-        }
-
-        private int _volume = 100;
-        public int Volume {
-            get => _volume;
-            set
-            {
-                if (value != _volume)
-                {
-                    _volume = value;
-                    OnPropertyChanged();
-                }
             }
         }
 
@@ -90,6 +73,7 @@ namespace Amplitude.Models
                     _hotkey = value;
                 }
                 OnPropertyChanged(); // Alert even if not changed
+                OnPropertyChanged(nameof(PlayAudioTooltip));
             }
         }
 
@@ -119,6 +103,7 @@ namespace Amplitude.Models
                 {
                     _imageFilePath = value;
                     OnPropertyChanged();
+                    SetAndRescaleBackgroundImage();
                 }
             }
         }
@@ -137,25 +122,135 @@ namespace Amplitude.Models
             }
         }
 
-        private string _deviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
-        public string DeviceName
+        private bool _nameVisibleOnGridTile = true;
+        public bool NameVisibleOnGridTile
         {
-            get => _deviceName;
+            get => _nameVisibleOnGridTile;
             set
             {
-                if (value != _deviceName)
+                if (value != _nameVisibleOnGridTile)
                 {
-                    _deviceName = value;
+                    _nameVisibleOnGridTile = value;
                     OnPropertyChanged();
                 }
             }
         }
+
+        // legacy soundclips loading
+        private string _deviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
+        [Obsolete]
+        public string DeviceName
+        {
+            internal get => _deviceName;
+            set
+            {
+                if (OutputSettings.Count <= 0)
+                {
+                    OutputSettings.Add(new OutputSettings());
+                }
+                OutputSettings[0].DeviceName = value;
+            }
+        }
+
+        // legacy soundclips loading
+        private int _volume = 100;
+        [Obsolete]
+        public int Volume
+        {
+            internal get => _volume;
+            set
+            {
+                if (OutputSettings.Count <= 0)
+                {
+                    OutputSettings.Add(new OutputSettings());
+                }
+                OutputSettings[0].Volume = value;
+            }
+        }
+
+        private ObservableCollection<OutputSettings> _outputSettings = new ObservableCollection<OutputSettings>();
+        public ObservableCollection<OutputSettings> OutputSettings
+        {
+            get => _outputSettings;
+            set
+            {
+                if (value != _outputSettings)
+                {
+                    _outputSettings = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _id = null;
+        // Do not write to JSON, since it is stored in dictionary anyway
+        [JsonIgnore]
+        public string Id
+        {
+            get => _id;
+        }
+
+        private Bitmap _backgroundImage = null;
+        [JsonIgnore]
+        public Bitmap BackgroundImage
+        {
+            get => _backgroundImage;
+        }
+
+        private bool _loadBackgroundImage = false;
+        [JsonIgnore]
+        public bool LoadBackgroundImage
+        {
+            get => _loadBackgroundImage;
+            set
+            {
+                if (value != _loadBackgroundImage)
+                {
+                    _loadBackgroundImage = value;
+                    OnPropertyChanged();
+                    SetAndRescaleBackgroundImage();
+                }
+            }
+        }
+
+
+        [JsonIgnore]
+        public string? PlayAudioTooltip { get => string.IsNullOrEmpty(Id) ? null : string.IsNullOrEmpty(Hotkey) ? Localization.Localizer.Instance["PlaySound"] : Localization.Localizer.Instance["PlaySound"] + ": " + Hotkey; }
 
         public SoundClip() { }
 
         public void PlayAudio()
         {
             App.SoundEngine.Play(this);
+        }
+
+        public void CopySoundClipId()
+        {
+            App.SoundClipManager.CopiedClipId = Id;
+        }
+
+        public void OpenEditSoundClipWindow()
+        {
+            App.WindowManager.OpenEditSoundClipWindow(Id);
+        }
+
+        public void SetAndRescaleBackgroundImage()
+        {
+            if (LoadBackgroundImage && BrowseIO.ValidImage(_imageFilePath, false))
+            {
+                _backgroundImage = new Bitmap(_imageFilePath);
+                double initialWidth = _backgroundImage.PixelSize.Width;
+                double initialHeight = _backgroundImage.PixelSize.Height;
+                double intendedHeight = App.OptionsManager.Options.GridTileHeight;
+                double intendedWidth = App.OptionsManager.Options.GridTileWidth;
+                double scaleFactor = initialHeight > initialWidth ? initialWidth / intendedWidth : initialHeight / intendedHeight;
+                _backgroundImage = _backgroundImage.CreateScaledBitmap(new PixelSize((int)(initialWidth / scaleFactor), (int)(initialHeight / scaleFactor)), Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode.HighQuality);
+            }
+            else
+            {
+                _backgroundImage = null;
+            }
+            OnPropertyChanged(nameof(BackgroundImage));
         }
 
         public static SoundClip? FromJSON(string json)
@@ -175,9 +270,17 @@ namespace Amplitude.Models
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
-        public SoundClip ShallowCopy()
+        public SoundClip CreateCopy()
         {
-            return (SoundClip)this.MemberwiseClone();
+            var copy = (SoundClip)this.MemberwiseClone();
+            copy.OutputSettings = new ObservableCollection<OutputSettings>();
+
+            foreach (var setting in OutputSettings)
+            {
+                copy.OutputSettings.Add(setting.ShallowCopy());
+            }
+
+            return copy;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

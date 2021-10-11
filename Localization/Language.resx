@@ -126,6 +126,9 @@
   <data name="CancelButton" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ClearTile" xml:space="preserve">
+    <value>Clear tile</value>
+  </data>
   <data name="ClipAudioFilePathLabel" xml:space="preserve">
     <value>Sound clip file path</value>
   </data>
@@ -144,8 +147,14 @@
   <data name="ClipNamePlaceholder" xml:space="preserve">
     <value>Enter a name...</value>
   </data>
-  <data name="ClipVolumeLabel" xml:space="preserve">
-    <value>Clip volume</value>
+  <data name="OutputVolumeLabel" xml:space="preserve">
+    <value>Output volume</value>
+  </data>
+  <data name="ColumnsPlaceholder" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Copy to clipboard</value>
   </data>
   <data name="DeleteSoundClipButton" xml:space="preserve">
     <value>Delete</value>
@@ -164,6 +173,9 @@
   </data>
   <data name="EditSoundClipTooltip" xml:space="preserve">
     <value>Edit sound clip</value>
+  </data>
+  <data name="EmptyTilePrompt" xml:space="preserve">
+    <value>Drag a Sound Clip here to bind it!</value>
   </data>
   <data name="ErrorListTitle" xml:space="preserve">
     <value>Error List</value>
@@ -186,6 +198,21 @@
   <data name="GlobalSettingsTitle" xml:space="preserve">
     <value>Preferences</value>
   </data>
+  <data name="GridSizeLabel" xml:space="preserve">
+    <value>Grid size</value>
+  </data>
+  <data name="GridTileSizeLabel" xml:space="preserve">
+    <value>Grid tiles size</value>
+  </data>
+  <data name="GridTutorial" xml:space="preserve">
+    <value>Copy a Sound Clip from the Sound Clip List and paste it into any Grid Tile using right click!</value>
+  </data>
+  <data name="HeightPlaceholder" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="HideTutorial" xml:space="preserve">
+    <value>Hide tutorial</value>
+  </data>
   <data name="HotkeyPlaceholder" xml:space="preserve">
     <value>Record a key combination...</value>
   </data>
@@ -201,20 +228,38 @@
   <data name="NewSoundClip" xml:space="preserve">
     <value>New sound clip</value>
   </data>
+  <data name="NewVersionAvailable" xml:space="preserve">
+    <value>There is a new version available</value>
+  </data>
+  <data name="NewVersionCanBeDownloaded" xml:space="preserve">
+    <value>Version {0} can be downloaded from the releases page on GitHub</value>
+  </data>
+  <data name="NewVersionCanBeInstalled" xml:space="preserve">
+    <value>Version {0} can be installed now</value>
+  </data>
   <data name="NoticeLabel" xml:space="preserve">
     <value>Notice</value>
   </data>
   <data name="OutputDeviceLabel" xml:space="preserve">
     <value>Output device</value>
   </data>
+  <data name="PasteClip" xml:space="preserve">
+    <value>Paste clip to tile</value>
+  </data>
   <data name="PlaySound" xml:space="preserve">
-    <value>Play sound</value>
+    <value>Play audio</value>
+  </data>
+  <data name="RowsPlaceholder" xml:space="preserve">
+    <value>Rows</value>
   </data>
   <data name="SaveButton" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="SaveButtonDisabledTooltip" xml:space="preserve">
     <value>Please enter a Sound Clip name</value>
+  </data>
+  <data name="ShowNameOnGridTile" xml:space="preserve">
+    <value>Show name in grid tile view</value>
   </data>
   <data name="SoundClipError" xml:space="preserve">
     <value>The Sound Clip "{0}" has errors:\\n{1}</value>
@@ -232,9 +277,30 @@
     <value>Stop all audio hotkey</value>
   </data>
   <data name="TestSound" xml:space="preserve">
-    <value>Test sound</value>
+    <value>Test audio</value>
   </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Theme</value>
+  </data>
+  <data name="UpdateLabel" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="UpdatePromptTitle" xml:space="preserve">
+    <value>Update Available</value>
+  </data>
+  <data name="ViewReleases" xml:space="preserve">
+    <value>View releases</value>
+  </data>
+  <data name="WidthPlaceholder" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="AddSoundClipOutput" xml:space="preserve">
+    <value>Add output device</value>
+  </data>
+  <data name="RemoveSoundClipOutput" xml:space="preserve">
+    <value>Remove output device</value>
+  </data>
+  <data name="VolumeLabel" xml:space="preserve">
+    <value>Volume</value>
   </data>
 </root>

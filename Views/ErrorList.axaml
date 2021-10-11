@@ -32,27 +32,35 @@
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
-
+  
   <Window.Styles>
     <Style Selector="Image:disabled">
       <Setter Property="Opacity" Value="0.5"/>
     </Style>
+    <Style Selector="TextBlock">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
+    <Style Selector="Button">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
   </Window.Styles>
 
   <Panel>
-      
-      <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
-      </ExperimentalAcrylicBorder>
+    <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
+    </ExperimentalAcrylicBorder>
 
-      <TextBlock Text="{i18n:Localize ErrorListTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+    <TextBlock Text="{i18n:Localize ErrorListTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
-      <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
-        <ScrollViewer>
-          <StackPanel x:Name="sp_Errors"></StackPanel>
-        </ScrollViewer>
+    <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
+      <ScrollViewer>
+        <StackPanel x:Name="sp_Errors"></StackPanel>
+      </ScrollViewer>
 
-        <Button x:Name="btn_Dismiss" Grid.Row="1" Cursor="Hand" Content="{i18n:Localize DismissWindow}" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Button>
-      </Grid>
-    </Panel>
+      <Button Grid.Row="1" Command="{Binding Dismiss}" Cursor="Hand" Content="{i18n:Localize DismissWindow}" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Button>
+    </Grid>
+  </Panel>
   
 </Window>

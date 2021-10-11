@@ -54,7 +54,24 @@ namespace Amplitude.Models
         public static string[] ThemesList { get => new string[] { "Dark", "Light" }; }
 
         public FontFamily TitleFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/JosefinSans/#Josefin Sans");
-        public FontFamily BodyFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/Roboto/#Roboto");
+        public FontFamily BodyFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/NotoSansDisplay/");
+
+
+        public Color FadedTextBackgroundColor
+        {
+            get
+            {
+                switch (SelectedTheme)
+                {
+                    case "Light":
+                        return Color.Parse("#bfbfc1");
+                    case "Dark":
+                        return Color.Parse("#171a21");
+                    default:
+                        throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
+                }
+            }
+        }
 
         public Color BorderColor
         {
@@ -63,7 +80,7 @@ namespace Amplitude.Models
                 switch (SelectedTheme)
                 {
                     case "Light":
-                        return Color.Parse("#252A36");
+                        return Color.Parse("#F08A5D");
                     case "Dark":
                         return Color.Parse("#F08A5D");
                     default:
@@ -79,7 +96,7 @@ namespace Amplitude.Models
                 switch (SelectedTheme)
                 {
                     case "Light":
-                        return Color.Parse("#F08A5D");
+                        return Color.Parse("#252A36");
                     case "Dark":
                         return Color.Parse("#EBAEFF");
                     default:
@@ -134,6 +151,15 @@ namespace Amplitude.Models
         public Bitmap Keyboard { get => getBitmap(folder + "/Keyboard.png"); }
         public Bitmap Settings { get => getBitmap(folder + "/Settings.png"); }
         public Bitmap Play { get => getBitmap(folder + "/Play.png"); }
+        public Bitmap Clipboard { get => getBitmap(folder + "/Clipboard.png"); }
+        public Bitmap SoundClipList { get => getBitmap(folder + "/SoundClipList.png"); }
+        public Bitmap StopSound { get => getBitmap(folder + "/StopSound.png"); }
+        public Bitmap Info { get => getBitmap(folder + "/Info.png"); }
+        public Bitmap Save { get => getBitmap(folder + "/Save.png"); }
+        public Bitmap Delete { get => getBitmap(folder + "/Delete.png"); }
+        public Bitmap AddAudio { get => getBitmap(folder + "/AddAudio.png"); }
+        public Bitmap Plus { get => getBitmap(folder + "/Plus.png"); }
+        public Bitmap Minus { get => getBitmap(folder + "/Minus.png"); }
 
         // TODO actually refactor this to enum after all to support string localization
         private string _selectedTheme;
@@ -153,7 +179,7 @@ namespace Amplitude.Models
         private static ExperimentalAcrylicMaterial darkAcrylic = new ExperimentalAcrylicMaterial
         {
             BackgroundSource = AcrylicBackgroundSource.Digger,
-            TintColor = Color.Parse("Black"),
+            TintColor = Color.Parse("#0b1932"), // Should be #252A36, but material shifts the color, so current value unshifts it 
             TintOpacity = 1,
             MaterialOpacity = 0.8d
         };

@@ -35,7 +35,6 @@ namespace Amplitude.Views
 {
     public partial class About : Window
     {
-        private Button btn_Dismiss;
         private TextBox txt_bx_License;
         private TextBox txt_bx_Notice;
         private TextBlock txt_blk_Copyright;
@@ -51,10 +50,6 @@ namespace Amplitude.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
-
-            this.btn_Dismiss = this.FindControl<Button>("btn_Dismiss");
-            this.btn_Dismiss.Click += Dismiss;
-
             this.txt_bx_License = this.FindControl<TextBox>("txt_bx_License");
             this.txt_bx_License.Text = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Doc", "LICENSE.txt"));
 
@@ -91,7 +86,7 @@ Copyright © 2021 dan0v";
             }
         }
 
-        private void Dismiss(object? sender, RoutedEventArgs args)
+        private void Dismiss()
         {
             this.Close();
         }

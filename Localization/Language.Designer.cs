@@ -79,11 +79,29 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add output device.
+        /// </summary>
+        internal static string AddSoundClipOutput {
+            get {
+                return ResourceManager.GetString("AddSoundClipOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string CancelButton {
             get {
                 return ResourceManager.GetString("CancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear tile.
+        /// </summary>
+        internal static string ClearTile {
+            get {
+                return ResourceManager.GetString("ClearTile", resourceCulture);
             }
         }
         
@@ -142,11 +160,20 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clip volume.
+        ///   Looks up a localized string similar to Columns.
         /// </summary>
-        internal static string ClipVolumeLabel {
+        internal static string ColumnsPlaceholder {
             get {
-                return ResourceManager.GetString("ClipVolumeLabel", resourceCulture);
+                return ResourceManager.GetString("ColumnsPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to clipboard.
+        /// </summary>
+        internal static string CopyToClipboard {
+            get {
+                return ResourceManager.GetString("CopyToClipboard", resourceCulture);
             }
         }
         
@@ -201,6 +228,15 @@ namespace Amplitude.Localization {
         internal static string EditSoundClipTooltip {
             get {
                 return ResourceManager.GetString("EditSoundClipTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drag a Sound Clip here to bind it!.
+        /// </summary>
+        internal static string EmptyTilePrompt {
+            get {
+                return ResourceManager.GetString("EmptyTilePrompt", resourceCulture);
             }
         }
         
@@ -268,6 +304,51 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grid size.
+        /// </summary>
+        internal static string GridSizeLabel {
+            get {
+                return ResourceManager.GetString("GridSizeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grid tiles size.
+        /// </summary>
+        internal static string GridTileSizeLabel {
+            get {
+                return ResourceManager.GetString("GridTileSizeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy a Sound Clip from the Sound Clip List and paste it into any Grid Tile using right click!.
+        /// </summary>
+        internal static string GridTutorial {
+            get {
+                return ResourceManager.GetString("GridTutorial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        internal static string HeightPlaceholder {
+            get {
+                return ResourceManager.GetString("HeightPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide tutorial.
+        /// </summary>
+        internal static string HideTutorial {
+            get {
+                return ResourceManager.GetString("HideTutorial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Record a key combination....
         /// </summary>
         internal static string HotkeyPlaceholder {
@@ -313,6 +394,33 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is a new version available.
+        /// </summary>
+        internal static string NewVersionAvailable {
+            get {
+                return ResourceManager.GetString("NewVersionAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0} can be downloaded from the releases page on GitHub.
+        /// </summary>
+        internal static string NewVersionCanBeDownloaded {
+            get {
+                return ResourceManager.GetString("NewVersionCanBeDownloaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0} can be installed now.
+        /// </summary>
+        internal static string NewVersionCanBeInstalled {
+            get {
+                return ResourceManager.GetString("NewVersionCanBeInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notice.
         /// </summary>
         internal static string NoticeLabel {
@@ -331,11 +439,47 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Play sound.
+        ///   Looks up a localized string similar to Output volume.
+        /// </summary>
+        internal static string OutputVolumeLabel {
+            get {
+                return ResourceManager.GetString("OutputVolumeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paste clip to tile.
+        /// </summary>
+        internal static string PasteClip {
+            get {
+                return ResourceManager.GetString("PasteClip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play audio.
         /// </summary>
         internal static string PlaySound {
             get {
                 return ResourceManager.GetString("PlaySound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove output device.
+        /// </summary>
+        internal static string RemoveSoundClipOutput {
+            get {
+                return ResourceManager.GetString("RemoveSoundClipOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rows.
+        /// </summary>
+        internal static string RowsPlaceholder {
+            get {
+                return ResourceManager.GetString("RowsPlaceholder", resourceCulture);
             }
         }
         
@@ -354,6 +498,15 @@ namespace Amplitude.Localization {
         internal static string SaveButtonDisabledTooltip {
             get {
                 return ResourceManager.GetString("SaveButtonDisabledTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show name in grid tile view.
+        /// </summary>
+        internal static string ShowNameOnGridTile {
+            get {
+                return ResourceManager.GetString("ShowNameOnGridTile", resourceCulture);
             }
         }
         
@@ -403,7 +556,7 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Test sound.
+        ///   Looks up a localized string similar to Test audio.
         /// </summary>
         internal static string TestSound {
             get {
@@ -417,6 +570,51 @@ namespace Amplitude.Localization {
         internal static string ThemeLabel {
             get {
                 return ResourceManager.GetString("ThemeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        internal static string UpdateLabel {
+            get {
+                return ResourceManager.GetString("UpdateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Available.
+        /// </summary>
+        internal static string UpdatePromptTitle {
+            get {
+                return ResourceManager.GetString("UpdatePromptTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View releases.
+        /// </summary>
+        internal static string ViewReleases {
+            get {
+                return ResourceManager.GetString("ViewReleases", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume.
+        /// </summary>
+        internal static string VolumeLabel {
+            get {
+                return ResourceManager.GetString("VolumeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        internal static string WidthPlaceholder {
+            get {
+                return ResourceManager.GetString("WidthPlaceholder", resourceCulture);
             }
         }
     }

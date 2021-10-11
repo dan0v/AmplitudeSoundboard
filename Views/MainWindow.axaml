@@ -23,20 +23,30 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300"
+        mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="625"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.MainWindow"
+        xmlns:local="clr-namespace:Amplitude.Views"
         Icon="/Assets/Icon.ico"
         Title="Amplitude Soundboard"
         MinWidth="450" MinHeight="300"
-        Width="450" Height="300"
+        Width="650" Height="625"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
-
+  
     <Window.Styles>
       <Style Selector="Image:disabled">
         <Setter Property="Opacity" Value="0.5"/>
+      </Style>
+      <Style Selector="TextBlock">
+        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      </Style>
+      <Style Selector="TextBox">
+        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      </Style>
+      <Style Selector="Button">
+        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
       </Style>
     </Window.Styles>
   
@@ -52,13 +62,60 @@
       <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
       
-      <TextBlock FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,5,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+      <TextBlock FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+
+      <Grid RowDefinitions="*,Auto" Margin="5,30,5,0" >
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" >
+          <StackPanel Grid.Column="0" VerticalAlignment="Top">
+            <Button ToolTip.Tip="{i18n:Localize SoundClipListTitle}" Command="{Binding ShowList}" Cursor="Hand" Margin="5,5,5,5">
+              <Panel>
+                <Image Source="{Binding ThemeHandler.SoundClipList}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+              </Panel>
+            </Button>
+            <Button ToolTip.Tip="{Binding StopAudioHotkey}" Command="{Binding StopAudio}" Cursor="Hand" Margin="5,5,5,5">
+              <Panel>
+                <Image Source="{Binding ThemeHandler.StopSound}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+              </Panel>
+            </Button>
+            <Button ToolTip.Tip="{i18n:Localize GlobalSettingsTitle}" Command="{Binding ShowGlobalSettings}" Cursor="Hand" Margin="5,5,5,5">
+              <Panel>
+                <Image Source="{Binding ThemeHandler.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+              </Panel>
+            </Button>
+            <Button ToolTip.Tip="{i18n:Localize AboutTitle}" Command="{Binding ShowAbout}" Cursor="Hand" Margin="5,5,5,5">
+              <Panel>
+                <Image Source="{Binding ThemeHandler.Info}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+              </Panel>
+            </Button>
+          </StackPanel>
+          <Grid Grid.Column="1" RowDefinitions="*,Auto">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="0" Padding="10,10,10,5">
+              <ItemsControl Items="{Binding GridItemsRows}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <StackPanel Margin="0,3,0,5">
+                      <ItemsControl Items="{Binding List}">
+                        <ItemsControl.ItemsPanel>
+                          <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="10"/>
+                          </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                          <DataTemplate>
+                            <local:SoundBoardGridItem/>
+                          </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                      </ItemsControl>
+                    </StackPanel>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+
+            </ScrollViewer>
+          </Grid>
+        </Grid>
+        <TextBlock IsVisible="{Binding !OptionsManager.Options.HideTutorial}" Grid.Row="1" Margin="5,0,5,5" Text="{i18n:Localize GridTutorial}" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize GridTutorial}" HorizontalAlignment="Center"></TextBlock>
+      </Grid>
       
-      <StackPanel Margin="5,30,5,0" VerticalAlignment="Top" Orientation="Horizontal">
-        <Button Content="{i18n:Localize SoundClipListTitle}" Command="{Binding ShowList}" Cursor="Hand" Margin="5,5,5,5"></Button>
-        <Button Content="{i18n:Localize GlobalSettingsTitle}" Command="{Binding ShowGlobalSettings}" Cursor="Hand" Margin="5,5,5,5"></Button>
-        <Button Content="{i18n:Localize StopAllAudio}" ToolTip.Tip="{Binding StopAudioHotkey}" Command="{Binding StopAudio}" Cursor="Hand" Margin="5,5,5,5"></Button>
-        <Button Content="{i18n:Localize AboutTitle}" Command="{Binding ShowAbout}" Cursor="Hand" Margin="5,5,5,5"></Button>
-      </StackPanel>
     </Panel>
 </Window>

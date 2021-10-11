@@ -67,31 +67,54 @@ namespace Amplitude.Models
             {
                 if (string.IsNullOrEmpty(SoundClipListFilter))
                 {
-                    return soundClips.Values.OrderBy(c => c.Name).ToList();
+                    return _soundClips.Values.OrderBy(c => c.Name).ToList();
                 }
                 else
                 {
-                    return soundClips.Values.Where(c => c.Name.ToLowerInvariant().Contains(SoundClipListFilter.ToLowerInvariant())).OrderBy(c => c.Name).ToList();
+                    return _soundClips.Values.Where(c => c.Name.ToLowerInvariant().Contains(SoundClipListFilter.ToLowerInvariant())).OrderBy(c => c.Name).ToList();
+                }
+            }
+        }
+
+        private string _copiedClipId = "";
+        public string CopiedClipId
+        {
+            get => _copiedClipId;
+            set
+            {
+                if (value != _copiedClipId)
+                {
+                    _copiedClipId = value;
+                    OnPropertyChanged();
                 }
             }
         }
 
         private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-        private Dictionary<string, SoundClip> soundClips;
+        private Dictionary<string, SoundClip> _soundClips;
+        public Dictionary<string, SoundClip> SoundClips { get => _soundClips; }
 
+        public void RescaleAllBackgroundImages()
+        {
+            foreach (SoundClip clip in SoundClips.Values)
+            {
+                clip.SetAndRescaleBackgroundImage();
+            }
+        }
+        
         private SoundClipManager()
         {
             Dictionary<string, SoundClip>? retrievedClips = RetrieveSavedSoundClips();
 
             if (retrievedClips != null)
             {
-                soundClips = retrievedClips;
-                InitializeSoundClips(soundClips);
+                _soundClips = retrievedClips;
+                InitializeSoundClips(SoundClips);
             }
             else
             {
-                soundClips = new Dictionary<string, SoundClip>();
+                _soundClips = new Dictionary<string, SoundClip>();
             }
         }
 
@@ -125,9 +148,12 @@ namespace Amplitude.Models
             {
                 App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_IMAGE_FILE);
             }
-            if (string.IsNullOrEmpty(clip.DeviceName))
+            foreach (OutputSettings settings in clip.OutputSettings)
             {
-                clip.DeviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
+                if (string.IsNullOrEmpty(settings.DeviceName))
+                {
+                    settings.DeviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
+                }
             }
 
             App.SoundEngine.CheckDeviceExistsAndGenerateErrors(clip);
@@ -156,14 +182,14 @@ namespace Amplitude.Models
             {
                 if (GenerateAndSetId(clip))
                 {
-                    soundClips.Add(clip.Id, clip);
+                    SoundClips.Add(clip.Id, clip);
                     if (!string.IsNullOrEmpty(clip.Hotkey))
                     {
                         App.HotkeysManager.RegisterHotkeyAtStartup(clip.Id, clip.Hotkey);
                     }
                 }
             }
-            else if (soundClips.TryGetValue(clip.Id, out SoundClip oldClip))
+            else if (SoundClips.TryGetValue(clip.Id, out SoundClip oldClip))
             {
                 // Overwrite existing clip
                 App.HotkeysManager.RemoveHotkey(clip.Id, oldClip.Hotkey);
@@ -171,15 +197,16 @@ namespace Amplitude.Models
                 {
                     App.HotkeysManager.RegisterHotkeyAtStartup(clip.Id, clip.Hotkey);
                 }
-                soundClips[clip.Id] = clip;
+                SoundClips[clip.Id] = clip;
             }
             else
             {
                 App.WindowManager.ErrorListWindow.AddErrorString("SoundClip with ID: " + clip.Id + " could not be saved (does not exist)!");
             }
-
+            ValidateSoundClip(clip);
             StoreSavedSoundClips();
             OnPropertyChanged(nameof(FilteredSoundClipList));
+            OnPropertyChanged(nameof(SoundClips));
         }
 
         public void RemoveSoundClip(string? id)
@@ -189,15 +216,16 @@ namespace Amplitude.Models
                 return;
             }
 
-            if (soundClips.TryGetValue(id, out SoundClip clip))
+            if (SoundClips.TryGetValue(id, out SoundClip clip))
             {
                 App.HotkeysManager.RemoveHotkey(id, clip.Hotkey);
 
                 App.SoundEngine.ClearSoundClipCache(id);
-                soundClips.Remove(id);
+                SoundClips.Remove(id);
 
                 StoreSavedSoundClips();
                 OnPropertyChanged(nameof(FilteredSoundClipList));
+                OnPropertyChanged(nameof(SoundClips));
             }
         }
 
@@ -207,7 +235,7 @@ namespace Amplitude.Models
             int hashCode = clip.GetHashCode();
             string id = DateTimeOffset.Now.ToUnixTimeMilliseconds() + hashCode + "";
             int attempt = 0;
-            while (soundClips.ContainsKey(id))
+            while (SoundClips.ContainsKey(id))
             {
                 string suf = "";
                 if (attempt >= alphabet.Length)
@@ -238,7 +266,7 @@ namespace Amplitude.Models
                 return null;
             }
 
-            if (soundClips.TryGetValue(id, out SoundClip clip))
+            if (SoundClips.TryGetValue(id, out SoundClip clip))
             {
                 return clip;
             }
@@ -285,7 +313,7 @@ namespace Amplitude.Models
 
         private string ConvertClipsToJSON()
         {
-            return JsonConvert.SerializeObject(soundClips, Formatting.Indented);
+            return JsonConvert.SerializeObject(SoundClips, Formatting.Indented);
         }
 
         private string? RetrieveJSONFromFile()

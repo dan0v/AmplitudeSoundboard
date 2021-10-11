@@ -19,7 +19,10 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using AmplitudeSoundboard;
 using Avalonia.Controls;
 
 namespace Amplitude.Helpers
@@ -35,7 +38,7 @@ namespace Amplitude.Helpers
         private static FileDialogFilter _audioFileTypesFilter = new FileDialogFilter
         {
             Name = "Audio file",
-            Extensions = { "wav", "aiff", "mp3", "m4a", "mp4" }
+            Extensions = { "wav", "aiff", "mp3", "m4a", "mp4", "flac" }
         };
         public static FileDialogFilter AudioFileTypesFilter
         {
@@ -45,7 +48,7 @@ namespace Amplitude.Helpers
         private static FileDialogFilter _imageFileTypesFilter = new FileDialogFilter
         {
             Name = "Image file",
-            Extensions = { "png", "jpg", "jpeg", "gif" }
+            Extensions = { "png", "jpg", "jpeg", "gif", "bmp" }
         };
         public static FileDialogFilter ImageFileTypesFilter
         {
@@ -77,6 +80,64 @@ namespace Amplitude.Helpers
                 Filters = { filter }
             };
             return await dialog.ShowAsync(parent);
+        }
+
+        public static bool ValidImage(string fileName, bool generateErrors = true)
+        {
+            if (!File.Exists(fileName))
+            {
+                if (generateErrors)
+                {
+                    string errorMessage = string.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
+                    App.WindowManager.ErrorListWindow.AddErrorString(errorMessage);
+                }
+                return false;
+            }
+
+            string fileType = Path.GetExtension(fileName).ToLower();
+            if (fileType.Length >= 1)
+            {
+                fileType = fileType.Substring(1);
+            }
+            if (ImageFileTypesFilter.Extensions.Where(i => i.ToLower() == fileType).Count() < 1)
+            {
+                if (generateErrors)
+                {
+                    string errorMessage = string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
+                    App.WindowManager.ErrorListWindow.AddErrorString(errorMessage);
+                }
+                return false;
+            }
+            return true;
+        }
+
+        public static bool ValidAudioFile(string fileName, bool generateErrors = true)
+        {
+            if (!File.Exists(fileName))
+            {
+                if (generateErrors)
+                {
+                    string errorMessage = string.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
+                    App.WindowManager.ErrorListWindow.AddErrorString(errorMessage);
+                }
+                return false;
+            }
+
+            string fileType = Path.GetExtension(fileName).ToLower();
+            if (fileType.Length >= 1)
+            {
+                fileType = fileType.Substring(1);
+            }
+            if (AudioFileTypesFilter.Extensions.Where(a => a.ToLower() == fileType).Count() < 1)
+            {
+                if (generateErrors)
+                {
+                    string errorMessage = string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
+                    App.WindowManager.ErrorListWindow.AddErrorString(errorMessage);
+                }
+                return false;
+            }
+            return true;
         }
     }   
 }

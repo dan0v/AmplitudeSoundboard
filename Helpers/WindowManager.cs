@@ -21,7 +21,9 @@
 
 using Amplitude.ViewModels;
 using Amplitude.Views;
+using AmplitudeSoundboard;
 using Avalonia;
+using Avalonia.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,6 +60,30 @@ namespace Amplitude.Helpers
             }
         }
 
+        public void OpenEditSoundClipWindow(string id)
+        {
+            if (App.WindowManager.EditSoundClipWindows.TryGetValue(id, out EditSoundClip window))
+            {
+                window.Activate();
+            }
+            else
+            {
+
+                Window sound = new EditSoundClip
+                {
+                    DataContext = new EditSoundClipViewModel(App.SoundClipManager.GetClip(id)),
+                };
+
+                PixelPoint? pos = SoundClipListWindow?.Position ?? MainWindow?.Position;
+                if (pos != null)
+                {
+                    sound.Position = new PixelPoint(pos.Value.X + 50, pos.Value.Y + 50);
+                }
+
+                sound.Show();
+            }
+        }
+
         public void OpenedEditSoundClipWindow(string id, EditSoundClip editSoundClip)
         {
             if (!string.IsNullOrEmpty(id) && !EditSoundClipWindows.ContainsKey(id))
@@ -73,6 +99,20 @@ namespace Amplitude.Helpers
             {
                 EditSoundClipWindows.Remove(id);
                 OnPropertyChanged(nameof(EditSoundClipWindows));
+            }
+        }
+
+        public MainWindow? _mainWindow = null;
+        public MainWindow? MainWindow
+        {
+            get => _mainWindow;
+            set
+            {
+                if (value != _mainWindow)
+                {
+                    _mainWindow = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
