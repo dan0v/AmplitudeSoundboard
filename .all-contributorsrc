@@ -38,7 +38,9 @@
       "profile": "https://github.com/John-Cozy",
       "contributions": [
         "code",
-        "userTesting"
+        "userTesting",
+        "doc",
+        "design"
       ]
     }
   ],
