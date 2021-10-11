@@ -20,39 +20,47 @@
 -->
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.ErrorList"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/Icon.ico"
         Title="{i18n:Localize ErrorListTitle}"
-        Width="400" Height="400" MinWidth="275" MinHeight="375"
+        Width="400" Height="400" MinWidth="360" MinHeight="200"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
+  
+  <Window.Styles>
+    <Style Selector="Image:disabled">
+      <Setter Property="Opacity" Value="0.5"/>
+    </Style>
+    <Style Selector="TextBlock">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
+    <Style Selector="Button">
+      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+    </Style>
+  </Window.Styles>
 
-    <Panel>
-      <ExperimentalAcrylicBorder IsHitTestVisible="False">
-        <ExperimentalAcrylicBorder.Material>
-          <ExperimentalAcrylicMaterial
-              BackgroundSource="Digger"
-              TintColor="Black"
-              TintOpacity="1"
-              MaterialOpacity="0.8" />
-        </ExperimentalAcrylicBorder.Material>
-      </ExperimentalAcrylicBorder>
-      
-      <TextBlock Text="{i18n:Localize ErrorListTitle}" FontWeight="Bold" Margin="10,5,0,10"></TextBlock>
+  <Panel>
+    <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
+    </ExperimentalAcrylicBorder>
 
-      <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
-        <ScrollViewer>
-          <StackPanel x:Name="sp_Errors"></StackPanel>
-        </ScrollViewer>
+    <TextBlock Text="{i18n:Localize ErrorListTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
-        <Button x:Name="btn_Dismiss" Grid.Row="1" Cursor="Hand" Content="{i18n:Localize DismissWindow}" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Button>
-      </Grid>
-    </Panel>
+    <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
+      <ScrollViewer>
+        <StackPanel x:Name="sp_Errors"></StackPanel>
+      </ScrollViewer>
+
+      <Button Grid.Row="1" Command="{Binding Dismiss}" Cursor="Hand" Content="{i18n:Localize DismissWindow}" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Button>
+    </Grid>
+  </Panel>
   
 </Window>

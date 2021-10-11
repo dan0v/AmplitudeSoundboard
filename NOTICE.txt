@@ -1,4 +1,15 @@
-AmplitudeSoundboard makes use of
+AmplitudeSoundboard relies on
+
+Josefin Sans
+Copyright (C) 2010 Santiago Orozco (hi@typemade.mx)
+https://github.com/googlefonts/josefinsans
+
+Material Design Icons
+https://github.com/google/material-design-icons
 
 NAudio
 Copyright (C) 2020 Mark Heath
+https://github.com/naudio/NAudio
+
+Noto Sans Display
+https://github.com/googlefonts/noto-fonts

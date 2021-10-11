@@ -19,13 +19,9 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using NAudio.Wave;
 using System;
-using System.Diagnostics;
-using System.Threading;
-using System.Linq;
+using System.Collections.Generic;
 using Amplitude.Models;
-using NAudio.Wave.SampleProviders;
 
 namespace Amplitude.Helpers
 {
@@ -33,10 +29,20 @@ namespace Amplitude.Helpers
     {
         public static ISoundEngine Instance { get; }
 
+        public const string DEFAULT_DEVICE_NAME = "DEFAULT";
+
         public void Play(SoundClip source);
 
-        public void Play(string fileName, float volume);
+        public void Play(string fileName, int volume, string playerDeviceName, string? id = null);
 
-        public void Reset();
+        public void ClearSoundClipCache(string id);
+
+        public void PreCacheSoundClip(SoundClip clip);
+
+        public void CheckDeviceExistsAndGenerateErrors(SoundClip clip);
+
+        public List<string> OutputDeviceList { get; }
+
+        public void Reset(bool retainCache = false);
     }
 }

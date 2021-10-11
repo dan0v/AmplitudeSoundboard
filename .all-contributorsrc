@@ -6,21 +6,50 @@
   "commit": false,
   "contributors": [
     {
+      "login": "dan0v",
+      "name": "dan0v",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7658521?v=4",
+      "profile": "https://github.com/dan0v",
+      "contributions": [
+        "code",
+        "bug",
+        "design",
+        "doc",
+        "maintenance",
+        "platform",
+        "review",
+        "userTesting"
+      ]
+    },
+    {
       "login": "Taylor-Cozy",
       "name": "Taylor Hetherington",
       "avatar_url": "https://avatars.githubusercontent.com/u/19821121?v=4",
       "profile": "https://github.com/Taylor-Cozy",
       "contributions": [
-        "code"
+        "code",
+        "userTesting"
       ]
     },
     {
-      "login": "dan0v",
-      "name": "dan0v",
-      "avatar_url": "https://avatars.githubusercontent.com/u/7658521?v=4",
-      "profile": "https://blog.dan0v.com",
+      "login": "John-Cozy",
+      "name": "John",
+      "avatar_url": "https://avatars.githubusercontent.com/u/36801893?v=4",
+      "profile": "https://github.com/John-Cozy",
       "contributions": [
-        "code"
+        "code",
+        "userTesting",
+        "doc",
+        "design"
+      ]
+    },
+    {
+      "login": "scottajevans",
+      "name": "scottajevans",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39980206?v=4",
+      "profile": "https://github.com/scottajevans",
+      "contributions": [
+        "translation"
       ]
     }
   ],

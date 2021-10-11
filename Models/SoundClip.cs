@@ -20,36 +20,30 @@
 */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System.Collections.Concurrent;
 using AmplitudeSoundboard;
+using Amplitude.Helpers;
+using Avalonia.Media.Imaging;
+using Avalonia;
+using System.Collections.ObjectModel;
 
 namespace Amplitude.Models
 {
     public class SoundClip : INotifyPropertyChanged
     {
-        public readonly string id;
-
-        public ConcurrentBag<Thread> ActiveThreads = new ConcurrentBag<Thread>();
-
-        private float _volume = 100;
-        public float Volume {
-            get => _volume;
-            set
+        public void InitializeId(string newId)
+        {
+            if (string.IsNullOrEmpty(Id))
             {
-                if (value != _volume)
-                {
-                    _volume = value;
-                    OnPropertyChanged();
-                }
+                _id = newId;
+                OnPropertyChanged(nameof(Id));
+            }
+            else
+            {
+                throw new NotSupportedException("Do not alter Id once it has been set");
             }
         }
 
@@ -76,34 +70,186 @@ namespace Amplitude.Models
                 if (value != _hotkey)
                 {
                     _hotkey = value;
-                    OnPropertyChanged();
                 }
+                OnPropertyChanged(); // Alert even if not changed
+                OnPropertyChanged(nameof(PlayAudioTooltip));
             }
         }
 
-        private string _filePath = "";
-        public string FilePath
+        private string _audioFilePath = "";
+        public string AudioFilePath
         {
-            get => _filePath;
+            get => _audioFilePath;
             set
             {
-                if (value != _filePath)
+                if (value != _audioFilePath)
                 {
-                    _filePath = value;
+                    _audioFilePath = value;
+                    // Clear possibly cached clip
+                    App.SoundEngine.ClearSoundClipCache(Id);
                     OnPropertyChanged();
                 }
             }
         }
 
-        public SoundClip()
+        private string _imageFilePath = "";
+        public string ImageFilePath
         {
-            id = "temp";
-            // Get unique ID from soundclip manager
+            get => _imageFilePath;
+            set
+            {
+                if (value != _imageFilePath)
+                {
+                    _imageFilePath = value;
+                    OnPropertyChanged();
+                    SetAndRescaleBackgroundImage();
+                }
+            }
         }
+
+        private bool _preCache = false;
+        public bool PreCache
+        {
+            get => _preCache;
+            set
+            {
+                if (value != _preCache)
+                {
+                    _preCache = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _nameVisibleOnGridTile = true;
+        public bool NameVisibleOnGridTile
+        {
+            get => _nameVisibleOnGridTile;
+            set
+            {
+                if (value != _nameVisibleOnGridTile)
+                {
+                    _nameVisibleOnGridTile = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        // legacy soundclips loading
+        private string _deviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
+        [Obsolete]
+        public string DeviceName
+        {
+            internal get => _deviceName;
+            set
+            {
+                if (OutputSettings.Count <= 0)
+                {
+                    OutputSettings.Add(new OutputSettings());
+                }
+                OutputSettings[0].DeviceName = value;
+            }
+        }
+
+        // legacy soundclips loading
+        private int _volume = 100;
+        [Obsolete]
+        public int Volume
+        {
+            internal get => _volume;
+            set
+            {
+                if (OutputSettings.Count <= 0)
+                {
+                    OutputSettings.Add(new OutputSettings());
+                }
+                OutputSettings[0].Volume = value;
+            }
+        }
+
+        private ObservableCollection<OutputSettings> _outputSettings = new ObservableCollection<OutputSettings>();
+        public ObservableCollection<OutputSettings> OutputSettings
+        {
+            get => _outputSettings;
+            set
+            {
+                if (value != _outputSettings)
+                {
+                    _outputSettings = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _id = null;
+        // Do not write to JSON, since it is stored in dictionary anyway
+        [JsonIgnore]
+        public string Id
+        {
+            get => _id;
+        }
+
+        private Bitmap _backgroundImage = null;
+        [JsonIgnore]
+        public Bitmap BackgroundImage
+        {
+            get => _backgroundImage;
+        }
+
+        private bool _loadBackgroundImage = false;
+        [JsonIgnore]
+        public bool LoadBackgroundImage
+        {
+            get => _loadBackgroundImage;
+            set
+            {
+                if (value != _loadBackgroundImage)
+                {
+                    _loadBackgroundImage = value;
+                    OnPropertyChanged();
+                    SetAndRescaleBackgroundImage();
+                }
+            }
+        }
+
+
+        [JsonIgnore]
+        public string? PlayAudioTooltip { get => string.IsNullOrEmpty(Id) ? null : string.IsNullOrEmpty(Hotkey) ? Localization.Localizer.Instance["PlaySound"] : Localization.Localizer.Instance["PlaySound"] + ": " + Hotkey; }
+
+        public SoundClip() { }
 
         public void PlayAudio()
         {
             App.SoundEngine.Play(this);
+        }
+
+        public void CopySoundClipId()
+        {
+            App.SoundClipManager.CopiedClipId = Id;
+        }
+
+        public void OpenEditSoundClipWindow()
+        {
+            App.WindowManager.OpenEditSoundClipWindow(Id);
+        }
+
+        public void SetAndRescaleBackgroundImage()
+        {
+            if (LoadBackgroundImage && BrowseIO.ValidImage(_imageFilePath, false))
+            {
+                _backgroundImage = new Bitmap(_imageFilePath);
+                double initialWidth = _backgroundImage.PixelSize.Width;
+                double initialHeight = _backgroundImage.PixelSize.Height;
+                double intendedHeight = App.OptionsManager.Options.GridTileHeight;
+                double intendedWidth = App.OptionsManager.Options.GridTileWidth;
+                double scaleFactor = initialHeight > initialWidth ? initialWidth / intendedWidth : initialHeight / intendedHeight;
+                _backgroundImage = _backgroundImage.CreateScaledBitmap(new PixelSize((int)(initialWidth / scaleFactor), (int)(initialHeight / scaleFactor)), Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode.HighQuality);
+            }
+            else
+            {
+                _backgroundImage = null;
+            }
+            OnPropertyChanged(nameof(BackgroundImage));
         }
 
         public static SoundClip? FromJSON(string json)
@@ -123,8 +269,21 @@ namespace Amplitude.Models
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
+        public SoundClip CreateCopy()
+        {
+            var copy = (SoundClip)this.MemberwiseClone();
+            copy.OutputSettings = new ObservableCollection<OutputSettings>();
+
+            foreach (var setting in OutputSettings)
+            {
+                copy.OutputSettings.Add(setting.ShallowCopy());
+            }
+
+            return copy;
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        public virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

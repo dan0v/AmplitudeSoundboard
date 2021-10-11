@@ -19,22 +19,24 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+#if Windows
+
 using NAudio.Wave;
 using System;
-using System.Diagnostics;
-using System.Threading;
-using System.Linq;
 using Amplitude.Models;
 using NAudio.Wave.SampleProviders;
 using System.IO;
 using AmplitudeSoundboard;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Amplitude.Helpers
 {
     class NSoundEngine : ISoundEngine
     {
         private static NSoundEngine? _instance;
-        public static NSoundEngine Instance {
+        public static NSoundEngine Instance
+        {
             get
             {
                 if (_instance == null)
@@ -44,65 +46,183 @@ namespace Amplitude.Helpers
                 return _instance;
             }
         }
-        private readonly IWavePlayer outputDevice;
-        private readonly MixingSampleProvider mixer;
 
-        private NSoundEngine(int sampleRate = 44100, int channelCount = 2)
+        public List<string> OutputDeviceList
         {
-            outputDevice = new WaveOutEvent();
-            mixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, channelCount));
-            mixer.ReadFully = true;
-            outputDevice.Init(mixer);
-            outputDevice.Play();
+            get
+            {
+                List<string> devs = new List<string>();
+                devs.Add(ISoundEngine.DEFAULT_DEVICE_NAME);
+                for (int n = 0; n < WaveOut.DeviceCount; n++)
+                {
+                    var caps = WaveOut.GetCapabilities(n);
+                    devs.Add(caps.ProductName);
+                }
+                return devs;
+            }
+        }
+
+        private Dictionary<string, (IWavePlayer player, MixingSampleProvider mixer)> outputs = new Dictionary<string, (IWavePlayer player, MixingSampleProvider mixer)>();
+
+        private const int CHANNEL_COUNT = 2;
+        public const int SAMPLE_RATE = 44100;
+
+        private Dictionary<string, CachedSound> soundCache = new Dictionary<string, CachedSound>();
+
+        private NSoundEngine()
+        {
+            
+        }
+
+        private IWavePlayer? GetOutputPlayerByName(string playerDeviceName)
+        {
+
+            if (playerDeviceName == ISoundEngine.DEFAULT_DEVICE_NAME)
+            {
+                return new WaveOutEvent();
+            }
+            else if (OutputDeviceList.Contains(playerDeviceName))
+            {
+                for (int n = 0; n < WaveOut.DeviceCount; n++)
+                {
+                    var caps = WaveOut.GetCapabilities(n);
+                    if (playerDeviceName == caps.ProductName)
+                    {
+                        return new WaveOutEvent() { DeviceNumber = n };
+                    }
+                }
+            }
+            return null;
+        }
+
+        private (IWavePlayer, MixingSampleProvider)? GetOrInitializePlayer(string playerDeviceName)
+        {
+            if (outputs.TryGetValue(playerDeviceName, out (IWavePlayer player, MixingSampleProvider mixer) device))
+            {
+                return device;
+            }
+            else
+            {
+                IWavePlayer? outputDevice = GetOutputPlayerByName(playerDeviceName);
+                if (outputDevice != null)
+                {
+                    var mixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(SAMPLE_RATE, CHANNEL_COUNT));
+                    mixer.ReadFully = true;
+                    outputDevice.Init(mixer);
+                    outputDevice.Play();
+                    outputs.Add(playerDeviceName, (outputDevice, mixer));
+                    return (outputDevice, mixer);
+                }
+                else
+                {
+                    App.WindowManager.ErrorListWindow.AddErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
+                }
+            }
+            return null;
         }
 
         public void Dispose()
         {
-            outputDevice.Dispose();
+            foreach ((IWavePlayer player, MixingSampleProvider mixer) in outputs.Values)
+            {
+                player.Dispose();
+            }
         }
 
-        public bool CheckPlayableFileAndGenerateErrors(string fileName)
+        /// <summary>
+        /// Resample and cache this soundclip
+        /// </summary>
+        /// <param name="clip"></param>
+        public void PreCacheSoundClip(SoundClip clip)
         {
-            if (!File.Exists(fileName))
+            if (!soundCache.ContainsKey(clip.Id))
             {
-                string errorMessage = String.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
-                App.ErrorListWindow.AddErrorString(errorMessage);
-                return false;
+                using (AudioFileReader input = new AudioFileReader(clip.AudioFilePath))
+                {
+                    CachedSound cachedSound = new CachedSound(input);
+                    soundCache.Add(clip.Id, cachedSound);
+                }
             }
-
-            string fileType = Path.GetExtension(fileName).ToLower();
-            if (fileType != ".mp3" && fileType != ".wav" && fileType != ".aiff")
-            {
-                string errorMessage = String.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
-                App.ErrorListWindow.AddErrorString(errorMessage);
-                return false;
-            }
-
-            return true;
         }
 
+        /// <summary>
+        /// Play a soundclip with caching and sample rate conversion as neccesary
+        /// </summary>
+        /// <param name="source"></param>
         public void Play(SoundClip source)
         {
-            Play(source.FilePath, source.Volume);
+            if (!string.IsNullOrEmpty(source.Id) && soundCache.TryGetValue(source.Id, out CachedSound sound))
+            {
+                foreach (OutputSettings settings in source.OutputSettings)
+                {
+                    Play(sound, settings.Volume, settings.DeviceName);
+                }
+            }
+            else
+            {
+                foreach (OutputSettings settings in source.OutputSettings)
+                {
+                    // TODO Do not cache all audio files for now, maybe pass Id if required
+                    Play(source.AudioFilePath, settings.Volume, settings.DeviceName, null);
+                }
+            }
         }
 
-        public void Play(string fileName, float volume)
+        /// <summary>
+        /// Directly play cached sound
+        /// </summary>
+        /// <param name="sound"></param>
+        private void Play(CachedSound sound, int volume, string playerDeviceName)
         {
-            if (!CheckPlayableFileAndGenerateErrors(fileName))
+            var copy = sound.ShallowCopy();
+            copy.Volume = (volume / 100f) *(App.OptionsManager.Options.MasterVolume / 100f);
+            AddMixerInput(playerDeviceName, new CachedSoundSampleProvider(copy));
+        }
+
+        /// <summary>
+        /// Optionally cache sound if SoundClip Id is provided
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="volume"></param>
+        /// <param name="id"></param>
+        public void Play(string fileName, int volume, string playerDeviceName, string? id = null)
+        {
+            if (!BrowseIO.ValidAudioFile(fileName))
             {
                 return;
             }
 
-            var input = new AudioFileReader(fileName);
-            input.Volume = volume / 100f;
-            AddMixerInput(new AutoDisposeFileReader(input));
+            AudioFileReader input = new AudioFileReader(fileName);
+            int sampleRate = input.WaveFormat.SampleRate;
+
+            // If sample rates don't match, resample audio clip and optionally keep it cached
+            if (sampleRate != SAMPLE_RATE)
+            {
+                CachedSound cachedSound = new CachedSound(input);
+
+                if (!string.IsNullOrEmpty(id))
+                {
+                    // Recheck dictionary just in case
+                    if (!soundCache.ContainsKey(id))
+                    {
+                        soundCache.Add(id, cachedSound);
+                    }
+                }
+
+                Play(cachedSound, volume, playerDeviceName);
+            }
+            else
+            {
+                input.Volume = (volume / 100f) * (App.OptionsManager.Options.MasterVolume / 100f);
+                AddMixerInput(playerDeviceName, new AutoDisposeFileReader(input));
+            }
         }
         /// <summary>
         /// Credit to Mark Heath
         /// mark.heath@gmail.com
         /// https://gist.github.com/markheath/8783999
         /// </summary>
-        private ISampleProvider ConvertToRightChannelCount(ISampleProvider input)
+        private ISampleProvider ConvertToRightChannelCount(ISampleProvider input, MixingSampleProvider mixer)
         {
             if (input.WaveFormat.Channels == mixer.WaveFormat.Channels)
             {
@@ -119,22 +239,57 @@ namespace Amplitude.Helpers
         /// mark.heath@gmail.com
         /// https://gist.github.com/markheath/8783999
         /// </summary>
-        private void AddMixerInput(ISampleProvider input)
+        private void AddMixerInput(string playerDeviceName, ISampleProvider input)
         {
             try
             {
-                mixer.AddMixerInput(ConvertToRightChannelCount(input));
+                (IWavePlayer player, MixingSampleProvider mixer)? device = GetOrInitializePlayer(playerDeviceName);
+
+                if (device != null)
+                {
+                    device?.mixer.AddMixerInput(ConvertToRightChannelCount(input, device?.mixer));
+                }
+                else
+                {
+                    App.WindowManager.ErrorListWindow.AddErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
+                }
             }
             catch (Exception e)
             {
-                App.ErrorListWindow.AddErrorString(e.Message);
+                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
             }
         }
 
-        public void Reset()
+        public void Reset(bool retainCache = false)
         {
+            if (retainCache)
+            {
+                _instance = new NSoundEngine();
+                _instance.soundCache = this.soundCache;
+            }
             this.Dispose();
-            _instance = new NSoundEngine();
+        }
+
+        public void ClearSoundClipCache(string id)
+        {
+            if (!string.IsNullOrEmpty(id) && soundCache.ContainsKey(id))
+            {
+                soundCache.Remove(id);
+            }
+        }
+
+        public void CheckDeviceExistsAndGenerateErrors(SoundClip clip)
+        {
+            foreach (OutputSettings settings in clip.OutputSettings)
+            {
+                if (GetOutputPlayerByName(settings.DeviceName) == null)
+                {
+                    if (clip != null)
+                    {
+                        App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_DEVICE, settings.DeviceName);
+                    }
+                }
+            }
         }
     }
 
@@ -168,4 +323,75 @@ namespace Amplitude.Helpers
 
         public WaveFormat WaveFormat { get; private set; }
     }
+
+    /// <summary>
+    /// Credit to Mark Heath
+    /// mark.heath@gmail.com
+    /// https://gist.github.com/markheath/8783999
+    /// Altered to add volume and resampling
+    /// </summary>
+    class CachedSound
+    {
+        public float[] AudioData { get; private set; }
+        public WaveFormat WaveFormat { get; private set; }
+        public float Volume = 1f;
+        public CachedSound(AudioFileReader audioFileReader)
+        {
+            var resampler = new WdlResamplingSampleProvider(audioFileReader, NSoundEngine.SAMPLE_RATE);
+
+            WaveFormat = resampler.WaveFormat;
+            Volume = audioFileReader.Volume;
+
+            var wholeFile = new List<float>((int)(audioFileReader.Length / 4));
+            var readBuffer = new float[WaveFormat.SampleRate * WaveFormat.Channels];
+            int samplesRead;
+            while ((samplesRead = resampler.Read(readBuffer, 0, readBuffer.Length)) > 0)
+            {
+                wholeFile.AddRange(readBuffer.Take(samplesRead));
+            }
+            AudioData = wholeFile.ToArray();
+        }
+
+        public CachedSound ShallowCopy()
+        {
+            return (CachedSound)this.MemberwiseClone();
+        }
+    }
+
+    /// <summary>
+    /// Credit to Mark Heath
+    /// mark.heath@gmail.com
+    /// https://gist.github.com/markheath/8783999
+    /// Altered to add volume
+    /// </summary>
+    class CachedSoundSampleProvider : ISampleProvider
+    {
+        private readonly CachedSound cachedSound;
+        private long position;
+
+        public CachedSoundSampleProvider(CachedSound cachedSound)
+        {
+            this.cachedSound = cachedSound;
+        }
+
+        public int Read(float[] buffer, int offset, int count)
+        {
+            var availableSamples = cachedSound.AudioData.Length - position;
+            var samplesToCopy = Math.Min(availableSamples, count);
+            Array.Copy(cachedSound.AudioData, position, buffer, offset, samplesToCopy);
+
+            // Shift sample volume
+            for (long index = offset; index < samplesToCopy; index++)
+            {
+                buffer[index] *= cachedSound.Volume;
+            }
+
+            position += samplesToCopy;
+            return (int)samplesToCopy;
+        }
+
+        public WaveFormat WaveFormat { get { return cachedSound.WaveFormat; } }
+    }
 }
+
+#endif

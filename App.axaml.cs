@@ -22,29 +22,73 @@
 using Amplitude.Helpers;
 using Amplitude.ViewModels;
 using Amplitude.Views;
+using Amplitude.Models;
+using Amplitude.Localization;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using System.IO;
+using static System.Environment;
+using System.Reflection;
+using System;
+using System.Diagnostics;
+using System.Net.Http;
 
 namespace AmplitudeSoundboard
 {
     public class App : Application
     {
-        public static ISoundEngine SoundEngine => NSoundEngine.Instance;
-        public static KeyboardHook KeyboardHook => KeyboardHook.Instance;
-        public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
-
-        private static ErrorList _errorListWindow;
-        public static ErrorList ErrorListWindow {
+        public static string APP_STORAGE
+        {
             get
             {
-                if (_errorListWindow == null)
+                string path = Path.Join(GetFolderPath(SpecialFolder.LocalApplicationData, SpecialFolderOption.DoNotVerify), "amplitude-soundboard");
+
+                if (!Directory.Exists(path))
                 {
-                    _errorListWindow = new ErrorList();
+                    Directory.CreateDirectory(path);
                 }
-                return _errorListWindow;
+                    
+                return path;
+			}
+		}
+		
+        public static SoundClipManager SoundClipManager => SoundClipManager.Instance;
+        
+        public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
+
+        public static ThemeHandler ThemeHandler => ThemeHandler.Instance;
+
+        public static WindowManager WindowManager => WindowManager.Instance;
+
+        public static OptionsManager OptionsManager => OptionsManager.Instance;
+
+        public static string VERSION
+        {
+            get
+            {
+                string version = "";
+                try
+                {
+                    version = System.Reflection.Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+                }
+                catch (Exception e) { Debug.WriteLine(e); }
+                return version;
             }
         }
+
+        public const string VERSION_CHECK_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/version.txt";
+        public const string DOWNLOAD_WIN_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip";
+        public const string RELEASES_PAGE = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/";
+
+#if Windows
+        public static ISoundEngine SoundEngine => NSoundEngine.Instance;
+		
+        public static IKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
+#else
+        public static ISoundEngine SoundEngine => TempSoundEngine.Instance;
+        //public static IKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
+#endif
 
         public override void Initialize()
         {
@@ -59,9 +103,45 @@ namespace AmplitudeSoundboard
                 {
                     DataContext = new MainWindowViewModel(),
                 };
+
+                // Initialize managers to make sure they are active
+                var se = SoundEngine;
+                var k = KeyboardHook;
+                var o = OptionsManager;
+                var s = SoundClipManager;
+                var h = HotkeysManager;
+                var t = ThemeHandler;
+                var w = WindowManager;
+
+                w.MainWindow = (MainWindow)desktop.MainWindow;
+
+#if !DEBUG
+                CheckForUpdates();
+#endif
             }
 
             base.OnFrameworkInitializationCompleted();
+        }
+
+        private async void CheckForUpdates()
+        {
+            try
+            {
+                HttpResponseMessage response = await new HttpClient().GetAsync(VERSION_CHECK_URL);
+                response.EnsureSuccessStatusCode();
+                string newVer = await response.Content.ReadAsStringAsync();
+                newVer = newVer.Trim();
+                if (!string.IsNullOrEmpty(newVer) && newVer != VERSION.Trim())
+                {
+                    UpdatePrompt updateDialog = new UpdatePrompt(newVer);
+                    updateDialog.Show();
+                    updateDialog.Activate();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
     }
 }

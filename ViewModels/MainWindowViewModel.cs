@@ -19,32 +19,78 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
-using Amplitude.Views;
+using Amplitude.Models;
 using AmplitudeSoundboard;
-using Avalonia.Controls;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
 
 namespace Amplitude.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public void AddSound()
-        {
-            Window sound = new EditSoundClip
-            {
-                DataContext = new EditSoundClipViewModel(),
-            };
+        private static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        private static SoundClipManager Manager { get => App.SoundClipManager; }
+        private static OptionsManager OptionsManager { get => App.OptionsManager; }
 
-            sound.Show();
+        public (int x, int y) WindowPosition = (0, 0);
+
+        private bool GlobalSettingsWindowOpen { get => App.WindowManager.GlobalSettingsWindow != null; }
+
+        private string StopAudioHotkey => string.IsNullOrEmpty(OptionsManager.Options.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + OptionsManager.Options.GlobalKillAudioHotkey;
+
+        public MainWindowViewModel()
+        {
+            OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
+
+            GridItemsRows.Clear();
+            foreach (GridItemRow temp in App.OptionsManager.GetGridLayout())
+            {
+                GridItemsRows.Add(temp);
+            }
+            OnPropertyChanged(nameof(GridItemsRows));
+        }
+
+        private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(OptionsManager.Options))
+            {
+                OnPropertyChanged(nameof(StopAudioHotkey));
+
+                GridItemsRows.Clear();
+                foreach (GridItemRow temp in App.OptionsManager.GetGridLayout())
+                {
+                    GridItemsRows.Add(temp);
+                }
+                OnPropertyChanged(nameof(GridItemsRows));
+            }
+        }
+
+        private ObservableCollection<GridItemRow> _gridItemsRows  = new();
+        private ObservableCollection<GridItemRow> GridItemsRows { get => _gridItemsRows; }
+
+        public void ShowList()
+        {
+            App.WindowManager.ShowSoundClipListWindow(new Avalonia.PixelPoint(WindowPosition.x + 200, WindowPosition.y + 200));
+        }
+
+        public void ShowGlobalSettings()
+        {
+            App.WindowManager.ShowGlobalSettingsWindow(new Avalonia.PixelPoint(WindowPosition.x + 150, WindowPosition.y + 150));
+        }
+        
+        public void ShowAbout()
+        {
+            App.WindowManager.ShowAboutWindow(new Avalonia.PixelPoint(WindowPosition.x + 100, WindowPosition.y + 100));
         }
 
         public void StopAudio()
         {
-            App.SoundEngine.Reset();
+            App.SoundEngine.Reset(true);
         }
 
+        public override void Dispose()
+        {
+            OptionsManager.PropertyChanged -= OptionsManager_PropertyChanged;
+            base.Dispose();
+        }
     }
 }
