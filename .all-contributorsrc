@@ -53,6 +53,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "SonjaVredeveld",
+      "name": "SVredeveld",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10913197?v=4",
+      "profile": "https://github.com/SonjaVredeveld",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
