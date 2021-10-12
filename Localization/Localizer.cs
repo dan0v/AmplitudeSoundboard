@@ -33,6 +33,7 @@ namespace Amplitude.Localization
         {
             { "English", "en-US" },
             { "Español", "es" },
+            { "Nederlands", "nl" },
         };
 
         private const string IndexerName = "Item";
