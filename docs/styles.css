@@ -20,6 +20,10 @@ html, body {
   overflow:auto;
 }
 
+body{
+    background-image: linear-gradient(to bottom right, #EBAEFF, #F08A5D);
+}
+
 a {
   text-decoration: none;
   color: #fff;
@@ -105,7 +109,7 @@ h2 {
 
 #cont1 {
     width: 100%;
-    background-image: linear-gradient(to bottom right, #EBAEFF, #F08A5D);
+    
 }
 
 #cont2 {
@@ -127,4 +131,82 @@ h2 {
     margin: 2em;
     padding: 2em;
     padding-left: 3em;
+}
+
+#seperate{
+    display: none;
+}
+
+@media screen and (max-width: 800px){
+    .container{
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+
+    .split{
+        width: auto;
+        text-align: center;
+    }
+
+    #cont2{
+        flex-direction: row;
+        justify-content: space-between;
+        position: relative;
+        width: auto;
+    }
+
+    #cont3{
+        width: auto;
+        margin: 1em;
+    }
+
+    #cont2 img{
+        height: 10em;
+        margin: 1em;
+        width: auto;
+    }
+
+    .button {
+        position: relative;
+        height: 4em;
+    }
+
+    #button-div{
+        justify-content: space-between;
+        width: auto;
+        position: relative;
+        margin: 1em;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .orange-border.button{
+        border-width: 0.25em;
+    }
+
+    #whole {
+        display: none;
+    }
+
+    .images{
+        display: grid;
+        grid-template-columns: 0.5fr 0.5fr;
+        grid-template-rows: auto auto;
+    }
+
+    .topimg{
+        grid-row:1 / span 1;
+        grid-column: 1 / span 2;
+    }
+
+    .leftimg{
+        grid-row:2 / span 1;
+        grid-column: 1 / span 1;
+    }
+
+    .rightimg{
+        grid-row:2 / span 1;
+        grid-column: 2 / span 1;
+    }
 }
