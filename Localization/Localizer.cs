@@ -23,6 +23,7 @@ using AmplitudeSoundboard;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Resources;
 
 namespace Amplitude.Localization
@@ -31,10 +32,14 @@ namespace Amplitude.Localization
     {
         public static readonly Dictionary<string, string> Languages = new Dictionary<string, string>
         {
-            { "English", "en-US" },
+            { "English", "en" },
             { "Español", "es" },
             { "Nederlands", "nl" },
         };
+
+        private static Dictionary<string, string> inverseLanguages => Languages.ToDictionary(l => l.Value, l => l.Key);
+
+        public readonly string FALLBACK_LANGUAGE = "English";
 
         private const string IndexerName = "Item";
         private const string IndexerArrayName = "Item[]";
@@ -56,12 +61,24 @@ namespace Amplitude.Localization
         {
             if (string.IsNullOrEmpty(language) || !Languages.ContainsKey(language))
             {
-                language = "English";
-                App.OptionsManager.Options.Language = language;
+                language = FALLBACK_LANGUAGE;
             }
 
             CultureInfo.CurrentUICulture = new CultureInfo(Languages[language]);
             LoadLanguage();
+        }
+
+        public string TryUseSystemLanguageFallbackEnglish()
+        {
+            string curLang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+            if (inverseLanguages.TryGetValue(curLang, out string fullLang))
+            {
+                ChangeLanguage(fullLang);
+                return fullLang;
+            }
+
+            ChangeLanguage(FALLBACK_LANGUAGE);
+            return FALLBACK_LANGUAGE;
         }
 
         public string Language { get; private set; }

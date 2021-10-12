@@ -29,6 +29,7 @@ using Amplitude.Helpers;
 using System.Collections.Generic;
 using Amplitude.ViewModels;
 using Amplitude.Localization;
+using System.Globalization;
 
 namespace Amplitude.Models
 {
@@ -59,7 +60,16 @@ namespace Amplitude.Models
             if (retrievedOptions != null)
             {
                 _options = retrievedOptions;
-                Localizer.Instance.ChangeLanguage(_options.Language);
+
+                if (string.IsNullOrEmpty(_options.Language))
+                {
+                    _options.Language = Localizer.Instance.TryUseSystemLanguageFallbackEnglish();
+                }
+                else
+                {
+                    Localizer.Instance.ChangeLanguage(_options.Language);
+                }
+
                 RegisterOptionsHotkeys(Options);
             }
             else

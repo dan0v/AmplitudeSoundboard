@@ -29,7 +29,7 @@ namespace Amplitude.Models
     {
         public string[,] GridSoundClipIds = new string[5, 5];
 
-        private string _language = "English";
+        private string _language = ""; // Start blank, so that system language can be attempted first
         public string Language
         {
             get => _language;

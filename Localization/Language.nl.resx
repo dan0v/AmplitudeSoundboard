@@ -229,7 +229,7 @@
     <value>Er is een nieuwe versie beschikbaar</value>
   </data>
   <data name="NewVersionCanBeDownloaded" xml:space="preserve">
-    <value>GitHub Versie {0} kan worden gedownload vanaf de uitgave pagina op GitHub </value>
+    <value>Versie {0} kan worden gedownload vanaf de uitgave pagina op GitHub </value>
   </data>
   <data name="NewVersionCanBeInstalled" xml:space="preserve">
     <value>Versie {0} kan nu worden geïnstalleerd</value>
