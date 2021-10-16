@@ -54,6 +54,7 @@
     <Grid x:Name="grd_Control" Cursor="{Binding Cursor}" ToolTip.Tip="{Binding Model.PlayAudioTooltip}" Background="Transparent">
       <Grid.ContextMenu>
         <ContextMenu>
+          <MenuItem Command="{Binding CreateClipInPlace}" Header="{i18n:Localize CreateClipInPlace}"></MenuItem>
           <MenuItem IsEnabled="{Binding SoundClipExists}" Command="{Binding Model.CopySoundClipId}" Header="{i18n:Localize CopyToClipboard}"></MenuItem>
           <MenuItem Command="{Binding PasteClip}" IsEnabled="{Binding Manager.CopiedClipId, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Header="{i18n:Localize PasteClip}"></MenuItem>
           <MenuItem IsEnabled="{Binding SoundClipExists}" Command="{Binding Model.OpenEditSoundClipWindow}" Header="{i18n:Localize EditSoundClipTooltip}"></MenuItem>

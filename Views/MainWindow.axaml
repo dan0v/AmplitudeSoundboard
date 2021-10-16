@@ -64,7 +64,7 @@
       
       <TextBlock FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
-      <Grid RowDefinitions="*,Auto" Margin="5,30,5,0" >
+      <Grid RowDefinitions="*,Auto,Auto" Margin="5,30,5,0" >
         <Grid Grid.Row="0" ColumnDefinitions="Auto,*" >
           <StackPanel Grid.Column="0" VerticalAlignment="Top">
             <Button ToolTip.Tip="{i18n:Localize SoundClipListTitle}" Command="{Binding ShowList}" Cursor="Hand" Margin="5,5,5,5">
@@ -72,7 +72,7 @@
                 <Image Source="{Binding ThemeHandler.SoundClipList}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
               </Panel>
             </Button>
-            <Button ToolTip.Tip="{Binding StopAudioHotkey}" Command="{Binding StopAudio}" Cursor="Hand" Margin="5,5,5,5">
+            <Button ToolTip.Tip="{Binding StopAudioHotkey}" IsEnabled="{Binding App.CanResetSoundManager}" Command="{Binding StopAudio}" Cursor="Hand" Margin="5,5,5,5">
               <Panel>
                 <Image Source="{Binding ThemeHandler.StopSound}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
               </Panel>
@@ -115,6 +115,7 @@
           </Grid>
         </Grid>
         <TextBlock IsVisible="{Binding !OptionsManager.Options.HideTutorial}" Grid.Row="1" Margin="5,0,5,5" Text="{i18n:Localize GridTutorial}" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize GridTutorial}" HorizontalAlignment="Center"></TextBlock>
+        <ProgressBar Grid.Row="2" ToolTip.Tip="{i18n:Localize ResamplingAudioTooltip}" IsVisible="{Binding App.HasActiveSoundManagerThreads}" IsIndeterminate="True" Margin="5,5,10,5" Height="10"></ProgressBar>
       </Grid>
       
     </Panel>

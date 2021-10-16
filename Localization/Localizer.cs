@@ -87,7 +87,11 @@ namespace Amplitude.Localization
         {
             get
             {
-                string ret = resources?.GetString(key)?.Replace(@"\\n", "\n") ?? $"Localize:{key}";
+                string? ret = resources?.GetString(key)?.Replace(@"\\n", "\n");
+                if (string.IsNullOrEmpty(ret))
+                {
+                    ret = $"Localize:{key}";
+                }
                 return ret;
             }
         }

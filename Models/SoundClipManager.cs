@@ -28,6 +28,7 @@ using AmplitudeSoundboard;
 using System.Collections.Generic;
 using System.Linq;
 using Amplitude.Helpers;
+using Avalonia.Threading;
 
 namespace Amplitude.Models
 {
@@ -65,13 +66,13 @@ namespace Amplitude.Models
         {
             get
             {
-                if (string.IsNullOrEmpty(SoundClipListFilter))
+                if (string.IsNullOrEmpty(SoundClipListFilter.Trim()))
                 {
                     return _soundClips.Values.OrderBy(c => c.Name).ToList();
                 }
                 else
                 {
-                    return _soundClips.Values.Where(c => c.Name.ToLowerInvariant().Contains(SoundClipListFilter.ToLowerInvariant())).OrderBy(c => c.Name).ToList();
+                    return _soundClips.Values.Where(c => c.Name.ToLowerInvariant().Contains(SoundClipListFilter.Trim().ToLowerInvariant())).OrderBy(c => c.Name).ToList();
                 }
             }
         }
@@ -150,9 +151,9 @@ namespace Amplitude.Models
             }
             foreach (OutputSettings settings in clip.OutputSettings)
             {
-                if (string.IsNullOrEmpty(settings.DeviceName))
+                if (string.IsNullOrEmpty(settings.DeviceName) || settings.DeviceName == "DEFAULT")
                 {
-                    settings.DeviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
+                    settings.DeviceName = ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME;
                 }
             }
 
@@ -161,9 +162,9 @@ namespace Amplitude.Models
 
         private void PreCacheSoundClipIfRequested(SoundClip clip)
         {
-            if (clip.PreCache)
+            if (App.OptionsManager.Options.PreCacheAudio || clip.PreCache)
             {
-                App.SoundEngine.PreCacheSoundClip(clip);
+                App.SoundEngine.CacheSoundClipIfNecessary(clip);
             }
         }
 
@@ -220,7 +221,7 @@ namespace Amplitude.Models
             {
                 App.HotkeysManager.RemoveHotkey(id, clip.Hotkey);
 
-                App.SoundEngine.ClearSoundClipCache(id);
+                App.SoundEngine.RemoveFromCache(id);
                 SoundClips.Remove(id);
 
                 StoreSavedSoundClips();

@@ -19,6 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Models;
 using Amplitude.ViewModels;
 using Amplitude.Views;
 using AmplitudeSoundboard;
@@ -33,7 +34,7 @@ namespace Amplitude.Helpers
 {
     public class WindowManager : INotifyPropertyChanged
     {
-        private static WindowManager _instance;
+        private static WindowManager? _instance;
         public static WindowManager Instance
         {
             get
@@ -60,19 +61,22 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void OpenEditSoundClipWindow(string id)
+        public void OpenEditSoundClipWindow(string? id = null)
         {
-            if (App.WindowManager.EditSoundClipWindows.TryGetValue(id, out EditSoundClip window))
+            if (id != null && App.WindowManager.EditSoundClipWindows.TryGetValue(id, out EditSoundClip window))
             {
+                if (window.WindowState == WindowState.Minimized)
+                {
+                    window.WindowState = WindowState.Normal;
+                }
                 window.Activate();
             }
             else
             {
-
-                Window sound = new EditSoundClip
-                {
-                    DataContext = new EditSoundClipViewModel(App.SoundClipManager.GetClip(id)),
-                };
+                Window sound = new EditSoundClip();
+                SoundClip? clip = App.SoundClipManager.GetClip(id);
+                
+                sound.DataContext = clip == null ? new EditSoundClipViewModel() : new EditSoundClipViewModel(clip);
 
                 PixelPoint? pos = SoundClipListWindow?.Position ?? MainWindow?.Position;
                 if (pos != null)
@@ -82,6 +86,20 @@ namespace Amplitude.Helpers
 
                 sound.Show();
             }
+        }
+
+        public void OpenEditSoundClipWindow((int row, int col) addToCell)
+        {
+            Window sound = new EditSoundClip();
+            sound.DataContext = new EditSoundClipViewModel(addToCell);
+
+            PixelPoint? pos = MainWindow?.Position;
+            if (pos != null)
+            {
+                sound.Position = new PixelPoint(pos.Value.X + 50, pos.Value.Y + 50);
+            }
+
+            sound.Show();
         }
 
         public void OpenedEditSoundClipWindow(string id, EditSoundClip editSoundClip)
@@ -175,6 +193,10 @@ namespace Amplitude.Helpers
         {
             if (SoundClipListWindow != null)
             {
+                if (SoundClipListWindow.WindowState == WindowState.Minimized)
+                {
+                    SoundClipListWindow.WindowState = WindowState.Normal;
+                }
                 SoundClipListWindow.Activate();
             }
             else
@@ -195,6 +217,10 @@ namespace Amplitude.Helpers
         {
             if (GlobalSettingsWindow != null)
             {
+                if (GlobalSettingsWindow.WindowState == WindowState.Minimized)
+                {
+                    GlobalSettingsWindow.WindowState = WindowState.Normal;
+                }
                 GlobalSettingsWindow.Activate();
             }
             else
@@ -215,6 +241,10 @@ namespace Amplitude.Helpers
         {
             if (AboutWindow != null)
             {
+                if (AboutWindow.WindowState == WindowState.Minimized)
+                {
+                    AboutWindow.WindowState = WindowState.Normal;
+                }
                 AboutWindow.Activate();
             }
             else

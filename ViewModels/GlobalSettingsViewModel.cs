@@ -80,21 +80,6 @@ namespace Amplitude.ViewModels
             App.HotkeysManager.RecordGlobalStopSoundHotkey(Model);
         }
 
-        public void IncreaseVolumeSmall()
-        {
-            if (Model.MasterVolume < 100)
-            {
-                Model.MasterVolume += 1;
-            }
-        }
-        public void DecreaseVolumeSmall()
-        {
-            if (Model.MasterVolume > 0)
-            {
-                Model.MasterVolume -= 1;
-            }
-        }
-
         public void SaveOptions()
         {
             App.OptionsManager.SaveAndOverwriteOptions(Model);

@@ -188,6 +188,11 @@ namespace Amplitude.ViewModels
             OptionsManager.SaveAndOverwriteOptions(OptionsManager.Options);
         }
 
+        public void CreateClipInPlace()
+        {
+            WindowManager.OpenEditSoundClipWindow((row, col));
+        }
+
         private void Manager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Manager.SoundClips))

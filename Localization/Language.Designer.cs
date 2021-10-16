@@ -88,6 +88,24 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cache audio which requires resampling to speed up playback at the cost of RAM.
+        /// </summary>
+        internal static string CacheAudioExplanation {
+            get {
+                return ResourceManager.GetString("CacheAudioExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cache resampled audio.
+        /// </summary>
+        internal static string CacheAudioLabel {
+            get {
+                return ResourceManager.GetString("CacheAudioLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string CancelButton {
@@ -174,6 +192,15 @@ namespace Amplitude.Localization {
         internal static string CopyToClipboard {
             get {
                 return ResourceManager.GetString("CopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new clip here.
+        /// </summary>
+        internal static string CreateClipInPlace {
+            get {
+                return ResourceManager.GetString("CreateClipInPlace", resourceCulture);
             }
         }
         
@@ -291,6 +318,15 @@ namespace Amplitude.Localization {
         internal static string FilePathPlaceholder {
             get {
                 return ResourceManager.GetString("FilePathPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global output settings.
+        /// </summary>
+        internal static string GlobalOutputDefaults {
+            get {
+                return ResourceManager.GetString("GlobalOutputDefaults", resourceCulture);
             }
         }
         
@@ -475,11 +511,38 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cache all audio files which may need resampling at application startup.
+        /// </summary>
+        internal static string PreCacheAudioExplanation {
+            get {
+                return ResourceManager.GetString("PreCacheAudioExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Precache audio at startup.
+        /// </summary>
+        internal static string PreCacheAudioLabel {
+            get {
+                return ResourceManager.GetString("PreCacheAudioLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove output device.
         /// </summary>
         internal static string RemoveSoundClipOutput {
             get {
                 return ResourceManager.GetString("RemoveSoundClipOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resampling audio.
+        /// </summary>
+        internal static string ResamplingAudioTooltip {
+            get {
+                return ResourceManager.GetString("ResamplingAudioTooltip", resourceCulture);
             }
         }
         

@@ -137,7 +137,7 @@
                                   <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.ArrowRight}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 </Panel>
                               </Button>
-                              <ComboBox Width="150" Grid.Column="3" AutoScrollToSelectedItem="True" Margin="0,5,0,5" SelectedItem="{Binding DeviceName}" Items="{Binding $parent[ItemsControl].DataContext.DeviceList}" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize OutputDeviceLabel}"></ComboBox>
+                              <ComboBox Width="150" Grid.Column="3" AutoScrollToSelectedItem="True" Margin="0,5,0,5" SelectedItem="{Binding DeviceName}" Items="{Binding DeviceList}" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize OutputDeviceLabel}"></ComboBox>
                             </Grid>
                           </Grid>
                         </Border>

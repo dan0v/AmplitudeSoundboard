@@ -25,10 +25,14 @@ using NAudio.Wave;
 using System;
 using Amplitude.Models;
 using NAudio.Wave.SampleProviders;
-using System.IO;
 using AmplitudeSoundboard;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Collections.Concurrent;
+using Avalonia.Threading;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Amplitude.Helpers
 {
@@ -47,7 +51,23 @@ namespace Amplitude.Helpers
             }
         }
 
-        public List<string> OutputDeviceList
+        public List<string> OutputDeviceListWithGlobal
+        {
+            get
+            {
+                List<string> devs = new List<string>();
+                devs.Add(ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME);
+                devs.Add(ISoundEngine.DEFAULT_DEVICE_NAME);
+                for (int n = 0; n < WaveOut.DeviceCount; n++)
+                {
+                    var caps = WaveOut.GetCapabilities(n);
+                    devs.Add(caps.ProductName);
+                }
+                return devs;
+            }
+        }
+
+        public List<string> OutputDeviceListWithoutGlobal
         {
             get
             {
@@ -62,12 +82,17 @@ namespace Amplitude.Helpers
             }
         }
 
-        private Dictionary<string, (IWavePlayer player, MixingSampleProvider mixer)> outputs = new Dictionary<string, (IWavePlayer player, MixingSampleProvider mixer)>();
+        private ConcurrentDictionary<string, (IWavePlayer player, MixingSampleProvider mixer)> outputs = new ConcurrentDictionary<string, (IWavePlayer player, MixingSampleProvider mixer)>();
 
         private const int CHANNEL_COUNT = 2;
         public const int SAMPLE_RATE = 44100;
 
-        private Dictionary<string, CachedSound> soundCache = new Dictionary<string, CachedSound>();
+        private static int activeThreads = 0;
+        private static int resetBlockingThreads = 0;
+
+        private ConcurrentDictionary<string, ConcurrentQueue<QueuedPlayback>> processingClips = new ConcurrentDictionary<string, ConcurrentQueue<QueuedPlayback>>();
+
+        private ConcurrentDictionary<string, CachedSound> soundCache = new ConcurrentDictionary<string, CachedSound>();
 
         private NSoundEngine()
         {
@@ -76,12 +101,17 @@ namespace Amplitude.Helpers
 
         private IWavePlayer? GetOutputPlayerByName(string playerDeviceName)
         {
+            if (playerDeviceName == ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME)
+            {
+                playerDeviceName = App.OptionsManager.Options.OutputSettings.DeviceName;
+            }
 
             if (playerDeviceName == ISoundEngine.DEFAULT_DEVICE_NAME)
             {
                 return new WaveOutEvent();
             }
-            else if (OutputDeviceList.Contains(playerDeviceName))
+
+            if (OutputDeviceListWithoutGlobal.Contains(playerDeviceName))
             {
                 for (int n = 0; n < WaveOut.DeviceCount; n++)
                 {
@@ -110,12 +140,16 @@ namespace Amplitude.Helpers
                     mixer.ReadFully = true;
                     outputDevice.Init(mixer);
                     outputDevice.Play();
-                    outputs.Add(playerDeviceName, (outputDevice, mixer));
+                    outputs.TryAdd(playerDeviceName, (outputDevice, mixer));
                     return (outputDevice, mixer);
                 }
                 else
                 {
-                    App.WindowManager.ErrorListWindow.AddErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
+
+                    Dispatcher.UIThread.InvokeAsync(() =>
+                    {
+                        App.WindowManager.ErrorListWindow.AddErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
+                    }).Wait();
                 }
             }
             return null;
@@ -133,14 +167,45 @@ namespace Amplitude.Helpers
         /// Resample and cache this soundclip
         /// </summary>
         /// <param name="clip"></param>
-        public void PreCacheSoundClip(SoundClip clip)
+        public void CacheSoundClipIfNecessary(SoundClip clip)
         {
-            if (!soundCache.ContainsKey(clip.Id))
+            if (!BrowseIO.ValidAudioFile(clip.AudioFilePath))
             {
-                using (AudioFileReader input = new AudioFileReader(clip.AudioFilePath))
+                return;
+            }
+            AudioFileReader input = new AudioFileReader(clip.AudioFilePath);
+            int sampleRate = input.WaveFormat.SampleRate;
+            if (sampleRate != SAMPLE_RATE)
+            {
+                if (!processingClips.ContainsKey(clip.Id))
                 {
-                    CachedSound cachedSound = new CachedSound(input);
-                    soundCache.Add(clip.Id, cachedSound);
+                    Interlocked.Increment(ref activeThreads);
+                    SetHasActiveThreads();
+                    processingClips.TryAdd(clip.Id, new ConcurrentQueue<QueuedPlayback>());
+                    new Thread(() =>
+                    {
+                        CachedSound cachedSound = new CachedSound(input);
+                        input.Dispose();
+
+                        if (!string.IsNullOrEmpty(clip.Id))
+                        {
+                            soundCache.TryAdd(clip.Id, cachedSound);
+                        }
+
+                        if (processingClips.TryRemove(clip.Id, out var queue))
+                        {
+                            foreach (var queuedItem in queue)
+                            {
+                                if (!queuedItem.cancelled)
+                                {
+                                    Play(cachedSound, queuedItem.volume, queuedItem.playerDeviceName);
+                                }
+                            }
+                        }
+                        Interlocked.Decrement(ref activeThreads);
+                        SetHasActiveThreads();
+                    })
+                    { IsBackground = true }.Start();
                 }
             }
         }
@@ -162,8 +227,7 @@ namespace Amplitude.Helpers
             {
                 foreach (OutputSettings settings in source.OutputSettings)
                 {
-                    // TODO Do not cache all audio files for now, maybe pass Id if required
-                    Play(source.AudioFilePath, settings.Volume, settings.DeviceName, null);
+                    Play(source.AudioFilePath, settings.Volume, settings.DeviceName, source.Id);
                 }
             }
         }
@@ -175,12 +239,12 @@ namespace Amplitude.Helpers
         private void Play(CachedSound sound, int volume, string playerDeviceName)
         {
             var copy = sound.ShallowCopy();
-            copy.Volume = (volume / 100f) *(App.OptionsManager.Options.MasterVolume / 100f);
+            copy.Volume = (volume / 100f) *(App.OptionsManager.Options.OutputSettings.Volume / 100f);
             AddMixerInput(playerDeviceName, new CachedSoundSampleProvider(copy));
         }
 
         /// <summary>
-        /// Optionally cache sound if SoundClip Id is provided
+        /// Optionally cache sound if SoundClip Id is provided and global setting is set
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="volume"></param>
@@ -198,25 +262,87 @@ namespace Amplitude.Helpers
             // If sample rates don't match, resample audio clip and optionally keep it cached
             if (sampleRate != SAMPLE_RATE)
             {
-                CachedSound cachedSound = new CachedSound(input);
-
-                if (!string.IsNullOrEmpty(id))
+                if (!processingClips.ContainsKey(id))
                 {
-                    // Recheck dictionary just in case
-                    if (!soundCache.ContainsKey(id))
+                    Interlocked.Increment(ref activeThreads);
+                    Interlocked.Increment(ref resetBlockingThreads);
+                    SetCanReset();
+                    SetHasActiveThreads();
+                    var queue = new ConcurrentQueue<QueuedPlayback>();
+                    queue.Enqueue(new QueuedPlayback(volume, playerDeviceName));
+                    Interlocked.Decrement(ref resetBlockingThreads);
+                    SetCanReset();
+                    processingClips.TryAdd(id, queue);
+                    new Thread(() =>
                     {
-                        soundCache.Add(id, cachedSound);
+                        CachedSound cachedSound = new CachedSound(input);
+                        input.Dispose();
+
+                        if (!string.IsNullOrEmpty(id) && App.OptionsManager.Options.CacheAudio)
+                        {
+                            soundCache.TryAdd(id, cachedSound);
+                        }
+
+                        if (processingClips.TryRemove(id, out var queue))
+                        {
+                            foreach (var queuedItem in queue)
+                            {
+                                if (!queuedItem.cancelled)
+                                {
+                                    Play(cachedSound, queuedItem.volume, queuedItem.playerDeviceName);
+                                }
+                            }
+                        }
+                        Interlocked.Decrement(ref activeThreads);
+                        SetHasActiveThreads();
+                    })
+                    { IsBackground = true }.Start();
+                }
+                else
+                {
+                    if (processingClips.TryGetValue(id, out var queue))
+                    {
+                        queue.Enqueue(new QueuedPlayback(volume, playerDeviceName));
                     }
                 }
-
-                Play(cachedSound, volume, playerDeviceName);
             }
             else
             {
-                input.Volume = (volume / 100f) * (App.OptionsManager.Options.MasterVolume / 100f);
+                input.Volume = (volume / 100f) * (App.OptionsManager.Options.OutputSettings.Volume / 100f);
                 AddMixerInput(playerDeviceName, new AutoDisposeFileReader(input));
             }
         }
+
+        private void SetCanReset()
+        {
+            bool canReset = false;
+            if (resetBlockingThreads < 0)
+            {
+                Interlocked.Exchange(ref resetBlockingThreads, 0);
+            }
+            if (resetBlockingThreads == 0)
+            {
+                canReset = true;
+            }
+
+            ((App)App.Current).CanResetSoundManager = canReset;
+        }
+
+        private void SetHasActiveThreads()
+        {
+            bool hasActiveThreads = true;
+            if (activeThreads < 0)
+            {
+                Interlocked.Exchange(ref activeThreads, 0);
+            }
+            if (activeThreads == 0)
+            {
+                hasActiveThreads = false;
+            }
+
+            ((App)App.Current).HasActiveSoundManagerThreads = hasActiveThreads;
+        }
+
         /// <summary>
         /// Credit to Mark Heath
         /// mark.heath@gmail.com
@@ -251,12 +377,19 @@ namespace Amplitude.Helpers
                 }
                 else
                 {
-                    App.WindowManager.ErrorListWindow.AddErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
+
+                    Dispatcher.UIThread.InvokeAsync(() =>
+                    {
+                        App.WindowManager.ErrorListWindow.AddErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
+                    }).Wait();
                 }
             }
             catch (Exception e)
             {
-                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
+                }).Wait();
             }
         }
 
@@ -264,17 +397,26 @@ namespace Amplitude.Helpers
         {
             if (retainCache)
             {
-                _instance = new NSoundEngine();
-                _instance.soundCache = this.soundCache;
+                _instance = new NSoundEngine
+                {
+                    soundCache = this.soundCache
+                };
+            }
+            foreach (var id in processingClips)
+            {
+                foreach (var clip in id.Value)
+                {
+                    clip.cancelled = true;
+                }
             }
             this.Dispose();
         }
 
-        public void ClearSoundClipCache(string id)
+        public void RemoveFromCache(string id)
         {
-            if (!string.IsNullOrEmpty(id) && soundCache.ContainsKey(id))
+            if (!string.IsNullOrEmpty(id))
             {
-                soundCache.Remove(id);
+                soundCache.TryRemove(id, out CachedSound? sound);
             }
         }
 
@@ -286,10 +428,19 @@ namespace Amplitude.Helpers
                 {
                     if (clip != null)
                     {
-                        App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_DEVICE, settings.DeviceName);
+                        Dispatcher.UIThread.InvokeAsync(() =>
+                        {
+                            App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_DEVICE, settings.DeviceName);
+                        }).Wait();
                     }
                 }
             }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
@@ -337,12 +488,14 @@ namespace Amplitude.Helpers
         public float Volume = 1f;
         public CachedSound(AudioFileReader audioFileReader)
         {
-            var resampler = new WdlResamplingSampleProvider(audioFileReader, NSoundEngine.SAMPLE_RATE);
-
+            var outFormat = new WaveFormat(NSoundEngine.SAMPLE_RATE, audioFileReader.WaveFormat.Channels);
+            var resampleWave = new MediaFoundationResampler(audioFileReader, outFormat);
+            var resampler = resampleWave.ToSampleProvider();
+            resampleWave.Dispose();
             WaveFormat = resampler.WaveFormat;
             Volume = audioFileReader.Volume;
 
-            var wholeFile = new List<float>((int)(audioFileReader.Length / 4));
+            var wholeFile = new List<float>();
             var readBuffer = new float[WaveFormat.SampleRate * WaveFormat.Channels];
             int samplesRead;
             while ((samplesRead = resampler.Read(readBuffer, 0, readBuffer.Length)) > 0)
@@ -391,6 +544,20 @@ namespace Amplitude.Helpers
         }
 
         public WaveFormat WaveFormat { get { return cachedSound.WaveFormat; } }
+    }
+
+    class QueuedPlayback
+    {
+        public int volume;
+        public string playerDeviceName;
+        public bool cancelled = false;
+
+        public QueuedPlayback(int volume, string playerDeviceName)
+        {
+            this.volume = volume;
+            this.playerDeviceName = playerDeviceName;
+        }
+
     }
 }
 

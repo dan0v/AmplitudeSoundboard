@@ -306,4 +306,25 @@
   <data name="ClipAudioFilePathLabel" xml:space="preserve">
     <value>Geluidsfragment bestandspad</value>
   </data>
+  <data name="GlobalOutputDefaults" xml:space="preserve">
+    <value>Algemene uitvoerinstellingen</value>
+  </data>
+  <data name="CreateClipInPlace" xml:space="preserve">
+    <value>Maak hier een nieuwe fragment</value>
+  </data>
+  <data name="CacheAudioExplanation" xml:space="preserve">
+    <value>Cache-audio waarvoor resampling vereist is om het afspelen te versnellen ten koste van RAM</value>
+  </data>
+  <data name="CacheAudioLabel" xml:space="preserve">
+    <value>Cache geresamplede audio</value>
+  </data>
+  <data name="PreCacheAudioExplanation" xml:space="preserve">
+    <value>Cache alle audiobestanden die mogelijk opnieuw moeten worden gesampled bij het opstarten van de toepassing</value>
+  </data>
+  <data name="PreCacheAudioLabel" xml:space="preserve">
+    <value>Precache audio bij opstarten</value>
+  </data>
+  <data name="ResamplingAudioTooltip" xml:space="preserve">
+    <value>Audio resamplen</value>
+  </data>
 </root>

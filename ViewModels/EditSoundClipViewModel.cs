@@ -22,7 +22,6 @@
 using Amplitude.Models;
 using AmplitudeSoundboard;
 using Avalonia.Media;
-using System.Collections.Generic;
 
 namespace Amplitude.ViewModels
 {
@@ -35,6 +34,8 @@ namespace Amplitude.ViewModels
 
         private SoundClip _model;
         public SoundClip Model { get => _model; }
+
+        private (int row, int col)? addToGridCell = null;
 
         public bool CanSave { get => HasNameField && !WaitingForHotkey; }
 
@@ -113,14 +114,17 @@ namespace Amplitude.ViewModels
 
         public Color HotkeyBackgroundColor => WaitingForHotkey ? ThemeHandler.TextBoxHighlightedColor : ThemeHandler.TextBoxNormalColor;
 
-        public List<string> DeviceList => App.SoundEngine.OutputDeviceList;
-
         public EditSoundClipViewModel()
         {
             _model = new SoundClip();
             Model.OutputSettings.Add(new OutputSettings());
             CanRemoveOutputDevices = Model.OutputSettings.Count > 1;
             SetBindings();
+        }
+
+        public EditSoundClipViewModel((int row, int col) addToGrid) : this()
+        {
+            addToGridCell = addToGrid;
         }
 
         /// <summary>
@@ -217,6 +221,14 @@ namespace Amplitude.ViewModels
             // Copy back and forth to delay ID update until fully saved
             _model = toSave.CreateCopy();
             OnPropertyChanged(nameof(Model));
+
+            if (addToGridCell != null && addToGridCell.Value.row >= 0 && addToGridCell.Value.col >= 0 &&
+                addToGridCell.Value.row < App.OptionsManager.Options.GridRows &&
+                addToGridCell.Value.col < App.OptionsManager.Options.GridColumns)
+            {
+                OptionsManager.Options.GridSoundClipIds[addToGridCell.Value.row, addToGridCell.Value.col] = Model.Id;
+                OptionsManager.SaveAndOverwriteOptions(OptionsManager.Options);
+            }
         }
 
         public void RemoveOutputDevice()
