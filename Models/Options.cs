@@ -20,6 +20,7 @@
 */
 
 using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -58,28 +59,25 @@ namespace Amplitude.Models
         }
 
         private int _masterVolume = 100;
+        [Obsolete]
         public int MasterVolume
         {
-            get => _masterVolume;
+            internal get => _masterVolume;
             set
             {
-                if (value != _masterVolume)
-                {
-                    _masterVolume = value;
-                    OnPropertyChanged();
-                }
+                OutputSettings.Volume = value;
             }
         }
 
-        private string _defaultOutputDevice = "";
-        public string DefaultOutputDevice
+        private OutputSettings _outputSettings = new OutputSettings();
+        public OutputSettings OutputSettings
         {
-            get => _defaultOutputDevice;
+            get => _outputSettings;
             set
             {
-                if (value != _defaultOutputDevice)
+                if (value != _outputSettings)
                 {
-                    _defaultOutputDevice = value;
+                    _outputSettings = value;
                     OnPropertyChanged();
                 }
             }
@@ -164,6 +162,38 @@ namespace Amplitude.Models
                 if (value != _hideTutorial)
                 {
                     _hideTutorial = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _cacheAudio = true;
+        public bool CacheAudio
+        {
+            get => _cacheAudio;
+            set
+            {
+                if (value != _cacheAudio)
+                {
+                    _cacheAudio = value;
+                    if (!_cacheAudio)
+                    {
+                        PreCacheAudio = false;
+                    }
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _preCacheAudio = false;
+        public bool PreCacheAudio
+        {
+            get => _preCacheAudio;
+            set
+            {
+                if (value != _preCacheAudio)
+                {
+                    _preCacheAudio = value;
                     OnPropertyChanged();
                 }
             }

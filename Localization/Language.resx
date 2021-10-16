@@ -306,4 +306,25 @@
   <data name="LanguageLabel" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="GlobalOutputDefaults" xml:space="preserve">
+    <value>Global output settings</value>
+  </data>
+  <data name="CreateClipInPlace" xml:space="preserve">
+    <value>Create new clip here</value>
+  </data>
+  <data name="CacheAudioExplanation" xml:space="preserve">
+    <value>Cache audio which requires resampling to speed up playback at the cost of RAM</value>
+  </data>
+  <data name="CacheAudioLabel" xml:space="preserve">
+    <value>Cache resampled audio</value>
+  </data>
+  <data name="PreCacheAudioExplanation" xml:space="preserve">
+    <value>Cache all audio files which may need resampling at application startup</value>
+  </data>
+  <data name="PreCacheAudioLabel" xml:space="preserve">
+    <value>Precache audio at startup</value>
+  </data>
+  <data name="ResamplingAudioTooltip" xml:space="preserve">
+    <value>Resampling audio</value>
+  </data>
 </root>

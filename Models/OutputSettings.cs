@@ -19,9 +19,11 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Amplitude.Helpers;
+using AmplitudeSoundboard;
 
 namespace Amplitude.Models
 {
@@ -40,7 +42,7 @@ namespace Amplitude.Models
             }
         }
 
-        private string _deviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
+        private string _deviceName = ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME;
         public string DeviceName
         {
             get => _deviceName;
@@ -68,6 +70,9 @@ namespace Amplitude.Models
                 Volume -= 1;
             }
         }
+
+        public List<string> DeviceList => App.SoundEngine.OutputDeviceListWithGlobal;
+        public List<string> DeviceListForGlobal => App.SoundEngine.OutputDeviceListWithoutGlobal;
 
         public OutputSettings ShallowCopy()
         {

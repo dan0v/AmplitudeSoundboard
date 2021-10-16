@@ -19,6 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
 using Amplitude.Models;
 using AmplitudeSoundboard;
 using System.Collections.ObjectModel;
@@ -30,10 +31,9 @@ namespace Amplitude.ViewModels
         private static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
         private static SoundClipManager Manager { get => App.SoundClipManager; }
         private static OptionsManager OptionsManager { get => App.OptionsManager; }
+        private static App App { get => ((App)App.Current); }
 
         public (int x, int y) WindowPosition = (0, 0);
-
-        private bool GlobalSettingsWindowOpen { get => App.WindowManager.GlobalSettingsWindow != null; }
 
         private string StopAudioHotkey => string.IsNullOrEmpty(OptionsManager.Options.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + OptionsManager.Options.GlobalKillAudioHotkey;
 

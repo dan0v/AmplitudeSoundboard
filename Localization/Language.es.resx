@@ -306,4 +306,25 @@
   <data name="LanguageLabel" xml:space="preserve">
     <value>Idioma</value>
   </data>
+  <data name="GlobalOutputDefaults" xml:space="preserve">
+    <value>Configuración de salida global</value>
+  </data>
+  <data name="CreateClipInPlace" xml:space="preserve">
+    <value>Crear un nuevo clip aquí</value>
+  </data>
+  <data name="CacheAudioExplanation" xml:space="preserve">
+    <value>Almacenamiento en caché de audio que requiere remuestreo para acelerar la reproducción a costa de RAM</value>
+  </data>
+  <data name="CacheAudioLabel" xml:space="preserve">
+    <value>Caché de audio remuestreado</value>
+  </data>
+  <data name="PreCacheAudioExplanation" xml:space="preserve">
+    <value>Almacene en caché todos los archivos de audio que puedan necesitar volver a muestrear al iniciar la aplicación</value>
+  </data>
+  <data name="PreCacheAudioLabel" xml:space="preserve">
+    <value>Precaché el audio al inicio</value>
+  </data>
+  <data name="ResamplingAudioTooltip" xml:space="preserve">
+    <value>Remuestreo de audio</value>
+  </data>
 </root>

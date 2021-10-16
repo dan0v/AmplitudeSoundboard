@@ -37,12 +37,7 @@ namespace Amplitude.ViewModels
 
         public void AddSound()
         {
-            Window sound = new EditSoundClip
-            {
-                DataContext = new EditSoundClipViewModel(),
-            };
-
-            sound.Show();
+            WindowManager.OpenEditSoundClipWindow();
         }
     }
 }

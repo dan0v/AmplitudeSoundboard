@@ -33,10 +33,12 @@ using System.Reflection;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace AmplitudeSoundboard
 {
-    public class App : Application
+    public class App : Application, INotifyPropertyChanged
     {
         public static string APP_STORAGE
         {
@@ -62,6 +64,34 @@ namespace AmplitudeSoundboard
         public static WindowManager WindowManager => WindowManager.Instance;
 
         public static OptionsManager OptionsManager => OptionsManager.Instance;
+
+        private bool _canResetSoundManager = true;
+        public bool CanResetSoundManager
+        {
+            get => _canResetSoundManager;
+            set
+            {
+                if (value != _canResetSoundManager)
+                {
+                    _canResetSoundManager = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _hasActiveSoundManagerThreads = false;
+        public bool HasActiveSoundManagerThreads
+        {
+            get => _hasActiveSoundManagerThreads;
+            set
+            {
+                if (value != _hasActiveSoundManagerThreads)
+                {
+                    _hasActiveSoundManagerThreads = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public static string VERSION
         {
@@ -142,6 +172,12 @@ namespace AmplitudeSoundboard
             {
                 Debug.WriteLine(e);
             }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

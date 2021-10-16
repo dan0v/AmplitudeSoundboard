@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Amplitude.Models;
 
 namespace Amplitude.Helpers
@@ -28,6 +29,9 @@ namespace Amplitude.Helpers
     class TempSoundEngine : ISoundEngine
     {
         private static TempSoundEngine? _instance;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public static TempSoundEngine Instance
         {
             get
@@ -40,7 +44,11 @@ namespace Amplitude.Helpers
             }
         }
 
-        public List<string> OutputDeviceList => throw new NotImplementedException();
+        public List<string> OutputDeviceListWithGlobal => throw new NotImplementedException();
+
+        public List<string> OutputDeviceListWithoutGlobal => throw new NotImplementedException();
+
+        public bool CanReset => throw new NotImplementedException();
 
         private TempSoundEngine()
         {
@@ -57,12 +65,12 @@ namespace Amplitude.Helpers
             throw new NotImplementedException();
         }
 
-        public void ClearSoundClipCache(string id)
+        public void RemoveFromCache(string id)
         {
             throw new NotImplementedException();
         }
 
-        public void PreCacheSoundClip(SoundClip clip)
+        public void CacheSoundClipIfNecessary(SoundClip clip)
         {
             throw new NotImplementedException();
         }

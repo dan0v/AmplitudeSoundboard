@@ -21,27 +21,32 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Amplitude.Models;
 
 namespace Amplitude.Helpers
 {
-    public interface ISoundEngine: IDisposable
+    public interface ISoundEngine: IDisposable, INotifyPropertyChanged
     {
         public static ISoundEngine Instance { get; }
 
-        public const string DEFAULT_DEVICE_NAME = "DEFAULT";
+        public const string DEFAULT_DEVICE_NAME = "System default";
+        public const string GLOBAL_DEFAULT_DEVICE_NAME = "Global setting";
 
         public void Play(SoundClip source);
 
         public void Play(string fileName, int volume, string playerDeviceName, string? id = null);
 
-        public void ClearSoundClipCache(string id);
+        public void RemoveFromCache(string id);
 
-        public void PreCacheSoundClip(SoundClip clip);
+        public void CacheSoundClipIfNecessary(SoundClip clip);
 
         public void CheckDeviceExistsAndGenerateErrors(SoundClip clip);
 
-        public List<string> OutputDeviceList { get; }
+        public List<string> OutputDeviceListWithoutGlobal { get; }
+
+        public List<string> OutputDeviceListWithGlobal { get; }
 
         public void Reset(bool retainCache = false);
     }
