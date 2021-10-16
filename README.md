@@ -26,13 +26,13 @@
 
 ## Installation
 ### Windows *(x64)*
-1. Download and unzip [latest Windows build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/) from the Releases page
+1. Download and unzip [latest Windows build](https://git.dan0v.com/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/)
 2. Run executable (`amplitude_soundboard.exe`)
 3. If you would like to play sound through an input device like a microphone, set up [Virtual Audio Cable](https://vac.muzychenko.net/en/download.htm) and set the newly created virtual cable as your clip output device
 
 ## Updating
 ### Windows
-A dialog automatically notifies users of available updates at application startup. To automatically update, click `Update`, or, to manually update, just download the [latest Windows build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/) from the Releases page and replace your `amplitude_soundboard.exe` with the new version.
+A dialog automatically notifies users of available updates at application startup. To automatically update, click `Update`, or, to manually update, just download the [latest Windows build](https://git.dan0v.com/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `amplitude_soundboard.exe` with the new version.
 
 ## Contributors
 
