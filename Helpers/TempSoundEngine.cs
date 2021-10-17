@@ -30,8 +30,6 @@ namespace Amplitude.Helpers
     {
         private static TempSoundEngine? _instance;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
         public static TempSoundEngine Instance
         {
             get

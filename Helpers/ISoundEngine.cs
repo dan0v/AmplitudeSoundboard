@@ -27,7 +27,7 @@ using Amplitude.Models;
 
 namespace Amplitude.Helpers
 {
-    public interface ISoundEngine: IDisposable, INotifyPropertyChanged
+    public interface ISoundEngine: IDisposable
     {
         public static ISoundEngine Instance { get; }
 
