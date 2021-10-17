@@ -6,7 +6,7 @@
 
     <meta charset="utf-8">
     <meta name="description" content="Amplitude Soundboard - A sleek, flexible soundboard, created using .Net 5 and Avalonia">
-    <meta name="author" content="John-Cozy">
+    <meta name="author" content="John-Cozy, Taylor Hetherington, dan0v">
 
     <!--Social-->
     <meta property="og:image" content="https://git.dan0v.com/AmplitudeSoundboard/raw/master/Branding/Banner.png">
@@ -17,37 +17,72 @@
     <meta property="og:url" content="https://amplitude-soundboard.dan0v.com/" />
     <meta property="og:title" content="Amplitude Soundboard" />
     <meta property="og:description" content="A sleek, flexible, free, and open-source soundboard" />
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-	<link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
 
     <link rel="stylesheet" href="styles.css?v=1.0">
   </head>
 
   <body>
-    <div class="container" id="cont1">
-        <div class="container" id="cont2">
-            <img class="orange-border" src="https://git.dan0v.com/AmplitudeSoundboard/raw/master/Branding/Icon.png"/>
-            <div id="button-div">
-              <a class="orange-border button" id="download" href="https://git.dan0v.com/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip">
-                  <p class="button-text">Download</p>
-              </a>
+    <div class="container" id="outer-container">
+        <div class="container" id="left-bar">
+          <div class="logo-image orange-border">
+            <a href="https://amplitude-soundboard.dan0v.com/index.html">
+              <img src="https://git.dan0v.com/AmplitudeSoundboard/raw/master/Branding/Icon.png">
+            </a>
+          </div>
+          <div id="source-download-buttons">
+            <a class="orange-border button" id="download" href="https://git.dan0v.com/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip">
+                <p class="button-text">Download</p>
+            </a>
+            <div>
               <a class="orange-border button" href="https://git.dan0v.com/AmplitudeSoundboard">
-                  <p class="button-text">Source Code</p>
+                <p class="button-text">Source Code</p>
               </a>
+              <div class="github-integrations">
+                <iframe src="https://ghbtns.com/github-btn.html?user=dan0v&repo=AmplitudeSoundboard&type=star&count=true"
+                  frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
+                <iframe src="https://ghbtns.com/github-btn.html?user=dan0v&repo=AmplitudeSoundboard&type=fork&count=true"
+                  frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
+              </div>
             </div>
-
+          </div>
         </div>
-      <div class="container orange-border" id="cont3">
+      <div class="container orange-border" id="site-body">
           <div class="split">
             <h1>Amplitude Soundboard</h1>
             <h2>A sleek, flexible, free, and open-source soundboard</h2>
-            <p id="blurb">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <span class="bold">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
-                dolore eu fugiat nulla pariatur.</span> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+            <div class="blurb">
+              <p id="blurb-first">
+                  Amplitude Soundboard is a feature-rich soundboard in active development, currently available for Windows, with plans for Linux and MacOS releases down the line.
+              </p>
+              <p>
+                Use the application in a growing number of languages, currently including
+              </p>
+              <ul>
+                <li>English</li>
+                <li>Español</li>
+                <li>Nederlands</li>
+              </ul>
+              <p class="side-note">You can help expand this list by <a href="https://github.com/dan0v/AmplitudeSoundboard/issues/7">contributing!</a></p>
+              <p>
+                Play audio clips through multiple output, or input devices on your computer (with the help of <a href="https://vac.muzychenko.net/en/download.htm">Virtual Audio Cable</a>) with global, as well as per-clip volume settings
+              </p>
+              <p>
+                Set hotkeys to trigger any sound clip at any time
+              </p>
+              <p>
+                Customize the look of the application by
+              </p>
+              <ul>
+                <li>Choosing between Light and Dark themes</li>
+                <li>Setting custom background images for each sound clip on the main tile grid</li>
+                <li>Setting the tile size</li>
+                <li>Setting tile row and column count</li>
+              </ul>
+            </div>
           </div>
           <div class="split images">
             <img class="screenshot" id="whole" src="assets/img/Screenshots.png"/>

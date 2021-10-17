@@ -1,0 +1,275 @@
+// sass .\styles.scss .\styles.css --style compressed
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+$color-dark: #252A36;
+$color-light: #FFFFFF;
+$color-pink: #EBAEFF;
+$color-orange: #F08A5D;
+
+html, body {
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:0;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  overflow:auto;
+}
+
+body {
+    background-image: linear-gradient(to bottom right, $color-pink, $color-orange);
+}
+
+a {
+  text-decoration: none;
+  color: $color-orange;
+  transition: color .2s;
+  text-shadow: 2px 2px #232323;
+}
+
+p {
+    font-size: 1.2em;
+}
+li {
+    font-size: 1.2em;
+}
+
+h1 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 3.5em;
+    margin: 0;
+    /*text-shadow: 4px 4px $color-pink;*/
+}
+
+h2 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1.5em;
+    float: right;
+    margin: 0;
+    margin-top: -.3em;
+    color: $color-pink;
+}
+
+.container {
+    display: inline-block;
+}
+
+.orange-border {
+    border-color: $color-orange;
+    background-color: $color-dark;
+    border-width: 0.4em;
+    border-style: solid;
+    border-radius: 2em;
+    overflow: clip;
+}
+
+.split {
+    float: left;
+    width: 50%;
+    margin: 0;
+}
+
+.split#images {
+    float: right;
+}
+
+.screenshot {
+    width:100%;
+}
+
+.bold {
+    font-weight: bold;
+    color:$color-pink;
+}
+
+a.button {
+    color: white;
+}
+
+.button:hover {
+    background-color: #1a1d22;
+}
+
+.button-text {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.blurb > #blurb-first {
+    margin-top: 3em;
+}
+
+.blurb {
+    ul {
+        margin-top: -1em;
+    }
+}
+
+.side-note {
+    font-size: 1em;
+}
+
+#outer-container {
+    width: 100%;
+    display: flex;
+}
+
+#left-bar {
+    height: 100%;
+    width: 20%;
+    margin: 2em;
+    margin-right: 1em;
+
+    div.logo-image {
+        width:100%;
+        padding-top:100%;
+        position:relative;
+        
+        img {
+            width: 100%;
+            position:absolute;
+            top:0;
+            left:0;
+        }
+    }
+    
+    div#source-download-buttons {
+        display: grid;
+
+        a {
+            text-shadow: none;
+        }
+
+        .button {
+            background-color: $color-dark;
+            border-width: 0.15em;
+            border-radius: .5em;
+            width: 100%;
+            margin: .5em;
+            transition: 0.1s;
+            display: block;
+        }
+
+        .button#download {
+                background-color: $color-orange;
+                border-color: #272C34;
+                color: $color-dark;
+        }
+        .button#download:hover {
+            background-color: #c06f4c;
+        }
+        .github-integrations {
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+}
+
+#site-body {
+    background: $color-dark;
+    width: 70%;
+    margin: 2em;
+    margin-left: 1em;
+    padding: 2em;
+    padding-left: 3em;
+}
+
+#seperate {
+    display: none;
+}
+
+@media (max-aspect-ratio: 1.3)
+{
+    .container {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+
+    .split {
+        width: auto;
+        text-align: center;
+
+        .blurb {
+            text-align: left;
+        }
+    }
+
+    #left-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        position: relative;
+        width: auto;
+        margin: 1em;
+
+        div.logo-image {
+            width: 50%;
+            position:relative;
+            padding-top: 0;
+
+            img {
+                position: initial;
+                width: 100%;
+                top:0;
+                left:0;
+            }
+        }
+
+        div#source-download-buttons {
+            width: 50%;
+            position: relative;
+            margin: 1em;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .button {
+                width: 100%;
+            }
+        }
+    }
+
+    #site-body {
+        width: auto;
+        margin: 1em;
+    }
+
+    .button {
+        position: relative;
+        height: 4em;
+    }
+
+    .orange-border {
+        button{
+            border-width: 0.25em;
+        }
+    }
+
+    #whole {
+        display: none;
+    }
+
+    .images {
+        display: grid;
+        grid-template-columns: 0.5fr 0.5fr;
+        grid-template-rows: auto auto;
+    }
+
+    .topimg {
+        grid-row:1 / span 1;
+        grid-column: 1 / span 2;
+    }
+
+    .leftimg {
+        grid-row:2 / span 1;
+        grid-column: 1 / span 1;
+    }
+
+    .rightimg {
+        grid-row:2 / span 1;
+        grid-column: 2 / span 1;
+    }
+}
