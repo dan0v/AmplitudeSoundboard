@@ -145,11 +145,10 @@ namespace Amplitude.Helpers
                 }
                 else
                 {
-
                     Dispatcher.UIThread.InvokeAsync(() =>
                     {
                         App.WindowManager.ErrorListWindow.AddErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
-                    }).Wait();
+                    });
                 }
             }
             return null;
@@ -381,7 +380,7 @@ namespace Amplitude.Helpers
                     Dispatcher.UIThread.InvokeAsync(() =>
                     {
                         App.WindowManager.ErrorListWindow.AddErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
-                    }).Wait();
+                    });
                 }
             }
             catch (Exception e)
@@ -389,7 +388,7 @@ namespace Amplitude.Helpers
                 Dispatcher.UIThread.InvokeAsync(() =>
                 {
                     App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
-                }).Wait();
+                });
             }
         }
 
@@ -431,7 +430,7 @@ namespace Amplitude.Helpers
                         Dispatcher.UIThread.InvokeAsync(() =>
                         {
                             App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_DEVICE, settings.DeviceName);
-                        }).Wait();
+                        });
                     }
                 }
             }

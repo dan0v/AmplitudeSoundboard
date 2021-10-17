@@ -19,6 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
@@ -66,6 +67,20 @@ namespace Amplitude.Models
             set
             {
                 OutputSettings.Volume = value;
+            }
+        }
+
+        private string _defaultOutputDevice = ISoundEngine.DEFAULT_DEVICE_NAME;
+        [Obsolete]
+        public string DefaultOutputDevice
+        {
+            internal get => _defaultOutputDevice;
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    OutputSettings.DeviceName = value;
+                }
             }
         }
 
