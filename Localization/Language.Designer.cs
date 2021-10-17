@@ -115,6 +115,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear audio cache to free RAM.
+        /// </summary>
+        internal static string ClearCache {
+            get {
+                return ResourceManager.GetString("ClearCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear tile.
         /// </summary>
         internal static string ClearTile {

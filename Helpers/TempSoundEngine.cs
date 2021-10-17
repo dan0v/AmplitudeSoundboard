@@ -83,6 +83,11 @@ namespace Amplitude.Helpers
             throw new NotImplementedException();
         }
 
+        public void ResetCache()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Dispose()
         {
             throw new NotImplementedException();

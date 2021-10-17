@@ -327,4 +327,7 @@
   <data name="ResamplingAudioTooltip" xml:space="preserve">
     <value>Resampling audio</value>
   </data>
+  <data name="ClearCache" xml:space="preserve">
+    <value>Clear audio cache to free RAM</value>
+  </data>
 </root>

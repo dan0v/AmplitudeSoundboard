@@ -77,6 +77,11 @@
                 <Image Source="{Binding ThemeHandler.StopSound}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
               </Panel>
             </Button>
+            <Button ToolTip.Tip="{i18n:Localize ClearCache}" IsEnabled="{Binding OptionsManager.Options.CacheAudio}" Command="{Binding DiscardCache}" Cursor="Hand" Margin="5,5,5,5">
+              <Panel>
+                <Image Source="{Binding ThemeHandler.ClearCache}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+              </Panel>
+            </Button>
             <Button ToolTip.Tip="{i18n:Localize GlobalSettingsTitle}" Command="{Binding ShowGlobalSettings}" Cursor="Hand" Margin="5,5,5,5">
               <Panel>
                 <Image Source="{Binding ThemeHandler.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />

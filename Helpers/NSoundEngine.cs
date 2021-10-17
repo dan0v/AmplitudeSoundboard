@@ -411,6 +411,19 @@ namespace Amplitude.Helpers
             this.Dispose();
         }
 
+        public void ResetCache()
+        {
+            var temp = soundCache;
+            soundCache = new ConcurrentDictionary<string, CachedSound>();
+            foreach (var item in temp)
+            {
+                item.Value.Dispose();
+            }
+            temp.Clear();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+        }
+
         public void RemoveFromCache(string id)
         {
             if (!string.IsNullOrEmpty(id))
@@ -474,7 +487,7 @@ namespace Amplitude.Helpers
     /// https://gist.github.com/markheath/8783999
     /// Altered to add volume and resampling
     /// </summary>
-    class CachedSound
+    class CachedSound : IDisposable
     {
         public float[] AudioData { get; private set; }
         public WaveFormat WaveFormat { get; private set; }
@@ -496,6 +509,12 @@ namespace Amplitude.Helpers
                 wholeFile.AddRange(readBuffer.Take(samplesRead));
             }
             AudioData = wholeFile.ToArray();
+        }
+
+        public void Dispose()
+        {
+            this.AudioData = new float[0];
+            WaveFormat = null;
         }
 
         public CachedSound ShallowCopy()
@@ -522,6 +541,10 @@ namespace Amplitude.Helpers
 
         public int Read(float[] buffer, int offset, int count)
         {
+            if (cachedSound.AudioData.Length == 0)
+            {
+                return 0;
+            }
             var availableSamples = cachedSound.AudioData.Length - position;
             var samplesToCopy = Math.Min(availableSamples, count);
             Array.Copy(cachedSound.AudioData, position, buffer, offset, samplesToCopy);

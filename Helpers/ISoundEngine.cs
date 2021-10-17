@@ -49,5 +49,7 @@ namespace Amplitude.Helpers
         public List<string> OutputDeviceListWithGlobal { get; }
 
         public void Reset(bool retainCache = false);
+
+        public void ResetCache();
     }
 }
