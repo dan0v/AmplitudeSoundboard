@@ -40,7 +40,7 @@ namespace Amplitude.Views
         private TextBlock txt_blk_Copyright;
         private TextBlock txt_blk_Version;
         private TextBlock txt_blk_URL;
-        private string projectUrl = "https://git.dan0v.com/AmplitudeSoundboard";
+        private string projectUrl = "https://amplitude-soundboard.dan0v.com";
 
         public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
 
