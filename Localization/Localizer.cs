@@ -35,7 +35,7 @@ namespace Amplitude.Localization
             { "English", "en" },
             { "Español", "es" },
             { "Nederlands", "nl" },
-            { "Russian", "ru" },
+            { "Pусский", "ru" },
         };
 
         private static Dictionary<string, string> inverseLanguages => Languages.ToDictionary(l => l.Value, l => l.Key);
