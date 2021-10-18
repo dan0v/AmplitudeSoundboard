@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>О сайте</value>
+  </data>
+  <data name="AcceptButton" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="ClearTile" xml:space="preserve">
+    <value>Очистить ячейку</value>
+  </data>
+  <data name="ClipAudioFilePathLabel" xml:space="preserve">
+    <value>Путь к аудиофайл</value>
+  </data>
+  <data name="ClipFilePathPlaceholder" xml:space="preserve">
+    <value>Выбрать путь к файлу</value>
+  </data>
+  <data name="ClipHotkeyLabel" xml:space="preserve">
+    <value>Горячая клавиша</value>
+  </data>
+  <data name="ClipImageFilePathLabel" xml:space="preserve">
+    <value>Путь к фоновому изображению</value>
+  </data>
+  <data name="ClipNameLabel" xml:space="preserve">
+    <value>Имя клипа</value>
+  </data>
+  <data name="ClipNamePlaceholder" xml:space="preserve">
+    <value>Введите имя..</value>
+  </data>
+  <data name="OutputVolumeLabel" xml:space="preserve">
+    <value>Громкость вывода</value>
+  </data>
+  <data name="ColumnsPlaceholder" xml:space="preserve">
+    <value>Колонки</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Копировать в буфер обмена</value>
+  </data>
+  <data name="DeleteSoundClipButton" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="DeleteSoundClipConfirmationPrompt" xml:space="preserve">
+    <value>Вы уверены что хотите удалить аудиоклип"{0}"?</value>
+  </data>
+  <data name="DeleteSoundClipConfirmationTitle" xml:space="preserve">
+    <value>Подтвердить удаление</value>
+  </data>
+  <data name="DismissWindow" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="EditSoundClipTitle" xml:space="preserve">
+    <value>Редактировать аудиоклип</value>
+  </data>
+  <data name="EditSoundClipTooltip" xml:space="preserve">
+    <value>Редактировать аудиоклип</value>
+  </data>
+  <data name="EmptyTilePrompt" xml:space="preserve">
+    <value>Перетащите аудиоклип сюда, чтобы привязать его!</value>
+  </data>
+  <data name="ErrorListTitle" xml:space="preserve">
+    <value>Выберите аудиофайл...</value>
+  </data>
+  <data name="FileBadFormatString" xml:space="preserve">
+    <value>Следующий файл имеет нераспознанный формат: "{0}"</value>
+  </data>
+  <data name="FileBrowseAudio" xml:space="preserve">
+    <value>Выберите аудиофайл...</value>
+  </data>
+  <data name="FileBrowseImage" xml:space="preserve">
+    <value>Выберите файл изображения...</value>
+  </data>
+  <data name="FileMissingString" xml:space="preserve">
+    <value>Следующий файл не может быть найден: "{0}"</value>
+  </data>
+  <data name="FilePathPlaceholder" xml:space="preserve">
+    <value>Путь к файлу...</value>
+  </data>
+  <data name="GlobalSettingsTitle" xml:space="preserve">
+    <value>Параметры</value>
+  </data>
+  <data name="GridSizeLabel" xml:space="preserve">
+    <value>Размер сетки</value>
+  </data>
+  <data name="GridTileSizeLabel" xml:space="preserve">
+    <value>Размер ячеек сетки</value>
+  </data>
+  <data name="GridTutorial" xml:space="preserve">
+    <value>Скопируйте аудиоклип из списка аудиоклипов и вставьте его в любую ячейку сетки с помощью правой кнопки мыши!</value>
+  </data>
+  <data name="HeightPlaceholder" xml:space="preserve">
+    <value>Высота</value>
+  </data>
+  <data name="HideTutorial" xml:space="preserve">
+    <value>Скрыть руководство</value>
+  </data>
+  <data name="HotkeyPlaceholder" xml:space="preserve">
+    <value>Записать комбинацию клавиш...</value>
+  </data>
+  <data name="LicenseLabel" xml:space="preserve">
+    <value>Лицензия</value>
+  </data>
+  <data name="MasterVolumeLabel" xml:space="preserve">
+    <value>Главный уровень громкости</value>
+  </data>
+  <data name="MissingDeviceString" xml:space="preserve">
+    <value>Устройство вывода "{0}" отсутствует и не может быть использовано для воспроизведения!</value>
+  </data>
+  <data name="NewSoundClip" xml:space="preserve">
+    <value>Новый аудиоклип</value>
+  </data>
+  <data name="NewVersionAvailable" xml:space="preserve">
+    <value>Доступна новая версия</value>
+  </data>
+  <data name="NewVersionCanBeDownloaded" xml:space="preserve">
+    <value>Версию {0} можно загрузить со страницы релизов на GitHub</value>
+  </data>
+  <data name="NewVersionCanBeInstalled" xml:space="preserve">
+    <value>Версия {0} может быть установлена сейчас</value>
+  </data>
+  <data name="NoticeLabel" xml:space="preserve">
+    <value>Примечание</value>
+  </data>
+  <data name="OutputDeviceLabel" xml:space="preserve">
+    <value>Устройство вывода</value>
+  </data>
+  <data name="PasteClip" xml:space="preserve">
+    <value>Вставить клип в ячейку</value>
+  </data>
+  <data name="PlaySound" xml:space="preserve">
+    <value>Воспроизвести аудио</value>
+  </data>
+  <data name="RowsPlaceholder" xml:space="preserve">
+    <value>Строки</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="SaveButtonDisabledTooltip" xml:space="preserve">
+    <value>Пожалуйста, введите название аудиоклипа</value>
+  </data>
+  <data name="ShowNameOnGridTile" xml:space="preserve">
+    <value>Показать имя в ячейках</value>
+  </data>
+  <data name="SoundClipError" xml:space="preserve">
+    <value>Аудиоклип "{0}" имеет ошибки:\\\n{1}</value>
+  </data>
+  <data name="SoundClipListSearch" xml:space="preserve">
+    <value>Поиск..</value>
+  </data>
+  <data name="SoundClipListTitle" xml:space="preserve">
+    <value>Список аудиоклипов</value>
+  </data>
+  <data name="StopAllAudio" xml:space="preserve">
+    <value>Остановить аудио</value>
+  </data>
+  <data name="StopAllAudioHotkeyLabel" xml:space="preserve">
+    <value>Горячая клавиша: останоить всё аудио</value>
+  </data>
+  <data name="TestSound" xml:space="preserve">
+    <value>Протестировать аудио</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="UpdateLabel" xml:space="preserve">
+    <value>Обновление</value>
+  </data>
+  <data name="UpdatePromptTitle" xml:space="preserve">
+    <value>Обновление доступно</value>
+  </data>
+  <data name="ViewReleases" xml:space="preserve">
+    <value>Просмотреть релизы</value>
+  </data>
+  <data name="WidthPlaceholder" xml:space="preserve">
+    <value>Ширина</value>
+  </data>
+  <data name="AddSoundClipOutput" xml:space="preserve">
+    <value>Добавить устройство вывода</value>
+  </data>
+  <data name="RemoveSoundClipOutput" xml:space="preserve">
+    <value>Удалить устройства вывода</value>
+  </data>
+  <data name="VolumeLabel" xml:space="preserve">
+    <value>Громкость</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="GlobalOutputDefaults" xml:space="preserve">
+    <value>Глобальные настройки вывода</value>
+  </data>
+  <data name="CreateClipInPlace" xml:space="preserve">
+    <value>Создать новый клип</value>
+  </data>
+  <data name="CacheAudioExplanation" xml:space="preserve">
+    <value>Кэширование аудио, которое требует передискретизации для ускорения воспроизведения за счет дополнительной оперативной памяти</value>
+  </data>
+  <data name="CacheAudioLabel" xml:space="preserve">
+    <value>Кэширование повторно дискретизированного аудио</value>
+  </data>
+  <data name="PreCacheAudioExplanation" xml:space="preserve">
+    <value>Кэширование всех аудиофайлов, которые могут потребовать повторного дискретизации при запуске приложения</value>
+  </data>
+  <data name="PreCacheAudioLabel" xml:space="preserve">
+    <value>Предварительное кэширование аудио при запуске</value>
+  </data>
+  <data name="ResamplingAudioTooltip" xml:space="preserve">
+    <value>Передискретизация аудио</value>
+  </data>
+  <data name="ClearCache" xml:space="preserve">
+    <value>Очистить кэш аудиофайлов, чтобы освободить оперативную память</value>
+  </data>
+</root>
