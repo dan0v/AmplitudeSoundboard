@@ -178,7 +178,7 @@
     <value>Перетащите аудиоклип сюда, чтобы привязать его!</value>
   </data>
   <data name="ErrorListTitle" xml:space="preserve">
-    <value>Выберите аудиофайл...</value>
+    <value>Список ошибок</value>
   </data>
   <data name="FileBadFormatString" xml:space="preserve">
     <value>Следующий файл имеет нераспознанный формат: "{0}"</value>
