@@ -23,6 +23,7 @@
   - English
   - Español
   - Nederlands
+  - Pусский
 
 ## Installation
 ### Windows *(x64)*
