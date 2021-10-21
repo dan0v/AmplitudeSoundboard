@@ -22,6 +22,7 @@
 - Localized versions available ([work in progress](https://github.com/dan0v/AmplitudeSoundboard/issues/7))
   - English
   - Español
+  - Italiano
   - Nederlands
   - Pусский
 
