@@ -127,7 +127,7 @@
     <value>Annulla</value>
   </data>
   <data name="ClearTile" xml:space="preserve">
-    <value>Elimina titolo</value>
+    <value>Riquadro chiaro</value>
   </data>
   <data name="ClipAudioFilePathLabel" xml:space="preserve">
     <value>Path della clip audio</value>
@@ -313,7 +313,7 @@
     <value>Crea una nuova clip qui</value>
   </data>
   <data name="CacheAudioExplanation" xml:space="preserve">
-    <value>Memorizza audio nella cache(richiede il ricampionamento per accelerare la riproduzione a costo della RAM)</value>
+    <value>Memorizza audio nella cache (richiede il ricampionamento per accelerare la riproduzione a costo della RAM)</value>
   </data>
   <data name="CacheAudioLabel" xml:space="preserve">
     <value>Memorizza nella cache audio ricampionato</value>
