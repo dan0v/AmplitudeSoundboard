@@ -330,4 +330,7 @@
   <data name="ClearCache" xml:space="preserve">
     <value>Wis de audiocache om RAM vrij te maken</value>
   </data>
+  <data name="AutoScaleTilesToWindowLabel" xml:space="preserve">
+    <value>Tegels automatisch schalen om in het venster te passen</value>
+  </data>
 </root>

@@ -330,4 +330,7 @@
   <data name="ClearCache" xml:space="preserve">
     <value>Svuota la cache audio per liberare RAM</value>
   </data>
+  <data name="AutoScaleTilesToWindowLabel" xml:space="preserve">
+    <value>Riquadri di ridimensionamento automatico per adattarsi alla finestra</value>
+  </data>
 </root>

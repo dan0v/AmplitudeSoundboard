@@ -330,4 +330,7 @@
   <data name="ClearCache" xml:space="preserve">
     <value>Limpiar la caché de audio para liberar RAM</value>
   </data>
+  <data name="AutoScaleTilesToWindowLabel" xml:space="preserve">
+    <value>Escala automática de mosaicos para adaptarse a la ventana</value>
+  </data>
 </root>

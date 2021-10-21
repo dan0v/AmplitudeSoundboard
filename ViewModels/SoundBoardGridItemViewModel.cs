@@ -21,6 +21,7 @@
 
 using Amplitude.Helpers;
 using Amplitude.Models;
+using Amplitude.Views;
 using AmplitudeSoundboard;
 using Avalonia.Input;
 
@@ -35,8 +36,8 @@ namespace Amplitude.ViewModels
 
         private string soundClipId = "";
 
-        private int Height => OptionsManager.Options.GridTileHeight;
-        private int Width => OptionsManager.Options.GridTileWidth;
+        private double Height => OptionsManager.Options.AutoScaleTilesToWindow ? getHeight() : OptionsManager.Options.GridTileHeight;
+        private double Width => OptionsManager.Options.AutoScaleTilesToWindow ? getWidth() : OptionsManager.Options.GridTileWidth;
 
         private int row = 0;
         private int col = 0;
@@ -82,7 +83,7 @@ namespace Amplitude.ViewModels
                 }
             }
         }
-        
+
         private float _backgroundOpacity = 1f;
         public float BackgroundOpacity
         {
@@ -130,6 +131,10 @@ namespace Amplitude.ViewModels
             WindowManager.PropertyChanged += WindowManager_PropertyChanged;
             Model.PropertyChanged += Model_PropertyChanged;
 
+            if (WindowManager.MainWindow != null)
+            {
+                WindowManager.MainWindow.PropertyChanged += MainWindow_PropertyChanged;
+            }
             if (WindowManager.GlobalSettingsWindow == null)
             {
                 GlobalSettingsWindowOpen = false;
@@ -143,8 +148,17 @@ namespace Amplitude.ViewModels
             Model.LoadBackgroundImage = true;
         }
 
+        private void MainWindow_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(MainWindow.GridSize))
+            {
+                OnPropertyChanged(nameof(Height));
+                OnPropertyChanged(nameof(Width));
+            }
+        }
+
         private void WindowManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {if (e.PropertyName == nameof(WindowManager.GlobalSettingsWindow))
+        { if (e.PropertyName == nameof(WindowManager.GlobalSettingsWindow))
             {
                 if (WindowManager.GlobalSettingsWindow == null)
                 {
@@ -164,6 +178,20 @@ namespace Amplitude.ViewModels
                 OnPropertyChanged(nameof(Height));
                 OnPropertyChanged(nameof(Width));
             }
+        }
+
+        private double getWidth()
+        {
+            // TODO this is wasteful, but fine for now
+            OptionsManager.Options.ActualTileWidth = (int)(((WindowManager.MainWindow?.GridSize.width - (11 * (OptionsManager.Options.GridColumns + 1))) / OptionsManager.Options.GridColumns) ?? OptionsManager.Options.GridTileWidth);
+            return OptionsManager.Options.ActualTileWidth;
+        }
+
+        private double getHeight()
+        {
+            // TODO this is wasteful, but fine for now
+            OptionsManager.Options.ActualTileHeight = (int)(((WindowManager.MainWindow?.GridSize.height - (11 * (OptionsManager.Options.GridRows + 1))) / OptionsManager.Options.GridRows) ?? OptionsManager.Options.GridTileHeight);
+            return OptionsManager.Options.ActualTileHeight;
         }
 
         public void Unbind()

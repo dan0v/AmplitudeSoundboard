@@ -330,4 +330,7 @@
   <data name="ClearCache" xml:space="preserve">
     <value>Clear audio cache to free RAM</value>
   </data>
+  <data name="AutoScaleTilesToWindowLabel" xml:space="preserve">
+    <value>Auto scale tiles to fit window</value>
+  </data>
 </root>
