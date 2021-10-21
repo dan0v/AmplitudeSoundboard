@@ -140,6 +140,20 @@ namespace Amplitude.Models
             }
         }
 
+        private bool _autoScaleTilesToWindow = true;
+        public bool AutoScaleTilesToWindow
+        {
+            get => _autoScaleTilesToWindow;
+            set
+            {
+                if (value != _autoScaleTilesToWindow)
+                {
+                    _autoScaleTilesToWindow = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private int _gridTileHeight = 100;
         public int GridTileHeight
         {
@@ -167,6 +181,16 @@ namespace Amplitude.Models
                 }
             }
         }
+
+        [JsonIgnore]
+        public int ActualTileHeight = 100;
+        [JsonIgnore]
+        public int ActualTileWidth = 100;
+
+        [JsonIgnore]
+        public int DesiredImageHeight => AutoScaleTilesToWindow ? ActualTileHeight : GridTileHeight;
+        [JsonIgnore]
+        public int DesiredImageWidth => AutoScaleTilesToWindow ? ActualTileWidth : GridTileWidth;
 
         private bool _hideTutorial = false;
         public bool HideTutorial

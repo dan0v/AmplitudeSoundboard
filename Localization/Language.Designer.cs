@@ -88,6 +88,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto scale tiles to fit window.
+        /// </summary>
+        internal static string AutoScaleTilesToWindowLabel {
+            get {
+                return ResourceManager.GetString("AutoScaleTilesToWindowLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cache audio which requires resampling to speed up playback at the cost of RAM.
         /// </summary>
         internal static string CacheAudioExplanation {

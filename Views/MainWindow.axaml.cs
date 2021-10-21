@@ -25,11 +25,30 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Timers;
 
 namespace Amplitude.Views
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        ScrollViewer scrl_GridScroll;
+
+        private Timer timer = new Timer(1500);
+
+        private (double width, double height) _gridSize;
+        public (double width, double height) GridSize
+        {
+            get => _gridSize;
+            set
+            {
+                if (value != _gridSize)
+                {
+                    _gridSize = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public MainWindow()
         {
@@ -37,7 +56,37 @@ namespace Amplitude.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
+            scrl_GridScroll = this.Find<ScrollViewer>(nameof(scrl_GridScroll));
+
             PositionChanged += MainWindow_PositionChanged;
+            EffectiveViewportChanged += MainWindow_EffectiveViewportChanged;
+            timer.Elapsed += Timer_Elapsed;
+        }
+
+        private void MainWindow_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
+        {
+            GridSize = (scrl_GridScroll.Bounds.Width, scrl_GridScroll.Bounds.Height);
+
+            if (App.OptionsManager.Options.AutoScaleTilesToWindow)
+            {
+
+                if (!timer.Enabled)
+                {
+                    timer.Start();
+                }
+                else
+                {
+                    timer.Interval = 1500;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Trigger image rescaling a period of time after the user stops resizing the main window
+        /// </summary>
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            App.SoundClipManager.RescaleAllBackgroundImages();
         }
 
         private void MainWindow_PositionChanged(object? sender, PixelPointEventArgs e)
@@ -56,6 +105,13 @@ namespace Amplitude.Views
             App.KeyboardHook.Dispose();
             ((MainWindowViewModel)DataContext).Dispose();
             base.OnClosing(e);
+        }
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

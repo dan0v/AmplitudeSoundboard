@@ -93,8 +93,8 @@
               </Panel>
             </Button>
           </StackPanel>
-          <Grid Grid.Column="1" RowDefinitions="*,Auto">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="0" Padding="10,10,10,5">
+          <Grid x:Name="grd_TileGrid" Grid.Column="1" RowDefinitions="*,Auto">
+            <ScrollViewer x:Name="scrl_GridScroll" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="0" Padding="10,10,10,5">
               <ItemsControl Items="{Binding GridItemsRows}">
                 <ItemsControl.ItemTemplate>
                   <DataTemplate>

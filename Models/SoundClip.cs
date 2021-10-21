@@ -29,6 +29,7 @@ using Amplitude.Helpers;
 using Avalonia.Media.Imaging;
 using Avalonia;
 using System.Collections.ObjectModel;
+using Avalonia.Threading;
 
 namespace Amplitude.Models
 {
@@ -240,10 +241,20 @@ namespace Amplitude.Models
                 _backgroundImage = new Bitmap(_imageFilePath);
                 double initialWidth = _backgroundImage.PixelSize.Width;
                 double initialHeight = _backgroundImage.PixelSize.Height;
-                double intendedHeight = App.OptionsManager.Options.GridTileHeight;
-                double intendedWidth = App.OptionsManager.Options.GridTileWidth;
-                double scaleFactor = initialHeight > initialWidth ? initialWidth / intendedWidth : initialHeight / intendedHeight;
-                _backgroundImage = _backgroundImage.CreateScaledBitmap(new PixelSize((int)(initialWidth / scaleFactor), (int)(initialHeight / scaleFactor)), Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode.HighQuality);
+                double intendedHeight = App.OptionsManager.Options.DesiredImageHeight;
+                double intendedWidth = App.OptionsManager.Options.DesiredImageWidth;
+                double scaleFactor = intendedWidth > intendedHeight ? initialWidth / intendedWidth : initialHeight / intendedHeight;
+                try
+                {
+                    _backgroundImage = _backgroundImage.CreateScaledBitmap(new PixelSize((int)(initialWidth / scaleFactor), (int)(initialHeight / scaleFactor)), Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode.HighQuality);
+                }
+                catch(Exception e)
+                {
+                    Dispatcher.UIThread.InvokeAsync(() =>
+                    {
+                        App.WindowManager.ErrorListWindow.AddErrorString(e.ToString());
+                    });
+                }
             }
             else
             {

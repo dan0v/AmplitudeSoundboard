@@ -23,12 +23,12 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="710"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="740"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.GlobalSettings"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize GlobalSettingsTitle}"
-        Width="400" Height="710" MinWidth="400" MinHeight="320"
+        Width="400" Height="740" MinWidth="400" MinHeight="320"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
@@ -152,7 +152,11 @@
             </Border.BorderBrush>
             <StackPanel>
               <Label Content="{i18n:Localize GridTileSizeLabel}" HorizontalAlignment="Center" Height="30"></Label>
-              <Grid ColumnDefinitions="*,Auto,*">
+              <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize CacheAudioExplanation}">
+                <Label Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" Content="{i18n:Localize AutoScaleTilesToWindowLabel}" ></Label>
+                <CheckBox x:Name="chk_AutoScaleTiles" Grid.Column="1" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.AutoScaleTilesToWindow}" Cursor="Hand"/>
+              </Grid>
+              <Grid ColumnDefinitions="*,Auto,*" IsEnabled="{Binding !#chk_AutoScaleTiles.IsChecked}">
                 <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="2" Text="{Binding Model.GridTileWidth}" ToolTip.Tip="{i18n:Localize WidthPlaceholder}" Watermark="{i18n:Localize WidthPlaceholder}" ></TextBox>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="10,0,10,0">X</TextBlock>
                 <TextBox Margin="5,0,5,0" TextAlignment="Center" Grid.Column="0" Text="{Binding Model.GridTileHeight}" ToolTip.Tip="{i18n:Localize HeightPlaceholder}" Watermark="{i18n:Localize HeightPlaceholder}" ></TextBox>
