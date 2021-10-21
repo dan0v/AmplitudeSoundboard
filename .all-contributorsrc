@@ -71,6 +71,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "AntoSkate",
+      "name": "Antonio Brugnolo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/36473846?v=4",
+      "profile": "https://github.com/AntoSkate",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
