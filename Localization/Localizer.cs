@@ -34,6 +34,7 @@ namespace Amplitude.Localization
         {
             { "English", "en" },
             { "Español", "es" },
+            { "Italiano", "it" },
             { "Nederlands", "nl" },
             { "Pусский", "ru" },
         };
