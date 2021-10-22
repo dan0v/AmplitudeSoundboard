@@ -274,7 +274,7 @@
     <value>Ferma l'audio</value>
   </data>
   <data name="StopAllAudioHotkeyLabel" xml:space="preserve">
-    <value>Conbinazione di tasti per fermare tutti i suoni</value>
+    <value>Combinazione di tasti per fermare tutti i suoni</value>
   </data>
   <data name="TestSound" xml:space="preserve">
     <value>Prova l'audio</value>
