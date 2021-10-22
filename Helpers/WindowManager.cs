@@ -61,6 +61,8 @@ namespace Amplitude.Helpers
             }
         }
 
+        public double DesktopScaling = 1;
+
         public void OpenEditSoundClipWindow(string? id = null)
         {
             if (id != null && App.WindowManager.EditSoundClipWindows.TryGetValue(id, out EditSoundClip window))

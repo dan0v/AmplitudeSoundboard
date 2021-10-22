@@ -244,6 +244,7 @@ namespace Amplitude.Models
                 double intendedHeight = App.OptionsManager.Options.DesiredImageHeight;
                 double intendedWidth = App.OptionsManager.Options.DesiredImageWidth;
                 double scaleFactor = intendedWidth > intendedHeight ? initialWidth / intendedWidth : initialHeight / intendedHeight;
+                scaleFactor /= App.WindowManager.DesktopScaling;
                 try
                 {
                     _backgroundImage = _backgroundImage.CreateScaledBitmap(new PixelSize((int)(initialWidth / scaleFactor), (int)(initialHeight / scaleFactor)), Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode.HighQuality);
