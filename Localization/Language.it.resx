@@ -136,7 +136,7 @@
     <value>Seleziona un percorso...</value>
   </data>
   <data name="ClipHotkeyLabel" xml:space="preserve">
-    <value>Tasto di scelta rapida</value>
+    <value>Combinazione di tasti per riprodurre</value>
   </data>
   <data name="ClipImageFilePathLabel" xml:space="preserve">
     <value>Percorso dell'immagine di sfondo</value>
