@@ -127,19 +127,19 @@
     <value>Annulla</value>
   </data>
   <data name="ClearTile" xml:space="preserve">
-    <value>Riquadro chiaro</value>
+    <value>Svuota riquadro</value>
   </data>
   <data name="ClipAudioFilePathLabel" xml:space="preserve">
-    <value>Path della clip audio</value>
+    <value>Percorso della clip audio</value>
   </data>
   <data name="ClipFilePathPlaceholder" xml:space="preserve">
-    <value>Seleziona una path...</value>
+    <value>Seleziona un percorso...</value>
   </data>
   <data name="ClipHotkeyLabel" xml:space="preserve">
     <value>Tasto di scelta rapida</value>
   </data>
   <data name="ClipImageFilePathLabel" xml:space="preserve">
-    <value>Path dell'immagine di sfondo</value>
+    <value>Percorso dell'immagine di sfondo</value>
   </data>
   <data name="ClipNameLabel" xml:space="preserve">
     <value>Nome della clip</value>
@@ -166,7 +166,7 @@
     <value>Conferma</value>
   </data>
   <data name="DismissWindow" xml:space="preserve">
-    <value>Scarta</value>
+    <value>Ignora</value>
   </data>
   <data name="EditSoundClipTitle" xml:space="preserve">
     <value>Modifica clip audio</value>
@@ -175,7 +175,7 @@
     <value>Modifica clip audio</value>
   </data>
   <data name="EmptyTilePrompt" xml:space="preserve">
-    <value>Trascina una clip audio per utilizzarla!</value>
+    <value>Trascina una clip audio per piazzarla qui!</value>
   </data>
   <data name="ErrorListTitle" xml:space="preserve">
     <value>Lista di errori</value>
@@ -193,7 +193,7 @@
     <value>Il file di "{0}" non é stato trovato</value>
   </data>
   <data name="FilePathPlaceholder" xml:space="preserve">
-    <value>Path del file...</value>
+    <value>Percorso del file...</value>
   </data>
   <data name="GlobalSettingsTitle" xml:space="preserve">
     <value>Preferenze</value>
@@ -205,7 +205,7 @@
     <value>Dimensione dei riquadri della griglia</value>
   </data>
   <data name="GridTutorial" xml:space="preserve">
-    <value>Copia una clip audio dalla lista delle clip e incollalo in qualsiasi riquadro della griglia usando il tasto destro del mouse!</value>
+    <value>Copia una clip audio dalla lista delle clip e incollala in qualsiasi riquadro della griglia usando il tasto destro del mouse!</value>
   </data>
   <data name="HeightPlaceholder" xml:space="preserve">
     <value>Altezza</value>
@@ -244,7 +244,7 @@
     <value>Dispositivo di output</value>
   </data>
   <data name="PasteClip" xml:space="preserve">
-    <value>Incolla clip al riquadro</value>
+    <value>Incolla</value>
   </data>
   <data name="PlaySound" xml:space="preserve">
     <value>Riproduci l'audio</value>
@@ -259,7 +259,7 @@
     <value>Dai un nome alla clip audio</value>
   </data>
   <data name="ShowNameOnGridTile" xml:space="preserve">
-    <value>Mostra il nome nella vista dei riquadri della griglia</value>
+    <value>Mostra il nome nei riquadri della griglia</value>
   </data>
   <data name="SoundClipError" xml:space="preserve">
     <value>"{0}" ha degli errori:\\n{1}</value>
@@ -271,10 +271,10 @@
     <value>Lista delle clip audio</value>
   </data>
   <data name="StopAllAudio" xml:space="preserve">
-    <value>Ferma audio</value>
+    <value>Ferma l'audio</value>
   </data>
   <data name="StopAllAudioHotkeyLabel" xml:space="preserve">
-    <value>Ferma tutti i tasti di scelta rapida</value>
+    <value>Conbinazione di tasti per fermare tutti i suoni</value>
   </data>
   <data name="TestSound" xml:space="preserve">
     <value>Prova l'audio</value>
@@ -316,10 +316,10 @@
     <value>Memorizza audio nella cache (richiede il ricampionamento per accelerare la riproduzione a costo della RAM)</value>
   </data>
   <data name="CacheAudioLabel" xml:space="preserve">
-    <value>Memorizza nella cache audio ricampionato</value>
+    <value>Memorizza audio ricampionato nella cache</value>
   </data>
   <data name="PreCacheAudioExplanation" xml:space="preserve">
-    <value>Memorizza nella cache tutti i file audio che potrebbero richiedere un ricampionamento all'avvio dell'applicazione</value>
+    <value>Memorizza tutti i file audio che potrebbero richiedere un ricampionamento nella cache all'avvio dell'applicazione</value>
   </data>
   <data name="PreCacheAudioLabel" xml:space="preserve">
     <value>Memorizza audio nella cache all'avvio del programma</value>
@@ -331,6 +331,6 @@
     <value>Svuota la cache audio per liberare RAM</value>
   </data>
   <data name="AutoScaleTilesToWindowLabel" xml:space="preserve">
-    <value>Riquadri di ridimensionamento automatico per adattarsi alla finestra</value>
+    <value>Ridimensiona automaticamente i riquadri per adattarsi alla finestra</value>
   </data>
 </root>
