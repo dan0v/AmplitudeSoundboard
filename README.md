@@ -36,6 +36,15 @@
 ### Windows
 A dialog automatically notifies users of available updates at application startup. To automatically update, click `Update`, or, to manually update, just download the [latest Windows build](https://git.dan0v.com/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `amplitude_soundboard.exe` with the new version.
 
+# Screenshots
+Main grid|Soundclip list
+-|-
+![Main grid](https://github.com/dan0v/AmplitudeSoundboard/raw/master/docs/assets/img/MainGrid.png) | ![Soundclip List](https://github.com/dan0v/AmplitudeSoundboard/raw/master/docs/assets/img/SoundclipList.png)
+
+Editing a soundclip|Global settings
+-|-
+![Edit Soundclip](https://github.com/dan0v/AmplitudeSoundboard/raw/master/docs/assets/img/EditSoundClip.png)|![Global Settings](https://github.com/dan0v/AmplitudeSoundboard/raw/master/docs/assets/img/Settings.png)
+
 ## Contributors
 
 Many thanks to all these people! ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
