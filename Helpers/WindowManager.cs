@@ -46,7 +46,7 @@ namespace Amplitude.Helpers
                 return _instance;
             }
         }
-        
+
         private Dictionary<string, EditSoundClip> _editSoundClipWindows = new Dictionary<string, EditSoundClip>();
         public Dictionary<string, EditSoundClip> EditSoundClipWindows
         {
@@ -77,7 +77,7 @@ namespace Amplitude.Helpers
             {
                 Window sound = new EditSoundClip();
                 SoundClip? clip = App.SoundClipManager.GetClip(id);
-                
+
                 sound.DataContext = clip == null ? new EditSoundClipViewModel() : new EditSoundClipViewModel(clip);
 
                 PixelPoint? pos = SoundClipListWindow?.Position ?? MainWindow?.Position;
@@ -178,6 +178,9 @@ namespace Amplitude.Helpers
             }
         }
 
+        public ErrorListViewModel ErrorList { get => ((ErrorListViewModel)ErrorListWindow.DataContext); }
+
+        public bool ErrorListWindowOpen = false;
         private ErrorList _errorListWindow;
         public ErrorList ErrorListWindow
         {
@@ -185,13 +188,38 @@ namespace Amplitude.Helpers
             {
                 if (_errorListWindow == null)
                 {
-                    _errorListWindow = new ErrorList();
+                    _errorListWindow = new ErrorList
+                    {
+                            DataContext = new ErrorListViewModel(),
+                    };
                 }
                 return _errorListWindow;
             }
         }
 
-        public void ShowSoundClipListWindow(PixelPoint? desiredPosition)
+        public void ShowErrorListWindow(PixelPoint? desiredPosition = null)
+        {
+            if (ErrorListWindowOpen)
+            {
+                if (ErrorListWindow.WindowState == WindowState.Minimized)
+                {
+                    ErrorListWindow.WindowState = WindowState.Normal;
+                }
+                ErrorListWindow.Activate();
+            }
+            else
+            {
+                ErrorListWindowOpen = true;
+                if (desiredPosition != null)
+                {
+                    ErrorListWindow.Position = (PixelPoint)desiredPosition;
+                }
+                ErrorListWindow.Show();
+                ErrorListWindow.Activate();
+            }
+        }
+
+        public void ShowSoundClipListWindow(PixelPoint? desiredPosition = null)
         {
             if (SoundClipListWindow != null)
             {
@@ -215,7 +243,7 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void ShowGlobalSettingsWindow(PixelPoint? desiredPosition)
+        public void ShowGlobalSettingsWindow(PixelPoint? desiredPosition = null)
         {
             if (GlobalSettingsWindow != null)
             {
@@ -239,7 +267,7 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void ShowAboutWindow(PixelPoint? desiredPosition)
+        public void ShowAboutWindow(PixelPoint? desiredPosition = null)
         {
             if (AboutWindow != null)
             {

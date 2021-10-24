@@ -151,7 +151,7 @@ namespace Amplitude.Views
             {
                 Updating = false;
                 Debug.WriteLine(ex);
-                App.WindowManager.ErrorListWindow.AddErrorString(ex.Message);
+                App.WindowManager.ErrorList.AddErrorString(ex.Message);
             }
         }
 

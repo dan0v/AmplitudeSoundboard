@@ -143,11 +143,11 @@ namespace Amplitude.Models
         {
             if (!string.IsNullOrEmpty(clip.AudioFilePath) && !File.Exists(clip.AudioFilePath))
             {
-                App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_AUDIO_FILE);
+                App.WindowManager.ErrorList.AddErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_AUDIO_FILE);
             }
             if (!string.IsNullOrEmpty(clip.ImageFilePath) && !File.Exists(clip.ImageFilePath))
             {
-                App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_IMAGE_FILE);
+                App.WindowManager.ErrorList.AddErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_IMAGE_FILE);
             }
             foreach (OutputSettings settings in clip.OutputSettings)
             {
@@ -202,7 +202,7 @@ namespace Amplitude.Models
             }
             else
             {
-                App.WindowManager.ErrorListWindow.AddErrorString("SoundClip with ID: " + clip.Id + " could not be saved (does not exist)!");
+                App.WindowManager.ErrorList.AddErrorString("SoundClip with ID: " + clip.Id + " could not be saved (does not exist)!");
             }
             ValidateSoundClip(clip);
             StoreSavedSoundClips();
@@ -244,7 +244,7 @@ namespace Amplitude.Models
                     if (attempt / alphabet.Length >= alphabet.Length)
                     {
                         // Something has gone wrong, there has been easily enough time to find an Id
-                        App.WindowManager.ErrorListWindow.AddErrorString("A new Sound Clip could not be saved (could not generate Id, please try again later)!");
+                        App.WindowManager.ErrorList.AddErrorString("A new Sound Clip could not be saved (could not generate Id, please try again later)!");
                         return false;
                     }
                     suf += alphabet[attempt / alphabet.Length] + alphabet[attempt % alphabet.Length];
@@ -273,7 +273,7 @@ namespace Amplitude.Models
             }
             if (!ignoreErrors)
             {
-                App.WindowManager.ErrorListWindow.AddErrorString("SoundClip with ID: " + id + " does not exist!");
+                App.WindowManager.ErrorList.AddErrorString("SoundClip with ID: " + id + " does not exist!");
             }
             return null;
         }
@@ -307,7 +307,7 @@ namespace Amplitude.Models
             }
             catch (Exception e)
             {
-                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
+                App.WindowManager.ErrorList.AddErrorString(e.Message);
             }
             return null;
         }
@@ -328,7 +328,7 @@ namespace Amplitude.Models
             }
             catch (Exception e)
             {
-                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
+                App.WindowManager.ErrorList.AddErrorString(e.Message);
             }
             return null;
         }
@@ -340,7 +340,7 @@ namespace Amplitude.Models
             }
             catch (Exception e)
             {
-                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
+                App.WindowManager.ErrorList.AddErrorString(e.Message);
             }
         }
 

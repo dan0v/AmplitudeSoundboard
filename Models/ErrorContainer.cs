@@ -19,16 +19,32 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.ViewModels;
-using System.Collections.ObjectModel;
+using AmplitudeSoundboard;
 
 namespace Amplitude.Models
 {
-    public class GridItemRow
+    public class ErrorContainer
     {
-        private ObservableCollection<SoundBoardGridItemViewModel> _list = new();
-        public ObservableCollection<SoundBoardGridItemViewModel> List => _list;
+        public string ErrorMessage { get; set; } = "";
+        public bool LinkedSoundClip { get; set; } = false;
+        public string SoundClipId { get; set; } = "";
 
-        public GridItemRow() { }
+        public ErrorContainer(string errorMessage, string soundClipId = "")
+        {
+            this.ErrorMessage = errorMessage;
+            if (!string.IsNullOrEmpty(soundClipId))
+            {
+                this.LinkedSoundClip = true;
+                this.SoundClipId = soundClipId;
+            }
+        }
+
+        public void OpenEditSoundClipWindow()
+        {
+            if (App.SoundClipManager.GetClip(SoundClipId) != null)
+            {
+                App.WindowManager.OpenEditSoundClipWindow(SoundClipId);
+            }
+        }
     }
 }

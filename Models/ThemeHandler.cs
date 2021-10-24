@@ -161,6 +161,8 @@ namespace Amplitude.Models
         public Bitmap Plus { get => getBitmap(folder + "/Plus.png"); }
         public Bitmap Minus { get => getBitmap(folder + "/Minus.png"); }
         public Bitmap ClearCache { get => getBitmap(folder + "/ClearCache.png"); }
+        public Bitmap LaunchItem { get => getBitmap(folder + "/LaunchItem.png"); }
+        
 
         // TODO actually refactor this to enum after all to support string localization
         private string _selectedTheme;

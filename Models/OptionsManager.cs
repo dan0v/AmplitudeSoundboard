@@ -109,7 +109,7 @@ namespace Amplitude.Models
             }
             catch (Exception e)
             {
-                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
+                App.WindowManager.ErrorList.AddErrorString(e.Message);
             }
             OnPropertyChanged(nameof(Options));
             App.SoundClipManager.RescaleAllBackgroundImages();
@@ -127,7 +127,7 @@ namespace Amplitude.Models
             }
             catch (Exception e)
             {
-                App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
+                App.WindowManager.ErrorList.AddErrorString(e.Message);
             }
             return null;
         }

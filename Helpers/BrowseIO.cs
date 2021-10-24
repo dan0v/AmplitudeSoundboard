@@ -89,7 +89,7 @@ namespace Amplitude.Helpers
                 if (generateErrors)
                 {
                     string errorMessage = string.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
-                    App.WindowManager.ErrorListWindow.AddErrorString(errorMessage);
+                    App.WindowManager.ErrorList.AddErrorString(errorMessage);
                 }
                 return false;
             }
@@ -104,7 +104,7 @@ namespace Amplitude.Helpers
                 if (generateErrors)
                 {
                     string errorMessage = string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
-                    App.WindowManager.ErrorListWindow.AddErrorString(errorMessage);
+                    App.WindowManager.ErrorList.AddErrorString(errorMessage);
                 }
                 return false;
             }
@@ -118,7 +118,7 @@ namespace Amplitude.Helpers
                 if (generateErrors)
                 {
                     string errorMessage = string.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
-                    App.WindowManager.ErrorListWindow.AddErrorString(errorMessage);
+                    App.WindowManager.ErrorList.AddErrorString(errorMessage);
                 }
                 return false;
             }
@@ -133,7 +133,7 @@ namespace Amplitude.Helpers
                 if (generateErrors)
                 {
                     string errorMessage = string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
-                    App.WindowManager.ErrorListWindow.AddErrorString(errorMessage);
+                    App.WindowManager.ErrorList.AddErrorString(errorMessage);
                 }
                 return false;
             }

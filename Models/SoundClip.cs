@@ -253,7 +253,7 @@ namespace Amplitude.Models
                 {
                     Dispatcher.UIThread.InvokeAsync(() =>
                     {
-                        App.WindowManager.ErrorListWindow.AddErrorString(e.ToString());
+                        App.WindowManager.ErrorList.AddErrorString(e.ToString());
                     });
                 }
             }

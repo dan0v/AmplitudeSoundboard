@@ -147,7 +147,7 @@ namespace Amplitude.Helpers
                 {
                     Dispatcher.UIThread.InvokeAsync(() =>
                     {
-                        App.WindowManager.ErrorListWindow.AddErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
+                        App.WindowManager.ErrorList.AddErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
                     });
                 }
             }
@@ -379,7 +379,7 @@ namespace Amplitude.Helpers
 
                     Dispatcher.UIThread.InvokeAsync(() =>
                     {
-                        App.WindowManager.ErrorListWindow.AddErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
+                        App.WindowManager.ErrorList.AddErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
                     });
                 }
             }
@@ -387,7 +387,7 @@ namespace Amplitude.Helpers
             {
                 Dispatcher.UIThread.InvokeAsync(() =>
                 {
-                    App.WindowManager.ErrorListWindow.AddErrorString(e.Message);
+                    App.WindowManager.ErrorList.AddErrorString(e.Message);
                 });
             }
         }
@@ -442,7 +442,7 @@ namespace Amplitude.Helpers
                     {
                         Dispatcher.UIThread.InvokeAsync(() =>
                         {
-                            App.WindowManager.ErrorListWindow.AddErrorSoundClip(clip, Views.ErrorList.ErrorType.MISSING_DEVICE, settings.DeviceName);
+                            App.WindowManager.ErrorList.AddErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_DEVICE, settings.DeviceName);
                         });
                     }
                 }
