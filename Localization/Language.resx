@@ -333,7 +333,7 @@
   <data name="AutoScaleTilesToWindowLabel" xml:space="preserve">
     <value>Auto scale tiles to fit window</value>
   </data>
-  <data name="AutoScaleTilesExplanation" xml:space="preserve">
-    <value>You can use your own size for each tile or set them to fill the window automatically</value>
+  <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
+    <value>Allow tiles to be stretched to fill available window space, or set a custom tile size</value>
   </data>
 </root>

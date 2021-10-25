@@ -333,4 +333,7 @@
   <data name="AutoScaleTilesToWindowLabel" xml:space="preserve">
     <value>Tegels automatisch schalen om in het venster te passen</value>
   </data>
+  <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
+    <value>Sta toe dat tegels worden uitgerekt om de beschikbare vensterruimte te vullen, of stel een aangepaste tegelgrootte in</value>
+  </data>
 </root>

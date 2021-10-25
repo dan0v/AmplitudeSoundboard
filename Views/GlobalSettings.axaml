@@ -152,7 +152,7 @@
             </Border.BorderBrush>
             <StackPanel>
               <Label Content="{i18n:Localize GridTileSizeLabel}" HorizontalAlignment="Center" Height="30"></Label>
-              <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize AutoScaleTilesExplanation}">
+              <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize AutoScaleTilesToWindowTooltip}">
                 <Label Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" Content="{i18n:Localize AutoScaleTilesToWindowLabel}" ></Label>
                 <CheckBox x:Name="chk_AutoScaleTiles" Grid.Column="1" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.AutoScaleTilesToWindow}" Cursor="Hand"/>
               </Grid>

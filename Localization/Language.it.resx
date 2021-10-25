@@ -333,4 +333,7 @@
   <data name="AutoScaleTilesToWindowLabel" xml:space="preserve">
     <value>Ridimensiona automaticamente i riquadri per adattarsi alla finestra</value>
   </data>
+  <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
+    <value>Consenti alle tessere di essere allungate per riempire lo spazio disponibile della finestra o imposta una dimensione delle tessere personalizzata</value>
+  </data>
 </root>

@@ -88,20 +88,20 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can use your own size for each tile or set them to fill the window automatically.
-        /// </summary>
-        internal static string AutoScaleTilesExplanation {
-            get {
-                return ResourceManager.GetString("AutoScaleTilesExplanation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Auto scale tiles to fit window.
         /// </summary>
         internal static string AutoScaleTilesToWindowLabel {
             get {
                 return ResourceManager.GetString("AutoScaleTilesToWindowLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow tiles to be stretched to fill available window space, or set a custom tile size.
+        /// </summary>
+        internal static string AutoScaleTilesToWindowTooltip {
+            get {
+                return ResourceManager.GetString("AutoScaleTilesToWindowTooltip", resourceCulture);
             }
         }
         

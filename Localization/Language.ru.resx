@@ -333,4 +333,7 @@
   <data name="AutoScaleTilesToWindowLabel" xml:space="preserve">
     <value>Автоматически масштабировать плитки по размеру окна</value>
   </data>
+  <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
+    <value>Разрешить растягивание плиток для заполнения доступного пространства окна или установить собственный размер плитки</value>
+  </data>
 </root>
