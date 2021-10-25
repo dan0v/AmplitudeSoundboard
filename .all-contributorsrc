@@ -80,6 +80,16 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "ktos",
+      "name": "Marcin Badurowicz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1633261?v=4",
+      "profile": "https://ktos.info",
+      "contributions": [
+        "translation",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

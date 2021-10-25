@@ -1,7 +1,7 @@
 # Amplitude Soundboard
 ![GitHub Logo](Branding/Banner.png)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # [Website](https://amplitude-soundboard.dan0v.com/index.html)
@@ -61,6 +61,9 @@ Many thanks to all these people! ([emoji key](https://allcontributors.org/docs/e
     <td align="center"><a href="https://github.com/SonjaVredeveld"><img src="https://avatars.githubusercontent.com/u/10913197?v=4?s=100" width="100px;" alt=""/><br /><sub><b>SVredeveld</b></sub></a><br /><a href="#translation-SonjaVredeveld" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/GF1977"><img src="https://avatars.githubusercontent.com/u/13718260?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ilia Opiakin</b></sub></a><br /><a href="#translation-GF1977" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/AntoSkate"><img src="https://avatars.githubusercontent.com/u/36473846?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Antonio Brugnolo</b></sub></a><br /><a href="#translation-AntoSkate" title="Translation">🌍</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://ktos.info"><img src="https://avatars.githubusercontent.com/u/1633261?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcin Badurowicz</b></sub></a><br /><a href="#translation-ktos" title="Translation">🌍</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=ktos" title="Code">💻</a></td>
   </tr>
 </table>
 
