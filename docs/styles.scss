@@ -98,6 +98,19 @@ a.button {
     font-size: 1.2em;
 }
 
+.button-div {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    padding-left: 2rem;
+    img {
+        height: 3em;
+        margin-left: 1em;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+}
+
 .blurb > #blurb-first {
     margin-top: 3rem;
 }
@@ -281,6 +294,18 @@ a.button {
             margin-left: 0;
             margin-right: 0;
         }
+
+        .button-div {
+            margin-top: 1.8vw;
+            margin-bottom: 1.8vw;
+            margin-left: 0;
+            margin-right: 0;
+            img {
+                height: 2em;
+                margin-left: 0.5em;
+            }
+        }
+
     }
 
     .orange-border {
