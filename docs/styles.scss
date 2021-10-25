@@ -102,7 +102,7 @@ a.button {
     text-align: center;
     justify-content: center;
     display: flex;
-    padding-left: 2rem;
+    padding-left: 1.5rem;
     img {
         height: 3em;
         margin-left: 1em;
@@ -296,12 +296,10 @@ a.button {
         }
 
         .button-div {
-            margin-top: 1.8vw;
-            margin-bottom: 1.8vw;
             margin-left: 0;
             margin-right: 0;
             img {
-                height: 2em;
+                height: 1.8em;
                 margin-left: 0.5em;
             }
         }
