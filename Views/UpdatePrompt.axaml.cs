@@ -69,6 +69,7 @@ namespace Amplitude.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
+            Localizer.Instance.PropertyChanged += Localizer_PropertyChanged;
         }
 
         public UpdatePrompt(string newVersion)
@@ -78,6 +79,12 @@ namespace Amplitude.Views
             this.AttachDevTools();
 #endif
             this.newVersion = newVersion;
+            OnPropertyChanged(nameof(UpdatePromptText));
+            Localizer.Instance.PropertyChanged += Localizer_PropertyChanged;
+        }
+
+        private void Localizer_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
             OnPropertyChanged(nameof(UpdatePromptText));
         }
 
@@ -172,6 +179,10 @@ namespace Amplitude.Views
             if (Updating)
             {
                 e.Cancel = true;
+            }
+            else
+            {
+                Localizer.Instance.PropertyChanged -= Localizer_PropertyChanged;
             }
             base.OnClosing(e);
         }
