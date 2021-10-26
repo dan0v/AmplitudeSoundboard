@@ -192,11 +192,11 @@
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
             <StackPanel>
-              <Grid ColumnDefinitions="*,*" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize CacheAudioExplanation}">
+              <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize CacheAudioExplanation}">
                 <Label Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" Content="{i18n:Localize CacheAudioLabel}" ></Label>
                 <CheckBox Grid.Column="1" x:Name="chk_CacheAudio" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.CacheAudio}" Cursor="Hand"/>
               </Grid>
-              <Grid ColumnDefinitions="*,*" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize PreCacheAudioExplanation}">
+              <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize PreCacheAudioExplanation}">
                 <Label Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" IsEnabled="{Binding #chk_CacheAudio.IsChecked}" Content="{i18n:Localize PreCacheAudioLabel}" ></Label>
                 <CheckBox Grid.Column="1" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsEnabled="{Binding #chk_CacheAudio.IsChecked}" IsChecked="{Binding Model.PreCacheAudio}" Cursor="Hand"/>
               </Grid>
@@ -208,10 +208,10 @@
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
-              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
-                <Label VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" Content="{i18n:Localize HideTutorial}" ></Label>
-                <CheckBox HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.HideTutorial}" Cursor="Hand"/>
-              </StackPanel>
+            <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center">
+              <Label Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" Content="{i18n:Localize HideTutorial}" ></Label>
+              <CheckBox Grid.Column="1" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.HideTutorial}" Cursor="Hand"/>
+            </Grid>
           </Border>
           
           <!--Save button-->

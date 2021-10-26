@@ -24,6 +24,7 @@
   - Español
   - Italiano
   - Nederlands
+  - Polski
   - Pусский
 
 ## Installation
