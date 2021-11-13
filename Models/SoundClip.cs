@@ -234,7 +234,7 @@ namespace Amplitude.Models
             App.WindowManager.OpenEditSoundClipWindow(Id);
         }
 
-        public void SetAndRescaleBackgroundImage()
+        public void SetAndRescaleBackgroundImage(bool fromBackgroundThread = false)
         {
             if (LoadBackgroundImage && BrowseIO.ValidImage(_imageFilePath, false))
             {
@@ -261,7 +261,17 @@ namespace Amplitude.Models
             {
                 _backgroundImage = null;
             }
-            OnPropertyChanged(nameof(BackgroundImage));
+            if (fromBackgroundThread)
+            {
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    OnPropertyChanged(nameof(BackgroundImage));
+                });
+            }
+            else
+            {
+                OnPropertyChanged(nameof(BackgroundImage));
+            }
         }
 
         public static SoundClip? FromJSON(string json)

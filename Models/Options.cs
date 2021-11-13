@@ -112,8 +112,8 @@ namespace Amplitude.Models
             }
         }
 
-        private int _gridRows = 5;
-        public int GridRows
+        private int? _gridRows = 5;
+        public int? GridRows
         {
             get => _gridRows;
             set
@@ -126,8 +126,8 @@ namespace Amplitude.Models
             }
         }
 
-        private int _gridColumns = 5;
-        public int GridColumns
+        private int? _gridColumns = 5;
+        public int? GridColumns
         {
             get => _gridColumns;
             set
@@ -154,8 +154,8 @@ namespace Amplitude.Models
             }
         }
 
-        private int _gridTileHeight = 100;
-        public int GridTileHeight
+        private int? _gridTileHeight = 100;
+        public int? GridTileHeight
         {
             get => _gridTileHeight;
             set
@@ -168,8 +168,8 @@ namespace Amplitude.Models
             }
         }
 
-        private int _gridTileWidth = 100;
-        public int GridTileWidth
+        private int? _gridTileWidth = 100;
+        public int? GridTileWidth
         {
             get => _gridTileWidth;
             set
@@ -188,9 +188,9 @@ namespace Amplitude.Models
         public int ActualTileWidth = 100;
 
         [JsonIgnore]
-        public int DesiredImageHeight => AutoScaleTilesToWindow ? ActualTileHeight : GridTileHeight;
+        public int DesiredImageHeight => AutoScaleTilesToWindow ? ActualTileHeight : GridTileHeight ?? 1;
         [JsonIgnore]
-        public int DesiredImageWidth => AutoScaleTilesToWindow ? ActualTileWidth : GridTileWidth;
+        public int DesiredImageWidth => AutoScaleTilesToWindow ? ActualTileWidth : GridTileWidth ?? 1;
 
         private bool _hideTutorial = false;
         public bool HideTutorial
@@ -242,7 +242,7 @@ namespace Amplitude.Models
 
         public void ApplyGridSizing()
         {
-            string[,] newGrid = new string[_gridRows, _gridColumns];
+            string[,] newGrid = new string[_gridRows ?? 1, _gridColumns ?? 1];
 
             for (int row = 0; row <= newGrid.GetUpperBound(0); row++)
             {
@@ -261,6 +261,26 @@ namespace Amplitude.Models
             }
 
             GridSoundClipIds = newGrid;
+        }
+
+        public void ValidateAndCorrectGridLayoutSettings()
+        {
+            if (GridRows == null || GridRows < 1)
+            {
+                GridRows = 1;
+            }
+            if (GridColumns == null || GridColumns < 1)
+            {
+                GridColumns = 1;
+            }
+            if (GridTileHeight == null || GridTileHeight < 1)
+            {
+                GridTileHeight = 1;
+            }
+            if (GridTileWidth == null || GridTileWidth < 1)
+            {
+                GridTileWidth = 1;
+            }
         }
 
         public string ToJSON()

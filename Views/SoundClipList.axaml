@@ -78,7 +78,7 @@
                           <MenuItem Header="{i18n:Localize CopyToClipboard}" Command="{Binding CopySoundClipId}"></MenuItem>
                         </ContextMenu>
                       </Grid.ContextMenu>
-                      <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="{Binding Name}"></TextBlock>
+                      <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="{Binding Name}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Name}"></TextBlock>
                       <Button Grid.Column="1" Cursor="Hand" Command="{Binding PlayAudio}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{Binding PlayAudioTooltip}" Margin="5,0,5,0">
                         <Panel>
                           <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.Play}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />

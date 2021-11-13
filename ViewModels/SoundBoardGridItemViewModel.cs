@@ -36,8 +36,8 @@ namespace Amplitude.ViewModels
 
         private string soundClipId = "";
 
-        private double Height => OptionsManager.Options.AutoScaleTilesToWindow ? getHeight() : OptionsManager.Options.GridTileHeight;
-        private double Width => OptionsManager.Options.AutoScaleTilesToWindow ? getWidth() : OptionsManager.Options.GridTileWidth;
+        private double Height => OptionsManager.Options.AutoScaleTilesToWindow ? GetHeight() : OptionsManager.Options.GridTileHeight ?? 0;
+        private double Width => OptionsManager.Options.AutoScaleTilesToWindow ? GetWidth() : OptionsManager.Options.GridTileWidth ?? 0;
 
         private int row = 0;
         private int col = 0;
@@ -180,17 +180,19 @@ namespace Amplitude.ViewModels
             }
         }
 
-        private double getWidth()
+        private double GetWidth()
         {
+            var cols = OptionsManager.Options.GridColumns;
             // TODO this is wasteful, but fine for now
-            OptionsManager.Options.ActualTileWidth = (int)(((WindowManager.MainWindow?.GridSize.width - (11 * (OptionsManager.Options.GridColumns + 1))) / OptionsManager.Options.GridColumns) ?? OptionsManager.Options.GridTileWidth);
+            OptionsManager.Options.ActualTileWidth = (int)(((WindowManager.MainWindow?.GridSize.width - (11 * (cols + 1))) / cols) ?? OptionsManager.Options.GridTileWidth);
             return OptionsManager.Options.ActualTileWidth;
         }
 
-        private double getHeight()
+        private double GetHeight()
         {
+            var rows = OptionsManager.Options.GridRows;
             // TODO this is wasteful, but fine for now
-            OptionsManager.Options.ActualTileHeight = (int)(((WindowManager.MainWindow?.GridSize.height - (11 * (OptionsManager.Options.GridRows + 1))) / OptionsManager.Options.GridRows) ?? OptionsManager.Options.GridTileHeight);
+            OptionsManager.Options.ActualTileHeight = (int)(((WindowManager.MainWindow?.GridSize.height - (11 * (rows + 1))) / rows) ?? OptionsManager.Options.GridTileHeight);
             return OptionsManager.Options.ActualTileHeight;
         }
 

@@ -96,11 +96,11 @@ namespace Amplitude.Models
         private Dictionary<string, SoundClip> _soundClips;
         public Dictionary<string, SoundClip> SoundClips { get => _soundClips; }
 
-        public void RescaleAllBackgroundImages()
+        public void RescaleAllBackgroundImages(bool fromBackgroundThread = false)
         {
             foreach (SoundClip clip in SoundClips.Values)
             {
-                clip.SetAndRescaleBackgroundImage();
+                clip.SetAndRescaleBackgroundImage(fromBackgroundThread);
             }
         }
         

@@ -94,6 +94,7 @@ namespace Amplitude.Models
         {
             try
             {
+                options.ValidateAndCorrectGridLayoutSettings();
                 options.ApplyGridSizing();
                 File.WriteAllText(Path.Join(App.APP_STORAGE, OPTIONS_FILE_NAME), options.ToJSON());
                 App.HotkeysManager.RemoveHotkey(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, Options.GlobalKillAudioHotkey);
