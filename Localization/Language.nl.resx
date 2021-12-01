@@ -336,4 +336,16 @@
   <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
     <value>Sta toe dat tegels worden uitgerekt om de beschikbare vensterruimte te vullen, of stel een aangepaste tegelgrootte in</value>
   </data>
+  <data name="CustomTheme" xml:space="preserve">
+    <value>Aangepast</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Donker</value>
+  </data>
+  <data name="InvalidThemeError" xml:space="preserve">
+    <value>Geselecteerd thema valt buiten bereik: {0}</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Helder</value>
+  </data>
 </root>

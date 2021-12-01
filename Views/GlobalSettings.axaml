@@ -87,7 +87,7 @@
             </Border.BorderBrush>
             <Grid ColumnDefinitions="*,*">
               <Label Grid.Column="0" Content="{i18n:Localize ThemeLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-              <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,5,0,5" SelectedItem="{Binding Model.Theme}" Items="{Binding ThemeHandler.ThemesList}" HorizontalAlignment="Center"></ComboBox>
+              <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,5,0,5" SelectedIndex="{Binding Model.ThemeId}" Items="{Binding ThemeHandler.ThemesList}" VirtualizationMode="None" HorizontalAlignment="Center"/>
             </Grid>
           </Border>
 

@@ -105,8 +105,7 @@ namespace Amplitude.Models
                 }
                 _options = options;
                 Localizer.Instance.ChangeLanguage(options.Language);
-                App.ThemeHandler.SelectedTheme = options.Theme;
-
+                App.ThemeHandler.SelectTheme(options.ThemeId);
             }
             catch (Exception e)
             {

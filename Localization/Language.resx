@@ -336,4 +336,16 @@
   <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
     <value>Allow tiles to be stretched to fill available window space, or set a custom tile size</value>
   </data>
+  <data name="CustomTheme" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="InvalidThemeError" xml:space="preserve">
+    <value>Selected theme is out of range: {0}</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Light</value>
+  </data>
 </root>

@@ -28,7 +28,7 @@ namespace Amplitude.ViewModels
 {
     public class GlobalSettingsViewModel : ViewModelBase
     {
-        static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        private static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
 
         private Options _model;
         public Options Model { get => _model; }

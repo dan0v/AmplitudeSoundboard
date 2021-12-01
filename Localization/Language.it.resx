@@ -336,4 +336,16 @@
   <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
     <value>Consenti alle tessere di essere allungate per riempire lo spazio disponibile della finestra o imposta una dimensione delle tessere personalizzata</value>
   </data>
+  <data name="CustomTheme" xml:space="preserve">
+    <value>Personalizzata</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Buio</value>
+  </data>
+  <data name="InvalidThemeError" xml:space="preserve">
+    <value>Il tema selezionato non è compreso nell'intervallo: {0}</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Chiaro</value>
+  </data>
 </root>

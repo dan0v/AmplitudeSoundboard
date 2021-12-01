@@ -336,4 +336,16 @@
   <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
     <value>Zezwól aby kafelki wypełniały automatycznie cały obszar okna lub ustaw własny rozmiar każdego kafelka</value>
   </data>
+  <data name="CustomTheme" xml:space="preserve">
+    <value>Niestandardowy</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Ciemny</value>
+  </data>
+  <data name="InvalidThemeError" xml:space="preserve">
+    <value>Wybrany motyw jest poza zakresem: {0}</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Jasny</value>
+  </data>
 </root>

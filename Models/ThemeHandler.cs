@@ -26,11 +26,14 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Styling;
+using Avalonia.Threading;
 using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Amplitude.Models
 {
-    public class ThemeHandler
+    public class ThemeHandler : INotifyPropertyChanged
     {
         private static ThemeHandler _instance;
         public static ThemeHandler Instance
@@ -47,11 +50,36 @@ namespace Amplitude.Models
 
         private ThemeHandler()
         {
-            _selectedTheme = App.OptionsManager.Options.Theme;
-            RefreshTheme();
+            SelectTheme(App.OptionsManager.Options.ThemeId);
         }
 
-        public static string[] ThemesList { get => new string[] { "Dark", "Light" }; }
+        public void SelectTheme(int selection)
+        {
+            OnPropertyChanged(nameof(ThemesList));
+            if (selection > -1 && selection < ThemesList.Length)
+            {
+                SelectedTheme = (Theme)selection;
+            }
+            else
+            {
+                SelectedTheme = Theme.DARK;
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    App.WindowManager.ErrorList.AddErrorString(string.Format(Localization.Localizer.Instance["InvalidThemeError"], selection));
+                });
+            }
+        }
+
+        public static string[] ThemesList
+        {
+            get =>
+            new string[]
+            {
+                Localization.Localizer.Instance["DarkTheme"],
+                Localization.Localizer.Instance["LightTheme"],
+                //Localization.Localizer.Instance["CustomTheme"]
+            };
+        }
 
         public FontFamily TitleFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/JosefinSans/#Josefin Sans");
         public FontFamily BodyFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/NotoSansDisplay/");
@@ -63,9 +91,9 @@ namespace Amplitude.Models
             {
                 switch (SelectedTheme)
                 {
-                    case "Light":
+                    case Theme.LIGHT:
                         return Color.Parse("#bfbfc1");
-                    case "Dark":
+                    case Theme.DARK:
                         return Color.Parse("#171a21");
                     default:
                         throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
@@ -79,9 +107,9 @@ namespace Amplitude.Models
             {
                 switch (SelectedTheme)
                 {
-                    case "Light":
+                    case Theme.LIGHT:
                         return Color.Parse("#F08A5D");
-                    case "Dark":
+                    case Theme.DARK:
                         return Color.Parse("#F08A5D");
                     default:
                         throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
@@ -95,9 +123,9 @@ namespace Amplitude.Models
             {
                 switch (SelectedTheme)
                 {
-                    case "Light":
+                    case Theme.LIGHT:
                         return Color.Parse("#252A36");
-                    case "Dark":
+                    case Theme.DARK:
                         return Color.Parse("#EBAEFF");
                     default:
                         throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
@@ -111,9 +139,9 @@ namespace Amplitude.Models
             {
                 switch (SelectedTheme)
                 {
-                    case "Light":
+                    case Theme.LIGHT:
                         return Color.Parse("#EBAEFF");
-                    case "Dark":
+                    case Theme.DARK:
                         return Color.Parse("#F08A5D");
                     default:
                         throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
@@ -127,9 +155,9 @@ namespace Amplitude.Models
             {
                 switch (SelectedTheme)
                 {
-                    case "Light":
+                    case Theme.LIGHT:
                         return Color.Parse("#66ffffff");
-                    case "Dark":
+                    case Theme.DARK:
                         return Color.Parse("#66000000");
                     default:
                         throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
@@ -165,13 +193,13 @@ namespace Amplitude.Models
         
 
         // TODO actually refactor this to enum after all to support string localization
-        private string _selectedTheme;
-        public string SelectedTheme
+        private Theme _selectedTheme;
+        public Theme SelectedTheme
         {
             get => _selectedTheme;
             set
             {
-                if (!string.IsNullOrEmpty(value) && Array.Exists<string>(ThemesList, t => t == value) && value != SelectedTheme)
+                if (value != _selectedTheme)
                 {
                     _selectedTheme = value;
                     RefreshTheme();
@@ -215,9 +243,9 @@ namespace Amplitude.Models
             {
                 switch (SelectedTheme)
                 {
-                    case "Light":
+                    case Theme.LIGHT:
                         return lightAcrylic;
-                    case "Dark":
+                    case Theme.DARK:
                         return darkAcrylic;
                     default:
                         throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
@@ -235,10 +263,10 @@ namespace Amplitude.Models
                 string fold;
                 switch (SelectedTheme)
                 {
-                    case "Light":
+                    case Theme.LIGHT:
                         fold = "Light";
                         break;
-                    case "Dark":
+                    case Theme.DARK:
                         fold = "Dark";
                         break;
                     default:
@@ -258,15 +286,28 @@ namespace Amplitude.Models
         {
             switch (SelectedTheme)
             {
-                case "Light":
+                case Theme.LIGHT:
                     App.Current.Styles[0] = fluentLight;
                     break;
-                case "Dark":
+                case Theme.DARK:
                     App.Current.Styles[0] = fluentDark;
                     break;
                 default:
                     throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
             }
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    public enum Theme
+    {
+        DARK = 0,
+        LIGHT = 1,
+        CUSTOM = 2
     }
 }

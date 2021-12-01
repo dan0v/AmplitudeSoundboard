@@ -336,4 +336,16 @@
   <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
     <value>Разрешить растягивание плиток для заполнения доступного пространства окна или установить собственный размер плитки</value>
   </data>
+  <data name="CustomTheme" xml:space="preserve">
+    <value>кастомный</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>темно</value>
+  </data>
+  <data name="InvalidThemeError" xml:space="preserve">
+    <value>Выбранная тема вне допустимого диапазона: {0}</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>яркий</value>
+  </data>
 </root>

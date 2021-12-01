@@ -336,4 +336,16 @@
   <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
     <value>Permita que los mosaicos se estiren para llenar el espacio disponible en la ventana o establezca un tamaño de mosaico personalizado</value>
   </data>
+  <data name="CustomTheme" xml:space="preserve">
+    <value>Personalizado</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Negro</value>
+  </data>
+  <data name="InvalidThemeError" xml:space="preserve">
+    <value>El tema seleccionado está fuera de rango: {0}</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Ligero</value>
+  </data>
 </root>

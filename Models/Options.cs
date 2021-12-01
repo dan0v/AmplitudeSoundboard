@@ -46,14 +46,30 @@ namespace Amplitude.Models
         }
 
         private string _theme = "Dark";
+        [Obsolete]
         public string Theme
         {
-            get => _theme;
+            internal get => _theme;
             set
             {
                 if (value != _theme)
                 {
                     _theme = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _themeId = 0;
+        public int ThemeId
+        {
+            get => _themeId;
+            set
+            {
+                // UI sends -1 when theme list is refreshed, so ignore this
+                if (value != -1 && value != _themeId)
+                {
+                    _themeId = value;
                     OnPropertyChanged();
                 }
             }
