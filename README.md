@@ -23,6 +23,7 @@
   - English
   - Español
   - Italiano
+  - Magyar
   - Nederlands
   - Polski
   - Pусский

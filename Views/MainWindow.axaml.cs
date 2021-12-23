@@ -71,7 +71,6 @@ namespace Amplitude.Views
 
             if (App.OptionsManager.Options.AutoScaleTilesToWindow)
             {
-
                 if (!timer.Enabled)
                 {
                     timer.Enabled = true;
