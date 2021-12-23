@@ -22,6 +22,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Amplitude.Models;
 using AmplitudeSoundboard;
 using Avalonia.Controls;
 
@@ -111,14 +112,21 @@ namespace Amplitude.Helpers
             return true;
         }
 
-        public static bool ValidAudioFile(string fileName, bool generateErrors = true)
+        public static bool ValidAudioFile(string fileName, bool generateErrors = true, SoundClip? clip = null)
         {
             if (!File.Exists(fileName))
             {
                 if (generateErrors)
                 {
-                    string errorMessage = string.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
-                    App.WindowManager.ErrorList.AddErrorString(errorMessage);
+                    if(clip != null)
+                    {
+                        App.WindowManager.ErrorList.AddErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_AUDIO_FILE);
+                    }
+                    else
+                    {
+                        string errorMessage = string.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
+                        App.WindowManager.ErrorList.AddErrorString(errorMessage);
+                    }
                 }
                 return false;
             }
@@ -128,12 +136,19 @@ namespace Amplitude.Helpers
             {
                 fileType = fileType.Substring(1);
             }
-            if (AudioFileTypesFilter.Extensions.Where(a => a.ToLower() == fileType).Count() < 1)
+            if (!AudioFileTypesFilter.Extensions.Where(a => a.ToLower() == fileType).Any())
             {
                 if (generateErrors)
                 {
-                    string errorMessage = string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
-                    App.WindowManager.ErrorList.AddErrorString(errorMessage);
+                    if (clip != null)
+                    {
+                        App.WindowManager.ErrorList.AddErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.BAD_AUDIO_FORMAT);
+                    }
+                    else
+                    {
+                        string errorMessage = string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
+                        App.WindowManager.ErrorList.AddErrorString(errorMessage);
+                    }
                 }
                 return false;
             }

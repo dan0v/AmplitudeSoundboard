@@ -74,7 +74,7 @@ namespace Amplitude.Views
         {
             try
             {
-                string[] url = await BrowseIO.OpenFileBrowser(GetWindow(), BrowseIO.FileBrowserType.AUDIO);
+                string[]? url = await BrowseIO.OpenFileBrowser(GetWindow(), BrowseIO.FileBrowserType.AUDIO);
                 ((EditSoundClipViewModel)DataContext).SetClipAudioFilePath(url);
             }
             catch (Exception e)
@@ -87,7 +87,7 @@ namespace Amplitude.Views
         {
             try
             {
-                string[] url = await BrowseIO.OpenFileBrowser(GetWindow(), BrowseIO.FileBrowserType.IMAGE);
+                string[]? url = await BrowseIO.OpenFileBrowser(GetWindow(), BrowseIO.FileBrowserType.IMAGE);
                 ((EditSoundClipViewModel)DataContext).SetClipImageFilePath(url);
             }
             catch (Exception e)

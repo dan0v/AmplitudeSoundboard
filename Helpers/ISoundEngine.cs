@@ -36,7 +36,7 @@ namespace Amplitude.Helpers
 
         public void Play(SoundClip source);
 
-        public void Play(string fileName, int volume, string playerDeviceName, string? id = null);
+        public void Play(string fileName, int volume, string playerDeviceName, string id);
 
         public void RemoveFromCache(string id);
 

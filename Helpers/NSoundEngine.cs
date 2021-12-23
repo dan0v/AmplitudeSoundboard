@@ -215,7 +215,12 @@ namespace Amplitude.Helpers
         /// <param name="source"></param>
         public void Play(SoundClip source)
         {
-            if (!string.IsNullOrEmpty(source.Id) && soundCache.TryGetValue(source.Id, out CachedSound sound))
+            if (string.IsNullOrEmpty(source.Id) || !BrowseIO.ValidAudioFile(source.AudioFilePath, true, source))
+            {
+                return;
+            }
+
+            if (soundCache.TryGetValue(source.Id, out CachedSound sound))
             {
                 foreach (OutputSettings settings in source.OutputSettings)
                 {
@@ -243,12 +248,12 @@ namespace Amplitude.Helpers
         }
 
         /// <summary>
-        /// Optionally cache sound if SoundClip Id is provided and global setting is set
+        /// Play and optionally cache sound if global setting is set
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="volume"></param>
         /// <param name="id"></param>
-        public void Play(string fileName, int volume, string playerDeviceName, string? id = null)
+        public void Play(string fileName, int volume, string playerDeviceName, string id)
         {
             if (!BrowseIO.ValidAudioFile(fileName))
             {

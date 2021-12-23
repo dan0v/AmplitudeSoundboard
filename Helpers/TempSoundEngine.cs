@@ -58,7 +58,7 @@ namespace Amplitude.Helpers
             throw new NotImplementedException();
         }
 
-        public void Play(string fileName, int volume, string playerDeviceName, string? id = null)
+        public void Play(string fileName, int volume, string playerDeviceName, string id)
         {
             throw new NotImplementedException();
         }

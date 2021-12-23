@@ -193,9 +193,9 @@ namespace Amplitude.ViewModels
             App.SoundEngine.Reset(true);
         }
 
-        public void SetClipAudioFilePath(string[] url)
+        public void SetClipAudioFilePath(string[]? url)
         {
-            if (url.Length > 0)
+            if (url?.Length > 0)
             {
                 Model.AudioFilePath = url[0];
             }
@@ -206,9 +206,9 @@ namespace Amplitude.ViewModels
             App.SoundClipManager.RemoveSoundClip(Model.Id);
         }
 
-        public void SetClipImageFilePath(string[] url)
+        public void SetClipImageFilePath(string[]? url)
         {
-            if (url.Length > 0)
+            if (url?.Length > 0)
             {
                 Model.ImageFilePath = url[0];
             }
