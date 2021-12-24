@@ -62,7 +62,6 @@ namespace Amplitude.Views
             EffectiveViewportChanged += MainWindow_EffectiveViewportChanged;
             timer.AutoReset = false;
             timer.Elapsed += Timer_Elapsed;
-            App.WindowManager.DesktopScaling = PlatformImpl.DesktopScaling;
         }
 
         private void MainWindow_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)

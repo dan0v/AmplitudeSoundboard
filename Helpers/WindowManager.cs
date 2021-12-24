@@ -61,7 +61,7 @@ namespace Amplitude.Helpers
             }
         }
 
-        public double DesktopScaling = 1;
+        public double DesktopScaling { get => MainWindow?.PlatformImpl.DesktopScaling ?? 1; }
 
         public void OpenEditSoundClipWindow(string? id = null)
         {

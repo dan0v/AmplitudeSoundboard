@@ -27,7 +27,7 @@ using Avalonia.Input;
 
 namespace Amplitude.ViewModels
 {
-    public class SoundBoardGridItemViewModel : ViewModelBase
+    public sealed class SoundBoardGridItemViewModel : ViewModelBase
     {
         static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
         static SoundClipManager Manager { get => App.SoundClipManager; }

@@ -29,10 +29,10 @@ using System.Collections.ObjectModel;
 
 namespace Amplitude.ViewModels
 {
-    public class ErrorListViewModel : ViewModelBase
+    public sealed class ErrorListViewModel : ViewModelBase
     {
-        static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        static WindowManager WindowManager { get => App.WindowManager; }
+        private static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        private static WindowManager WindowManager { get => App.WindowManager; }
 
         public ObservableCollection<ErrorContainer> _errors = new();
         public ObservableCollection<ErrorContainer> Errors => _errors;

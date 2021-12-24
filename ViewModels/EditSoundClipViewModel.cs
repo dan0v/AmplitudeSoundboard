@@ -25,10 +25,10 @@ using Avalonia.Media;
 
 namespace Amplitude.ViewModels
 {
-    public class EditSoundClipViewModel : ViewModelBase
+    public sealed class EditSoundClipViewModel : ViewModelBase
     {
-        static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        private OptionsManager OptionsManager { get => App.OptionsManager; }
+        private static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        private static OptionsManager OptionsManager { get => App.OptionsManager; }
 
         private string StopAudioHotkey => string.IsNullOrEmpty(OptionsManager.Options.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + OptionsManager.Options.GlobalKillAudioHotkey;
 

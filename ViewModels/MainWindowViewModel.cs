@@ -26,7 +26,7 @@ using System.Collections.ObjectModel;
 
 namespace Amplitude.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public sealed class MainWindowViewModel : ViewModelBase
     {
         private static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
         private static SoundClipManager Manager { get => App.SoundClipManager; }

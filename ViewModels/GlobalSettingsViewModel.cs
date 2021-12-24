@@ -26,13 +26,13 @@ using System.Linq;
 
 namespace Amplitude.ViewModels
 {
-    public class GlobalSettingsViewModel : ViewModelBase
+    public sealed class GlobalSettingsViewModel : ViewModelBase
     {
         private static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
 
         private Options _model;
         public Options Model { get => _model; }
-        public string[] Languages { get => Localization.Localizer.Languages.Keys.ToArray(); } 
+        public static string[] Languages { get => Localization.Localizer.Languages.Keys.ToArray(); } 
 
         public GlobalSettingsViewModel()
         {

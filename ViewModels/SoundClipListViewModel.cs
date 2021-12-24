@@ -27,7 +27,7 @@ using Avalonia.Controls;
 
 namespace Amplitude.ViewModels
 {
-    public class SoundClipListViewModel : ViewModelBase
+    public sealed class SoundClipListViewModel : ViewModelBase
     {
         static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
         static SoundClipManager Manager { get => App.SoundClipManager; }

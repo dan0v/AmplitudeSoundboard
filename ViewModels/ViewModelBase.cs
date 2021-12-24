@@ -26,7 +26,7 @@ using System.Runtime.CompilerServices;
 
 namespace Amplitude.ViewModels
 {
-    public class ViewModelBase : ReactiveObject, INotifyPropertyChanged, IDisposable
+    public abstract class ViewModelBase : ReactiveObject, INotifyPropertyChanged, IDisposable
     {
 
         public virtual void Dispose() { }
