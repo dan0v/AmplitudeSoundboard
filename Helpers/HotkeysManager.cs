@@ -32,17 +32,7 @@ namespace Amplitude.Helpers
     public class HotkeysManager
     {
         private static HotkeysManager _instance;
-        public static HotkeysManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new HotkeysManager();
-                }
-                return _instance;
-            }
-        }
+        public static HotkeysManager Instance { get =>_instance ??= new HotkeysManager(); }
 
         public const string UNBIND_HOTKEY = "UNBIND_HOTKEY";
         public const string MASTER_STOP_SOUND_HOTKEY = "MASTER_STOP_SOUND_HOTKEY";

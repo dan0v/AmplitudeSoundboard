@@ -36,17 +36,7 @@ namespace Amplitude.Models
     public class ThemeHandler : INotifyPropertyChanged
     {
         private static ThemeHandler _instance;
-        public static ThemeHandler Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new ThemeHandler();
-                }
-                return _instance;
-            }
-        }
+        public static ThemeHandler Instance { get => _instance ??= new ThemeHandler(); }
 
         private ThemeHandler()
         {
@@ -92,9 +82,9 @@ namespace Amplitude.Models
                 switch (SelectedTheme)
                 {
                     case Theme.LIGHT:
-                        return Color.Parse("#bfbfc1");
+                        return Color.Parse("#BFBFC1");
                     case Theme.DARK:
-                        return Color.Parse("#171a21");
+                        return Color.Parse("#171A21");
                     default:
                         throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
                 }
@@ -165,13 +155,7 @@ namespace Amplitude.Models
             }
         }
 
-        public Color TextBoxHighlightedColor
-        {
-            get
-            {
-                return SliderForeground;
-            }
-        }
+        public Color TextBoxHighlightedColor { get => SliderForeground; }
 
         public Bitmap ArrowLeft { get => getBitmap(folder + "/ArrowLeft.png"); }
         public Bitmap ArrowRight { get => getBitmap(folder + "/ArrowRight.png"); }
@@ -207,14 +191,14 @@ namespace Amplitude.Models
             }
         }
 
-        private static ExperimentalAcrylicMaterial darkAcrylic = new ExperimentalAcrylicMaterial
+        private readonly static ExperimentalAcrylicMaterial darkAcrylic = new ExperimentalAcrylicMaterial
         {
             BackgroundSource = AcrylicBackgroundSource.Digger,
             TintColor = Color.Parse("#0b1932"), // Should be #252A36, but material shifts the color, so current value unshifts it 
             TintOpacity = 1,
             MaterialOpacity = 0.8d
         };
-        private static ExperimentalAcrylicMaterial lightAcrylic = new ExperimentalAcrylicMaterial
+        private readonly static ExperimentalAcrylicMaterial lightAcrylic = new ExperimentalAcrylicMaterial
         {
             BackgroundSource = AcrylicBackgroundSource.Digger,
             TintColor = Color.Parse("White"),
@@ -222,14 +206,14 @@ namespace Amplitude.Models
             MaterialOpacity = 0.4d
         };
 
-        private static Styles fluentDark = new Styles
+        private static readonly Styles fluentDark = new Styles
         {
             new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
             {
                 Source = new Uri("avares://Avalonia.Themes.Fluent/FluentDark.xaml")
             },
         };
-        private static Styles fluentLight = new Styles
+        private static readonly Styles fluentLight = new Styles
         {
             new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
             {

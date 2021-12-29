@@ -35,17 +35,7 @@ namespace Amplitude.Helpers
     public class WindowManager : INotifyPropertyChanged
     {
         private static WindowManager? _instance;
-        public static WindowManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new WindowManager();
-                }
-                return _instance;
-            }
-        }
+        public static WindowManager Instance { get => _instance ??= new WindowManager(); }
 
         private Dictionary<string, EditSoundClip> _editSoundClipWindows = new Dictionary<string, EditSoundClip>();
         public Dictionary<string, EditSoundClip> EditSoundClipWindows

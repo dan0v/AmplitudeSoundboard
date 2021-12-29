@@ -36,17 +36,7 @@ namespace Amplitude.Models
     public class OptionsManager : INotifyPropertyChanged
     {
         private static OptionsManager? _instance;
-        public static OptionsManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new OptionsManager();
-                }
-                return _instance;
-            }
-        }
+        public static OptionsManager Instance { get => _instance ??= new OptionsManager(); }
 
         private Options _options;
         public Options Options { get => _options; }

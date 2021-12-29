@@ -30,17 +30,7 @@ namespace Amplitude.Helpers
     {
         private static TempSoundEngine? _instance;
 
-        public static TempSoundEngine Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new TempSoundEngine();
-                }
-                return _instance;
-            }
-        }
+        public static TempSoundEngine Instance { get => _instance ??= new TempSoundEngine(); }
 
         public List<string> OutputDeviceListWithGlobal => throw new NotImplementedException();
 

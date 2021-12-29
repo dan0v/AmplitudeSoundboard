@@ -35,17 +35,7 @@ namespace Amplitude.Models
     public class SoundClipManager : INotifyPropertyChanged
     {
         private static SoundClipManager? _instance;
-        public static SoundClipManager Instance 
-        {
-            get 
-            {
-                if (_instance == null) 
-                {
-                    _instance = new SoundClipManager();
-                }
-                return _instance;
-            }
-        }
+        public static SoundClipManager Instance { get => _instance ??= new SoundClipManager(); }
 
         private string _soundClipListFilter = "";
         public string SoundClipListFilter

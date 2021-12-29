@@ -39,17 +39,7 @@ namespace Amplitude.Helpers
     class NSoundEngine : ISoundEngine
     {
         private static NSoundEngine? _instance;
-        public static NSoundEngine Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new NSoundEngine();
-                }
-                return _instance;
-            }
-        }
+        public static NSoundEngine Instance { get => _instance ??= new NSoundEngine(); }
 
         public List<string> OutputDeviceListWithGlobal
         {
