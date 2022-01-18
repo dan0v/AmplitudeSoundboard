@@ -348,4 +348,7 @@
   <data name="LightTheme" xml:space="preserve">
     <value>Chiaro</value>
   </data>
+  <data name="HotkeyCancelPlaceholder" xml:space="preserve">
+    <value>Usa ESC per cancellare questa associazione...</value>
+  </data>
 </root>

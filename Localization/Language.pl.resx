@@ -348,4 +348,7 @@
   <data name="LightTheme" xml:space="preserve">
     <value>Jasny</value>
   </data>
+  <data name="HotkeyCancelPlaceholder" xml:space="preserve">
+    <value>Użyj ESC, aby wyczyścić to powiązanie...</value>
+  </data>
 </root>

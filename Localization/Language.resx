@@ -348,4 +348,7 @@
   <data name="LightTheme" xml:space="preserve">
     <value>Light</value>
   </data>
+  <data name="HotkeyCancelPlaceholder" xml:space="preserve">
+    <value>Use ESC to clear this binding...</value>
+  </data>
 </root>
