@@ -348,4 +348,7 @@
   <data name="LightTheme" xml:space="preserve">
     <value>Ligero</value>
   </data>
+  <data name="HotkeyCancelPlaceholder" xml:space="preserve">
+    <value>Use ESC para borrar este enlace...</value>
+  </data>
 </root>
