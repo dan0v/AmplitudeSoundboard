@@ -36,11 +36,28 @@ namespace Amplitude.Helpers
             IMAGE
         }
 
+#if Windows
         private static FileDialogFilter _audioFileTypesFilter = new FileDialogFilter
         {
             Name = "Audio file",
             Extensions = { "wav", "aiff", "mp3", "m4a", "mp4", "flac" }
         };
+#endif
+        // TODO add more formats using BASS plugins
+#if Linux
+        private static FileDialogFilter _audioFileTypesFilter = new FileDialogFilter
+        {
+            Name = "Audio file",
+            Extensions = { "wav", "aiff", "mp3", "ogg", "flac" }
+        };
+#endif
+#if MacOS
+        private static FileDialogFilter _audioFileTypesFilter = new FileDialogFilter
+        {
+            Name = "Audio file",
+            Extensions = { "wav", "aiff", "mp3", "ogg", "flac" }
+        };
+#endif
         public static FileDialogFilter AudioFileTypesFilter
         {
             get => _audioFileTypesFilter;
