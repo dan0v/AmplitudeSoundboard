@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Amplitude.Helpers;
 using AmplitudeSoundboard;
+using Newtonsoft.Json;
 
 namespace Amplitude.Models
 {
@@ -71,7 +72,9 @@ namespace Amplitude.Models
             }
         }
 
+        [JsonIgnore]
         public List<string> DeviceList => App.SoundEngine.OutputDeviceListWithGlobal;
+        [JsonIgnore]
         public List<string> DeviceListForGlobal => App.SoundEngine.OutputDeviceListWithoutGlobal;
 
         public OutputSettings ShallowCopy()
