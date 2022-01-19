@@ -251,10 +251,7 @@ namespace Amplitude.Models
                 }
                 catch(Exception e)
                 {
-                    Dispatcher.UIThread.InvokeAsync(() =>
-                    {
-                        App.WindowManager.ErrorList.AddErrorString(e.ToString());
-                    });
+                    App.WindowManager.ErrorList.AddErrorString(e.ToString());
                 }
             }
             else
@@ -263,10 +260,7 @@ namespace Amplitude.Models
             }
             if (fromBackgroundThread)
             {
-                Dispatcher.UIThread.InvokeAsync(() =>
-                {
-                    OnPropertyChanged(nameof(BackgroundImage));
-                });
+                OnPropertyChanged(nameof(BackgroundImage));
             }
             else
             {

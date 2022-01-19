@@ -24,6 +24,7 @@ using Amplitude.Models;
 using Amplitude.Views;
 using AmplitudeSoundboard;
 using Avalonia.Controls;
+using Avalonia.Threading;
 using System;
 using System.Collections.ObjectModel;
 
@@ -41,6 +42,13 @@ namespace Amplitude.ViewModels
 
         public void AddErrorString(string errorString)
         {
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    AddErrorString(errorString);
+                });
+            }
             ErrorContainer error = new ErrorContainer(errorString);
             Errors.Add(error);
 
@@ -49,7 +57,13 @@ namespace Amplitude.ViewModels
 
         public void AddErrorSoundClip(SoundClip clip, ErrorType errorType, string? additionalData = null)
         {
-
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    AddErrorSoundClip(clip, errorType, additionalData);
+                });
+            }
             string errorString = "";
 
             switch (errorType)
