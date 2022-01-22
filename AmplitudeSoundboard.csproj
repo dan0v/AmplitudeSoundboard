@@ -94,6 +94,13 @@
     </None>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="PowerShell -ExecutionPolicy Unrestricted $(ProjectDir)Publish\getVersion.ps1 -TargetDir $(TargetDir)&#xD;&#xA;&#xD;&#xA;echo $(Version)&gt;  $(ProjectDir)Publish/version.txt" />
+    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+      <Output TaskParameter="Assemblies" ItemName="Targets" />
+    </GetAssemblyIdentity>
+    <ItemGroup>
+      <VersionNumber Include="$([System.Text.RegularExpressions.Regex]::Replace(&quot;%(Targets.Version)&quot;, &quot;^(.+?)(\.0+)$&quot;, &quot;$1&quot;))" />
+    </ItemGroup>
+    <Exec Command="echo @(VersionNumber) &gt; $(ProjectDir)Publish/version.txt" />
   </Target>
+
 </Project>
