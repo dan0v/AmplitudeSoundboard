@@ -17,9 +17,17 @@ limitations under the License.
 
 ORIGIN="$(pwd)"
 cd "../.."
+if [ -d "bin/Release/net6.0/publishLinux" ]
+then
+    rm -rf "bin/Release/net6.0/publishLinux"
+fi
+mkdir -p "bin/Release/net6.0/publishLinux"
 dotnet publish -r linux-x64 -c Release -p:SelfContained=True -o bin/Release/net6.0/publishLinux
 cd "$ORIGIN"
 
+cd "Sources"
+unzip -o appimagetool-x86_64.AppImage.zip
+cd "$ORIGIN"
 chmod +x Sources/appimagetool-x86_64.AppImage
 
 APP_NAME="Amplitude Soundboard"
