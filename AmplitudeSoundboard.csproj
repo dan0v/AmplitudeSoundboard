@@ -27,21 +27,12 @@
     <PackageIcon>Icon.png</PackageIcon>
     <PackageIconUrl />
     <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <PackageProjectUrl>https://amplitude-soundboard.dan0v.com/</PackageProjectUrl>
+    <RepositoryUrl>https://git.dan0v.com/AmplitudeSoundboard</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <AvaloniaResource Remove="Assets\Doc\LICENSE.txt" />
-    <AvaloniaResource Remove="Assets\Doc\NOTICE.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\Doc\LICENSE.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Doc\NOTICE.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.11" />
@@ -109,6 +100,33 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <WinBASSLib Include="$(ProjectDir)Libraries\BASS\Windows\*"/>
+    <MacOSBASSLib Include="$(ProjectDir)Libraries\BASS\MacOS\*"/>
+    <LinuxBASSLib Include="$(ProjectDir)Libraries\BASS\Linux\*"/>
+  </ItemGroup>
+  <Target Name="CopyFiles" BeforeTargets="Build">
+    <Copy
+      SourceFiles="$(ProjectDir)NOTICE.txt"
+      DestinationFolder="$(TargetDir)Assets\Doc"
+	  />
+    <Copy
+      SourceFiles="$(ProjectDir)LICENSE.txt"
+      DestinationFolder="$(TargetDir)Assets\Doc"
+	  />
+    <Copy Condition="'$(RuntimeIdentifier)' == 'win-x64'"
+      SourceFiles="@(WinBASSLib)"
+      DestinationFolder="$(TargetDir)"
+	  />
+    <Copy Condition="'$(RuntimeIdentifier)' == 'osx-x64'"
+      SourceFiles="@(MacOSBASSLib)"
+      DestinationFolder="$(TargetDir)"
+	  />
+    <Copy Condition="'$(RuntimeIdentifier)' == 'linux-x64'"
+      SourceFiles="@(LinuxBASSLib)"
+      DestinationFolder="$(TargetDir)"
+	  />
+  </Target>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="PowerShell -ExecutionPolicy Unrestricted $(ProjectDir)Publish\getVersion.ps1 -TargetDir $(TargetDir)&#xD;&#xA;&#xD;&#xA;echo $(Version)&gt;  $(ProjectDir)Publish/version.txt" />
   </Target>

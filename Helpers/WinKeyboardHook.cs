@@ -58,7 +58,7 @@ namespace Amplitude.Helpers
 
         private static SortedSet<string> specialKey = new SortedSet<string>();
 
-        private static WinKeyboardHook _instance;
+        private static WinKeyboardHook? _instance;
         public static WinKeyboardHook Instance { get => _instance ??= new WinKeyboardHook(); }
 
         private WinKeyboardHook()

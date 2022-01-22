@@ -1,6 +1,6 @@
 AmplitudeSoundboard relies on
 
-BASS, BASSFLAC, BASSmix
+BASS, BASSFLAC, BASSmix, BASSOPUS
 Copyright (C) 2003-2021 un4seen developments
 https://www.un4seen.com/
 

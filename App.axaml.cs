@@ -65,7 +65,7 @@ namespace AmplitudeSoundboard
 #if Windows
         public static IKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
 #else
-        //public static IKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
+        public static IKeyboardHook KeyboardHook => BlankHotkeysManager.Instance;
 #endif
 
         private bool _canResetSoundManager = true;

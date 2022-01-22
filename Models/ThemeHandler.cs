@@ -35,7 +35,7 @@ namespace Amplitude.Models
 {
     public class ThemeHandler : INotifyPropertyChanged
     {
-        private static ThemeHandler _instance;
+        private static ThemeHandler? _instance;
         public static ThemeHandler Instance { get => _instance ??= new ThemeHandler(); }
 
         private ThemeHandler()
