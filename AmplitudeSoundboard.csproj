@@ -87,46 +87,86 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Update="bass.dll">
+    <Content Include="NOTICE.txt">
+      <Link>Assets\Doc\NOTICE.txt</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Bass.Net.dll">
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="LICENSE.txt">
+      <Link>Assets\Doc\LICENSE.txt</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="bassflac.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="bassmix.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
-  <ItemGroup>
-    <WinBASSLib Include="$(ProjectDir)Libraries\BASS\Windows\*"/>
-    <MacOSBASSLib Include="$(ProjectDir)Libraries\BASS\MacOS\*"/>
-    <LinuxBASSLib Include="$(ProjectDir)Libraries\BASS\Linux\*"/>
+  <!--Windows-->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bass.dll">
+      <Link>bass.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bassmix.dll">
+      <Link>bassmix.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bassflac.dll">
+      <Link>bassflac.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bassflac.dll">
+      <Link>bassopus.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
-  <Target Name="CopyFiles" BeforeTargets="Build">
-    <Copy
-      SourceFiles="$(ProjectDir)NOTICE.txt"
-      DestinationFolder="$(TargetDir)Assets\Doc"
-	  />
-    <Copy
-      SourceFiles="$(ProjectDir)LICENSE.txt"
-      DestinationFolder="$(TargetDir)Assets\Doc"
-	  />
-    <Copy Condition="'$(RuntimeIdentifier)' == 'win-x64'"
-      SourceFiles="@(WinBASSLib)"
-      DestinationFolder="$(TargetDir)"
-	  />
-    <Copy Condition="'$(RuntimeIdentifier)' == 'osx-x64'"
-      SourceFiles="@(MacOSBASSLib)"
-      DestinationFolder="$(TargetDir)"
-	  />
-    <Copy Condition="'$(RuntimeIdentifier)' == 'linux-x64'"
-      SourceFiles="@(LinuxBASSLib)"
-      DestinationFolder="$(TargetDir)"
-	  />
-  </Target>
+  <!--MacOS-->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'osx-x64'">
+    <Content Include="$(ProjectDir)Libraries\BASS\MacOS\libbass.dylib">
+      <Link>libbass.dylib</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\MacOS\libbassmix.dylib">
+      <Link>libbassmix.dylib</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\MacOS\libbassflac.dylib">
+      <Link>libbassflac.dylib</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\MacOS\libbassopus.dylib">
+      <Link>libbassopus.dylib</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <!--Linux-->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbass.so">
+      <Link>libbass.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbassmix.so">
+      <Link>libbassmix.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbassflac.so">
+      <Link>libbassflac.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbassopus.so">
+      <Link>libbassopus.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
       <Output TaskParameter="Assemblies" ItemName="Targets" />
