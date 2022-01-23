@@ -115,7 +115,6 @@ namespace Amplitude.Models
             {
                 item.Value.InitializeId(item.Key);
                 ValidateSoundClip(item.Value);
-                PreCacheSoundClipIfRequested(item.Value);
                 RegisterSoundClipHotkey(item.Value);
             }
         }
@@ -148,14 +147,6 @@ namespace Amplitude.Models
             }
 
             App.SoundEngine.CheckDeviceExistsAndGenerateErrors(clip);
-        }
-
-        private void PreCacheSoundClipIfRequested(SoundClip clip)
-        {
-            if (App.OptionsManager.Options.PreCacheAudio || clip.PreCache)
-            {
-                App.SoundEngine.CacheSoundClipIfNecessary(clip);
-            }
         }
 
         /// <summary>

@@ -201,21 +201,24 @@
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
-            <StackPanel>
-              <Label Content="{i18n:Localize ClipHotkeyLabel}" HorizontalAlignment="Center" Height="30"></Label>
-              <Grid ColumnDefinitions="*,Auto">
-                <TextBox Grid.Column="0" IsReadOnly="True" IsHitTestVisible="False" Watermark="{i18n:Localize HotkeyPlaceholder}" DockPanel.Dock="Left" Focusable="False" Text="{Binding Model.Hotkey}" Margin="5,0,5,5">
-                  <TextBox.Background>
-                    <SolidColorBrush Color="{Binding HotkeyBackgroundColor}"></SolidColorBrush>
-                  </TextBox.Background>
-                </TextBox>
-                <Button Grid.Column="1" Command="{Binding RecordHotkey}" Cursor="Hand" Margin="5,0,5,5" DockPanel.Dock="Right" ToolTip.Tip="{i18n:Localize HotkeyPlaceholder}">
-                  <Panel>
-                    <Image Source="{Binding ThemeHandler.Keyboard}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                  </Panel>
-                </Button>
-              </Grid>
-            </StackPanel>
+            <Grid>
+              <TextBlock IsVisible="{Binding !CanUseHotkeys}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{i18n:Localize FeatureUnavailable}"/>
+              <StackPanel IsEnabled="{Binding CanUseHotkeys}" Opacity="{Binding HotkeysOpacity}">
+                <Label Content="{i18n:Localize ClipHotkeyLabel}" HorizontalAlignment="Center" Height="30"></Label>
+                <Grid ColumnDefinitions="*,Auto">
+                  <TextBox Grid.Column="0" IsReadOnly="True" IsHitTestVisible="False" Watermark="{i18n:Localize HotkeyPlaceholder}" DockPanel.Dock="Left" Focusable="False" Text="{Binding Model.Hotkey}" Margin="5,0,5,5">
+                    <TextBox.Background>
+                      <SolidColorBrush Color="{Binding HotkeyBackgroundColor}"></SolidColorBrush>
+                    </TextBox.Background>
+                  </TextBox>
+                  <Button Grid.Column="1" Command="{Binding RecordHotkey}" Cursor="Hand" Margin="5,0,5,5" DockPanel.Dock="Right" ToolTip.Tip="{i18n:Localize HotkeyPlaceholder}">
+                    <Panel>
+                      <Image Source="{Binding ThemeHandler.Keyboard}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Panel>
+                  </Button>
+                </Grid>
+              </StackPanel>
+            </Grid>
           </Border>
 
           <Grid Grid.Row="5"  ColumnDefinitions="*,Auto">

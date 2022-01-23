@@ -108,7 +108,15 @@ namespace AmplitudeSoundboard
                     {
                         return "0.0.0";
                     }
-                    version = $"{ver.Major}.{ver.Minor}.{ver.Build}";
+
+                    if ($"{ver.Major}.{ver.Minor}" == "0.0")
+                    {
+                        version = $"2.0.{ver.Build}-beta";
+                    }
+                    else
+                    {
+                        version = $"{ver.Major}.{ver.Minor}.{ver.Build}";
+                    }
                 }
                 catch (Exception e) { Debug.WriteLine(e); }
                 return version;
