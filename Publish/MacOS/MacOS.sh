@@ -51,6 +51,8 @@ cp "../../LICENSE.txt" "$APP_OUTPUT_PATH/LICENSE.txt"
 sed 's/{VERSION}/'"$VERSION"'/g' "$APP_OUTPUT_PATH/$APP_NAME/Contents/InfoTEMP.plist" > "$APP_OUTPUT_PATH/$APP_NAME/Contents/Info.plist"
 rm "$APP_OUTPUT_PATH/$APP_NAME/Contents/InfoTEMP.plist"
 
+unzip -o "$ICON_FILE".zip "$ICON_FILE"
+
 cp "$ICON_FILE" "$APP_OUTPUT_PATH/$APP_NAME/Contents/Resources/$ICON_FILE"
 cp -a "$PUBLISH_OUTPUT_DIRECTORY" "$APP_OUTPUT_PATH/$APP_NAME/Contents/MacOS"
 chmod +x "$APP_OUTPUT_PATH/$APP_NAME/Contents/MacOS/amplitude_soundboard"
