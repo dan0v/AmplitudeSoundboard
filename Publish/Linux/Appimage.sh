@@ -33,7 +33,7 @@ chmod +x Sources/appimagetool-x86_64.AppImage
 APP_NAME="Amplitude Soundboard"
 APP_OUTPUT_PATH="Build"
 PUBLISH_OUTPUT_DIRECTORY="../../bin/Release/net6.0/publishLinux/."
-APP_TAR_NAME1="amplitude_soundboard_"
+APP_TAR_NAME1="Amplitude_Soundboard_"
 APP_TAR_NAME2="linux_AppImage_x86_64"
 
 if [ -d "$APP_OUTPUT_PATH" ]
