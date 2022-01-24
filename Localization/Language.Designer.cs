@@ -322,6 +322,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This feature is not yet available on your platform.
+        /// </summary>
+        internal static string FeatureUnavailable {
+            get {
+                return ResourceManager.GetString("FeatureUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The following file is an unrecognized format: &quot;{0}&quot;.
         /// </summary>
         internal static string FileBadFormatString {

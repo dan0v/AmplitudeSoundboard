@@ -31,16 +31,12 @@ namespace Amplitude.Helpers
     {
         public static ISoundEngine Instance { get; }
 
-        public const string DEFAULT_DEVICE_NAME = "System default";
+        public const string DEFAULT_DEVICE_NAME = "Default";
         public const string GLOBAL_DEFAULT_DEVICE_NAME = "Global setting";
 
         public void Play(SoundClip source);
 
         public void Play(string fileName, int volume, string playerDeviceName, string id);
-
-        public void RemoveFromCache(string id);
-
-        public void CacheSoundClipIfNecessary(SoundClip clip);
 
         public void CheckDeviceExistsAndGenerateErrors(SoundClip clip);
 
@@ -49,7 +45,5 @@ namespace Amplitude.Helpers
         public List<string> OutputDeviceListWithGlobal { get; }
 
         public void Reset(bool retainCache = false);
-
-        public void ResetCache();
     }
 }

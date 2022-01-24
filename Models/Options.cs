@@ -75,29 +75,18 @@ namespace Amplitude.Models
             }
         }
 
-        private int _masterVolume = 100;
         [Obsolete]
         public int MasterVolume
         {
-            internal get => _masterVolume;
-            set
-            {
-                OutputSettings.Volume = value;
-            }
+            internal get => 100;
+            set { }
         }
 
-        private string _defaultOutputDevice = ISoundEngine.DEFAULT_DEVICE_NAME;
         [Obsolete]
         public string DefaultOutputDevice
         {
-            internal get => _defaultOutputDevice;
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    OutputSettings.DeviceName = value;
-                }
-            }
+            internal get => "";
+            set { }
         }
 
         private OutputSettings _outputSettings = new OutputSettings();
@@ -222,36 +211,18 @@ namespace Amplitude.Models
             }
         }
 
-        private bool _cacheAudio = true;
+        [Obsolete]
         public bool CacheAudio
         {
-            get => _cacheAudio;
-            set
-            {
-                if (value != _cacheAudio)
-                {
-                    _cacheAudio = value;
-                    if (!_cacheAudio)
-                    {
-                        PreCacheAudio = false;
-                    }
-                    OnPropertyChanged();
-                }
-            }
+            internal get => false;
+            set { }
         }
 
-        private bool _preCacheAudio = false;
+        [Obsolete]
         public bool PreCacheAudio
         {
-            get => _preCacheAudio;
-            set
-            {
-                if (value != _preCacheAudio)
-                {
-                    _preCacheAudio = value;
-                    OnPropertyChanged();
-                }
-            }
+            internal get => false;
+            set { }
         }
 
         public Options() { }

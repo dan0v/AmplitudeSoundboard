@@ -56,14 +56,17 @@ namespace AmplitudeSoundboard
 		}
 		
         public static SoundClipManager SoundClipManager => SoundClipManager.Instance;
-        
         public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
-
         public static ThemeHandler ThemeHandler => ThemeHandler.Instance;
-
         public static WindowManager WindowManager => WindowManager.Instance;
-
         public static OptionsManager OptionsManager => OptionsManager.Instance;
+        public static ISoundEngine SoundEngine => MSoundEngine.Instance;
+
+#if Windows
+        public static IKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
+#else
+        public static IKeyboardHook KeyboardHook => BlankHotkeysManager.Instance;
+#endif
 
         private bool _canResetSoundManager = true;
         public bool CanResetSoundManager
@@ -105,7 +108,15 @@ namespace AmplitudeSoundboard
                     {
                         return "0.0.0";
                     }
-                    version = $"{ver.Major}.{ver.Minor}.{ver.Build}";
+
+                    if ($"{ver.Major}.{ver.Minor}" == "0.0")
+                    {
+                        version = $"2.0.{ver.Build}-beta";
+                    }
+                    else
+                    {
+                        version = $"{ver.Major}.{ver.Minor}.{ver.Build}";
+                    }
                 }
                 catch (Exception e) { Debug.WriteLine(e); }
                 return version;
@@ -115,15 +126,6 @@ namespace AmplitudeSoundboard
         public const string VERSION_CHECK_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/version.txt";
         public const string DOWNLOAD_WIN_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip";
         public const string RELEASES_PAGE = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/";
-
-#if Windows
-        public static ISoundEngine SoundEngine => NSoundEngine.Instance;
-		
-        public static IKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
-#else
-        public static ISoundEngine SoundEngine => TempSoundEngine.Instance;
-        //public static IKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
-#endif
 
         public override void Initialize()
         {

@@ -19,6 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
 using Amplitude.Models;
 using AmplitudeSoundboard;
 using Avalonia.Media;
@@ -32,7 +33,11 @@ namespace Amplitude.ViewModels
 
         private Options _model;
         public Options Model { get => _model; }
-        public static string[] Languages { get => Localization.Localizer.Languages.Keys.ToArray(); } 
+        public static string[] Languages { get => Localization.Localizer.Languages.Keys.ToArray(); }
+
+        private bool _canUseHotkeys = FeatureManager.IsFeatureEnabled(FeatureManager.Feature.HOTKEYS);
+        public bool CanUseHotkeys => _canUseHotkeys;
+        public double HotkeysOpacity => CanUseHotkeys ? 1 : 0.3d;
 
         public GlobalSettingsViewModel()
         {

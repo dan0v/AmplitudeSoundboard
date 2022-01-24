@@ -35,7 +35,7 @@ namespace Amplitude.Models
 {
     public class ThemeHandler : INotifyPropertyChanged
     {
-        private static ThemeHandler _instance;
+        private static ThemeHandler? _instance;
         public static ThemeHandler Instance { get => _instance ??= new ThemeHandler(); }
 
         private ThemeHandler()
@@ -172,8 +172,6 @@ namespace Amplitude.Models
         public Bitmap ClearCache { get => getBitmap(folder + "/ClearCache.png"); }
         public Bitmap LaunchItem { get => getBitmap(folder + "/LaunchItem.png"); }
         
-
-        // TODO actually refactor this to enum after all to support string localization
         private Theme _selectedTheme;
         public Theme SelectedTheme
         {

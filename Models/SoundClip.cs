@@ -86,8 +86,6 @@ namespace Amplitude.Models
                 if (value != _audioFilePath)
                 {
                     _audioFilePath = value;
-                    // Clear possibly cached clip
-                    App.SoundEngine.RemoveFromCache(Id);
                     OnPropertyChanged();
                 }
             }

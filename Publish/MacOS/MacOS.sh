@@ -17,14 +17,14 @@ limitations under the License.
 
 ORIGIN="$(pwd)"
 cd "../.."
-dotnet publish -r osx-x64 -c Release -p:SelfContained=True -o bin/Release/net5.0/publishMac
+dotnet publish -r osx-x64 -c Release -p:SelfContained=True -o bin/Release/net6.0/publishMac
 cd "$ORIGIN"
 
 APP_NAME="Amplitude Soundboard.app"
 APP_OUTPUT_PATH="Output"
 APP_TAR_NAME1="Amplitude_Soundboard_"
 APP_TAR_NAME2="macOS_x86_64"
-PUBLISH_OUTPUT_DIRECTORY="../../bin/Release/net5.0/publishMac/."
+PUBLISH_OUTPUT_DIRECTORY="../../bin/Release/net6.0/publishMac/."
 INFO_PLIST="Info.plist"
 ICON_FILE="Icon.icns"
 
@@ -50,6 +50,8 @@ cp "../../LICENSE.txt" "$APP_OUTPUT_PATH/LICENSE.txt"
 # Set version
 sed 's/{VERSION}/'"$VERSION"'/g' "$APP_OUTPUT_PATH/$APP_NAME/Contents/InfoTEMP.plist" > "$APP_OUTPUT_PATH/$APP_NAME/Contents/Info.plist"
 rm "$APP_OUTPUT_PATH/$APP_NAME/Contents/InfoTEMP.plist"
+
+unzip -o "$ICON_FILE".zip "$ICON_FILE"
 
 cp "$ICON_FILE" "$APP_OUTPUT_PATH/$APP_NAME/Contents/Resources/$ICON_FILE"
 cp -a "$PUBLISH_OUTPUT_DIRECTORY" "$APP_OUTPUT_PATH/$APP_NAME/Contents/MacOS"

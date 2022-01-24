@@ -11,7 +11,7 @@
     <OutputType>WinExe</OutputType>
     <!--<TargetFramework Condition="'$(Windows)'=='false'">net5.0</TargetFramework>
     <TargetFramework Condition="'$(Windows)'=='true'">net5.0-windows</TargetFramework>-->
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>dan0v</Authors>
     <Description>A sleek soundboard</Description>
     <Nullable>enable</Nullable>
@@ -19,7 +19,7 @@
     <RootNamespace>Amplitude</RootNamespace>
     <NeutralLanguage>en</NeutralLanguage>
     <Platforms>AnyCPU;x64</Platforms>
-    <Version>1.5.5</Version>
+    <Version>0.0.1</Version>
     <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>Link</TrimMode>
@@ -27,27 +27,22 @@
     <PackageIcon>Icon.png</PackageIcon>
     <PackageIconUrl />
     <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <PackageProjectUrl>https://amplitude-soundboard.dan0v.com/</PackageProjectUrl>
+    <RepositoryUrl>https://git.dan0v.com/AmplitudeSoundboard</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
-    <AvaloniaResource Remove="Assets\Doc\LICENSE.txt" />
-    <AvaloniaResource Remove="Assets\Doc\NOTICE.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\Doc\LICENSE.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Doc\NOTICE.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.10" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.10" />
-    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.10" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" />
+    <PackageReference Include="Avalonia" Version="0.10.11" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.11" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.11" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.11" />
+    <PackageReference Include="ManagedBass" Version="3.1.0" />
+    <PackageReference Include="ManagedBass.Flac" Version="3.1.0" />
+    <PackageReference Include="ManagedBass.Mix" Version="3.1.0" />
+    <PackageReference Include="ManagedBass.Opus" Version="3.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NAudio" Version="2.0.1" Condition="'$(TargetFramework)' == 'net5.0-windows'" />
   </ItemGroup>
@@ -92,6 +87,107 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NOTICE.txt">
+      <Link>Assets\Doc\NOTICE.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="LICENSE.txt">
+      <Link>Assets\Doc\LICENSE.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <!--Windows-->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bass.dll">
+      <Link>bass.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bass_aac.dll">
+      <Link>bass_aac.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bassalac.dll">
+      <Link>bassalac.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bassflac.dll">
+      <Link>bassflac.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bassmix.dll">
+      <Link>bassmix.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bassopus.dll">
+      <Link>bassopus.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <!--MacOS-->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'osx-x64'">
+    <Content Include="$(ProjectDir)Libraries\BASS\MacOS\libbass.dylib">
+      <Link>libbass.dylib</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\MacOS\libbassflac.dylib">
+      <Link>libbassflac.dylib</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\MacOS\libbassmix.dylib">
+      <Link>libbassmix.dylib</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\MacOS\libbassopus.dylib">
+      <Link>libbassopus.dylib</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <!--Linux-->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbass.so">
+      <Link>libbass.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbass_aac.so">
+      <Link>libbass_aac.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbassalac.so">
+      <Link>libbassalac.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbassflac.so">
+      <Link>libbassflac.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbassmix.so">
+      <Link>libbassmix.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbassopus.so">
+      <Link>libbassopus.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">

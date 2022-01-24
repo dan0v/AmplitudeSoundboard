@@ -89,10 +89,6 @@ namespace Amplitude.Models
                 File.WriteAllText(Path.Join(App.APP_STORAGE, OPTIONS_FILE_NAME), options.ToJSON());
                 App.HotkeysManager.RemoveHotkey(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, Options.GlobalKillAudioHotkey);
                 App.HotkeysManager.RegisterHotkeyAtStartup(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, options.GlobalKillAudioHotkey);
-                if (!options.CacheAudio && _options.CacheAudio)
-                {
-                    App.SoundEngine.ResetCache();
-                }
                 _options = options;
                 Localizer.Instance.ChangeLanguage(options.Language);
                 App.ThemeHandler.SelectTheme(options.ThemeId);
