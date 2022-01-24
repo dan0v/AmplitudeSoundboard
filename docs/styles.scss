@@ -130,6 +130,13 @@ a.button {
     display: flex;
 }
 
+.formats-table {
+    width: 80%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #left-bar {
     height: 100%;
     width: 20%;
@@ -158,28 +165,64 @@ a.button {
             text-shadow: none;
         }
 
-        .button {
-            background-color: $color-dark;
-            border-width: 0.15rem;
-            border-radius: .5rem;
-            //width: 100%;
-            margin: .5rem;
-            transition: 0.1s;
+        .download-block {
             display: block;
+            margin: .5rem;
+            margin-bottom: 0;
+            border-width: 0.4rem;
+            border-radius: 0.8rem;
+            #download-text {
+                text-align: center;
+                color:$color-light;
+                margin-bottom: 0;
+            }
+            .os-download-options {
+                display: flex;
+                .button {
+                    width: 100%;
+                    .button-div {
+                        padding-left: 0;
+                        img {
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+                    }
+                }
+            }
+            .button-div {
+                padding-left: 0.5rem;
+            }
+            
         }
-
-        .button#download {
+        .button-text {
+            color: $color-orange;
+        }
+        .button {
+                background-color: $color-dark;
+                border-width: 0.4rem;
+                border-radius: 0.8rem;
+                //width: 100%;
+                margin: .5rem;
+                transition: 0.1s;
+                display: block;
+            }
+        .button.download {
                 background-color: $color-orange;
                 border-color: #272C34;
                 color: $color-dark;
         }
-        .button#download:hover {
+        .button.download:hover {
             background-color: #c06f4c;
         }
         .github-integrations {
             display: flex;
             justify-content: space-around;
         }
+    }
+}
+.button-div#macOS-download {
+    img {
+        height: 2.8em;
     }
 }
 
@@ -272,11 +315,24 @@ a.button {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
+            
             .button {
+                margin-top: 0.25rem;
                 width: 100%;
             }
-            .button#download {
+            .button.download {
                 margin-bottom: 0;
+            }
+            .download-block {
+                width: 100%;
+                #download-text {
+                    margin-top: 0.25rem;
+                    margin-bottom: -0.5rem;
+                }
+            }
+            .github-integrations {
+                padding-left: 0.8rem;
+                margin-right: -1.2rem;
             }
         }
     }
@@ -296,6 +352,14 @@ a.button {
         }
 
         .button-div {
+            margin-left: 0;
+            margin-right: 0;
+            img {
+                height: 1.8em;
+                margin-left: 0.5em;
+            }
+        }
+        .button-div#macOS-download {
             margin-left: 0;
             margin-right: 0;
             img {

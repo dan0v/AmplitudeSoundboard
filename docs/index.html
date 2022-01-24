@@ -5,7 +5,7 @@
     <title>Amplitude Soundboard</title>
 
     <meta charset="utf-8">
-    <meta name="description" content="Amplitude Soundboard - A sleek, flexible soundboard, created using .Net 6 and Avalonia">
+    <meta name="description" content="Amplitude Soundboard - A sleek, flexible, cross-platform soundboard, created using .Net 6 and Avalonia">
     <meta name="author" content="John-Cozy, Taylor Hetherington, dan0v">
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,14 +36,25 @@
             </a>
           </div>
           <div id="source-download-buttons">
-            <a class="orange-border button" id="download" href="https://git.dan0v.com/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip">
-                <div class="button-div">
-                  <p class="button-text">Download</p>
-                  <img src="assets/img/WindowsIcon.png"/>
-                </div>
-            </a>
+            <div class="download-block orange-border">
+              <p id="download-text">Download</p>
+              <div class="os-download-options">
+                <a class="orange-border button download" title="Download for Windows"
+                  href="https://git.dan0v.com/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip">
+                  <div id="windows-download" class="button-div">
+                    <img src="assets/img/WindowsIcon.png" alt="Windows download icon"/>
+                  </div>
+                </a>
+                <a class="orange-border button download" title="Download for MacOS"
+                  href="https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz">
+                  <div id="macOS-download" class="button-div">
+                    <img src="assets/img/MacOSIcon.png" alt="MacOS download icon"/>
+                  </div>
+                </a>
+              </div>
+            </div>
             <div>
-              <a class="orange-border button" href="https://git.dan0v.com/AmplitudeSoundboard">
+              <a class="orange-border button" title="View repository" href="https://git.dan0v.com/AmplitudeSoundboard">
                 <p class="button-text">Source Code</p>
               </a>
               <div class="github-integrations">
@@ -61,41 +72,57 @@
             <h2>A sleek, flexible, free, and open-source soundboard</h2>
             <div class="blurb">
               <p id="blurb-first">
-                  Amplitude Soundboard is a feature-rich soundboard in active development, currently available for Windows, with plans for Linux and MacOS releases down the line.
+                  Amplitude Soundboard is a feature-rich soundboard in active development, currently available for Windows and MacOS, with plans for Linux releases down the line.
               </p>
               <p>
                 Use the application in a growing number of languages, currently including
               </p>
-              <ul>
-                <li>English</li>
-                <li>Español</li>
-                <li>Italiano</li>
-                <li>Magyar</li>
-                <li>Nederlands</li>
-                <li>Polski</li>
-                <li>Pусский</li>
-              </ul>
+              <table class="formats-table">
+                <tr>
+                  <td>English</td>
+                  <td>Español</td>
+                  <td>Italiano</td>
+                </tr>
+                <tr>
+                  <td>Magyar</td>
+                  <td>Nederlands</td>
+                  <td>Polski</td>
+                </tr>
+                <tr>
+                  <td>Pусский</td>
+                </tr>
+              </table>
               <p class="side-note">You can help expand this list by <a href="https://github.com/dan0v/AmplitudeSoundboard/issues/7">contributing!</a></p>
-              <p>
-                Play audio clips through multiple output, or input devices on your computer (with the help of <a href="https://vac.muzychenko.net/en/download.htm">Virtual Audio Cable</a>) with global, as well as per-clip volume settings
-              </p>
               <p>
                 Use a variety of audio file formats to express yourself and entertain your friends
               </p>
-              <ul>
-                <li>AAC</li>
-                <li>AIFF</li>
-                <li>ALAC</li>
-                <li>FLAC</li>
-                <li>M4A</li>
-                <li>MP3</li>
-                <li>MP4</li>
-                <li>OGG</li>
-                <li>OPUS</li>
-                <li>WAV</li>
-              </ul>
+              <table class="formats-table">
+                <tr>
+                  <td>AAC</td>
+                  <td>AIFF</td>
+                </tr>
+                <tr>
+                  <td>ALAC</td>
+                  <td>FLAC</td>
+                </tr>
+                <tr>
+                  <td>M4A</td>
+                  <td>MP3</td>
+                </tr>
+                <tr>
+                  <td>MP4</td>
+                  <td>OGG</td>
+                </tr>
+                <tr>
+                  <td>OPUS</td>
+                  <td>WAV</td>
+                </tr>
+              </table>
               <p>
-                Set hotkeys to trigger any sound clip at any time
+                Play audio clips through multiple output, or input devices on your computer (with the help of <a href="https://vac.muzychenko.net/en/download.htm">Virtual Audio Cable (Windows)</a> or <a href="https://github.com/ExistentialAudio/BlackHole">BlackHole (MacOS)</a>) with global, as well as per-clip volume settings
+              </p>
+              <p>
+                Set hotkeys to trigger any sound clip at any time (currently Windows only)
               </p>
               <p>
                 Customize the look of the application by

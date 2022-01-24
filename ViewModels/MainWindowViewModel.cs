@@ -31,7 +31,6 @@ namespace Amplitude.ViewModels
         private static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
         private static SoundClipManager Manager { get => App.SoundClipManager; }
         private static OptionsManager OptionsManager { get => App.OptionsManager; }
-        private static App App { get => ((App)App.Current); }
 
         public (int x, int y) WindowPosition = (0, 0);
 

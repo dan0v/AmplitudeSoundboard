@@ -68,34 +68,6 @@ namespace AmplitudeSoundboard
         public static IKeyboardHook KeyboardHook => BlankHotkeysManager.Instance;
 #endif
 
-        private bool _canResetSoundManager = true;
-        public bool CanResetSoundManager
-        {
-            get => _canResetSoundManager;
-            set
-            {
-                if (value != _canResetSoundManager)
-                {
-                    _canResetSoundManager = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private bool _hasActiveSoundManagerThreads = false;
-        public bool HasActiveSoundManagerThreads
-        {
-            get => _hasActiveSoundManagerThreads;
-            set
-            {
-                if (value != _hasActiveSoundManagerThreads)
-                {
-                    _hasActiveSoundManagerThreads = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         public static string VERSION
         {
             get
@@ -108,15 +80,7 @@ namespace AmplitudeSoundboard
                     {
                         return "0.0.0";
                     }
-
-                    if ($"{ver.Major}.{ver.Minor}" == "0.0")
-                    {
-                        version = $"2.0.{ver.Build}-beta";
-                    }
-                    else
-                    {
-                        version = $"{ver.Major}.{ver.Minor}.{ver.Build}";
-                    }
+                    version = $"{ver.Major}.{ver.Minor}.{ver.Build}";
                 }
                 catch (Exception e) { Debug.WriteLine(e); }
                 return version;
@@ -125,8 +89,10 @@ namespace AmplitudeSoundboard
 
         public const string VERSION_CHECK_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/version.txt";
         public const string DOWNLOAD_WIN_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip";
+        public const string DOWNLOAD_MACOS_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz";
+        public const string DOWNLOAD_LINUX_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_linux_AppImage_x86_64.tar.gz";
         public const string RELEASES_PAGE = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/";
-
+        
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);

@@ -7,40 +7,44 @@
 # [Website](https://amplitude-soundboard.dan0v.com/index.html)
 
 ## Features
-- Play audio files
-  - AAC
-  - AIFF
-  - ALAC
-  - FLAC
-  - M4A
-  - MP3
-  - MP4
-  - OGG
-  - OPUS
-  - WAV
+- Play audio files from many formats
+  |  |  |
+  | - | - |
+  | AAC | AIFF |
+  | ALAC | FLAC |
+  | M4A | MP3 |
+  | MP4 | OGG |
+  | OPUS | WAV |
+
 - Customize a grid view of your sound clips to your liking
 - Trigger sound clips with custom hotkeys or a button press
 - Set output device and volume at a per-clip level
 - Toggle between light and dark theme
 - Automatically update to the newest version if desired
 - Localized versions available ([work in progress](https://github.com/dan0v/AmplitudeSoundboard/issues/7))
-  - English
-  - Español
-  - Italiano
-  - Magyar
-  - Nederlands
-  - Polski
-  - Pусский
+  |  |  |  |
+  | - | - | - |
+  | English | Español | Italiano |
+  | Magyar | Nederlands | Polski |
+  | Pусский |  |  |
 
 ## Installation
 ### Windows *(x64)*
 1. Download and unzip [latest Windows build](https://git.dan0v.com/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/)
 2. Run executable (`amplitude_soundboard.exe`)
-3. If you would like to play sound through an input device like a microphone, set up [Virtual Audio Cable](https://vac.muzychenko.net/en/download.htm) and set the newly created virtual cable as your clip output device
+3. If you would like to play sound through an input device like a microphone, set up a program like [Virtual Audio Cable](https://vac.muzychenko.net/en/download.htm) and set the newly created virtual cable as your clip output device
+
+### MacOS *(x64)*
+1. Download and unzip [latest MacOS build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/)
+2. Run executable (`Amplitude Soundboard.app`)
+3. If you would like to play sound through an input device like a microphone, set up a program like [BlackHole](https://github.com/ExistentialAudio/BlackHole) and set the newly created virtual cable as your clip output device
 
 ## Updating
 ### Windows
 A dialog automatically notifies users of available updates at application startup. To automatically update, click `Update`, or, to manually update, just download the [latest Windows build](https://git.dan0v.com/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `amplitude_soundboard.exe` with the new version.
+
+### MacOS
+A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest MacOS build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude Soundboard.app` with the new version.
 
 ## Screenshots
 Main grid|Soundclip list
