@@ -44,7 +44,7 @@ namespace Amplitude.Helpers
             get
             {
                 var all = OutputDeviceListWithGlobal.ToList();
-                all.RemoveAt(1);
+                all.RemoveAt(0);
                 return all;
             }
         }
@@ -54,9 +54,9 @@ namespace Amplitude.Helpers
             get
             {
                 List<string> devices = new List<string>();
-                devices.Add(ISoundEngine.DEFAULT_DEVICE_NAME);
                 devices.Add(ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME);
-                for (int dev = 0; dev < Bass.DeviceCount; dev++)
+                // Index 0 is "No Sound", so skip
+                for (int dev = 1; dev < Bass.DeviceCount; dev++)
                 {
                     var info = Bass.GetDeviceInfo(dev);
                     devices.Add(info.Name);
@@ -72,9 +72,9 @@ namespace Amplitude.Helpers
                 playerDeviceName = App.OptionsManager.Options.OutputSettings.DeviceName;
             }
 
-            if (playerDeviceName == ISoundEngine.DEFAULT_DEVICE_NAME)
+            if (playerDeviceName == ISoundEngine.DEFAULT_DEVICE_NAME || playerDeviceName == "System default")
             {
-                return -1;
+                return 1;
             }
 
             if (OutputDeviceListWithoutGlobal.Contains(playerDeviceName))
@@ -95,7 +95,7 @@ namespace Amplitude.Helpers
 
         public void Play(SoundClip source)
         {
-            if (string.IsNullOrEmpty(source.Id) || !BrowseIO.ValidAudioFile(source.AudioFilePath, true, source))
+            if (!BrowseIO.ValidAudioFile(source.AudioFilePath, true, source))
             {
                 return;
             }

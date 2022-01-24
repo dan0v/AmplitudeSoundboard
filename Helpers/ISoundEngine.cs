@@ -31,7 +31,7 @@ namespace Amplitude.Helpers
     {
         public static ISoundEngine Instance { get; }
 
-        public const string DEFAULT_DEVICE_NAME = "System default";
+        public const string DEFAULT_DEVICE_NAME = "Default";
         public const string GLOBAL_DEFAULT_DEVICE_NAME = "Global setting";
 
         public void Play(SoundClip source);
