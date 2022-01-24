@@ -37,6 +37,7 @@
 ### MacOS *(x64)*
 1. Download and unzip [latest MacOS build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/)
 2. Run executable (`Amplitude Soundboard.app`)
+ - If a security warning blocks the app from running, open `System Preferences -> Security & Privacy -> General` and click `Open Anyway`. This is due to not signing the app with an Apple Developer ID
 3. If you would like to play sound through an input device like a microphone, set up a program like [BlackHole](https://github.com/ExistentialAudio/BlackHole) and set the newly created virtual cable as your clip output device
 
 ## Updating
