@@ -38,10 +38,6 @@ namespace Amplitude.Helpers
 
         public void Play(string fileName, int volume, string playerDeviceName, string id);
 
-        public void RemoveFromCache(string id);
-
-        public void CacheSoundClipIfNecessary(SoundClip clip);
-
         public void CheckDeviceExistsAndGenerateErrors(SoundClip clip);
 
         public List<string> OutputDeviceListWithoutGlobal { get; }
@@ -49,7 +45,5 @@ namespace Amplitude.Helpers
         public List<string> OutputDeviceListWithGlobal { get; }
 
         public void Reset(bool retainCache = false);
-
-        public void ResetCache();
     }
 }

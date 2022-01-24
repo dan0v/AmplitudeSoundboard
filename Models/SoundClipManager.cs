@@ -202,7 +202,6 @@ namespace Amplitude.Models
             {
                 App.HotkeysManager.RemoveHotkey(id, clip.Hotkey);
 
-                App.SoundEngine.RemoveFromCache(id);
                 SoundClips.Remove(id);
 
                 StoreSavedSoundClips();

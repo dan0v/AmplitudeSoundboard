@@ -87,11 +87,6 @@ namespace Amplitude.ViewModels
             App.SoundEngine.Reset(true);
         }
 
-        public void DiscardCache()
-        {
-            App.SoundEngine.ResetCache();
-        }
-
         public override void Dispose()
         {
             OptionsManager.PropertyChanged -= OptionsManager_PropertyChanged;

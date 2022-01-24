@@ -157,16 +157,6 @@ namespace Amplitude.Helpers
             
         }
 
-        public void RemoveFromCache(string id)
-        {
-            // Caching unused
-        }
-
-        public void CacheSoundClipIfNecessary(SoundClip clip)
-        {
-            // Caching unused
-        }
-
         public void CheckDeviceExistsAndGenerateErrors(SoundClip clip)
         {
             foreach (OutputSettings settings in clip.OutputSettings)
@@ -190,11 +180,6 @@ namespace Amplitude.Helpers
                     Bass.StreamFree(stream);
                 }
             }
-        }
-
-        public void ResetCache()
-        {
-            // Caching unused
         }
 
         public void Dispose()

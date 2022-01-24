@@ -8,11 +8,15 @@
 
 ## Features
 - Play audio files
+  - AAC
   - AIFF
+  - ALAC
   - FLAC
   - M4A
   - MP3
   - MP4
+  - OGG
+  - OPUS
   - WAV
 - Customize a grid view of your sound clips to your liking
 - Trigger sound clips with custom hotkeys or a button press

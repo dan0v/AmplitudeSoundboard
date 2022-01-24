@@ -19,7 +19,7 @@
     <RootNamespace>Amplitude</RootNamespace>
     <NeutralLanguage>en</NeutralLanguage>
     <Platforms>AnyCPU;x64</Platforms>
-    <Version>0.0.0</Version>
+    <Version>0.0.1</Version>
     <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>Link</TrimMode>
@@ -105,8 +105,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
-    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bassmix.dll">
-      <Link>bassmix.dll</Link>
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bass_aac.dll">
+      <Link>bass_aac.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bassalac.dll">
+      <Link>bassalac.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
@@ -115,7 +120,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
-    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bassflac.dll">
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bassmix.dll">
+      <Link>bassmix.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Windows\bassopus.dll">
       <Link>bassopus.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
@@ -128,13 +138,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
-    <Content Include="$(ProjectDir)Libraries\BASS\MacOS\libbassmix.dylib">
-      <Link>libbassmix.dylib</Link>
+    <Content Include="$(ProjectDir)Libraries\BASS\MacOS\libbassflac.dylib">
+      <Link>libbassflac.dylib</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
-    <Content Include="$(ProjectDir)Libraries\BASS\MacOS\libbassflac.dylib">
-      <Link>libbassflac.dylib</Link>
+    <Content Include="$(ProjectDir)Libraries\BASS\MacOS\libbassmix.dylib">
+      <Link>libbassmix.dylib</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
@@ -151,13 +161,23 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
-    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbassmix.so">
-      <Link>libbassmix.so</Link>
+    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbass_aac.so">
+      <Link>libbass_aac.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbassalac.so">
+      <Link>libbassalac.so</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
     <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbassflac.so">
       <Link>libbassflac.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(ProjectDir)Libraries\BASS\Linux\libbassmix.so">
+      <Link>libbassmix.so</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
