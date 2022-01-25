@@ -58,7 +58,7 @@ namespace Amplitude.Views
 
             this.txt_blk_Copyright = this.FindControl<TextBlock>("txt_blk_Copyright");
             this.txt_blk_Copyright.Text = @"AmplitudeSoundboard
-Copyright © 2021 dan0v";
+Copyright (C) 2021-2022 dan0v";
 
             this.txt_blk_Version = this.FindControl<TextBlock>("txt_blk_Version");
             this.txt_blk_Version.Text = "Version " + App.VERSION;
