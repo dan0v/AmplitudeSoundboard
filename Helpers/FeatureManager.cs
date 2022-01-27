@@ -45,18 +45,17 @@ namespace Amplitude.Helpers
         private static OSPlatform GetPlatform()
         {
             OSPlatform? os = null;
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                os = OSPlatform.Windows;
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                os = OSPlatform.OSX;
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                os = OSPlatform.Linux;
-            }
+
+#if Windows
+            os = OSPlatform.Windows;
+#endif
+#if MacOS
+            os = OSPlatform.OSX;
+#endif
+#if Linux
+            os = OSPlatform.Linux;
+#endif
+            
             if (!os.HasValue)
             {
                 string osName = RuntimeInformation.OSDescription;
@@ -77,12 +76,22 @@ namespace Amplitude.Helpers
                     { OSPlatform.OSX, false },
                     { OSPlatform.Linux, false },
                 }
+            },
+            {
+                Feature.CUSTOM_TITLEBAR,
+                new()
+                {
+                    { OSPlatform.Windows, true },
+                    { OSPlatform.OSX, true },
+                    { OSPlatform.Linux, false },
+                }
             }
         };
 
         public enum Feature
         {
-            HOTKEYS
+            HOTKEYS,
+            CUSTOM_TITLEBAR,
         }
     }
 }

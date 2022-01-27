@@ -20,19 +20,11 @@
 */
 
 using Amplitude.Helpers;
-using Amplitude.Models;
-using Amplitude.Views;
-using AmplitudeSoundboard;
-using Avalonia.Controls;
 
 namespace Amplitude.ViewModels
 {
     public sealed class SoundClipListViewModel : ViewModelBase
     {
-        static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        static SoundClipManager Manager { get => App.SoundClipManager; }
-        static WindowManager WindowManager { get => App.WindowManager; }
-
         public SoundClipListViewModel() { }
 
         public void AddSound()

@@ -198,18 +198,19 @@ a.button {
             color: $color-orange;
         }
         .button {
-                background-color: $color-dark;
-                border-width: 0.4rem;
-                border-radius: 0.8rem;
-                //width: 100%;
-                margin: .5rem;
-                transition: 0.1s;
-                display: block;
-            }
+            background-color: $color-dark;
+            border-width: 0.4rem;
+            border-radius: 0.8rem;
+            transition: 0.1s;
+            display: block;
+        }
         .button.download {
-                background-color: $color-orange;
-                border-color: #272C34;
-                color: $color-dark;
+            background-color: $color-orange;
+            border-color: #272C34;
+            color: $color-dark;
+        }
+        .button#source-code {
+            margin: 0.5rem;
         }
         .button.download:hover {
             background-color: #c06f4c;
@@ -223,6 +224,12 @@ a.button {
 .button-div#macOS-download {
     img {
         height: 2.8em;
+    }
+}
+.button-div#linux-download {
+    margin-top: 0.2rem;
+    img {
+        height: 2.6em;
     }
 }
 
@@ -360,6 +367,14 @@ a.button {
             }
         }
         .button-div#macOS-download {
+            margin-left: 0;
+            margin-right: 0;
+            img {
+                height: 1.8em;
+                margin-left: 0.5em;
+            }
+        }
+        .button-div#linux-download {
             margin-left: 0;
             margin-right: 0;
             img {

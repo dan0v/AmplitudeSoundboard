@@ -19,6 +19,9 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
+using Amplitude.Models;
+using AmplitudeSoundboard;
 using ReactiveUI;
 using System;
 using System.ComponentModel;
@@ -28,6 +31,17 @@ namespace Amplitude.ViewModels
 {
     public abstract class ViewModelBase : ReactiveObject, INotifyPropertyChanged, IDisposable
     {
+        protected ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        protected SoundClipManager SoundClipManager { get => App.SoundClipManager; }
+        protected OptionsManager OptionsManager { get => App.OptionsManager; }
+        protected WindowManager WindowManager { get => App.WindowManager; }
+        protected HotkeysManager HotkeysManager { get => App.HotkeysManager; }
+        protected ISoundEngine SoundEngine { get => App.SoundEngine; }
+
+        public bool CanUseHotkeys => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.HOTKEYS);
+        public double HotkeysOpacity => CanUseHotkeys ? 1 : 0.3d;
+
+        public bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
 
         public virtual void Dispose() { }
 

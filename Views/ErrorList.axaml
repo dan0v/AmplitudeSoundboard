@@ -31,7 +31,7 @@
         Width="400" Height="400" MinWidth="360" MinHeight="200"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
-        ExtendClientAreaToDecorationsHint="True">
+        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
   
   <Window.Styles>
     <Style Selector="Image:disabled">
@@ -56,7 +56,7 @@
     <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
     </ExperimentalAcrylicBorder>
 
-    <TextBlock Text="{i18n:Localize ErrorListTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+    <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize ErrorListTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
     <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
       <ScrollViewer>

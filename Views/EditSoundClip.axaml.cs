@@ -42,9 +42,6 @@ namespace Amplitude.Views
         public EditSoundClip()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
             txt_blk_SoundClipId = this.FindControl<TextBlock>("txt_blk_SoundClipId");
             txt_blk_SoundClipId.PropertyChanged += Txt_blk_SoundClipId_PropertyChanged;
 

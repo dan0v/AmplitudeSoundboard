@@ -28,9 +28,6 @@ namespace Amplitude.ViewModels
 {
     public sealed class MainWindowViewModel : ViewModelBase
     {
-        private static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        private static SoundClipManager Manager { get => App.SoundClipManager; }
-        private static OptionsManager OptionsManager { get => App.OptionsManager; }
 
         public (int x, int y) WindowPosition = (0, 0);
 
@@ -68,22 +65,22 @@ namespace Amplitude.ViewModels
 
         public void ShowList()
         {
-            App.WindowManager.ShowSoundClipListWindow(new Avalonia.PixelPoint(WindowPosition.x + 200, WindowPosition.y + 200));
+            WindowManager.ShowSoundClipListWindow(new Avalonia.PixelPoint(WindowPosition.x + 200, WindowPosition.y + 200));
         }
 
         public void ShowGlobalSettings()
         {
-            App.WindowManager.ShowGlobalSettingsWindow(new Avalonia.PixelPoint(WindowPosition.x + 150, WindowPosition.y + 150));
+            WindowManager.ShowGlobalSettingsWindow(new Avalonia.PixelPoint(WindowPosition.x + 150, WindowPosition.y + 150));
         }
         
         public void ShowAbout()
         {
-            App.WindowManager.ShowAboutWindow(new Avalonia.PixelPoint(WindowPosition.x + 100, WindowPosition.y + 100));
+            WindowManager.ShowAboutWindow(new Avalonia.PixelPoint(WindowPosition.x + 100, WindowPosition.y + 100));
         }
 
         public void StopAudio()
         {
-            App.SoundEngine.Reset(true);
+            SoundEngine.Reset(true);
         }
 
         public override void Dispose()

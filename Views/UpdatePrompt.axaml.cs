@@ -66,18 +66,12 @@ namespace Amplitude.Views
         public UpdatePrompt()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
             Localizer.Instance.PropertyChanged += Localizer_PropertyChanged;
         }
 
         public UpdatePrompt(string newVersion)
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
             this.newVersion = newVersion;
             OnPropertyChanged(nameof(UpdatePromptText));
             Localizer.Instance.PropertyChanged += Localizer_PropertyChanged;

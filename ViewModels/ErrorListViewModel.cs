@@ -21,9 +21,6 @@
 
 using Amplitude.Helpers;
 using Amplitude.Models;
-using Amplitude.Views;
-using AmplitudeSoundboard;
-using Avalonia.Controls;
 using Avalonia.Threading;
 using System;
 using System.Collections.ObjectModel;
@@ -32,9 +29,6 @@ namespace Amplitude.ViewModels
 {
     public sealed class ErrorListViewModel : ViewModelBase
     {
-        private static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        private static WindowManager WindowManager { get => App.WindowManager; }
-
         public ObservableCollection<ErrorContainer> _errors = new();
         public ObservableCollection<ErrorContainer> Errors => _errors;
 

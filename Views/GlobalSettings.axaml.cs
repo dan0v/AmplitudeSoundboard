@@ -33,9 +33,6 @@ namespace Amplitude.Views
         public GlobalSettings()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
         }
 
         Window GetWindow() => (Window)this.VisualRoot;

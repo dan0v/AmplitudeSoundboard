@@ -21,7 +21,6 @@
 
 using Amplitude.Helpers;
 using Amplitude.Models;
-using AmplitudeSoundboard;
 using Avalonia.Media;
 using System.Linq;
 
@@ -29,19 +28,13 @@ namespace Amplitude.ViewModels
 {
     public sealed class GlobalSettingsViewModel : ViewModelBase
     {
-        private static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-
         private Options _model;
         public Options Model { get => _model; }
         public static string[] Languages { get => Localization.Localizer.Languages.Keys.ToArray(); }
 
-        private bool _canUseHotkeys = FeatureManager.IsFeatureEnabled(FeatureManager.Feature.HOTKEYS);
-        public bool CanUseHotkeys => _canUseHotkeys;
-        public double HotkeysOpacity => CanUseHotkeys ? 1 : 0.3d;
-
         public GlobalSettingsViewModel()
         {
-            _model = App.OptionsManager.Options.ShallowCopy();
+            _model = OptionsManager.Options.ShallowCopy();
             Model.PropertyChanged += Model_PropertyChanged;
         }
 
@@ -83,12 +76,12 @@ namespace Amplitude.ViewModels
         {
             Model.GlobalKillAudioHotkey = Localization.Localizer.Instance["HotkeyCancelPlaceholder"];
             WaitingForHotkey = true;
-            App.HotkeysManager.RecordGlobalStopSoundHotkey(Model);
+            HotkeysManager.RecordGlobalStopSoundHotkey(Model);
         }
 
         public void SaveOptions()
         {
-            App.OptionsManager.SaveAndOverwriteOptions(Model);
+            OptionsManager.SaveAndOverwriteOptions(Model);
             _model = Model.ShallowCopy();
             OnPropertyChanged(nameof(Model));
         }

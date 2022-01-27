@@ -19,7 +19,6 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
 using Amplitude.Models;
 using AmplitudeSoundboard;
 using Avalonia.Media;
@@ -28,15 +27,7 @@ namespace Amplitude.ViewModels
 {
     public sealed class EditSoundClipViewModel : ViewModelBase
     {
-        private static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        private static OptionsManager OptionsManager { get => App.OptionsManager; }
-
         private string StopAudioHotkey => string.IsNullOrEmpty(OptionsManager.Options.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + OptionsManager.Options.GlobalKillAudioHotkey;
-
-
-        private bool _canUseHotkeys = FeatureManager.IsFeatureEnabled(FeatureManager.Feature.HOTKEYS);
-        public bool CanUseHotkeys => _canUseHotkeys;
-        public double HotkeysOpacity => CanUseHotkeys ? 1 : 0.3d;
 
 
         private SoundClip _model;

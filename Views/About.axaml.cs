@@ -19,13 +19,11 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
 using Amplitude.Models;
 using AmplitudeSoundboard;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Avalonia.Media;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -43,13 +41,11 @@ namespace Amplitude.Views
         private string projectUrl = "https://amplitude-soundboard.dan0v.com";
 
         public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        public static bool CanUseCustomTitlebar { get => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR); }
 
         public About()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
             this.txt_bx_License = this.FindControl<TextBox>("txt_bx_License");
             this.txt_bx_License.Text = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Doc", "LICENSE.txt"));
 

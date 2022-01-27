@@ -33,9 +33,6 @@ namespace Amplitude.Views
         public SoundClipList()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
             App.WindowManager.SoundClipListWindow = this;
         }
 

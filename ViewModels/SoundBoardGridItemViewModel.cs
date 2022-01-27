@@ -22,18 +22,12 @@
 using Amplitude.Helpers;
 using Amplitude.Models;
 using Amplitude.Views;
-using AmplitudeSoundboard;
 using Avalonia.Input;
 
 namespace Amplitude.ViewModels
 {
     public sealed class SoundBoardGridItemViewModel : ViewModelBase
     {
-        static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        static SoundClipManager Manager { get => App.SoundClipManager; }
-        static OptionsManager OptionsManager { get => App.OptionsManager; }
-        static WindowManager WindowManager { get => App.WindowManager; }
-
         private string soundClipId = "";
 
         private double Height => OptionsManager.Options.AutoScaleTilesToWindow ? GetHeight() : OptionsManager.Options.GridTileHeight ?? 0;
@@ -64,7 +58,7 @@ namespace Amplitude.ViewModels
         {
             get
             {
-                SoundClip? model = Manager.GetClip(soundClipId, true);
+                SoundClip? model = SoundClipManager.GetClip(soundClipId, true);
                 if (model != null)
                 {
                     _model = model;
@@ -126,7 +120,7 @@ namespace Amplitude.ViewModels
         {
             this.row = row;
             this.col = col;
-            Manager.PropertyChanged += Manager_PropertyChanged;
+            SoundClipManager.PropertyChanged += Manager_PropertyChanged;
             OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
             WindowManager.PropertyChanged += WindowManager_PropertyChanged;
             Model.PropertyChanged += Model_PropertyChanged;
@@ -211,8 +205,8 @@ namespace Amplitude.ViewModels
             {
                 Model.LoadBackgroundImage = false;
             }
-            soundClipId = Manager.CopiedClipId;
-            Manager.CopiedClipId = "";
+            soundClipId = SoundClipManager.CopiedClipId;
+            SoundClipManager.CopiedClipId = "";
             OptionsManager.Options.GridSoundClipIds[row, col] = soundClipId;
             OnPropertyChanged(nameof(Model));
             OptionsManager.SaveAndOverwriteOptions(OptionsManager.Options);
@@ -225,7 +219,7 @@ namespace Amplitude.ViewModels
 
         private void Manager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(Manager.SoundClips))
+            if (e.PropertyName == nameof(SoundClipManager.SoundClips))
             {
                 OnPropertyChanged(nameof(Model));
             }
@@ -244,7 +238,7 @@ namespace Amplitude.ViewModels
 
         public override void Dispose()
         {
-            Manager.PropertyChanged -= Manager_PropertyChanged;
+            SoundClipManager.PropertyChanged -= Manager_PropertyChanged;
             OptionsManager.PropertyChanged -= OptionsManager_PropertyChanged;
             WindowManager.PropertyChanged -= WindowManager_PropertyChanged;
             Model.PropertyChanged -= Model_PropertyChanged;

@@ -53,9 +53,6 @@ namespace Amplitude.Views
         public MainWindow()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
             scrl_GridScroll = this.Find<ScrollViewer>(nameof(scrl_GridScroll));
 
             PositionChanged += MainWindow_PositionChanged;

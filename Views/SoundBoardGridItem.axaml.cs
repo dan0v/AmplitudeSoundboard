@@ -22,7 +22,7 @@ namespace Amplitude.Views
             if (!e.Handled && e.MouseButton == Avalonia.Input.MouseButton.Left)
             {
                 SoundClip? Model = ((SoundBoardGridItemViewModel)DataContext)?.Model;
-                if (Model != null)
+                if (Model != null && !string.IsNullOrEmpty(Model.Id))
                 {
                     Model.PlayAudio();
                 }
