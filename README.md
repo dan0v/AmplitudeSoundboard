@@ -7,6 +7,7 @@
 # [Website](https://amplitude-soundboard.dan0v.com/index.html)
 
 ## Features
+- Cross-platform availability: Windows, Linux, and MacOS
 - Play audio files from many formats
   |  |  |
   | - | - |
