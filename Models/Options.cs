@@ -20,6 +20,7 @@
 */
 
 using Amplitude.Helpers;
+using Amplitude.Localization;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
@@ -225,7 +226,10 @@ namespace Amplitude.Models
             set { }
         }
 
-        public Options() { }
+        public Options()
+        {
+            Language = Localizer.Instance.TryUseSystemLanguageFallbackEnglish();
+        }
 
         public void ApplyGridSizing()
         {
