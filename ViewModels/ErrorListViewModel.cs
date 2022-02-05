@@ -19,9 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
 using Amplitude.Models;
-using Avalonia.Threading;
 using System;
 using System.Collections.ObjectModel;
 
@@ -36,28 +34,12 @@ namespace Amplitude.ViewModels
 
         public void AddErrorString(string errorString)
         {
-            if (!Dispatcher.UIThread.CheckAccess())
-            {
-                Dispatcher.UIThread.InvokeAsync(() =>
-                {
-                    AddErrorString(errorString);
-                });
-            }
             ErrorContainer error = new ErrorContainer(errorString);
             Errors.Add(error);
-
-            WindowManager.ShowErrorListWindow();
         }
 
         public void AddErrorSoundClip(SoundClip clip, ErrorType errorType, string? additionalData = null)
         {
-            if (!Dispatcher.UIThread.CheckAccess())
-            {
-                Dispatcher.UIThread.InvokeAsync(() =>
-                {
-                    AddErrorSoundClip(clip, errorType, additionalData);
-                });
-            }
             string errorString = "";
 
             switch (errorType)
@@ -93,8 +75,6 @@ namespace Amplitude.ViewModels
             ErrorContainer error = new ErrorContainer(errorString, clip.Id);
 
             Errors.Add(error);
-
-            WindowManager.ShowErrorListWindow();
         }
 
         public enum ErrorType

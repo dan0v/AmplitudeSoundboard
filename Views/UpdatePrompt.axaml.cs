@@ -152,7 +152,7 @@ namespace Amplitude.Views
             {
                 Updating = false;
                 Debug.WriteLine(ex);
-                App.WindowManager.ErrorList.AddErrorString(ex.Message);
+                App.WindowManager.ShowErrorString(ex.Message);
             }
         }
 

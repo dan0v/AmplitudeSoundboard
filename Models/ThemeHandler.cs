@@ -53,7 +53,7 @@ namespace Amplitude.Models
             else
             {
                 SelectedTheme = Theme.DARK;
-                App.WindowManager.ErrorList.AddErrorString(string.Format(Localization.Localizer.Instance["InvalidThemeError"], selection));
+                App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["InvalidThemeError"], selection));
             }
         }
 

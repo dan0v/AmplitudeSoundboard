@@ -25,6 +25,7 @@ using Amplitude.Views;
 using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Threading;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -168,8 +169,6 @@ namespace Amplitude.Helpers
             }
         }
 
-        public ErrorListViewModel ErrorList { get => ((ErrorListViewModel)ErrorListWindow.DataContext); }
-
         public bool ErrorListWindowOpen = false;
         private ErrorList _errorListWindow;
         public ErrorList ErrorListWindow
@@ -180,14 +179,43 @@ namespace Amplitude.Helpers
                 {
                     _errorListWindow = new ErrorList
                     {
-                            DataContext = new ErrorListViewModel(),
+                        DataContext = new ErrorListViewModel(),
                     };
                 }
                 return _errorListWindow;
             }
         }
 
-        public void ShowErrorListWindow(PixelPoint? desiredPosition = null)
+        public void ShowErrorString(string errorString)
+        {
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    ShowErrorString(errorString);
+                });
+                return;
+            }
+
+            ((ErrorListViewModel)ErrorListWindow.DataContext)?.AddErrorString(errorString);
+            ShowErrorListWindow();
+        }
+
+        public void ShowErrorSoundClip(SoundClip clip, ErrorListViewModel.ErrorType errorType, string? additionalData = null)
+        {
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    ShowErrorSoundClip(clip, errorType, additionalData);
+                });
+                return;
+            }
+            ((ErrorListViewModel)ErrorListWindow.DataContext)?.AddErrorSoundClip(clip, errorType, additionalData);
+            ShowErrorListWindow();
+        }
+
+        private void ShowErrorListWindow(PixelPoint? desiredPosition = null)
         {
             if (ErrorListWindowOpen)
             {

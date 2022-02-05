@@ -59,7 +59,7 @@ namespace Amplitude.Helpers
             if (!os.HasValue)
             {
                 string osName = RuntimeInformation.OSDescription;
-                App.WindowManager.ErrorList.AddErrorString(osName);
+                App.WindowManager.ShowErrorString(osName);
                 return OSPlatform.Create(osName);
             }
 

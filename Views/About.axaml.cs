@@ -78,7 +78,7 @@ Copyright (C) 2021-2022 dan0v";
             }
             catch (Exception ex)
             {
-                App.WindowManager.ErrorList.AddErrorString(ex.Message);
+                App.WindowManager.ShowErrorString(ex.Message);
             }
         }
 

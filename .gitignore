@@ -244,3 +244,5 @@ _Pvt_Extensions
 
 # Paket dependency manager
 .paket/paket.exe
+Publish/Linux/Sources/appimagetool-x86_64.AppImage
+Publish/MacOS/Icon.icns

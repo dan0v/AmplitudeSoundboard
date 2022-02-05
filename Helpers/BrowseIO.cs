@@ -90,7 +90,7 @@ namespace Amplitude.Helpers
                 if (generateErrors)
                 {
                     string errorMessage = string.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
-                    App.WindowManager.ErrorList.AddErrorString(errorMessage);
+                    App.WindowManager.ShowErrorString(errorMessage);
                 }
                 return false;
             }
@@ -105,7 +105,7 @@ namespace Amplitude.Helpers
                 if (generateErrors)
                 {
                     string errorMessage = string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
-                    App.WindowManager.ErrorList.AddErrorString(errorMessage);
+                    App.WindowManager.ShowErrorString(errorMessage);
                 }
                 return false;
             }
@@ -120,12 +120,12 @@ namespace Amplitude.Helpers
                 {
                     if(clip != null)
                     {
-                        App.WindowManager.ErrorList.AddErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_AUDIO_FILE);
+                        App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_AUDIO_FILE);
                     }
                     else
                     {
                         string errorMessage = string.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
-                        App.WindowManager.ErrorList.AddErrorString(errorMessage);
+                        App.WindowManager.ShowErrorString(errorMessage);
                     }
                 }
                 return false;
@@ -142,12 +142,12 @@ namespace Amplitude.Helpers
                 {
                     if (clip != null)
                     {
-                        App.WindowManager.ErrorList.AddErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.BAD_AUDIO_FORMAT);
+                        App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.BAD_AUDIO_FORMAT);
                     }
                     else
                     {
                         string errorMessage = string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
-                        App.WindowManager.ErrorList.AddErrorString(errorMessage);
+                        App.WindowManager.ShowErrorString(errorMessage);
                     }
                 }
                 return false;

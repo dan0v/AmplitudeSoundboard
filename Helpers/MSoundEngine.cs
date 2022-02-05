@@ -118,7 +118,7 @@ namespace Amplitude.Helpers
 
                 if (!devId.HasValue)
                 {
-                    App.WindowManager.ErrorList.AddErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
+                    App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
                     return;
                 }
 
@@ -156,11 +156,11 @@ namespace Amplitude.Helpers
                 }
                 if (streamError)
                 {
-                    App.WindowManager.ErrorList.AddErrorString($"Stream error: {Bass.LastError}");
+                    App.WindowManager.ShowErrorString($"Stream error: {Bass.LastError}");
                 }
                 if (bassError)
                 {
-                    App.WindowManager.ErrorList.AddErrorString($"ManagedBass error: {Bass.LastError}");
+                    App.WindowManager.ShowErrorString($"ManagedBass error: {Bass.LastError}");
                 }
             })
             {
@@ -177,7 +177,7 @@ namespace Amplitude.Helpers
                 {
                     if (clip != null)
                     {
-                        App.WindowManager.ErrorList.AddErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_DEVICE, settings.DeviceName);
+                        App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_DEVICE, settings.DeviceName);
                     }
                 }
             }
