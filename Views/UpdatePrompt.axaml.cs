@@ -19,6 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
 using Amplitude.Localization;
 using Amplitude.Models;
 using AmplitudeSoundboard;
@@ -40,6 +41,7 @@ namespace Amplitude.Views
     public partial class UpdatePrompt : Window, INotifyPropertyChanged
     {
         public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        public bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
 
         private string newVersion = "";
 
