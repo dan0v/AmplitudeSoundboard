@@ -19,19 +19,20 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using Amplitude.Helpers;
 using AmplitudeSoundboard;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Amplitude.Models
 {
     public class OutputSettings : INotifyPropertyChanged
     {
         private int _volume = 100;
-        public int Volume {
+        public int Volume
+        {
             get => _volume;
             set
             {

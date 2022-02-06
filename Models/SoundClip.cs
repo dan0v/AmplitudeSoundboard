@@ -19,17 +19,16 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
+using AmplitudeSoundboard;
+using Avalonia;
+using Avalonia.Media.Imaging;
+using Newtonsoft.Json;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using Newtonsoft.Json;
-using AmplitudeSoundboard;
-using Amplitude.Helpers;
-using Avalonia.Media.Imaging;
-using Avalonia;
-using System.Collections.ObjectModel;
-using Avalonia.Threading;
 
 namespace Amplitude.Models
 {
@@ -247,7 +246,7 @@ namespace Amplitude.Models
                 {
                     _backgroundImage = _backgroundImage.CreateScaledBitmap(new PixelSize((int)(initialWidth / scaleFactor), (int)(initialHeight / scaleFactor)), Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode.HighQuality);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     App.WindowManager.ShowErrorString(e.ToString());
                 }
@@ -271,7 +270,8 @@ namespace Amplitude.Models
             try
             {
                 return (SoundClip?)JsonConvert.DeserializeObject(json, typeof(SoundClip));
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Debug.WriteLine(e);
             }

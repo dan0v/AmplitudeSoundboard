@@ -21,7 +21,6 @@
 
 using Amplitude.ViewModels;
 using AmplitudeSoundboard;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System.ComponentModel;

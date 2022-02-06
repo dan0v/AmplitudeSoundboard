@@ -19,15 +19,13 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Amplitude.Models;
 
 namespace Amplitude.Helpers
 {
-    public interface ISoundEngine: IDisposable
+    public interface ISoundEngine : IDisposable
     {
         public static ISoundEngine Instance { get; }
 
@@ -44,6 +42,6 @@ namespace Amplitude.Helpers
 
         public List<string> OutputDeviceListWithGlobal { get; }
 
-        public void Reset(bool retainCache = false);
+        public void Reset();
     }
 }

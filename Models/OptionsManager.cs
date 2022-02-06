@@ -19,17 +19,16 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Newtonsoft.Json;
-using System.IO;
-using AmplitudeSoundboard;
 using Amplitude.Helpers;
-using System.Collections.Generic;
-using Amplitude.ViewModels;
 using Amplitude.Localization;
-using System.Globalization;
+using Amplitude.ViewModels;
+using AmplitudeSoundboard;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace Amplitude.Models
 {

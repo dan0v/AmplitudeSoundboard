@@ -26,7 +26,6 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Styling;
-using Avalonia.Threading;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -171,7 +170,7 @@ namespace Amplitude.Models
         public Bitmap Minus { get => getBitmap(folder + "/Minus.png"); }
         public Bitmap ClearCache { get => getBitmap(folder + "/ClearCache.png"); }
         public Bitmap LaunchItem { get => getBitmap(folder + "/LaunchItem.png"); }
-        
+
         private Theme _selectedTheme;
         public Theme SelectedTheme
         {

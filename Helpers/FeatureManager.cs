@@ -55,7 +55,7 @@ namespace Amplitude.Helpers
 #if Linux
             os = OSPlatform.Linux;
 #endif
-            
+
             if (!os.HasValue)
             {
                 string osName = RuntimeInformation.OSDescription;

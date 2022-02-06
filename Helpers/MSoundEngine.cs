@@ -21,12 +21,12 @@
 
 using Amplitude.Models;
 using AmplitudeSoundboard;
+using ManagedBass;
+using ManagedBass.Mix;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Collections.Concurrent;
-using ManagedBass;
-using ManagedBass.Mix;
 
 namespace Amplitude.Helpers
 {
@@ -166,7 +166,7 @@ namespace Amplitude.Helpers
             {
                 IsBackground = true
             }.Start();
-            
+
         }
 
         public void CheckDeviceExistsAndGenerateErrors(SoundClip clip)
@@ -183,9 +183,9 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void Reset(bool retainCache = false)
+        public void Reset()
         {
-            while(!streams.IsEmpty)
+            while (!streams.IsEmpty)
             {
                 if (streams.TryTake(out int stream))
                 {

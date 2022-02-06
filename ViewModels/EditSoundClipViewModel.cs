@@ -188,7 +188,7 @@ namespace Amplitude.ViewModels
 
         public void StopAudio()
         {
-            App.SoundEngine.Reset(true);
+            App.SoundEngine.Reset();
         }
 
         public void SetClipAudioFilePath(string[]? url)

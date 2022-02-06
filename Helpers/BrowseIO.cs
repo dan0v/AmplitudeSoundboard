@@ -19,12 +19,12 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Amplitude.Models;
 using AmplitudeSoundboard;
 using Avalonia.Controls;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Amplitude.Helpers
 {
@@ -118,7 +118,7 @@ namespace Amplitude.Helpers
             {
                 if (generateErrors)
                 {
-                    if(clip != null)
+                    if (clip != null)
                     {
                         App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_AUDIO_FILE);
                     }
@@ -154,5 +154,5 @@ namespace Amplitude.Helpers
             }
             return true;
         }
-    }   
+    }
 }

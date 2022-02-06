@@ -152,7 +152,8 @@ namespace Amplitude.ViewModels
         }
 
         private void WindowManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        { if (e.PropertyName == nameof(WindowManager.GlobalSettingsWindow))
+        {
+            if (e.PropertyName == nameof(WindowManager.GlobalSettingsWindow))
             {
                 if (WindowManager.GlobalSettingsWindow == null)
                 {

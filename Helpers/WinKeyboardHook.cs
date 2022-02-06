@@ -235,7 +235,7 @@ namespace Amplitude.Helpers
                 case 222: return "\'";
             }
             return "";
-            
+
         }
 
         public void SetSoundClipHotkey(SoundClip clip, Action<SoundClip, string> callback)

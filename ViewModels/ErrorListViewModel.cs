@@ -30,7 +30,7 @@ namespace Amplitude.ViewModels
         public ObservableCollection<ErrorContainer> _errors = new();
         public ObservableCollection<ErrorContainer> Errors => _errors;
 
-        public ErrorListViewModel(){ }
+        public ErrorListViewModel() { }
 
         public void AddErrorString(string errorString)
         {

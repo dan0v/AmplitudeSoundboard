@@ -19,16 +19,15 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Newtonsoft.Json;
-using System.IO;
-using AmplitudeSoundboard;
-using System.Collections.Generic;
-using System.Linq;
 using Amplitude.Helpers;
-using Avalonia.Threading;
+using AmplitudeSoundboard;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Amplitude.Models
 {
@@ -93,7 +92,7 @@ namespace Amplitude.Models
                 clip.SetAndRescaleBackgroundImage(fromBackgroundThread);
             }
         }
-        
+
         private SoundClipManager()
         {
             Dictionary<string, SoundClip>? retrievedClips = RetrieveSavedSoundClips();
@@ -240,7 +239,7 @@ namespace Amplitude.Models
             return true;
         }
 
-        public SoundClip? GetClip(string? id, bool ignoreErrors = false) 
+        public SoundClip? GetClip(string? id, bool ignoreErrors = false)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -313,7 +312,8 @@ namespace Amplitude.Models
             return null;
         }
 
-        private void SaveJSONToFile(string json) {
+        private void SaveJSONToFile(string json)
+        {
             try
             {
                 File.WriteAllText(Path.Join(App.APP_STORAGE, @"soundclips.json"), json);

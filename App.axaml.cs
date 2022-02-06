@@ -20,21 +20,21 @@
 */
 
 using Amplitude.Helpers;
+using Amplitude.Models;
 using Amplitude.ViewModels;
 using Amplitude.Views;
-using Amplitude.Models;
-using Amplitude.Localization;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using System.IO;
-using static System.Environment;
-using System.Reflection;
 using System;
-using System.Diagnostics;
-using System.Net.Http;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Net.Http;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using static System.Environment;
 
 namespace AmplitudeSoundboard
 {
@@ -50,11 +50,11 @@ namespace AmplitudeSoundboard
                 {
                     Directory.CreateDirectory(path);
                 }
-                    
+
                 return path;
-			}
-		}
-		
+            }
+        }
+
         public static SoundClipManager SoundClipManager => SoundClipManager.Instance;
         public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
         public static ThemeHandler ThemeHandler => ThemeHandler.Instance;
@@ -92,7 +92,7 @@ namespace AmplitudeSoundboard
         public const string DOWNLOAD_MACOS_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz";
         public const string DOWNLOAD_LINUX_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_linux_AppImage_x86_64.tar.gz";
         public const string RELEASES_PAGE = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/";
-        
+
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
@@ -119,13 +119,43 @@ namespace AmplitudeSoundboard
 
                 // Trigger UI redraw
                 OptionsManager.OnPropertyChanged(nameof(OptionsManager.Options));
-
 #if !DEBUG
+#if Windows
+                Task.Run(CleanupOldFiles);
+#endif
                 CheckForUpdates();
 #endif
             }
 
             base.OnFrameworkInitializationCompleted();
+        }
+
+        private async Task CleanupOldFiles()
+        {
+            try
+            {
+                await Task.Delay(5000);
+                string? currentFileName = Process.GetCurrentProcess().MainModule?.FileName;
+                if (string.IsNullOrEmpty(currentFileName))
+                {
+                    return;
+                }
+                string? currentDirectory = Path.GetDirectoryName(currentFileName);
+                if (string.IsNullOrEmpty(currentDirectory))
+                {
+                    return;
+                }
+                string oldFilePath = Path.Join(currentDirectory, "amplitude_soundboard.OLD.exe");
+
+                if (File.Exists(oldFilePath))
+                {
+                    File.Delete(oldFilePath);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
 
         private async void CheckForUpdates()

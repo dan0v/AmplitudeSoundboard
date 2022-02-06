@@ -32,9 +32,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.Net;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace Amplitude.Views
 {
@@ -84,18 +84,12 @@ namespace Amplitude.Views
             OnPropertyChanged(nameof(UpdatePromptText));
         }
 
-        private void Update()
+        private async void Update()
         {
-            new Thread(() =>
-            {
-                RunUpdate();
-            })
-            {
-                IsBackground = true
-            }.Start();
+            await Task.Run(RunUpdateAsync);
         }
 
-        private void RunUpdate()
+        private async void RunUpdateAsync()
         {
             try
             {
@@ -104,26 +98,28 @@ namespace Amplitude.Views
                 string? currentFileName = Process.GetCurrentProcess().MainModule?.FileName;
                 string? currentDirectory = Path.GetDirectoryName(currentFileName);
 
-                if (!string.IsNullOrEmpty(currentDirectory))
+                if (!string.IsNullOrEmpty(currentDirectory) && !string.IsNullOrEmpty(currentFileName))
                 {
                     string oldFilePath = Path.Join(currentDirectory, "amplitude_soundboard.OLD.exe");
+                    string zipPath = Path.Join(currentDirectory, "AmplitudeUpdate.zip");
+                    string outputPath = Path.Join(currentDirectory, "AmplitudeUpdate");
 
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        using HttpResponseMessage response = await httpClient.GetAsync(App.DOWNLOAD_WIN_URL, HttpCompletionOption.ResponseHeadersRead);
+                        using Stream streamToReadFrom = await response.Content.ReadAsStreamAsync();
+                        using Stream streamToWriteTo = File.Open(zipPath, FileMode.Create);
+                        await streamToReadFrom.CopyToAsync(streamToWriteTo);
+                    }
+
+                    ZipFile.ExtractToDirectory(zipPath, outputPath);
+
+                    // Mark current application as outdated
                     if (File.Exists(oldFilePath))
                     {
                         File.Delete(oldFilePath);
                     }
-
                     File.Move(currentFileName, oldFilePath);
-
-                    string zipPath = Path.Join(currentDirectory, "AmplitudeUpdate.zip");
-                    string outputPath = Path.Join(currentDirectory, "AmplitudeUpdate");
-
-                    using (WebClient myWebClient = new WebClient())
-                    {
-                        myWebClient.DownloadFile(App.DOWNLOAD_WIN_URL, zipPath);
-                    }
-
-                    ZipFile.ExtractToDirectory(zipPath, outputPath);
 
                     // Overwrite current app
                     File.Move(Path.Join(outputPath, "Amplitude Soundboard", "amplitude_soundboard.exe"), currentFileName);
@@ -136,6 +132,7 @@ namespace Amplitude.Views
 
                     // Start new version and quit current
                     Process.Start(currentFileName);
+
                     using (var lifetime = (ClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime)
                     {
                         lifetime.Shutdown(0);

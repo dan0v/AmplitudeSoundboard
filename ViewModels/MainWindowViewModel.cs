@@ -60,7 +60,7 @@ namespace Amplitude.ViewModels
             }
         }
 
-        private ObservableCollection<GridItemRow> _gridItemsRows  = new();
+        private ObservableCollection<GridItemRow> _gridItemsRows = new();
         private ObservableCollection<GridItemRow> GridItemsRows { get => _gridItemsRows; }
 
         public void ShowList()
@@ -72,7 +72,7 @@ namespace Amplitude.ViewModels
         {
             WindowManager.ShowGlobalSettingsWindow(new Avalonia.PixelPoint(WindowPosition.x + 150, WindowPosition.y + 150));
         }
-        
+
         public void ShowAbout()
         {
             WindowManager.ShowAboutWindow(new Avalonia.PixelPoint(WindowPosition.x + 100, WindowPosition.y + 100));
@@ -80,7 +80,7 @@ namespace Amplitude.ViewModels
 
         public void StopAudio()
         {
-            SoundEngine.Reset(true);
+            SoundEngine.Reset();
         }
 
         public override void Dispose()

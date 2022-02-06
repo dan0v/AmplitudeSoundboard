@@ -31,17 +31,17 @@ namespace Amplitude.Helpers
 
         public void Dispose()
         {
-            
+
         }
 
         public void SetGlobalStopHotkey(Options options, Action<Options, string> callback)
         {
-            
+
         }
 
         public void SetSoundClipHotkey(SoundClip clip, Action<SoundClip, string> callback)
         {
-            
+
         }
     }
 }

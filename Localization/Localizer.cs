@@ -19,7 +19,6 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using AmplitudeSoundboard;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
