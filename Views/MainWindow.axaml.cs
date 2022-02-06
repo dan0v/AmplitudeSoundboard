@@ -33,7 +33,8 @@ namespace Amplitude.Views
     {
         ScrollViewer scrl_GridScroll;
 
-        private Timer timer = new Timer(1500);
+        private const long TIMER_MS = 500;
+        private Timer timer = new Timer(TIMER_MS);
 
         private (double width, double height) _gridSize;
         public (double width, double height) GridSize
@@ -72,7 +73,7 @@ namespace Amplitude.Views
                 }
                 else
                 {
-                    timer.Interval = 1500;
+                    timer.Interval = TIMER_MS;
                 }
             }
         }

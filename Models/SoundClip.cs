@@ -23,12 +23,14 @@ using Amplitude.Helpers;
 using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace Amplitude.Models
 {
@@ -100,7 +102,7 @@ namespace Amplitude.Models
                 {
                     _imageFilePath = value;
                     OnPropertyChanged();
-                    SetAndRescaleBackgroundImage();
+                    SetAndRescaleBackgroundImage().Wait();
                 }
             }
         }
@@ -205,7 +207,7 @@ namespace Amplitude.Models
                 {
                     _loadBackgroundImage = value;
                     OnPropertyChanged();
-                    SetAndRescaleBackgroundImage();
+                    SetAndRescaleBackgroundImage().Wait();
                 }
             }
         }
@@ -231,7 +233,7 @@ namespace Amplitude.Models
             App.WindowManager.OpenEditSoundClipWindow(Id);
         }
 
-        public void SetAndRescaleBackgroundImage(bool fromBackgroundThread = false)
+        public async Task SetAndRescaleBackgroundImage(bool fromBackgroundThread = false)
         {
             if (LoadBackgroundImage && BrowseIO.ValidImage(_imageFilePath, false))
             {
@@ -255,14 +257,29 @@ namespace Amplitude.Models
             {
                 _backgroundImage = null;
             }
-            if (fromBackgroundThread)
+
+            void triggerOnChanged()
             {
-                OnPropertyChanged(nameof(BackgroundImage));
+                if (fromBackgroundThread)
+                {
+                    OnPropertyChanged(nameof(BackgroundImage));
+                }
+                else
+                {
+                    OnPropertyChanged(nameof(BackgroundImage));
+                }
             }
-            else
+
+            if (!Dispatcher.UIThread.CheckAccess())
             {
-                OnPropertyChanged(nameof(BackgroundImage));
+                await Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    triggerOnChanged();
+                });
+                return;
             }
+
+            triggerOnChanged();
         }
 
         public static SoundClip? FromJSON(string json)

@@ -28,6 +28,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace Amplitude.Models
 {
@@ -85,12 +86,10 @@ namespace Amplitude.Models
         private Dictionary<string, SoundClip> _soundClips;
         public Dictionary<string, SoundClip> SoundClips { get => _soundClips; }
 
-        public void RescaleAllBackgroundImages(bool fromBackgroundThread = false)
+        public async void RescaleAllBackgroundImages(bool fromBackgroundThread = false)
         {
-            foreach (SoundClip clip in SoundClips.Values)
-            {
-                clip.SetAndRescaleBackgroundImage(fromBackgroundThread);
-            }
+            var rescaleTasks = SoundClips.Values.Select(clip => clip.SetAndRescaleBackgroundImage(fromBackgroundThread)).ToArray();
+            await Task.WhenAll(rescaleTasks);
         }
 
         private SoundClipManager()

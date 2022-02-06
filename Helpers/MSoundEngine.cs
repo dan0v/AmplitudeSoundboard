@@ -26,7 +26,6 @@ using ManagedBass.Mix;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 namespace Amplitude.Helpers
 {
@@ -110,63 +109,56 @@ namespace Amplitude.Helpers
 
         public void Play(string fileName, int volume, string playerDeviceName, string id)
         {
-            new Thread(() =>
+            double vol = volume / 100.0;
+
+            int? devId = GetOutputPlayerByName(playerDeviceName);
+
+            if (!devId.HasValue)
             {
-                double vol = volume / 100.0;
+                App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
+                return;
+            }
 
-                int? devId = GetOutputPlayerByName(playerDeviceName);
+            bool streamError = false;
+            bool bassError = false;
 
-                if (!devId.HasValue)
+            lock (bass_lock)
+            {
+                // Init device
+                if (Bass.Init(devId.Value, SAMPLE_RATE) || Bass.LastError == Errors.Already)
                 {
-                    App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
-                    return;
-                }
+                    Bass.CurrentDevice = devId.Value;
+                    int mixer = BassMix.CreateMixerStream(SAMPLE_RATE, 2, BassFlags.Default);
+                    int stream = Bass.CreateStream(fileName);
 
-                bool streamError = false;
-                bool bassError = false;
+                    Bass.ChannelSetAttribute(stream, ChannelAttribute.Volume, vol);
+                    BassMix.MixerAddChannel(mixer, stream, BassFlags.AutoFree | BassFlags.MixerChanDownMix);
+                    Bass.ChannelPlay(mixer);
 
-                lock (bass_lock)
-                {
-                    // Init device
-                    if (Bass.Init(devId.Value, SAMPLE_RATE) || Bass.LastError == Errors.Already)
+                    if (stream != 0)
                     {
-                        Bass.CurrentDevice = devId.Value;
-                        int mixer = BassMix.CreateMixerStream(SAMPLE_RATE, 2, BassFlags.Default);
-                        int stream = Bass.CreateStream(fileName);
-
-                        Bass.ChannelSetAttribute(stream, ChannelAttribute.Volume, vol);
-                        BassMix.MixerAddChannel(mixer, stream, BassFlags.AutoFree | BassFlags.MixerChanDownMix);
-                        Bass.ChannelPlay(mixer);
-
-                        if (stream != 0)
-                        {
-                            // Track active streams so they can be stopped
-                            streams.Add(stream);
-                            Bass.ChannelPlay(stream, false);
-                        }
-                        else
-                        {
-                            streamError = true;
-                        }
+                        // Track active streams so they can be stopped
+                        streams.Add(stream);
+                        Bass.ChannelPlay(stream, false);
                     }
                     else
                     {
-                        bassError = true;
+                        streamError = true;
                     }
                 }
-                if (streamError)
+                else
                 {
-                    App.WindowManager.ShowErrorString($"Stream error: {Bass.LastError}");
+                    bassError = true;
                 }
-                if (bassError)
-                {
-                    App.WindowManager.ShowErrorString($"ManagedBass error: {Bass.LastError}");
-                }
-            })
+            }
+            if (streamError)
             {
-                IsBackground = true
-            }.Start();
-
+                App.WindowManager.ShowErrorString($"Stream error: {Bass.LastError}");
+            }
+            if (bassError)
+            {
+                App.WindowManager.ShowErrorString($"ManagedBass error: {Bass.LastError}");
+            }
         }
 
         public void CheckDeviceExistsAndGenerateErrors(SoundClip clip)
