@@ -46,6 +46,10 @@ namespace Amplitude.Helpers
 
         public List<string> OutputDeviceListWithGlobal { get; }
 
+        public void StopPlaying(int bassId);
+
+        public void RemoveFromQueue(SoundClip clip);
+
         public void Reset();
     }
 }

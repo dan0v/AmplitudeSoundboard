@@ -619,11 +619,11 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove from queue.
+        ///   Looks up a localized string similar to Remove.
         /// </summary>
-        internal static string RemoveClipFromQueue {
+        internal static string Remove {
             get {
-                return ResourceManager.GetString("RemoveClipFromQueue", resourceCulture);
+                return ResourceManager.GetString("Remove", resourceCulture);
             }
         }
         

@@ -357,7 +357,7 @@
   <data name="AddClipToQueue" xml:space="preserve">
     <value>Lejátszási listához</value>
   </data>
-  <data name="RemoveClipFromQueue" xml:space="preserve">
-    <value>Eltávolítás a lejátszási listáról</value>
+  <data name="Remove" xml:space="preserve">
+    <value>Eltávolítás</value>
   </data>
 </root>

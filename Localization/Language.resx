@@ -357,7 +357,7 @@
   <data name="AddClipToQueue" xml:space="preserve">
     <value>Add to queue</value>
   </data>
-  <data name="RemoveClipFromQueue" xml:space="preserve">
-    <value>Remove from queue</value>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
   </data>
 </root>

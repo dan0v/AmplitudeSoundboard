@@ -170,6 +170,8 @@ namespace Amplitude.Models
         public Bitmap Minus { get => getBitmap(folder + "/Minus.png"); }
         public Bitmap ClearCache { get => getBitmap(folder + "/ClearCache.png"); }
         public Bitmap LaunchItem { get => getBitmap(folder + "/LaunchItem.png"); }
+        public Bitmap RemoveItem { get => getBitmap(folder + "/Remove.png"); }
+        public Bitmap AddToQueue { get => getBitmap(folder + "/AddToQueue.png"); }
 
         private Theme _selectedTheme;
         public Theme SelectedTheme

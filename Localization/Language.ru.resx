@@ -354,4 +354,10 @@
   <data name="FeatureUnavailable" xml:space="preserve">
     <value>Эта функция пока недоступна на вашей платформе</value>
   </data>
+  <data name="AddClipToQueue" xml:space="preserve">
+    <value>Добавить в очередь</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Удалять</value>
+  </data>
 </root>

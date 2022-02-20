@@ -19,9 +19,8 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Avalonia.Media.Imaging;
+using AmplitudeSoundboard;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -59,6 +58,10 @@ namespace Amplitude.Models
             }
         }
 
+        public void StopPlayback()
+        {
+            App.SoundEngine.StopPlaying(BassStreamId);
+        }
 
         public PlayingClip(string name, int bassStreamId, double length)
         {

@@ -70,8 +70,8 @@ namespace Amplitude.Helpers
                 if (!CurrentlyPlaying.Any() && Queued.Any())
                 {
                     var clip = Queued[0];
-                    Queued.RemoveAt(0);
                     Play(clip);
+                    Queued.RemoveAt(0);
                 }
             }
         }
@@ -143,7 +143,7 @@ namespace Amplitude.Helpers
         {
             lock(queueLock)
             {
-                Queued.Add(source);
+                Queued.Add(source.CreateCopy());
             }
         }
 
@@ -244,6 +244,10 @@ namespace Amplitude.Helpers
 
         public void Reset()
         {
+            lock(queueLock)
+            {
+                Queued.Clear();
+            }
             lock(currentlyPlayingLock)
             {
                 foreach (var stream in CurrentlyPlaying)
@@ -261,6 +265,27 @@ namespace Amplitude.Helpers
             timer.Elapsed -= RefreshPlaybackProgressAndCheckQueue;
             Reset();
             Bass.Free();
+        }
+
+        public void StopPlaying(int bassId)
+        {
+            lock (currentlyPlayingLock)
+            {
+                Bass.StreamFree(bassId);
+                PlayingClip? track = CurrentlyPlaying.FirstOrDefault(c => c.BassStreamId == bassId);
+                if (track != null)
+                {
+                    CurrentlyPlaying.Remove(track);
+                }
+            }
+        }
+
+        public void RemoveFromQueue(SoundClip clip)
+        {
+            lock(queueLock)
+            {
+                Queued.Remove(clip);
+            }
         }
     }
 }
