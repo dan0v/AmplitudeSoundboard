@@ -22,6 +22,7 @@
 using Amplitude.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Amplitude.Helpers
 {
@@ -29,12 +30,15 @@ namespace Amplitude.Helpers
     {
         public static ISoundEngine Instance { get; }
 
+        public ObservableCollection<PlayingClip> CurrentlyPlaying { get; }
+        public ObservableCollection<SoundClip> Queued { get; }
+
         public const string DEFAULT_DEVICE_NAME = "Default";
         public const string GLOBAL_DEFAULT_DEVICE_NAME = "Global setting";
 
-        public void Play(SoundClip source);
+        public void AddToQueue(SoundClip source);
 
-        public void Play(string fileName, int volume, string playerDeviceName, string id);
+        public void Play(SoundClip source);
 
         public void CheckDeviceExistsAndGenerateErrors(SoundClip clip);
 

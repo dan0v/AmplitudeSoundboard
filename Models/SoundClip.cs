@@ -223,6 +223,11 @@ namespace Amplitude.Models
             App.SoundEngine.Play(this);
         }
 
+        public void AddAudioToQueue()
+        {
+            App.SoundEngine.AddToQueue(this);
+        }
+
         public void CopySoundClipId()
         {
             App.SoundClipManager.CopiedClipId = Id;
