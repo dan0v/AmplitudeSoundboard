@@ -79,6 +79,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to queue.
+        /// </summary>
+        internal static string AddClipToQueue {
+            get {
+                return ResourceManager.GetString("AddClipToQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add output device.
         /// </summary>
         internal static string AddSoundClipOutput {
@@ -606,6 +615,15 @@ namespace Amplitude.Localization {
         internal static string PreCacheAudioLabel {
             get {
                 return ResourceManager.GetString("PreCacheAudioLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        internal static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
             }
         }
         

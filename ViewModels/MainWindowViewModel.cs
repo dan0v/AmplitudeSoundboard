@@ -22,7 +22,10 @@
 using Amplitude.Helpers;
 using Amplitude.Models;
 using AmplitudeSoundboard;
+using Avalonia.Threading;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Amplitude.ViewModels
 {
@@ -33,9 +36,24 @@ namespace Amplitude.ViewModels
 
         private string StopAudioHotkey => string.IsNullOrEmpty(OptionsManager.Options.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + OptionsManager.Options.GlobalKillAudioHotkey;
 
+        private bool _queueSeperatorVisible = false;
+        public bool QueueSeperatorVisible
+        {
+            get => _queueSeperatorVisible;
+            set
+            {
+                if (_queueSeperatorVisible != value)
+                {
+                    _queueSeperatorVisible = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public MainWindowViewModel()
         {
             OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
+            SoundEngine.Queued.CollectionChanged += Queued_CollectionChanged;
 
             GridItemsRows.Clear();
             foreach (GridItemRow temp in App.OptionsManager.GetGridLayout())
@@ -43,6 +61,18 @@ namespace Amplitude.ViewModels
                 GridItemsRows.Add(temp);
             }
             OnPropertyChanged(nameof(GridItemsRows));
+        }
+
+        private void Queued_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (SoundEngine.CurrentlyPlaying.Any() && SoundEngine.Queued.Any())
+            {
+                QueueSeperatorVisible = true;
+            }
+            else
+            {
+                QueueSeperatorVisible = false;
+            }
         }
 
         private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -81,6 +111,14 @@ namespace Amplitude.ViewModels
         public void StopAudio()
         {
             SoundEngine.Reset();
+        }
+
+        public void RemoveFromQueue(object o)
+        {
+            if (o is SoundClip clip)
+            {
+                SoundEngine.RemoveFromQueue(clip);
+            }
         }
 
         public override void Dispose()

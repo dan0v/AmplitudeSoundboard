@@ -30,7 +30,7 @@
         Icon="/Assets/Icon.ico"
         Title="Amplitude Soundboard"
         MinWidth="450" MinHeight="300"
-        Width="650" Height="625"
+        Width="725" Height="625"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
@@ -64,29 +64,107 @@
       <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
       <Grid RowDefinitions="*,Auto,Auto" Margin="5,30,5,0" >
-        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" >
-          <StackPanel Grid.Column="0" VerticalAlignment="Top">
-            <Button ToolTip.Tip="{i18n:Localize SoundClipListTitle}" Command="{Binding ShowList}" Cursor="Hand" Margin="5,5,5,5">
-              <Panel>
-                <Image Source="{Binding ThemeHandler.SoundClipList}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-              </Panel>
-            </Button>
-            <Button ToolTip.Tip="{Binding StopAudioHotkey}" IsEnabled="{Binding App.CanResetSoundManager}" Command="{Binding StopAudio}" Cursor="Hand" Margin="5,5,5,5">
-              <Panel>
-                <Image Source="{Binding ThemeHandler.StopSound}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-              </Panel>
-            </Button>
-            <Button ToolTip.Tip="{i18n:Localize GlobalSettingsTitle}" Command="{Binding ShowGlobalSettings}" Cursor="Hand" Margin="5,5,5,5">
-              <Panel>
-                <Image Source="{Binding ThemeHandler.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-              </Panel>
-            </Button>
-            <Button ToolTip.Tip="{i18n:Localize AboutTitle}" Command="{Binding ShowAbout}" Cursor="Hand" Margin="5,5,5,5">
-              <Panel>
-                <Image Source="{Binding ThemeHandler.Info}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-              </Panel>
-            </Button>
-          </StackPanel>
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*">
+          <Grid RowDefinitions="Auto,*">
+            <StackPanel Grid.Column="0" VerticalAlignment="Top" Margin="0,8,0,0">
+              <Grid ColumnDefinitions="Auto,*">
+                <Button Grid.Column="0" ToolTip.Tip="{i18n:Localize SoundClipListTitle}" Command="{Binding ShowList}" Cursor="Hand" Margin="5,5,5,5">
+                  <Panel>
+                    <Image Source="{Binding ThemeHandler.SoundClipList}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  </Panel>
+                </Button>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{i18n:Localize SoundClipListTitle}"/>
+              </Grid>
+              <Grid ColumnDefinitions="Auto,*">
+                <Button ToolTip.Tip="{Binding StopAudioHotkey}" IsEnabled="{Binding App.CanResetSoundManager}" Command="{Binding StopAudio}" Cursor="Hand" Margin="5,5,5,5">
+                  <Panel>
+                    <Image Source="{Binding ThemeHandler.StopSound}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  </Panel>
+                </Button>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{i18n:Localize StopAllAudio}"/>
+              </Grid>
+              <Grid ColumnDefinitions="Auto,*">
+                <Button ToolTip.Tip="{i18n:Localize GlobalSettingsTitle}" Command="{Binding ShowGlobalSettings}" Cursor="Hand" Margin="5,5,5,5">
+                  <Panel>
+                    <Image Source="{Binding ThemeHandler.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  </Panel>
+                </Button>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{i18n:Localize GlobalSettingsTitle}"/>
+              </Grid>
+              <Grid ColumnDefinitions="Auto,*">
+                <Button ToolTip.Tip="{i18n:Localize AboutTitle}" Command="{Binding ShowAbout}" Cursor="Hand" Margin="5,5,5,5">
+                  <Panel>
+                    <Image Source="{Binding ThemeHandler.Info}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  </Panel>
+                </Button>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{i18n:Localize AboutTitle}"/>
+              </Grid>
+            </StackPanel>
+
+            <ScrollViewer Grid.Row="1" Width="160" Padding="10,10,10,5">
+              <StackPanel>
+                <ItemsControl Items="{Binding SoundEngine.CurrentlyPlaying}">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <StackPanel Orientation="Vertical" Spacing="10"/>
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <Border BorderThickness="2" CornerRadius="5" ClipToBounds="True">
+                        <Border.BorderBrush>
+                          <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+                        </Border.BorderBrush>
+                        <Grid ColumnDefinitions="*,Auto">
+                          <Grid Grid.Column="0" Background="Transparent" Margin="5" RowDefinitions="Auto,*" ToolTip.Tip="{Binding Name}">
+                            <TextBlock Grid.Row="0" Text="{Binding Name}"  TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <ProgressBar MinWidth="50" IsHitTestVisible="False" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5" Maximum="1.0" Value="{Binding ProgressPct}"/>
+                          </Grid>
+                          <Button Grid.Column="1" ToolTip.Tip="{i18n:Localize Remove}" Command="{Binding StopPlayback}" Cursor="Hand" Margin="2">
+                            <Panel>
+                              <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Panel>
+                          </Button>
+                        </Grid>
+                      </Border>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <Rectangle StrokeLineCap="Round" Stretch="Fill" StrokeThickness="1" Height="0" IsVisible="{Binding QueueSeperatorVisible}">
+                  <Rectangle.Stroke>
+                    <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+                  </Rectangle.Stroke>
+                </Rectangle>
+                  
+                <ItemsControl Items="{Binding SoundEngine.Queued}">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <StackPanel Orientation="Vertical" Spacing="10"/>
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <Border BorderThickness="2" CornerRadius="5" ClipToBounds="True">
+                        <Border.BorderBrush>
+                          <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+                        </Border.BorderBrush>
+                        <Grid ColumnDefinitions="*,Auto" >
+                          <TextBlock Grid.Row="0" Text="{Binding Name}" ToolTip.Tip="{Binding Name}" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          <Button Grid.Column="1" ToolTip.Tip="{i18n:Localize Remove}" Command="{Binding $parent[ItemsControl].DataContext.RemoveFromQueue}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}" Cursor="Hand" Margin="2">
+                            <Panel>
+                              <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Panel>
+                          </Button>
+                        </Grid>
+                      </Border>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </StackPanel>
+            </ScrollViewer>
+          </Grid>
+          
           <Grid x:Name="grd_TileGrid" Grid.Column="1" RowDefinitions="*,Auto">
             <ScrollViewer x:Name="scrl_GridScroll" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="0" Padding="10,10,10,5">
               <ItemsControl Items="{Binding GridItemsRows}">
