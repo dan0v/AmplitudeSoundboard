@@ -195,7 +195,7 @@ namespace Amplitude.Helpers
                         {
                             var len = Bass.ChannelGetLength(stream, PositionFlags.Bytes);
                             double length = Bass.ChannelBytes2Seconds(stream, len);
-                            PlayingClip track = new PlayingClip(name ?? Path.GetFileNameWithoutExtension(fileName) ?? "", stream, length);
+                            PlayingClip track = new PlayingClip(name ?? Path.GetFileNameWithoutExtension(fileName) ?? "", playerDeviceName, stream, length);
 
                             lock(currentlyPlayingLock)
                             {

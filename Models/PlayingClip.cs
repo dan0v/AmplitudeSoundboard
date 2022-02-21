@@ -29,8 +29,11 @@ namespace Amplitude.Models
     public class PlayingClip : INotifyPropertyChanged
     {
         public string Name { get; private set; }
+        public string OutputDevice { get; private set; }
         public double Length { get; private set; }
         public int BassStreamId { get; private set; }
+
+        public string ToolTip => $"{Name} - {OutputDevice}";
 
         private double _currentPos = 0;
         public double CurrentPos
@@ -63,13 +66,14 @@ namespace Amplitude.Models
             App.SoundEngine.StopPlaying(BassStreamId);
         }
 
-        public PlayingClip(string name, int bassStreamId, double length)
+        public PlayingClip(string name, string outputDevice, int bassStreamId, double length)
         {
             if (length == 0)
             {
                 throw new ArgumentOutOfRangeException();
             }
             Name = name;
+            OutputDevice = outputDevice;
             BassStreamId = bassStreamId;
             Length = length;
         }

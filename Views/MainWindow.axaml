@@ -116,7 +116,7 @@
                           <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
                         </Border.BorderBrush>
                         <Grid ColumnDefinitions="*,Auto">
-                          <Grid Grid.Column="0" Background="Transparent" Margin="5" RowDefinitions="Auto,*" ToolTip.Tip="{Binding Name}">
+                          <Grid Grid.Column="0" Background="Transparent" Margin="5" RowDefinitions="Auto,*" ToolTip.Tip="{Binding ToolTip}">
                             <TextBlock Grid.Row="0" Text="{Binding Name}"  TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             <ProgressBar MinWidth="50" IsHitTestVisible="False" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5" Maximum="1.0" Value="{Binding ProgressPct}"/>
                           </Grid>

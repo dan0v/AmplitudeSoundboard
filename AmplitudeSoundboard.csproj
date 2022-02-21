@@ -19,7 +19,7 @@
     <RootNamespace>Amplitude</RootNamespace>
     <NeutralLanguage>en</NeutralLanguage>
     <Platforms>AnyCPU;x64</Platforms>
-    <Version>2.2.0</Version>
+    <Version>2.2.1</Version>
     <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>Link</TrimMode>
