@@ -92,7 +92,7 @@
           </Border>
 
           <!--Volume-->
-          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5" IsEnabled="{Binding HasNameField}">
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>

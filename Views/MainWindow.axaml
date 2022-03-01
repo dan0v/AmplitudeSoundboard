@@ -76,7 +76,7 @@
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{i18n:Localize SoundClipListTitle}"/>
               </Grid>
               <Grid ColumnDefinitions="Auto,*">
-                <Button ToolTip.Tip="{Binding StopAudioHotkey}" IsEnabled="{Binding App.CanResetSoundManager}" Command="{Binding StopAudio}" Cursor="Hand" Margin="5,5,5,5">
+                <Button ToolTip.Tip="{Binding StopAudioHotkey}" Command="{Binding StopAudio}" Cursor="Hand" Margin="5,5,5,5">
                   <Panel>
                     <Image Source="{Binding ThemeHandler.StopSound}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
@@ -111,33 +111,28 @@
                   </ItemsControl.ItemsPanel>
                   <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                      <Border BorderThickness="2" CornerRadius="5" ClipToBounds="True">
-                        <Border.BorderBrush>
-                          <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
-                        </Border.BorderBrush>
-                        <Grid ColumnDefinitions="*,Auto">
-                          <Grid Grid.Column="0" Background="Transparent" Margin="5" RowDefinitions="Auto,*" ToolTip.Tip="{Binding ToolTip}">
-                            <TextBlock Grid.Row="0" Text="{Binding Name}"  TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <ProgressBar MinWidth="50" IsHitTestVisible="False" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5" Maximum="1.0" Value="{Binding ProgressPct}"/>
-                          </Grid>
-                          <Button Grid.Column="1" ToolTip.Tip="{i18n:Localize Remove}" Command="{Binding StopPlayback}" Cursor="Hand" Margin="2">
-                            <Panel>
-                              <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            </Panel>
-                          </Button>
+                      <Grid ColumnDefinitions="*,Auto">
+                        <Grid Grid.Column="0" Background="Transparent" Margin="5" RowDefinitions="Auto,*" ToolTip.Tip="{Binding ToolTip}">
+                          <TextBlock Grid.Row="0" Text="{Binding Name}"  TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          <ProgressBar MinWidth="50" IsHitTestVisible="False" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5" Maximum="1.0" Value="{Binding ProgressPct}"/>
                         </Grid>
-                      </Border>
+                        <Button Grid.Column="1" ToolTip.Tip="{i18n:Localize Remove}" Command="{Binding StopPlayback}" Cursor="Hand" Margin="2">
+                          <Panel>
+                            <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          </Panel>
+                        </Button>
+                      </Grid>
                     </DataTemplate>
                   </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <Rectangle StrokeLineCap="Round" Stretch="Fill" StrokeThickness="1" Height="0" IsVisible="{Binding QueueSeperatorVisible}">
+                <Rectangle StrokeLineCap="Round" Stretch="Fill" StrokeThickness="1" Height="0" IsVisible="{Binding QueueSeperatorVisible}" Margin="5">
                   <Rectangle.Stroke>
                     <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
                   </Rectangle.Stroke>
                 </Rectangle>
                   
-                <ItemsControl Items="{Binding SoundEngine.Queued}">
+                <ItemsControl Items="{Binding SoundEngine.Queued}" Margin="0,5,0,0">
                   <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                       <StackPanel Orientation="Vertical" Spacing="10"/>
@@ -145,19 +140,14 @@
                   </ItemsControl.ItemsPanel>
                   <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                      <Border BorderThickness="2" CornerRadius="5" ClipToBounds="True">
-                        <Border.BorderBrush>
-                          <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
-                        </Border.BorderBrush>
-                        <Grid ColumnDefinitions="*,Auto" >
-                          <TextBlock Grid.Row="0" Text="{Binding Name}" ToolTip.Tip="{Binding Name}" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                          <Button Grid.Column="1" ToolTip.Tip="{i18n:Localize Remove}" Command="{Binding $parent[ItemsControl].DataContext.RemoveFromQueue}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}" Cursor="Hand" Margin="2">
-                            <Panel>
-                              <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            </Panel>
-                          </Button>
-                        </Grid>
-                      </Border>
+                      <Grid ColumnDefinitions="*,Auto" >
+                        <TextBlock Grid.Row="0" Text="{Binding Name}" ToolTip.Tip="{Binding Name}" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Button Grid.Column="1" ToolTip.Tip="{i18n:Localize Remove}" Command="{Binding $parent[ItemsControl].DataContext.RemoveFromQueue}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}" Cursor="Hand" Margin="2">
+                          <Panel>
+                            <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          </Panel>
+                        </Button>
+                      </Grid>
                     </DataTemplate>
                   </ItemsControl.ItemTemplate>
                 </ItemsControl>

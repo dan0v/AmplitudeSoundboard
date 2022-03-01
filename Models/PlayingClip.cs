@@ -28,10 +28,10 @@ namespace Amplitude.Models
 {
     public class PlayingClip : INotifyPropertyChanged
     {
-        public string Name { get; private set; }
-        public string OutputDevice { get; private set; }
-        public double Length { get; private set; }
-        public int BassStreamId { get; private set; }
+        public string Name { get; init; }
+        public string OutputDevice { get; init; }
+        public double Length { get; init; }
+        public int BassStreamId { get; init; }
 
         public string ToolTip => $"{Name} - {OutputDevice}";
 

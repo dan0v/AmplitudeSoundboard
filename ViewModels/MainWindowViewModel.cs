@@ -56,7 +56,7 @@ namespace Amplitude.ViewModels
             SoundEngine.Queued.CollectionChanged += Queued_CollectionChanged;
 
             GridItemsRows.Clear();
-            foreach (GridItemRow temp in App.OptionsManager.GetGridLayout())
+            foreach (GridItemRow temp in OptionsManager.GetGridLayout())
             {
                 GridItemsRows.Add(temp);
             }
@@ -82,7 +82,7 @@ namespace Amplitude.ViewModels
                 OnPropertyChanged(nameof(StopAudioHotkey));
 
                 GridItemsRows.Clear();
-                foreach (GridItemRow temp in App.OptionsManager.GetGridLayout())
+                foreach (GridItemRow temp in OptionsManager.GetGridLayout())
                 {
                     GridItemsRows.Add(temp);
                 }

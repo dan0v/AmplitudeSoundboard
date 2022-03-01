@@ -81,7 +81,7 @@ namespace Amplitude.Views
         /// <summary>
         /// Trigger image rescaling a period of time after the user stops resizing the main window
         /// </summary>
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
         {
             App.SoundClipManager.RescaleAllBackgroundImages(true);
         }

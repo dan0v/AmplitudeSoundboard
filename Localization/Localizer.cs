@@ -46,12 +46,11 @@ namespace Amplitude.Localization
 
         private const string IndexerName = "Item";
         private const string IndexerArrayName = "Item[]";
-        private ResourceManager resources;
+        private ResourceManager? resources;
 
         private Localizer()
         {
-            resources = new ResourceManager(typeof(Language));
-            Invalidate();
+            LoadLanguage();
         }
 
         public void LoadLanguage()
@@ -74,7 +73,7 @@ namespace Amplitude.Localization
         public string TryUseSystemLanguageFallbackEnglish()
         {
             string curLang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-            if (inverseLanguages.TryGetValue(curLang, out string fullLang))
+            if (inverseLanguages.TryGetValue(curLang, out string? fullLang))
             {
                 ChangeLanguage(fullLang);
                 return fullLang;
@@ -83,8 +82,6 @@ namespace Amplitude.Localization
             ChangeLanguage(FALLBACK_LANGUAGE);
             return FALLBACK_LANGUAGE;
         }
-
-        public string Language { get; private set; }
 
         public string this[string key]
         {
@@ -100,7 +97,7 @@ namespace Amplitude.Localization
         }
 
         public static Localizer Instance { get; set; } = new Localizer();
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public void Invalidate()
         {
