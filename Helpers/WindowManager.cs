@@ -244,7 +244,21 @@ namespace Amplitude.Helpers
             ShowErrorListWindow();
         }
 
-        public void ShowErrorSoundClip(SoundClip clip, ErrorListViewModel.ErrorType errorType, string? additionalData = null)
+        public void ShowErrorOutputProfile(OutputProfile profile, ErrorListViewModel.OutputProfileErrorType errorType, string? additionalData = null)
+        {
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    ShowErrorOutputProfile(profile, errorType, additionalData);
+                });
+                return;
+            }
+            ((ErrorListViewModel)ErrorListWindow.DataContext)?.AddErrorOutputProfile(profile, errorType, additionalData);
+            ShowErrorListWindow();
+        }
+
+        public void ShowErrorSoundClip(SoundClip clip, ErrorListViewModel.SoundClipErrorType errorType, string? additionalData = null)
         {
             if (!Dispatcher.UIThread.CheckAccess())
             {

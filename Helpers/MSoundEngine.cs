@@ -228,15 +228,15 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void CheckDeviceExistsAndGenerateErrors(SoundClip clip)
+        public void CheckDeviceExistsAndGenerateErrors(OutputProfile profile)
         {
-            foreach (OutputSettings settings in clip.OutputSettings)
+            foreach (OutputSettings settings in profile.OutputSettings)
             {
                 if (GetOutputPlayerByName(settings.DeviceName) == null)
                 {
-                    if (clip != null)
+                    if (profile != null)
                     {
-                        App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_DEVICE, settings.DeviceName);
+                        App.WindowManager.ShowErrorSoundClip(profile, ViewModels.ErrorListViewModel.SoundClipErrorType.MISSING_DEVICE, settings.DeviceName);
                     }
                 }
             }

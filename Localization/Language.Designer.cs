@@ -538,6 +538,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Output Profile &quot;{0}&quot; is missing and cannot be used for playback!.
+        /// </summary>
+        internal static string MissingOutputProfileString {
+            get {
+                return ResourceManager.GetString("MissingOutputProfileString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New sound clip.
         /// </summary>
         internal static string NewSoundClip {
@@ -588,6 +597,15 @@ namespace Amplitude.Localization {
         internal static string OutputDeviceLabel {
             get {
                 return ResourceManager.GetString("OutputDeviceLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Output Profile &quot;{0}&quot; has errors:\\n{1}.
+        /// </summary>
+        internal static string OutputProfileError {
+            get {
+                return ResourceManager.GetString("OutputProfileError", resourceCulture);
             }
         }
         

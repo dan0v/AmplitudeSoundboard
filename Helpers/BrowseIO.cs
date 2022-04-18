@@ -120,7 +120,7 @@ namespace Amplitude.Helpers
                 {
                     if (clip != null)
                     {
-                        App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_AUDIO_FILE);
+                        App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.SoundClipErrorType.MISSING_AUDIO_FILE);
                     }
                     else
                     {
@@ -142,7 +142,7 @@ namespace Amplitude.Helpers
                 {
                     if (clip != null)
                     {
-                        App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.BAD_AUDIO_FORMAT);
+                        App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.SoundClipErrorType.BAD_AUDIO_FORMAT);
                     }
                     else
                     {
