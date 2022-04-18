@@ -170,12 +170,29 @@ namespace Amplitude.Models
         private ObservableCollection<OutputSettings> _outputSettings = new ObservableCollection<OutputSettings>();
         public ObservableCollection<OutputSettings> OutputSettings
         {
-            get => _outputSettings;
-            set
+            get
+            {
+                return App.SoundClipManager.GetOutputProfile(OutputProfileId).OutputSettings;
+            }
+            internal set
             {
                 if (value != _outputSettings)
                 {
                     _outputSettings = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _outputProfileId = "DEFAULT";
+        public string OutputProfileId
+        {
+            get => _outputProfileId;
+            set
+            {
+                if (value != _outputProfileId)
+                {
+                    _outputProfileId = value;
                     OnPropertyChanged();
                 }
             }
@@ -189,9 +206,9 @@ namespace Amplitude.Models
             get => _id;
         }
 
-        private Bitmap _backgroundImage = null;
+        private Bitmap? _backgroundImage = null;
         [JsonIgnore]
-        public Bitmap BackgroundImage
+        public Bitmap? BackgroundImage
         {
             get => _backgroundImage;
         }
@@ -238,7 +255,7 @@ namespace Amplitude.Models
             App.WindowManager.OpenEditSoundClipWindow(Id);
         }
 
-        public async Task SetAndRescaleBackgroundImage(bool fromBackgroundThread = false)
+        public async Task SetAndRescaleBackgroundImage()
         {
             if (LoadBackgroundImage && BrowseIO.ValidImage(_imageFilePath, false))
             {
@@ -263,28 +280,16 @@ namespace Amplitude.Models
                 _backgroundImage = null;
             }
 
-            void triggerOnChanged()
-            {
-                if (fromBackgroundThread)
-                {
-                    OnPropertyChanged(nameof(BackgroundImage));
-                }
-                else
-                {
-                    OnPropertyChanged(nameof(BackgroundImage));
-                }
-            }
-
             if (!Dispatcher.UIThread.CheckAccess())
             {
                 await Dispatcher.UIThread.InvokeAsync(() =>
                 {
-                    triggerOnChanged();
+                    OnPropertyChanged(nameof(BackgroundImage));
                 });
                 return;
             }
 
-            triggerOnChanged();
+            OnPropertyChanged(nameof(BackgroundImage));
         }
 
         public static SoundClip? FromJSON(string json)

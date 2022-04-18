@@ -360,4 +360,10 @@
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="MissingOutputProfileString" xml:space="preserve">
+    <value>The Output Profile "{0}" is missing and cannot be used for playback!</value>
+  </data>
+  <data name="OutputProfileError" xml:space="preserve">
+    <value>The Output Profile "{0}" has errors:\\n{1}</value>
+  </data>
 </root>

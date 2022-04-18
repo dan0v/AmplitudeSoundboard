@@ -83,7 +83,7 @@ namespace Amplitude.Views
         /// </summary>
         private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
         {
-            App.SoundClipManager.RescaleAllBackgroundImages(true);
+            App.SoundClipManager.RescaleAllBackgroundImages();
         }
 
         private void MainWindow_PositionChanged(object? sender, PixelPointEventArgs e)
