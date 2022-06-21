@@ -115,7 +115,8 @@ namespace AmplitudeSoundboard
                 var h = HotkeysManager;
                 var t = ThemeHandler;
                 var w = WindowManager;
-                w.MainWindow = (MainWindow)desktop.MainWindow;
+                w.ReadWindowSizesAndPositions();
+                w.SetMainWindow((MainWindow)desktop.MainWindow);
 
                 // Trigger UI redraw
                 OptionsManager.OnPropertyChanged(nameof(OptionsManager.Options));

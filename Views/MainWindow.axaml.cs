@@ -23,6 +23,7 @@ using Amplitude.ViewModels;
 using AmplitudeSoundboard;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Timers;
@@ -50,6 +51,11 @@ namespace Amplitude.Views
             }
         }
 
+        private (double height, double width) lastWindowSize = (0, 0);
+        private (double height, double width) currentWindowSize = (0, 0);
+        private (int x, int y) lastWindowPosition = (0, 0);
+        private (int x, int y) currentWindowPosition = (0, 0);
+
         public MainWindow()
         {
             InitializeComponent();
@@ -64,18 +70,18 @@ namespace Amplitude.Views
         private void MainWindow_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
         {
             GridSize = (scrl_GridScroll.Bounds.Width, scrl_GridScroll.Bounds.Height);
+            currentWindowSize = (Height, Width);
 
-            if (App.OptionsManager.Options.AutoScaleTilesToWindow)
+            if (!timer.Enabled)
             {
-                if (!timer.Enabled)
-                {
-                    timer.Enabled = true;
-                }
-                else
-                {
-                    timer.Interval = TIMER_MS;
-                }
+                timer.Enabled = true;
             }
+            else
+            {
+                timer.Interval = TIMER_MS;
+            }
+
+            App.WindowManager.SaveWindowSizesAndPositions();
         }
 
         /// <summary>
@@ -83,12 +89,28 @@ namespace Amplitude.Views
         /// </summary>
         private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
         {
-            App.SoundClipManager.RescaleAllBackgroundImages(true);
+            var newWindowSize = currentWindowSize;
+            var newWindowPosition = currentWindowPosition;
+
+            if (App.OptionsManager.Options.AutoScaleTilesToWindow && lastWindowSize != newWindowSize)
+            {
+                App.SoundClipManager.RescaleAllBackgroundImages(true);
+                App.WindowManager.SaveWindowSizesAndPositions();
+                lastWindowSize = newWindowSize;
+                lastWindowPosition = newWindowPosition;
+            }
+            else if (lastWindowPosition != newWindowPosition)
+            {
+                App.WindowManager.SaveWindowSizesAndPositions();
+                lastWindowPosition = newWindowPosition;
+            }
         }
 
         private void MainWindow_PositionChanged(object? sender, PixelPointEventArgs e)
         {
             ((MainWindowViewModel)DataContext).WindowPosition = (e.Point.X, e.Point.Y);
+            currentWindowPosition = (Position.X, Position.Y);
+            App.WindowManager.SaveWindowSizesAndPositions();
         }
 
         private void InitializeComponent()
