@@ -259,7 +259,8 @@ a.button {
     display: none;
 }
 
-@media (max-aspect-ratio: 1.3)
+// Mobile view
+@media (max-width: 65rem) and (max-aspect-ratio:"4/4")
 {
     h1 {
         font-size: 11vw;
