@@ -360,4 +360,10 @@
   <data name="Remove" xml:space="preserve">
     <value>Удалять</value>
   </data>
+  <data name="ClearPositions" xml:space="preserve">
+    <value>Сбросить размеры и положение окна</value>
+  </data>
+  <data name="ClearPositionsTooltip" xml:space="preserve">
+    <value>Если окно находится вне досягаемости, сбросьте размеры и положение окна.</value>
+  </data>
 </root>

@@ -360,4 +360,10 @@
   <data name="Remove" xml:space="preserve">
     <value>Verwijderen</value>
   </data>
+  <data name="ClearPositions" xml:space="preserve">
+    <value>Vensterformaten en posities resetten</value>
+  </data>
+  <data name="ClearPositionsTooltip" xml:space="preserve">
+    <value>Als een raam buiten bereik is, stel dan de venstergrootte en positie opnieuw in</value>
+  </data>
 </root>

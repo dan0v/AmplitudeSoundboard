@@ -75,7 +75,12 @@
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
             <Grid ColumnDefinitions="*,*">
-              <Label Grid.Column="0" Content="{i18n:Localize LanguageLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+              <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                <Label Content="{i18n:Localize LanguageLabel}" VerticalAlignment="Center"></Label>
+                <Panel>
+                  <Image Source="{Binding ThemeHandler.Language}" Height="20" VerticalAlignment="Center" />
+                </Panel>
+              </StackPanel>
               <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" Margin="0,5,0,5" SelectedItem="{Binding Model.Language}" Items="{Binding Languages}" HorizontalAlignment="Center"></ComboBox>
             </Grid>
           </Border>

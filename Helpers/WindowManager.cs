@@ -34,6 +34,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Amplitude.Helpers
 {
@@ -42,9 +43,21 @@ namespace Amplitude.Helpers
         private static WindowManager? _instance;
         public static WindowManager Instance { get => _instance ??= new WindowManager(); }
 
+        public WindowManager()
+        {
+            windowPositionAndScaleTimer.Elapsed += WindowPositionAndScaleTimerElapsed;
+        }
+
         private readonly object windowPositionSaveLock = new object();
 
         private readonly Random randomizer = new Random();
+
+        private const int WINDOW_POSITION_AND_SCALE_TIMER_MS = 500;
+        private Timer windowPositionAndScaleTimer = new Timer
+        {
+            Interval = WINDOW_POSITION_AND_SCALE_TIMER_MS,
+            AutoReset = false,
+        };
 
         private static string WINDOW_POSITION_FILE_LOCATION => Path.Join(App.APP_STORAGE, "window-positions.json");
 
@@ -68,7 +81,7 @@ namespace Amplitude.Helpers
 
         public void OpenEditSoundClipWindow(string? id = null)
         {
-            if (id != null && App.WindowManager.EditSoundClipWindows.TryGetValue(id, out EditSoundClip window))
+            if (id != null && EditSoundClipWindows.TryGetValue(id, out EditSoundClip window))
             {
                 if (window.WindowState == WindowState.Minimized)
                 {
@@ -344,6 +357,18 @@ namespace Amplitude.Helpers
             }
         }
 
+        public void WindowSizesOrPositionsChanged()
+        {
+            if (!windowPositionAndScaleTimer.Enabled)
+            {
+                windowPositionAndScaleTimer.Enabled = true;
+            }
+            else
+            {
+                windowPositionAndScaleTimer.Interval = WINDOW_POSITION_AND_SCALE_TIMER_MS;
+            }
+        }
+
         public async void SaveWindowSizesAndPositions()
         {
             var dict = CaptureWindowSizesAndPositions();
@@ -436,11 +461,61 @@ namespace Amplitude.Helpers
 
         public void ClearWindowSizesAndPositions()
         {
-            // TODO also move windows back to the screen center?
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    ClearWindowSizesAndPositions();
+                });
+                return;
+            }
+
             lock (windowPositionSaveLock)
             {
                 windowSizesAndPositions = new();
+                try
+                {
+                    File.Delete(WINDOW_POSITION_FILE_LOCATION);
+                }
+                catch { }
             }
+
+            foreach (Window win in EditSoundClipWindows.Values)
+            {
+                win.Close();
+            }
+            EditSoundClipWindows.Clear();
+
+            SoundClipListWindow?.Close();
+            AboutWindow?.Close();
+            GlobalSettingsWindow?.Close();
+        }
+
+        private (double height, double width) lastMainWindowSize;
+
+        private void WindowPositionAndScaleTimerElapsed(object? sender, ElapsedEventArgs e)
+        {
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    WindowPositionAndScaleTimerElapsed(sender, e);
+                });
+                return;
+            }
+
+            if (MainWindow != null)
+            {
+                var newWindowSize = MainWindow.WindowSize;
+
+                if (App.OptionsManager.Options.AutoScaleTilesToWindow && lastMainWindowSize != newWindowSize)
+                {
+                    lastMainWindowSize = newWindowSize;
+                    App.SoundClipManager.RescaleAllBackgroundImages(true);
+                }
+            }
+
+            App.WindowManager.SaveWindowSizesAndPositions();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

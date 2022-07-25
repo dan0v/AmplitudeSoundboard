@@ -172,6 +172,7 @@ namespace Amplitude.Models
         public Bitmap LaunchItem => GetBitmap(folder + "/LaunchItem.png");
         public Bitmap RemoveItem => GetBitmap(folder + "/Remove.png");
         public Bitmap AddToQueue => GetBitmap(folder + "/AddToQueue.png");
+        public Bitmap Language => GetBitmap(folder + "/Language.png");
 
         private Theme _selectedTheme;
         public Theme SelectedTheme

@@ -160,8 +160,6 @@ namespace Amplitude.Views
             this.Close();
         }
 
-        Window GetWindow() => (Window)this.VisualRoot;
-
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);

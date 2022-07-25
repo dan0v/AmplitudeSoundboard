@@ -33,6 +33,9 @@ namespace Amplitude.Views
         {
             InitializeComponent();
             App.WindowManager.SoundClipListWindow = this;
+            
+            PositionChanged += SoundClipList_PositionChanged;
+            EffectiveViewportChanged += SoundClipList_EffectiveViewportChanged;
         }
 
         private void InitializeComponent()
@@ -40,9 +43,21 @@ namespace Amplitude.Views
             AvaloniaXamlLoader.Load(this);
         }
 
+        private void SoundClipList_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
+        {
+            App.WindowManager.WindowSizesOrPositionsChanged();
+        }
+
+        private void SoundClipList_PositionChanged(object? sender, PixelPointEventArgs e)
+        {
+            App.WindowManager.WindowSizesOrPositionsChanged();
+        }
+
         protected override void OnClosing(CancelEventArgs e)
         {
             App.WindowManager.SoundClipListWindow = null;
+            PositionChanged -= SoundClipList_PositionChanged;
+            EffectiveViewportChanged -= SoundClipList_EffectiveViewportChanged;
             ((SoundClipListViewModel)DataContext).Dispose();
             base.OnClosing(e);
         }
