@@ -291,7 +291,7 @@ namespace Amplitude.Models
         {
             try
             {
-                return (SoundClip?)JsonConvert.DeserializeObject(json, typeof(SoundClip));
+                return JsonConvert.DeserializeObject<SoundClip>(json);
             }
             catch (Exception e)
             {

@@ -23,18 +23,15 @@ using Amplitude.ViewModels;
 using AmplitudeSoundboard;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Timers;
 
 namespace Amplitude.Views
 {
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         ScrollViewer scrl_GridScroll;
-
-        private const long TIMER_MS = 500;
-        private Timer timer = new Timer(TIMER_MS);
 
         private (double width, double height) _gridSize;
         public (double width, double height) GridSize
@@ -50,6 +47,9 @@ namespace Amplitude.Views
             }
         }
 
+        public (double height, double width) WindowSize = (0, 0);
+        public (int x, int y) WindowPosition = (0, 0);
+
         public MainWindow()
         {
             InitializeComponent();
@@ -57,38 +57,23 @@ namespace Amplitude.Views
 
             PositionChanged += MainWindow_PositionChanged;
             EffectiveViewportChanged += MainWindow_EffectiveViewportChanged;
-            timer.AutoReset = false;
-            timer.Elapsed += Timer_Elapsed;
+
+            WindowSize = (Height, Width);
+            WindowPosition = (Position.X, Position.Y);
         }
 
         private void MainWindow_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
         {
             GridSize = (scrl_GridScroll.Bounds.Width, scrl_GridScroll.Bounds.Height);
-
-            if (App.OptionsManager.Options.AutoScaleTilesToWindow)
-            {
-                if (!timer.Enabled)
-                {
-                    timer.Enabled = true;
-                }
-                else
-                {
-                    timer.Interval = TIMER_MS;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Trigger image rescaling a period of time after the user stops resizing the main window
-        /// </summary>
-        private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
-        {
-            App.SoundClipManager.RescaleAllBackgroundImages(true);
+            WindowSize = (Height, Width);
+            App.WindowManager.WindowSizesOrPositionsChanged();
         }
 
         private void MainWindow_PositionChanged(object? sender, PixelPointEventArgs e)
         {
-            ((MainWindowViewModel)DataContext).WindowPosition = (e.Point.X, e.Point.Y);
+            WindowPosition = (e.Point.X, e.Point.Y);
+            ((MainWindowViewModel)DataContext).WindowPosition = WindowPosition;
+            App.WindowManager.WindowSizesOrPositionsChanged();
         }
 
         private void InitializeComponent()
@@ -98,6 +83,8 @@ namespace Amplitude.Views
 
         protected override void OnClosing(CancelEventArgs e)
         {
+            PositionChanged -= MainWindow_PositionChanged;
+            EffectiveViewportChanged -= MainWindow_EffectiveViewportChanged;
             App.SoundEngine.Dispose();
             App.KeyboardHook.Dispose();
             ((MainWindowViewModel)DataContext).Dispose();

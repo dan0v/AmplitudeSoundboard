@@ -26,9 +26,15 @@ using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Timers;
 
 namespace Amplitude.Helpers
 {
@@ -36,6 +42,26 @@ namespace Amplitude.Helpers
     {
         private static WindowManager? _instance;
         public static WindowManager Instance { get => _instance ??= new WindowManager(); }
+
+        public WindowManager()
+        {
+            windowPositionAndScaleTimer.Elapsed += WindowPositionAndScaleTimerElapsed;
+        }
+
+        private readonly object windowPositionSaveLock = new object();
+
+        private readonly Random randomizer = new Random();
+
+        private const int WINDOW_POSITION_AND_SCALE_TIMER_MS = 500;
+        private Timer windowPositionAndScaleTimer = new Timer
+        {
+            Interval = WINDOW_POSITION_AND_SCALE_TIMER_MS,
+            AutoReset = false,
+        };
+
+        private static string WINDOW_POSITION_FILE_LOCATION => Path.Join(App.APP_STORAGE, "window-positions.json");
+
+        private Dictionary<string, WindowSizeAndPosition> windowSizesAndPositions = new();
 
         private Dictionary<string, EditSoundClip> _editSoundClipWindows = new Dictionary<string, EditSoundClip>();
         public Dictionary<string, EditSoundClip> EditSoundClipWindows
@@ -55,7 +81,7 @@ namespace Amplitude.Helpers
 
         public void OpenEditSoundClipWindow(string? id = null)
         {
-            if (id != null && App.WindowManager.EditSoundClipWindows.TryGetValue(id, out EditSoundClip window))
+            if (id != null && EditSoundClipWindows.TryGetValue(id, out EditSoundClip window))
             {
                 if (window.WindowState == WindowState.Minimized)
                 {
@@ -70,10 +96,15 @@ namespace Amplitude.Helpers
 
                 sound.DataContext = clip == null ? new EditSoundClipViewModel() : new EditSoundClipViewModel(clip);
 
+                if (windowSizesAndPositions.TryGetValue("editSoundClip", out var info))
+                {
+                    SetAvailableWindowDetails(sound, info);
+                }
+
                 PixelPoint? pos = SoundClipListWindow?.Position ?? MainWindow?.Position;
                 if (pos != null)
                 {
-                    sound.Position = new PixelPoint(pos.Value.X + 50, pos.Value.Y + 50);
+                    sound.Position = new PixelPoint(pos.Value.X + randomizer.Next(50, 100), pos.Value.Y + randomizer.Next(50, 100));
                 }
 
                 sound.Show();
@@ -112,21 +143,34 @@ namespace Amplitude.Helpers
             }
         }
 
-        public MainWindow? _mainWindow = null;
-        public MainWindow? MainWindow
+        private MainWindow? _mainWindow = null;
+        public MainWindow? MainWindow => _mainWindow;
+
+        public void SetMainWindow(MainWindow window)
         {
-            get => _mainWindow;
-            set
+            if (windowSizesAndPositions.TryGetValue("main", out var mainWindowData))
             {
-                if (value != _mainWindow)
+                if (mainWindowData != null)
                 {
-                    _mainWindow = value;
-                    OnPropertyChanged();
+                    if (mainWindowData.Height.HasValue)
+                    {
+                        window.Height = mainWindowData.Height.Value;
+                    }
+                    if (mainWindowData.Width.HasValue)
+                    {
+                        window.Width = mainWindowData.Width.Value;
+                    }
+                    if (mainWindowData.WindowPosition.HasValue)
+                    {
+                        window.Position = mainWindowData.WindowPosition.Value;
+                    }
                 }
             }
+
+            _mainWindow = window;
         }
 
-        public GlobalSettings? _globalSettingsWindow = null;
+        private GlobalSettings? _globalSettingsWindow = null;
         public GlobalSettings? GlobalSettingsWindow
         {
             get => _globalSettingsWindow;
@@ -140,7 +184,7 @@ namespace Amplitude.Helpers
             }
         }
 
-        public SoundClipList? _soundClipListWindow = null;
+        private SoundClipList? _soundClipListWindow = null;
         public SoundClipList? SoundClipListWindow
         {
             get => _soundClipListWindow;
@@ -236,7 +280,7 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void ShowSoundClipListWindow(PixelPoint? desiredPosition = null)
+        public void ShowSoundClipListWindow(PixelPoint? fallbackPosition = null)
         {
             if (SoundClipListWindow != null)
             {
@@ -252,15 +296,19 @@ namespace Amplitude.Helpers
                 {
                     DataContext = new SoundClipListViewModel(),
                 };
-                if (desiredPosition != null)
+                if (windowSizesAndPositions.TryGetValue("soundClipList", out var soundClipsInfo))
                 {
-                    SoundClipListWindow.Position = (PixelPoint)desiredPosition;
+                    SetAvailableWindowDetails(SoundClipListWindow, soundClipsInfo);
+                }
+                if (fallbackPosition != null && soundClipsInfo?.WindowPosition == null)
+                {
+                    SoundClipListWindow.Position = fallbackPosition.Value;
                 }
                 SoundClipListWindow.Show();
             }
         }
 
-        public void ShowGlobalSettingsWindow(PixelPoint? desiredPosition = null)
+        public void ShowGlobalSettingsWindow(PixelPoint? fallbackPosition = null)
         {
             if (GlobalSettingsWindow != null)
             {
@@ -276,9 +324,13 @@ namespace Amplitude.Helpers
                 {
                     DataContext = new GlobalSettingsViewModel(),
                 };
-                if (desiredPosition != null)
+                if (windowSizesAndPositions.TryGetValue("globalSettings", out var soundClipsInfo))
                 {
-                    GlobalSettingsWindow.Position = (PixelPoint)desiredPosition;
+                    SetAvailableWindowDetails(GlobalSettingsWindow, soundClipsInfo);
+                }
+                if (fallbackPosition != null && soundClipsInfo?.WindowPosition == null)
+                {
+                    GlobalSettingsWindow.Position = (PixelPoint)fallbackPosition;
                 }
                 GlobalSettingsWindow.Show();
             }
@@ -303,6 +355,167 @@ namespace Amplitude.Helpers
                 }
                 AboutWindow.Show();
             }
+        }
+
+        public void WindowSizesOrPositionsChanged()
+        {
+            if (!windowPositionAndScaleTimer.Enabled)
+            {
+                windowPositionAndScaleTimer.Enabled = true;
+            }
+            else
+            {
+                windowPositionAndScaleTimer.Interval = WINDOW_POSITION_AND_SCALE_TIMER_MS;
+            }
+        }
+
+        public async void SaveWindowSizesAndPositions()
+        {
+            var dict = CaptureWindowSizesAndPositions();
+            await Task.Run(() =>
+            {
+                lock (windowPositionSaveLock)
+                {
+                    windowSizesAndPositions["main"] = dict["main"];
+
+                    if (SoundClipListWindow != null)
+                    {
+                        windowSizesAndPositions["soundClipList"] = dict["soundClipList"];
+                    }
+
+                    if (GlobalSettingsWindow != null)
+                    {
+                        windowSizesAndPositions["globalSettings"] = dict["globalSettings"];
+                    }
+
+                    if (EditSoundClipWindows.Any())
+                    {
+                        windowSizesAndPositions["editSoundClip"] = dict["editSoundClip"];
+                    }
+
+                    try
+                    {
+                        File.WriteAllText(WINDOW_POSITION_FILE_LOCATION, JsonConvert.SerializeObject(windowSizesAndPositions, Formatting.Indented));
+                    } catch { }
+                }
+            });
+        }
+
+        private Dictionary<string, WindowSizeAndPosition> CaptureWindowSizesAndPositions()
+        {
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                return Dispatcher.UIThread.InvokeAsync<Dictionary<string, WindowSizeAndPosition>>(() =>
+                {
+                    return CaptureWindowSizesAndPositions();
+                }).Result;
+            }
+
+            var soundClips = new WindowSizeAndPosition(null, null, null);
+            if (EditSoundClipWindows.Any())
+            {
+                var maxHeight = EditSoundClipWindows.Select(w => w.Value.Height).FirstOrDefault();
+                var maxWidth = EditSoundClipWindows.Select(w => w.Value.Width).FirstOrDefault();
+                soundClips = new WindowSizeAndPosition(null, maxHeight, maxWidth);
+            }
+            return new Dictionary<string, WindowSizeAndPosition>()
+            {
+                { "main", new WindowSizeAndPosition(MainWindow?.Position, MainWindow?.Height, MainWindow?.Width) },
+                { "soundClipList", new WindowSizeAndPosition(SoundClipListWindow?.Position, SoundClipListWindow?.Height, SoundClipListWindow?.Width) },
+                { "globalSettings", new WindowSizeAndPosition(null, GlobalSettingsWindow?.Height, GlobalSettingsWindow?.Width) },
+                { "editSoundClip", soundClips },
+            };
+        }
+
+        public void ReadWindowSizesAndPositions()
+        {
+            lock (windowPositionSaveLock)
+            {
+                try
+                {
+                    var saved = File.ReadAllText(WINDOW_POSITION_FILE_LOCATION);
+                    Dictionary<string, WindowSizeAndPosition>? processed = JsonConvert.DeserializeObject<Dictionary<string, WindowSizeAndPosition>>(saved);
+
+                    if (processed != null)
+                    {
+                        windowSizesAndPositions = processed;
+                    }
+                } catch { }
+            }
+        }
+        private void SetAvailableWindowDetails(Window window, WindowSizeAndPosition info)
+        {
+            if (info.WindowPosition.HasValue)
+            {
+                window.Position = new PixelPoint(info.WindowPosition.Value.X, info.WindowPosition.Value.Y);
+            }
+            if (info.Height.HasValue)
+            {
+                window.Height = info.Height.Value;
+            }
+            if (info.Width.HasValue)
+            {
+                window.Width = info.Width.Value;
+            }
+        }
+
+        public void ClearWindowSizesAndPositions()
+        {
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    ClearWindowSizesAndPositions();
+                });
+                return;
+            }
+
+            lock (windowPositionSaveLock)
+            {
+                windowSizesAndPositions = new();
+                try
+                {
+                    File.Delete(WINDOW_POSITION_FILE_LOCATION);
+                }
+                catch { }
+            }
+
+            foreach (Window win in EditSoundClipWindows.Values)
+            {
+                win.Close();
+            }
+            EditSoundClipWindows.Clear();
+
+            SoundClipListWindow?.Close();
+            AboutWindow?.Close();
+            GlobalSettingsWindow?.Close();
+        }
+
+        private (double height, double width) lastMainWindowSize;
+
+        private void WindowPositionAndScaleTimerElapsed(object? sender, ElapsedEventArgs e)
+        {
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    WindowPositionAndScaleTimerElapsed(sender, e);
+                });
+                return;
+            }
+
+            if (MainWindow != null)
+            {
+                var newWindowSize = MainWindow.WindowSize;
+
+                if (App.OptionsManager.Options.AutoScaleTilesToWindow && lastMainWindowSize != newWindowSize)
+                {
+                    lastMainWindowSize = newWindowSize;
+                    App.SoundClipManager.RescaleAllBackgroundImages(true);
+                }
+            }
+
+            App.WindowManager.SaveWindowSizesAndPositions();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

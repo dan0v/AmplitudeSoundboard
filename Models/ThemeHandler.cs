@@ -151,27 +151,28 @@ namespace Amplitude.Models
             }
         }
 
-        public Color TextBoxHighlightedColor { get => SliderForeground; }
+        public Color TextBoxHighlightedColor => SliderForeground;
 
-        public Bitmap ArrowLeft { get => getBitmap(folder + "/ArrowLeft.png"); }
-        public Bitmap ArrowRight { get => getBitmap(folder + "/ArrowRight.png"); }
-        public Bitmap FileBrowse { get => getBitmap(folder + "/FileBrowse.png"); }
-        public Bitmap Keyboard { get => getBitmap(folder + "/Keyboard.png"); }
-        public Bitmap Settings { get => getBitmap(folder + "/Settings.png"); }
-        public Bitmap Play { get => getBitmap(folder + "/Play.png"); }
-        public Bitmap Clipboard { get => getBitmap(folder + "/Clipboard.png"); }
-        public Bitmap SoundClipList { get => getBitmap(folder + "/SoundClipList.png"); }
-        public Bitmap StopSound { get => getBitmap(folder + "/StopSound.png"); }
-        public Bitmap Info { get => getBitmap(folder + "/Info.png"); }
-        public Bitmap Save { get => getBitmap(folder + "/Save.png"); }
-        public Bitmap Delete { get => getBitmap(folder + "/Delete.png"); }
-        public Bitmap AddAudio { get => getBitmap(folder + "/AddAudio.png"); }
-        public Bitmap Plus { get => getBitmap(folder + "/Plus.png"); }
-        public Bitmap Minus { get => getBitmap(folder + "/Minus.png"); }
-        public Bitmap ClearCache { get => getBitmap(folder + "/ClearCache.png"); }
-        public Bitmap LaunchItem { get => getBitmap(folder + "/LaunchItem.png"); }
-        public Bitmap RemoveItem { get => getBitmap(folder + "/Remove.png"); }
-        public Bitmap AddToQueue { get => getBitmap(folder + "/AddToQueue.png"); }
+        public Bitmap ArrowLeft => GetBitmap(folder + "/ArrowLeft.png");
+        public Bitmap ArrowRight => GetBitmap(folder + "/ArrowRight.png");
+        public Bitmap FileBrowse => GetBitmap(folder + "/FileBrowse.png");
+        public Bitmap Keyboard => GetBitmap(folder + "/Keyboard.png");
+        public Bitmap Settings => GetBitmap(folder + "/Settings.png");
+        public Bitmap Play => GetBitmap(folder + "/Play.png");
+        public Bitmap Clipboard => GetBitmap(folder + "/Clipboard.png");
+        public Bitmap SoundClipList => GetBitmap(folder + "/SoundClipList.png");
+        public Bitmap StopSound => GetBitmap(folder + "/StopSound.png");
+        public Bitmap Info => GetBitmap(folder + "/Info.png");
+        public Bitmap Save => GetBitmap(folder + "/Save.png");
+        public Bitmap Delete => GetBitmap(folder + "/Delete.png");
+        public Bitmap AddAudio => GetBitmap(folder + "/AddAudio.png");
+        public Bitmap Plus => GetBitmap(folder + "/Plus.png");
+        public Bitmap Minus => GetBitmap(folder + "/Minus.png");
+        public Bitmap ClearCache => GetBitmap(folder + "/ClearCache.png");
+        public Bitmap LaunchItem => GetBitmap(folder + "/LaunchItem.png");
+        public Bitmap RemoveItem => GetBitmap(folder + "/Remove.png");
+        public Bitmap AddToQueue => GetBitmap(folder + "/AddToQueue.png");
+        public Bitmap Language => GetBitmap(folder + "/Language.png");
 
         private Theme _selectedTheme;
         public Theme SelectedTheme
@@ -257,7 +258,7 @@ namespace Amplitude.Models
             }
         }
 
-        private Bitmap getBitmap(string uriPath)
+        private Bitmap GetBitmap(string uriPath)
         {
             return new Bitmap(assetLoader.Open(new Uri(uriPath)));
         }

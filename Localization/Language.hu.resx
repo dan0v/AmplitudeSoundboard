@@ -145,7 +145,7 @@
     <value>Hangklip neve</value>
   </data>
   <data name="ClipNamePlaceholder" xml:space="preserve">
-    <value>Írj be egy nevet...</value>
+    <value>Írjon be egy nevet...</value>
   </data>
   <data name="OutputVolumeLabel" xml:space="preserve">
     <value>Hangerő</value>
@@ -175,7 +175,7 @@
     <value>Hangklip szerkeztése</value>
   </data>
   <data name="EmptyTilePrompt" xml:space="preserve">
-    <value>Húzz ide egy Hangklipet, hogy kitöltsd a cellát!</value>
+    <value>Húzzon ide egy Hangklipet, hogy kitöltse a cellát!</value>
   </data>
   <data name="ErrorListTitle" xml:space="preserve">
     <value>Hibák Listája</value>
@@ -205,7 +205,7 @@
     <value>Főablak cellái mérete</value>
   </data>
   <data name="GridTutorial" xml:space="preserve">
-    <value>Másolj egy Hangklipet a Hangklipek Listájából bármelyik cellába jobb egérrel!</value>
+    <value>Másoljon egy Hangklipet a Hangklipek Listájából bármelyik cellába jobb egérrel!</value>
   </data>
   <data name="HeightPlaceholder" xml:space="preserve">
     <value>Magasság</value>
@@ -256,7 +256,7 @@
     <value>Mentés</value>
   </data>
   <data name="SaveButtonDisabledTooltip" xml:space="preserve">
-    <value>Írj be egy nevet</value>
+    <value>Írjon be egy nevet</value>
   </data>
   <data name="ShowNameOnGridTile" xml:space="preserve">
     <value>Hangklip neve megjelenítése a főablak celláin</value>
@@ -359,5 +359,11 @@
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Eltávolítás</value>
+  </data>
+  <data name="ClearPositions" xml:space="preserve">
+    <value>Az ablakméretek és pozíciók visszaállítása</value>
+  </data>
+  <data name="ClearPositionsTooltip" xml:space="preserve">
+    <value>Ha egy ablak nem elérhető, állítsa vissza az ablak méretét és pozícióját</value>
   </data>
 </root>

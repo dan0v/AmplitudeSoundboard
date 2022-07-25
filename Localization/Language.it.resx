@@ -360,4 +360,10 @@
   <data name="Remove" xml:space="preserve">
     <value>Rimuovere</value>
   </data>
+  <data name="ClearPositions" xml:space="preserve">
+    <value>Reimposta le dimensioni e le posizioni delle finestre</value>
+  </data>
+  <data name="ClearPositionsTooltip" xml:space="preserve">
+    <value>Nel caso in cui una finestra sia fuori portata, ripristinare le dimensioni e le posizioni della finestra</value>
+  </data>
 </root>

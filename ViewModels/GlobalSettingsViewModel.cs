@@ -86,6 +86,11 @@ namespace Amplitude.ViewModels
             OnPropertyChanged(nameof(Model));
         }
 
+        public void ClearPositions()
+        {
+            WindowManager.ClearWindowSizesAndPositions();
+        }
+
         public override void Dispose()
         {
             Model.PropertyChanged -= Model_PropertyChanged;

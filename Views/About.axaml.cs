@@ -62,7 +62,6 @@ Copyright (C) 2021-2022 dan0v";
             this.txt_blk_URL = this.FindControl<TextBlock>("txt_blk_URL");
             this.txt_blk_URL.Text = projectUrl;
             this.txt_blk_URL.PointerPressed += Txt_blk_URL_PointerPressed;
-
         }
 
         private void Txt_blk_URL_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
@@ -86,8 +85,6 @@ Copyright (C) 2021-2022 dan0v";
         {
             this.Close();
         }
-
-        Window GetWindow() => (Window)this.VisualRoot;
 
         private void InitializeComponent()
         {

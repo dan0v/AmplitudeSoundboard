@@ -32,9 +32,13 @@ namespace Amplitude.Views
         public GlobalSettings()
         {
             InitializeComponent();
+            EffectiveViewportChanged += GlobalSettings_EffectiveViewportChanged;
         }
 
-        Window GetWindow() => (Window)this.VisualRoot;
+        private void GlobalSettings_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
+        {
+            App.WindowManager.WindowSizesOrPositionsChanged();
+        }
 
         private void InitializeComponent()
         {
@@ -44,6 +48,7 @@ namespace Amplitude.Views
         protected override void OnClosing(CancelEventArgs e)
         {
             App.WindowManager.GlobalSettingsWindow = null;
+            EffectiveViewportChanged -= GlobalSettings_EffectiveViewportChanged;
             ((GlobalSettingsViewModel)DataContext).Dispose();
             base.OnClosing(e);
         }

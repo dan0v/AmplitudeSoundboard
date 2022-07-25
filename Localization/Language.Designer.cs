@@ -151,6 +151,24 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset window sizes and positions.
+        /// </summary>
+        internal static string ClearPositions {
+            get {
+                return ResourceManager.GetString("ClearPositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In case a window is out of reach, reset window sizes and positions.
+        /// </summary>
+        internal static string ClearPositionsTooltip {
+            get {
+                return ResourceManager.GetString("ClearPositionsTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear tile.
         /// </summary>
         internal static string ClearTile {

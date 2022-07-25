@@ -37,6 +37,8 @@ namespace Amplitude.Models
         private static SoundClipManager? _instance;
         public static SoundClipManager Instance { get => _instance ??= new SoundClipManager(); }
 
+        private static string SOUNDCLIPS_FILE_LOCATION => Path.Join(App.APP_STORAGE, "soundclips.json");
+
         private string _soundClipListFilter = "";
         public string SoundClipListFilter
         {
@@ -281,7 +283,7 @@ namespace Amplitude.Models
         {
             try
             {
-                return (Dictionary<string, SoundClip>?)JsonConvert.DeserializeObject(json, typeof(Dictionary<string, SoundClip>));
+                return JsonConvert.DeserializeObject<Dictionary<string, SoundClip>>(json);
             }
             catch (Exception e)
             {
@@ -299,9 +301,9 @@ namespace Amplitude.Models
         {
             try
             {
-                if (File.Exists(Path.Join(App.APP_STORAGE, @"soundclips.json")))
+                if (File.Exists(SOUNDCLIPS_FILE_LOCATION))
                 {
-                    return File.ReadAllText(Path.Join(App.APP_STORAGE, @"soundclips.json"));
+                    return File.ReadAllText(SOUNDCLIPS_FILE_LOCATION);
                 }
             }
             catch (Exception e)
@@ -315,7 +317,7 @@ namespace Amplitude.Models
         {
             try
             {
-                File.WriteAllText(Path.Join(App.APP_STORAGE, @"soundclips.json"), json);
+                File.WriteAllText(SOUNDCLIPS_FILE_LOCATION, json);
             }
             catch (Exception e)
             {

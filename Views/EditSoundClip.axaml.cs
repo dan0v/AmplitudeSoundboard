@@ -54,6 +54,13 @@ namespace Amplitude.Views
             btn_Delete = this.FindControl<Button>("btn_Delete");
             btn_Delete.Click += DeleteSoundClip;
 
+            EffectiveViewportChanged += EditSoundClip_EffectiveViewportChanged;
+
+        }
+
+        private void EditSoundClip_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
+        {
+            App.WindowManager.WindowSizesOrPositionsChanged();
         }
 
         private void Txt_blk_SoundClipId_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
@@ -101,6 +108,7 @@ namespace Amplitude.Views
 
         protected override void OnClosing(CancelEventArgs e)
         {
+            EffectiveViewportChanged -= EditSoundClip_EffectiveViewportChanged;
             App.WindowManager.ClosedEditSoundClipWindow(((EditSoundClipViewModel)this.DataContext).Model.Id);
             ((EditSoundClipViewModel)DataContext).Dispose();
             base.OnClosing(e);

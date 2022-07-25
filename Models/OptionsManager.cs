@@ -40,7 +40,7 @@ namespace Amplitude.Models
         private Options _options;
         public Options Options { get => _options; }
 
-        public const string OPTIONS_FILE_NAME = "options.json";
+        private static string OPTIONS_FILE_LOCATION => Path.Join(App.APP_STORAGE, "options.json");
 
         private OptionsManager()
         {
@@ -85,7 +85,7 @@ namespace Amplitude.Models
             {
                 options.ValidateAndCorrectGridLayoutSettings();
                 options.ApplyGridSizing();
-                File.WriteAllText(Path.Join(App.APP_STORAGE, OPTIONS_FILE_NAME), options.ToJSON());
+                File.WriteAllText(OPTIONS_FILE_LOCATION, options.ToJSON());
                 App.HotkeysManager.RemoveHotkey(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, Options.GlobalKillAudioHotkey);
                 App.HotkeysManager.RegisterHotkeyAtStartup(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, options.GlobalKillAudioHotkey);
                 _options = options;
@@ -104,10 +104,10 @@ namespace Amplitude.Models
         {
             try
             {
-                if (File.Exists(Path.Join(App.APP_STORAGE, OPTIONS_FILE_NAME)))
+                if (File.Exists(OPTIONS_FILE_LOCATION))
                 {
-                    string json = File.ReadAllText(Path.Join(App.APP_STORAGE, OPTIONS_FILE_NAME));
-                    return (Options?)JsonConvert.DeserializeObject(json, typeof(Options));
+                    string json = File.ReadAllText(OPTIONS_FILE_LOCATION);
+                    return JsonConvert.DeserializeObject<Options>(json);
                 }
             }
             catch (Exception e)
