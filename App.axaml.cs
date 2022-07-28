@@ -56,6 +56,7 @@ namespace AmplitudeSoundboard
         }
 
         public static SoundClipManager SoundClipManager => SoundClipManager.Instance;
+        public static OutputProfileManager OutputProfileManager => OutputProfileManager.Instance;
         public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
         public static ThemeHandler ThemeHandler => ThemeHandler.Instance;
         public static WindowManager WindowManager => WindowManager.Instance;
@@ -108,9 +109,10 @@ namespace AmplitudeSoundboard
                 };
 
                 // Initialize managers to make sure they are active
-                var se = SoundEngine;
+                var e = SoundEngine;
                 var k = KeyboardHook;
                 var o = OptionsManager;
+                var p = OutputProfileManager;
                 var s = SoundClipManager;
                 var h = HotkeysManager;
                 var t = ThemeHandler;

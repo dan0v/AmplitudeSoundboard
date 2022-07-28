@@ -32,6 +32,12 @@ namespace Amplitude.Models
 
         public string Id { get; protected set; }
 
+        public void OverrideId(string newId)
+        {
+            Id = newId;
+            OnPropertyChanged(nameof(Id));
+        }
+
         private string _name = "";
         public string Name
         {
@@ -60,9 +66,14 @@ namespace Amplitude.Models
             }
         }
 
-        public OutputProfile()
+        public OutputProfile(Collection<OutputSettings>? settings = null)
         {
             Id = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "" + GetHashCode();
+
+            if (settings != null)
+            {
+                OutputSettings = new ObservableCollection<OutputSettings>(settings);
+            }
         }
 
         public string ToJSON()

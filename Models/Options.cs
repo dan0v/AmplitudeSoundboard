@@ -90,9 +90,10 @@ namespace Amplitude.Models
         }
 
         private OutputSettings _outputSettings = new OutputSettings();
+        [Obsolete]
         public OutputSettings OutputSettings
         {
-            get => _outputSettings;
+            internal get => _outputSettings;
             set
             {
                 if (value != _outputSettings)

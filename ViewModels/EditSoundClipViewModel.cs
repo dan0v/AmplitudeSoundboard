@@ -22,6 +22,7 @@
 using Amplitude.Models;
 using AmplitudeSoundboard;
 using Avalonia.Media;
+using System.Collections.Generic;
 
 namespace Amplitude.ViewModels
 {
@@ -29,13 +30,14 @@ namespace Amplitude.ViewModels
     {
         private string StopAudioHotkey => string.IsNullOrEmpty(OptionsManager.Options.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + OptionsManager.Options.GlobalKillAudioHotkey;
 
-
         private SoundClip _model;
         public SoundClip Model { get => _model; }
 
         private (int row, int col)? addToGridCell = null;
 
         public bool CanSave { get => HasNameField && !WaitingForHotkey; }
+
+        public List<string> OutputProfilesList => App.OutputProfileManager.OutputProfilesList;
 
         private bool _hasNameField;
         public bool HasNameField
@@ -115,8 +117,8 @@ namespace Amplitude.ViewModels
         public EditSoundClipViewModel()
         {
             _model = new SoundClip();
-            Model.OutputSettings.Add(new OutputSettings());
-            CanRemoveOutputDevices = Model.OutputSettings.Count > 1;
+            Model.OutputSettingsFromProfile.Add(new OutputSettings());
+            CanRemoveOutputDevices = Model.OutputSettingsFromProfile.Count > 1;
             SetBindings();
         }
 
@@ -132,7 +134,7 @@ namespace Amplitude.ViewModels
         public EditSoundClipViewModel(SoundClip model)
         {
             _model = model.CreateCopy();
-            CanRemoveOutputDevices = Model.OutputSettings.Count > 1;
+            CanRemoveOutputDevices = Model.OutputSettingsFromProfile.Count > 1;
             SetBindings();
         }
 
@@ -141,14 +143,23 @@ namespace Amplitude.ViewModels
             HasNameField = !string.IsNullOrEmpty(Model.Name);
             HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
             SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
+            App.OutputProfileManager.PropertyChanged += OutputProfileManager_PropertyChanged;
             Model.PropertyChanged += Model_PropertyChanged;
-            Model.OutputSettings.CollectionChanged += OutputSettings_CollectionChanged;
+            Model.OutputSettingsFromProfile.CollectionChanged += OutputSettings_CollectionChanged;
             OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
+        }
+
+        private void OutputProfileManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(OutputProfileManager.OutputProfilesList))
+            {
+                OnPropertyChanged(nameof(OutputProfilesList));
+            }
         }
 
         private void OutputSettings_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            CanRemoveOutputDevices = Model.OutputSettings.Count > 1;
+            CanRemoveOutputDevices = Model.OutputSettingsFromProfile.Count > 1;
         }
 
         private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -179,6 +190,10 @@ namespace Amplitude.ViewModels
             {
                 WaitingForHotkey = false;
             }
+            //if (e.PropertyName == nameof(Model.OutputProfileId))
+            //{
+            //    OnPropertyChanged(nameof(Model.OutputSettingsFromProfile));
+            //}
         }
 
         public void PlaySound()
@@ -231,15 +246,15 @@ namespace Amplitude.ViewModels
 
         public void RemoveOutputDevice()
         {
-            if (Model.OutputSettings.Count > 0)
+            if (Model.OutputSettingsFromProfile.Count > 0)
             {
-                Model.OutputSettings.RemoveAt(Model.OutputSettings.Count - 1);
+                Model.OutputSettingsFromProfile.RemoveAt(Model.OutputSettingsFromProfile.Count - 1);
             }
         }
 
         public void AddOutputDevice()
         {
-            Model.OutputSettings.Add(new OutputSettings());
+            Model.OutputSettingsFromProfile.Add(new OutputSettings());
         }
 
         public void RecordHotkey()

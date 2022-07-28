@@ -40,7 +40,7 @@ namespace Amplitude.Helpers
 
         public void Play(SoundClip source);
 
-        public void CheckDeviceExistsAndGenerateErrors(SoundClip clip);
+        public void CheckDeviceExistsAndGenerateErrors(OutputProfile outputProfile);
 
         public List<string> OutputDeviceListWithoutGlobal { get; }
 

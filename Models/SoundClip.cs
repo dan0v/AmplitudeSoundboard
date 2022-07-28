@@ -143,11 +143,11 @@ namespace Amplitude.Models
             internal get => _deviceName;
             set
             {
-                if (OutputSettings.Count <= 0)
+                if (OutputSettingsFromProfile.Count <= 0)
                 {
-                    OutputSettings.Add(new OutputSettings());
+                    OutputSettingsFromProfile.Add(new OutputSettings());
                 }
-                OutputSettings[0].DeviceName = value;
+                OutputSettingsFromProfile[0].DeviceName = value;
             }
         }
 
@@ -159,32 +159,39 @@ namespace Amplitude.Models
             internal get => _volume;
             set
             {
-                if (OutputSettings.Count <= 0)
+                if (OutputSettingsFromProfile.Count <= 0)
                 {
-                    OutputSettings.Add(new OutputSettings());
+                    OutputSettingsFromProfile.Add(new OutputSettings());
                 }
-                OutputSettings[0].Volume = value;
+                OutputSettingsFromProfile[0].Volume = value;
+            }
+        }
+
+        private ObservableCollection<OutputSettings> _outputSettingsFromProfile = new ObservableCollection<OutputSettings>();
+        [JsonIgnore]
+        public ObservableCollection<OutputSettings> OutputSettingsFromProfile
+        {
+            get
+            {
+                return App.OutputProfileManager.GetOutputProfile(OutputProfileId)?.OutputSettings ?? new ObservableCollection<OutputSettings>();
             }
         }
 
         private ObservableCollection<OutputSettings> _outputSettings = new ObservableCollection<OutputSettings>();
+        [Obsolete]
         public ObservableCollection<OutputSettings> OutputSettings
         {
-            get
-            {
-                return App.SoundClipManager.GetOutputProfile(OutputProfileId).OutputSettings;
-            }
-            internal set
+            get => _outputSettings;
+            set
             {
                 if (value != _outputSettings)
                 {
                     _outputSettings = value;
-                    OnPropertyChanged();
                 }
             }
         }
 
-        private string _outputProfileId = "DEFAULT";
+        private string _outputProfileId = OutputProfileManager.DEFAULT_OUTPUTPROFILE;
         public string OutputProfileId
         {
             get => _outputProfileId;
@@ -194,6 +201,7 @@ namespace Amplitude.Models
                 {
                     _outputProfileId = value;
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(OutputSettingsFromProfile));
                 }
             }
         }
@@ -312,15 +320,7 @@ namespace Amplitude.Models
 
         public SoundClip CreateCopy()
         {
-            var copy = (SoundClip)this.MemberwiseClone();
-            copy.OutputSettings = new ObservableCollection<OutputSettings>();
-
-            foreach (var setting in OutputSettings)
-            {
-                copy.OutputSettings.Add(setting.ShallowCopy());
-            }
-
-            return copy;
+            return (SoundClip)this.MemberwiseClone();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -64,9 +64,9 @@ namespace Amplitude.Models
         }
         public void OpenEditOutputProfileWindow()
         {
-            if (App.SoundClipManager.GetOutputProfile(OutputProfileId) != null)
+            if (App.OutputProfileManager.GetOutputProfile(OutputProfileId) != null)
             {
-                App.WindowManager.OpenEditOutputProfileWindow(OutputProfileId);
+                // TODO App.WindowManager.OpenEditOutputProfileWindow(OutputProfileId);
             }
         }
     }

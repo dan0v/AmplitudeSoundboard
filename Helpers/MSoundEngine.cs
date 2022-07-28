@@ -154,7 +154,7 @@ namespace Amplitude.Helpers
                 return;
             }
 
-            foreach (OutputSettings settings in source.OutputSettings)
+            foreach (OutputSettings settings in source.OutputSettingsFromProfile)
             {
                 Play(source.AudioFilePath, settings.Volume, settings.DeviceName, source.Name);
             }
@@ -236,7 +236,7 @@ namespace Amplitude.Helpers
                 {
                     if (profile != null)
                     {
-                        App.WindowManager.ShowErrorSoundClip(profile, ViewModels.ErrorListViewModel.SoundClipErrorType.MISSING_DEVICE, settings.DeviceName);
+                        App.WindowManager.ShowErrorOutputProfile(profile, ViewModels.ErrorListViewModel.OutputProfileErrorType.MISSING_DEVICE, settings.DeviceName);
                     }
                 }
             }

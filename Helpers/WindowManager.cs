@@ -525,7 +525,7 @@ namespace Amplitude.Helpers
                 if (App.OptionsManager.Options.AutoScaleTilesToWindow && lastMainWindowSize != newWindowSize)
                 {
                     lastMainWindowSize = newWindowSize;
-                    App.SoundClipManager.RescaleAllBackgroundImages(true);
+                    App.SoundClipManager.RescaleAllBackgroundImages();
                 }
             }
 
