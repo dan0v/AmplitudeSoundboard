@@ -50,6 +50,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\EditOutputProfile.axaml.cs">
+      <DependentUpon>EditOutputProfile.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\UpdatePrompt.axaml.cs">
       <DependentUpon>UpdatePrompt.axaml</DependentUpon>
     </Compile>

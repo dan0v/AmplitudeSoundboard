@@ -372,4 +372,13 @@
   <data name="OutputProfileError" xml:space="preserve">
     <value>The Output Profile "{0}" has errors:\\n{1}</value>
   </data>
+  <data name="EditOutputProfileTitle" xml:space="preserve">
+    <value>Edit Output Profile</value>
+  </data>
+  <data name="OutputProfileNameLabel" xml:space="preserve">
+    <value>Output profile name</value>
+  </data>
+  <data name="OutputProfileLabel" xml:space="preserve">
+    <value>Output Profile</value>
+  </data>
 </root>

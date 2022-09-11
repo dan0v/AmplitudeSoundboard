@@ -22,6 +22,7 @@
 using Amplitude.Helpers;
 using AmplitudeSoundboard;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -89,6 +90,39 @@ namespace Amplitude.Models
             StoreSavedOutputProfiles();
         }
 
+        /// <summary>
+        /// Save a new OutputProfile, or overwrite an existing OutputProfile
+        /// </summary>
+        /// <param name="clip"></param>
+        public void SaveOutputProfile(OutputProfile profile)
+        {
+            if (string.IsNullOrEmpty(profile.Name))
+            {
+                profile.Name = profile.Id;
+            }
+
+            ValidateOutputProfile(profile);
+
+            if (OutputProfiles.ContainsKey(profile.Id))
+            {
+                OutputProfiles[profile.Id] = profile;
+                StoreSavedOutputProfiles();
+            }
+            else
+            {
+                AddOutputProfile(profile);
+            }
+
+            OnPropertyChanged(nameof(OutputProfiles));
+            OnPropertyChanged(nameof(OutputProfilesList));
+        }
+
+        public void RemoveOutputProfile(string Id)
+        {
+            OutputProfiles.Remove(Id);
+            StoreSavedOutputProfiles();
+        }
+
         private void StoreSavedOutputProfiles()
         {
             string profilesInJson = ConvertOutputProfilesToJSON();
@@ -101,9 +135,9 @@ namespace Amplitude.Models
             return JsonConvert.SerializeObject(OutputProfiles, Formatting.Indented);
         }
 
-        public void ValidateOutputProfile(OutputProfile profile)
+        public void ValidateOutputProfile(OutputProfile? profile)
         {
-            foreach (OutputSettings settings in profile.OutputSettings)
+            foreach (OutputSettings settings in profile?.OutputSettings ?? new ObservableCollection<OutputSettings>())
             {
                 if (string.IsNullOrEmpty(settings.DeviceName) || settings.DeviceName == "DEFAULT")
                 {
@@ -133,7 +167,12 @@ namespace Amplitude.Models
         private static Dictionary<string, OutputProfile>? RetrieveSavedOutputProfiles()
         {
             string? clipsInJson = RetrieveJSONFromFile(OUTPUTPROFILES_FILE);
-            return ConvertObjectsFromJSON<OutputProfile>(clipsInJson);
+            var profiles = ConvertObjectsFromJSON<OutputProfile>(clipsInJson);
+            foreach (var profile in profiles ?? new Dictionary<string, OutputProfile>())
+            {
+                profile.Value.OverrideId(profile.Key);
+            }
+            return profiles;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

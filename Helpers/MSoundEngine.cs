@@ -143,7 +143,7 @@ namespace Amplitude.Helpers
         {
             lock(queueLock)
             {
-                Queued.Add(source.CreateCopy());
+                Queued.Add(source.ShallowCopy());
             }
         }
 

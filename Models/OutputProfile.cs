@@ -29,7 +29,7 @@ namespace Amplitude.Models
 {
     public class OutputProfile : INotifyPropertyChanged
     {
-
+        [JsonIgnore]
         public string Id { get; protected set; }
 
         public void OverrideId(string newId)
@@ -68,12 +68,12 @@ namespace Amplitude.Models
 
         public OutputProfile(Collection<OutputSettings>? settings = null)
         {
-            Id = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "" + GetHashCode();
-
             if (settings != null)
             {
                 OutputSettings = new ObservableCollection<OutputSettings>(settings);
             }
+
+            Id = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "" + GetHashCode();
         }
 
         public string ToJSON()
@@ -81,9 +81,9 @@ namespace Amplitude.Models
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
-        public OutputSettings ShallowCopy()
+        public OutputProfile ShallowCopy()
         {
-            return (OutputSettings)this.MemberwiseClone();
+            return (OutputProfile)this.MemberwiseClone();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

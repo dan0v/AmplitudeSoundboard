@@ -22,6 +22,7 @@
 using Amplitude.Models;
 using Amplitude.ViewModels;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 
 namespace Amplitude.Views
@@ -39,12 +40,20 @@ namespace Amplitude.Views
 
         private void Control_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
         {
-            if (!e.Handled && e.MouseButton == Avalonia.Input.MouseButton.Left)
+            if (!e.Handled && e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             {
                 SoundClip? Model = ((SoundBoardGridItemViewModel)DataContext)?.Model;
                 if (Model != null && !string.IsNullOrEmpty(Model.Id))
                 {
                     Model.PlayAudio();
+                }
+            }
+            else if (!e.Handled && e.GetCurrentPoint(this).Properties.IsMiddleButtonPressed)
+            {
+                SoundClip? Model = ((SoundBoardGridItemViewModel)DataContext)?.Model;
+                if (Model != null && !string.IsNullOrEmpty(Model.Id))
+                {
+                    Model.AddAudioToQueue();
                 }
             }
         }

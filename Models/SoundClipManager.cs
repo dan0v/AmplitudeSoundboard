@@ -144,13 +144,16 @@ namespace Amplitude.Models
             {
                 App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.SoundClipErrorType.MISSING_IMAGE_FILE);
             }
-
+            
             var profile = App.OutputProfileManager.GetOutputProfile(clip.OutputProfileId);
-            if (profile != null)
+            if (profile == null)
             {
-                App.OutputProfileManager.ValidateOutputProfile(profile);
-                App.SoundEngine.CheckDeviceExistsAndGenerateErrors(profile);
+                clip.OutputProfileId = OutputProfileManager.DEFAULT_OUTPUTPROFILE;
+                profile = App.OutputProfileManager.GetOutputProfile(clip.OutputProfileId);
             }
+
+            App.OutputProfileManager.ValidateOutputProfile(profile);
+            App.SoundEngine.CheckDeviceExistsAndGenerateErrors(profile);
         }
 
         /// <summary>

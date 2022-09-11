@@ -151,31 +151,23 @@ namespace Amplitude.Models
             }
         }
 
-        // legacy soundclips loading
         private int _volume = 100;
-        [Obsolete]
         public int Volume
         {
-            internal get => _volume;
+            get => _volume;
             set
             {
-                if (OutputSettingsFromProfile.Count <= 0)
+                if (value != _volume)
                 {
-                    OutputSettingsFromProfile.Add(new OutputSettings());
+                    _volume = value;
+                    OnPropertyChanged();
                 }
-                OutputSettingsFromProfile[0].Volume = value;
             }
         }
 
         private ObservableCollection<OutputSettings> _outputSettingsFromProfile = new ObservableCollection<OutputSettings>();
         [JsonIgnore]
-        public ObservableCollection<OutputSettings> OutputSettingsFromProfile
-        {
-            get
-            {
-                return App.OutputProfileManager.GetOutputProfile(OutputProfileId)?.OutputSettings ?? new ObservableCollection<OutputSettings>();
-            }
-        }
+        public ObservableCollection<OutputSettings> OutputSettingsFromProfile => App.OutputProfileManager.GetOutputProfile(OutputProfileId)?.OutputSettings;
 
         private ObservableCollection<OutputSettings> _outputSettings = new ObservableCollection<OutputSettings>();
         [Obsolete]
@@ -209,17 +201,11 @@ namespace Amplitude.Models
         private string _id = null;
         // Do not write to JSON, since it is stored in dictionary anyway
         [JsonIgnore]
-        public string Id
-        {
-            get => _id;
-        }
+        public string Id => _id;
 
         private Bitmap? _backgroundImage = null;
         [JsonIgnore]
-        public Bitmap? BackgroundImage
-        {
-            get => _backgroundImage;
-        }
+        public Bitmap? BackgroundImage => _backgroundImage;
 
         private bool _loadBackgroundImage = false;
         [JsonIgnore]
@@ -318,7 +304,7 @@ namespace Amplitude.Models
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
-        public SoundClip CreateCopy()
+        public SoundClip ShallowCopy()
         {
             return (SoundClip)this.MemberwiseClone();
         }

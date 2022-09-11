@@ -77,7 +77,66 @@ namespace Amplitude.Helpers
             }
         }
 
+        private Dictionary<string, EditOutputProfile> _editOutputProfileWindows = new Dictionary<string, EditOutputProfile>();
+        public Dictionary<string, EditOutputProfile> EditOutputProfileWindows
+        {
+            get => _editOutputProfileWindows;
+            set
+            {
+                if (value != _editOutputProfileWindows)
+                {
+                    _editOutputProfileWindows = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public double DesktopScaling { get => MainWindow?.PlatformImpl.DesktopScaling ?? 1; }
+
+        public string OpenEditOutputProfileWindow(string? Id = null)
+        {
+            if (Id != null && EditOutputProfileWindows.TryGetValue(Id, out EditOutputProfile window))
+            {
+                if (window.WindowState == WindowState.Minimized)
+                {
+                    window.WindowState = WindowState.Normal;
+                }
+                window.Activate();
+                return Id;
+            }
+            else
+            {
+                EditOutputProfile outputProf = new EditOutputProfile();
+                OutputProfile? profile = App.OutputProfileManager.GetOutputProfile(Id);
+
+                outputProf.DataContext = profile == null ? new EditOutputProfileViewModel() : new EditOutputProfileViewModel(profile);
+
+                if (windowSizesAndPositions.TryGetValue("editOutputProfile", out var info))
+                {
+                    SetAvailableWindowDetails(outputProf, info);
+                }
+
+                PixelPoint? pos = SoundClipListWindow?.Position ?? MainWindow?.Position;
+                if (pos != null)
+                {
+                    outputProf.Position = new PixelPoint(pos.Value.X + randomizer.Next(50, 100), pos.Value.Y + randomizer.Next(50, 100));
+                }
+
+                var id = ((EditOutputProfileViewModel?)outputProf.DataContext)?.Model.Id;
+                EditOutputProfileWindows.Add(id, outputProf);
+                outputProf.Show();
+                return id;
+            }
+        }
+
+        public void ClosedEditOutputProfileWindow(string Id)
+        {
+            if (!string.IsNullOrEmpty(Id) && EditOutputProfileWindows.ContainsKey(Id))
+            {
+                EditOutputProfileWindows.Remove(Id);
+                OnPropertyChanged(nameof(EditOutputProfileWindows));
+            }
+        }
 
         public void OpenEditSoundClipWindow(string? id = null)
         {

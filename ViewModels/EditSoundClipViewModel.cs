@@ -133,7 +133,7 @@ namespace Amplitude.ViewModels
         /// <param name="model"></param>
         public EditSoundClipViewModel(SoundClip model)
         {
-            _model = model.CreateCopy();
+            _model = model.ShallowCopy();
             CanRemoveOutputDevices = Model.OutputSettingsFromProfile.Count > 1;
             SetBindings();
         }
@@ -196,6 +196,33 @@ namespace Amplitude.ViewModels
             //}
         }
 
+        public void IncreaseVolumeSmall()
+        {
+            if (Model.Volume < 100)
+            {
+                Model.Volume += 1;
+            }
+        }
+        public void DecreaseVolumeSmall()
+        {
+            if (Model.Volume > 0)
+            {
+                Model.Volume -= 1;
+            }
+        }
+
+        public void NewOutputProfile()
+        {
+            Model.OutputProfileId = WindowManager.OpenEditOutputProfileWindow(null);
+            OnPropertyChanged(nameof(OutputProfilesList));
+            
+        }
+
+        public void EditOutputProfile()
+        {
+            WindowManager.OpenEditOutputProfileWindow(Model.OutputProfileId);
+        }
+
         public void PlaySound()
         {
             Model.PlayAudio();
@@ -229,10 +256,10 @@ namespace Amplitude.ViewModels
 
         public void SaveClip()
         {
-            SoundClip toSave = Model.CreateCopy();
+            SoundClip toSave = Model.ShallowCopy();
             App.SoundClipManager.SaveClip(toSave);
             // Copy back and forth to delay ID update until fully saved
-            _model = toSave.CreateCopy();
+            _model = toSave.ShallowCopy();
             OnPropertyChanged(nameof(Model));
 
             if (addToGridCell != null && addToGridCell.Value.row >= 0 && addToGridCell.Value.col >= 0 &&
