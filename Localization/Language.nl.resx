@@ -366,4 +366,25 @@
   <data name="ClearPositionsTooltip" xml:space="preserve">
     <value>Als een raam buiten bereik is, stel dan de venstergrootte en positie opnieuw in</value>
   </data>
+  <data name="MissingOutputProfileString" xml:space="preserve">
+    <value>Het uitvoerprofiel "{0}" ontbreekt en kan niet worden gebruikt om af te spelen!</value>
+  </data>
+  <data name="OutputProfileError" xml:space="preserve">
+    <value>Het uitvoerprofiel "{0}" heeft fouten:\\n{1}</value>.
+  </data>
+  <data name="EditOutputProfileTitle" xml:space="preserve">
+    <value>Bewerk uitvoerprofiel</value>
+  </data>
+  <data name="OutputProfileNameLabel" xml:space="preserve">
+    <value>Naam uitvoerprofiel</value>
+  </data>
+  <data name="OutputProfileLabel" xml:space="preserve">
+    <value>Uitvoerprofiel</value>
+  </data>
+  <data name="EditOutputProfileTooltip" xml:space="preserve">
+    <value>Bewerk uitvoerprofiel</value>
+  </data>
+  <data name="NewOutputProfileTooltip" xml:space="preserve">
+    <value>Nieuw uitvoerprofiel aanmaken</value>
+  </data>
 </root>

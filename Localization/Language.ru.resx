@@ -366,4 +366,25 @@
   <data name="ClearPositionsTooltip" xml:space="preserve">
     <value>Если окно находится вне досягаемости, сбросьте размеры и положение окна.</value>
   </data>
+  <data name="MissingOutputProfileString" xml:space="preserve">
+    <value> Профиль вывода "{0}" отсутствует и не может быть использован для воспроизведения!</value>
+  </data>
+  <data name="OutputProfileError" xml:space="preserve">
+    <value>В выходном профиле "{0}" есть ошибки:\\n{1}</value>
+  </data>
+  <data name="EditOutputProfileTitle" xml:space="preserve">
+    <value>Редактировать профиль вывода</value>
+  </data>
+  <data name="OutputProfileNameLabel" xml:space="preserve">
+    <value>Имя выходного профиля</value>
+  </data>
+  <data name="OutputProfileLabel" xml:space="preserve">
+    <value>Выходной профиль</value>
+  </data>
+  <data name="EditOutputProfileTooltip" xml:space="preserve">
+    <value>Редактировать профиль вывода</value>
+  </data>
+  <data name="NewOutputProfileTooltip" xml:space="preserve">
+    <value>Создать новый профиль вывода</value>
+  </data>
 </root>

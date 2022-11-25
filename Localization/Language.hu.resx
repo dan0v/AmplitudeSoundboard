@@ -366,4 +366,25 @@
   <data name="ClearPositionsTooltip" xml:space="preserve">
     <value>Ha egy ablak nem elérhető, állítsa vissza az ablak méretét és pozícióját</value>
   </data>
+  <data name="MissingOutputProfileString" xml:space="preserve">
+    <value>A "{0}" kimeneti profil hiányzik és nem használható a lejátszáshoz!</value>
+  </data>
+  <data name="OutputProfileError" xml:space="preserve">
+    <value>A "{0}" kimeneti profil hibás:\\n{1}</value>
+  </data>
+  <data name="EditOutputProfileTitle" xml:space="preserve">
+    <value>Kimeneti Profil Szerkesztése</value>
+  </data>
+  <data name="OutputProfileNameLabel" xml:space="preserve">
+    <value>Kimeneti profil neve</value>
+  </data>
+  <data name="OutputProfileLabel" xml:space="preserve">
+    <value>Kimeneti profil</value>
+  </data>
+  <data name="EditOutputProfileTooltip" xml:space="preserve">
+    <value>Kimeneti profil szerkesztése</value>
+  </data>
+  <data name="NewOutputProfileTooltip" xml:space="preserve">
+    <value>Új kimeneti profil</value>
+  </data>
 </root>
