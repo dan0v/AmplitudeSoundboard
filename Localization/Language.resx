@@ -381,4 +381,10 @@
   <data name="OutputProfileLabel" xml:space="preserve">
     <value>Output Profile</value>
   </data>
+  <data name="EditOutputProfileTooltip" xml:space="preserve">
+    <value>Edit output profile</value>
+  </data>
+  <data name="NewOutputProfileTooltip" xml:space="preserve">
+    <value>Create new output profile</value>
+  </data>
 </root>

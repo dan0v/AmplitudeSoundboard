@@ -322,6 +322,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit output profile.
+        /// </summary>
+        internal static string EditOutputProfileTooltip {
+            get {
+                return ResourceManager.GetString("EditOutputProfileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Sound Clip.
         /// </summary>
         internal static string EditSoundClipTitle {
@@ -552,6 +561,15 @@ namespace Amplitude.Localization {
         internal static string MissingOutputProfileString {
             get {
                 return ResourceManager.GetString("MissingOutputProfileString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new output profile.
+        /// </summary>
+        internal static string NewOutputProfileTooltip {
+            get {
+                return ResourceManager.GetString("NewOutputProfileTooltip", resourceCulture);
             }
         }
         

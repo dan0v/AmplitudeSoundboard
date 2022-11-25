@@ -48,6 +48,7 @@ namespace Amplitude.Models
 
         public ErrorContainer(string errorMessage, OutputProfile profile)
         {
+            this.ErrorMessage = errorMessage;
             if (!string.IsNullOrEmpty(profile?.Id))
             {
                 this.LinkedOutputProfile = true;
@@ -66,7 +67,7 @@ namespace Amplitude.Models
         {
             if (App.OutputProfileManager.GetOutputProfile(OutputProfileId) != null)
             {
-                // TODO App.WindowManager.OpenEditOutputProfileWindow(OutputProfileId);
+                App.WindowManager.OpenEditOutputProfileWindow(OutputProfileId);
             }
         }
     }

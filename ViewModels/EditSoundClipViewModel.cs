@@ -21,8 +21,11 @@
 
 using Amplitude.Models;
 using AmplitudeSoundboard;
+using Avalonia.Controls;
 using Avalonia.Media;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Amplitude.ViewModels
 {
@@ -37,7 +40,9 @@ namespace Amplitude.ViewModels
 
         public bool CanSave { get => HasNameField && !WaitingForHotkey; }
 
-        public List<string> OutputProfilesList => App.OutputProfileManager.OutputProfilesList;
+        public List<OutputProfile> OutputProfilesList => OutputProfileManager.OutputProfilesList;
+
+        public OutputProfile? CurrentOutputProfile => OutputProfileManager.GetOutputProfile(Model.OutputProfileId);
 
         private bool _hasNameField;
         public bool HasNameField
@@ -143,9 +148,8 @@ namespace Amplitude.ViewModels
             HasNameField = !string.IsNullOrEmpty(Model.Name);
             HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
             SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
-            App.OutputProfileManager.PropertyChanged += OutputProfileManager_PropertyChanged;
+            OutputProfileManager.PropertyChanged += OutputProfileManager_PropertyChanged;
             Model.PropertyChanged += Model_PropertyChanged;
-            Model.OutputSettingsFromProfile.CollectionChanged += OutputSettings_CollectionChanged;
             OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
         }
 
@@ -154,12 +158,8 @@ namespace Amplitude.ViewModels
             if (e.PropertyName == nameof(OutputProfileManager.OutputProfilesList))
             {
                 OnPropertyChanged(nameof(OutputProfilesList));
+                OnPropertyChanged(nameof(CurrentOutputProfile));
             }
-        }
-
-        private void OutputSettings_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            CanRemoveOutputDevices = Model.OutputSettingsFromProfile.Count > 1;
         }
 
         private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -190,10 +190,14 @@ namespace Amplitude.ViewModels
             {
                 WaitingForHotkey = false;
             }
-            //if (e.PropertyName == nameof(Model.OutputProfileId))
-            //{
-            //    OnPropertyChanged(nameof(Model.OutputSettingsFromProfile));
-            //}
+        }
+
+        public void OutputProfileSelectionChanged(object? sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0 && ((OutputProfile)e.AddedItems[0]).Id != Model.OutputProfileId)
+            {
+                Model.OutputProfileId = ((OutputProfile)e.AddedItems[0]).Id;
+            }
         }
 
         public void IncreaseVolumeSmall()
@@ -295,6 +299,7 @@ namespace Amplitude.ViewModels
         {
             Model.PropertyChanged -= Model_PropertyChanged;
             OptionsManager.PropertyChanged -= OptionsManager_PropertyChanged;
+            OutputProfileManager.PropertyChanged -= OutputProfileManager_PropertyChanged;
             base.Dispose();
         }
     }

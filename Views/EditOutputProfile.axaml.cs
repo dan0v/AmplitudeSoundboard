@@ -29,6 +29,8 @@ namespace Amplitude.Views
 {
     public partial class EditOutputProfile : Window
     {
+        Button btn_removeOutputProfile;
+
         public EditOutputProfile()
         {
             InitializeComponent();
@@ -38,6 +40,14 @@ namespace Amplitude.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+
+            btn_removeOutputProfile = this.Find<Button>("btn_removeOutputProfile");
+            btn_removeOutputProfile.Click += Btn_removeOutputProfile_Click;
+        }
+
+        private void Btn_removeOutputProfile_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            this.Close();
         }
 
         protected override void OnClosing(CancelEventArgs e)

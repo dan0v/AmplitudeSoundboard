@@ -42,7 +42,7 @@ namespace Amplitude.Models
         private Dictionary<string, OutputProfile> _outputProfiles;
         public Dictionary<string, OutputProfile> OutputProfiles { get => _outputProfiles; }
 
-        public List<string> OutputProfilesList { get => OutputProfiles.Keys.ToList(); }
+        public List<OutputProfile> OutputProfilesList { get => OutputProfiles.Values.ToList(); }
 
         private OutputProfileManager()
         {
@@ -120,6 +120,8 @@ namespace Amplitude.Models
         public void RemoveOutputProfile(string Id)
         {
             OutputProfiles.Remove(Id);
+            OnPropertyChanged(nameof(OutputProfiles));
+            OnPropertyChanged(nameof(OutputProfilesList));
             StoreSavedOutputProfiles();
         }
 

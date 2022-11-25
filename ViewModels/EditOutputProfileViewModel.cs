@@ -104,13 +104,13 @@ namespace Amplitude.ViewModels
 
         public void DeleteOutputProfile()
         {
-            App.OutputProfileManager.RemoveOutputProfile(Model.Id);
+            OutputProfileManager.RemoveOutputProfile(Model.Id);
         }
 
         public void SaveOutputProfile()
         {
             OutputProfile toSave = Model.ShallowCopy();
-            App.OutputProfileManager.SaveOutputProfile(toSave);
+            OutputProfileManager.SaveOutputProfile(toSave);
             // Copy back and forth to incorporate validations done during saving
             _model = toSave.ShallowCopy();
             OnPropertyChanged(nameof(Model));

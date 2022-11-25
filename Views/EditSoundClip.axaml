@@ -98,15 +98,22 @@
                 <Label Content="{i18n:Localize OutputProfileLabel}" HorizontalAlignment="Center" Height="30" Margin="5,5,5,0"></Label>
 
                 <Grid ColumnDefinitions="*,Auto,Auto">
-                  <ComboBox Grid.Column="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" AutoScrollToSelectedItem="True" Margin="5,0,5,0" SelectedItem="{Binding Model.OutputProfileId}" Items="{Binding OutputProfilesList}" ToolTip.Tip="{i18n:Localize OutputDeviceLabel}"></ComboBox>
-                  <Button Grid.Column="1" Margin="5,0,5,0" Cursor="Hand" Command="{Binding EditOutputProfile}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                  <ComboBox x:Name="cb_outputProfileSelection" Grid.Column="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" AutoScrollToSelectedItem="True" Margin="5,0,5,0" SelectedItem="{Binding CurrentOutputProfile}" Items="{Binding OutputProfilesList}">
+                    <ComboBox.ItemTemplate>
+                      <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                      </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                  </ComboBox>
+                  
+                  <Button Grid.Column="1" Margin="5,0,5,0" Cursor="Hand" Command="{Binding EditOutputProfile}" ToolTip.Tip="{i18n:Localize EditOutputProfileTooltip}" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Panel>
                       <Image Source="{Binding ThemeHandler.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Panel>
                   </Button>
-                  <Button Grid.Column="2" Margin="5,0,5,0" Cursor="Hand" Command="{Binding NewOutputProfile}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                  <Button Grid.Column="2" Margin="5,0,5,0" Cursor="Hand" Command="{Binding NewOutputProfile}" ToolTip.Tip="{i18n:Localize NewOutputProfileTooltip}"  HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Panel>
-                      <Image Source="{Binding ThemeHandler.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                      <Image Source="{Binding ThemeHandler.Plus}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Panel>
                   </Button>
                 </Grid>

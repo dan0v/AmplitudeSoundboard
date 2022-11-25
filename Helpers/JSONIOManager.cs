@@ -19,7 +19,6 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
 using AmplitudeSoundboard;
 using Newtonsoft.Json;
 using System;
@@ -30,7 +29,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace Amplitude.Models
+namespace Amplitude.Helpers
 {
     public class JSONIOManager
     {
@@ -44,7 +43,7 @@ namespace Amplitude.Models
             try
             {
                 var obj = JsonConvert.DeserializeObject(json, typeof(Dictionary<string, T>));
-                return obj == null ? null : (Dictionary<string, T> ?) obj;
+                return obj == null ? null : (Dictionary<string, T>?)obj;
             }
             catch (Exception e)
             {
