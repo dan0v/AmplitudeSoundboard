@@ -34,7 +34,7 @@ namespace Amplitude.Models
         [JsonIgnore]
         public string Id => _id;
 
-        public void InitializeId(string newId)
+        public void InitializeId(string? newId)
         {
             if (string.IsNullOrEmpty(newId))
             {

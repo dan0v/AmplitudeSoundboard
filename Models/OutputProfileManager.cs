@@ -83,6 +83,7 @@ namespace Amplitude.Models
             }
             var newProf = new OutputProfile(settings);
             newProf.Name = MIGRATED_PROFILES_NAME_BASE + "_" + migratedProfileCounter++;
+            newProf.InitializeId(null);
             AddOutputProfile(newProf);
             OnPropertyChanged(nameof(OutputProfilesList));
             return newProf.Id;
