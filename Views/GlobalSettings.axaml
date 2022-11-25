@@ -23,13 +23,13 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="715"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="620"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         xmlns:converters="clr-namespace:Amplitude.Converters"
         x:Class="Amplitude.Views.GlobalSettings"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize GlobalSettingsTitle}"
-        Width="400" Height="715" MinWidth="400" MinHeight="320"
+        Width="400" Height="620" MinWidth="400" MinHeight="320"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
@@ -97,6 +97,7 @@
           </Border>
 
           <!--Volume-->
+          <!--
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
@@ -139,7 +140,8 @@
               </Grid>
             </Grid>
           </Border>
-
+          -->
+          
           <!--Grid size-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>

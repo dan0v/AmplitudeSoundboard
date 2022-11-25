@@ -35,6 +35,7 @@ namespace Amplitude.Views
     public partial class EditSoundClip : Window
     {
         private TextBlock txt_blk_SoundClipId;
+        private ComboBox cb_OutputProfileSelection;
         private Button btn_BrowseAudioFilePath;
         private Button btn_BrowseImageFilePath;
         private Button btn_Delete;
@@ -54,8 +55,16 @@ namespace Amplitude.Views
             btn_Delete = this.FindControl<Button>("btn_Delete");
             btn_Delete.Click += DeleteSoundClip;
 
+            cb_OutputProfileSelection = this.Find<ComboBox>("cb_OutputProfileSelection");
+            cb_OutputProfileSelection.SelectionChanged += Cb_OutputProfileSelectionChanged;
+
             EffectiveViewportChanged += EditSoundClip_EffectiveViewportChanged;
 
+        }
+
+        private void Cb_OutputProfileSelectionChanged(object? sender, SelectionChangedEventArgs e)
+        {
+            ((EditSoundClipViewModel)DataContext).OutputProfileSelectionChanged(sender, e);
         }
 
         private void EditSoundClip_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)

@@ -21,7 +21,11 @@
 
 using Amplitude.Models;
 using AmplitudeSoundboard;
+using Avalonia.Controls;
 using Avalonia.Media;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Amplitude.ViewModels
 {
@@ -29,13 +33,16 @@ namespace Amplitude.ViewModels
     {
         private string StopAudioHotkey => string.IsNullOrEmpty(OptionsManager.Options.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + OptionsManager.Options.GlobalKillAudioHotkey;
 
-
         private SoundClip _model;
         public SoundClip Model { get => _model; }
 
         private (int row, int col)? addToGridCell = null;
 
         public bool CanSave { get => HasNameField && !WaitingForHotkey; }
+
+        public List<OutputProfile> OutputProfilesList => OutputProfileManager.OutputProfilesList;
+
+        public OutputProfile? CurrentOutputProfile => OutputProfileManager.GetOutputProfile(Model.OutputProfileId);
 
         private bool _hasNameField;
         public bool HasNameField
@@ -115,8 +122,8 @@ namespace Amplitude.ViewModels
         public EditSoundClipViewModel()
         {
             _model = new SoundClip();
-            Model.OutputSettings.Add(new OutputSettings());
-            CanRemoveOutputDevices = Model.OutputSettings.Count > 1;
+            Model.OutputSettingsFromProfile.Add(new OutputSettings());
+            CanRemoveOutputDevices = Model.OutputSettingsFromProfile.Count > 1;
             SetBindings();
         }
 
@@ -131,8 +138,8 @@ namespace Amplitude.ViewModels
         /// <param name="model"></param>
         public EditSoundClipViewModel(SoundClip model)
         {
-            _model = model.CreateCopy();
-            CanRemoveOutputDevices = Model.OutputSettings.Count > 1;
+            _model = model.ShallowCopy();
+            CanRemoveOutputDevices = Model.OutputSettingsFromProfile.Count > 1;
             SetBindings();
         }
 
@@ -141,14 +148,18 @@ namespace Amplitude.ViewModels
             HasNameField = !string.IsNullOrEmpty(Model.Name);
             HasAudioFilePath = !string.IsNullOrEmpty(Model.AudioFilePath);
             SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
+            OutputProfileManager.PropertyChanged += OutputProfileManager_PropertyChanged;
             Model.PropertyChanged += Model_PropertyChanged;
-            Model.OutputSettings.CollectionChanged += OutputSettings_CollectionChanged;
             OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
         }
 
-        private void OutputSettings_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void OutputProfileManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            CanRemoveOutputDevices = Model.OutputSettings.Count > 1;
+            if (e.PropertyName == nameof(OutputProfileManager.OutputProfilesList))
+            {
+                OnPropertyChanged(nameof(OutputProfilesList));
+                OnPropertyChanged(nameof(CurrentOutputProfile));
+            }
         }
 
         private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -179,6 +190,41 @@ namespace Amplitude.ViewModels
             {
                 WaitingForHotkey = false;
             }
+        }
+
+        public void OutputProfileSelectionChanged(object? sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0 && ((OutputProfile)e.AddedItems[0]).Id != Model.OutputProfileId)
+            {
+                Model.OutputProfileId = ((OutputProfile)e.AddedItems[0]).Id;
+            }
+        }
+
+        public void IncreaseVolumeSmall()
+        {
+            if (Model.Volume < 100)
+            {
+                Model.Volume += 1;
+            }
+        }
+        public void DecreaseVolumeSmall()
+        {
+            if (Model.Volume > 0)
+            {
+                Model.Volume -= 1;
+            }
+        }
+
+        public void NewOutputProfile()
+        {
+            WindowManager.OpenEditOutputProfileWindow(null);
+            OnPropertyChanged(nameof(OutputProfilesList));
+            
+        }
+
+        public void EditOutputProfile()
+        {
+            WindowManager.OpenEditOutputProfileWindow(Model.OutputProfileId);
         }
 
         public void PlaySound()
@@ -214,10 +260,10 @@ namespace Amplitude.ViewModels
 
         public void SaveClip()
         {
-            SoundClip toSave = Model.CreateCopy();
+            SoundClip toSave = Model.ShallowCopy();
             App.SoundClipManager.SaveClip(toSave);
             // Copy back and forth to delay ID update until fully saved
-            _model = toSave.CreateCopy();
+            _model = toSave.ShallowCopy();
             OnPropertyChanged(nameof(Model));
 
             if (addToGridCell != null && addToGridCell.Value.row >= 0 && addToGridCell.Value.col >= 0 &&
@@ -231,15 +277,15 @@ namespace Amplitude.ViewModels
 
         public void RemoveOutputDevice()
         {
-            if (Model.OutputSettings.Count > 0)
+            if (Model.OutputSettingsFromProfile.Count > 0)
             {
-                Model.OutputSettings.RemoveAt(Model.OutputSettings.Count - 1);
+                Model.OutputSettingsFromProfile.RemoveAt(Model.OutputSettingsFromProfile.Count - 1);
             }
         }
 
         public void AddOutputDevice()
         {
-            Model.OutputSettings.Add(new OutputSettings());
+            Model.OutputSettingsFromProfile.Add(new OutputSettings());
         }
 
         public void RecordHotkey()
@@ -253,6 +299,7 @@ namespace Amplitude.ViewModels
         {
             Model.PropertyChanged -= Model_PropertyChanged;
             OptionsManager.PropertyChanged -= OptionsManager_PropertyChanged;
+            OutputProfileManager.PropertyChanged -= OutputProfileManager_PropertyChanged;
             base.Dispose();
         }
     }

@@ -45,21 +45,6 @@ namespace Amplitude.Models
             }
         }
 
-        private string _theme = "Dark";
-        [Obsolete]
-        public string Theme
-        {
-            internal get => _theme;
-            set
-            {
-                if (value != _theme)
-                {
-                    _theme = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         private int _themeId = 0;
         public int ThemeId
         {
@@ -70,34 +55,6 @@ namespace Amplitude.Models
                 if (value != -1 && value != _themeId)
                 {
                     _themeId = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        [Obsolete]
-        public int MasterVolume
-        {
-            internal get => 100;
-            set { }
-        }
-
-        [Obsolete]
-        public string DefaultOutputDevice
-        {
-            internal get => "";
-            set { }
-        }
-
-        private OutputSettings _outputSettings = new OutputSettings();
-        public OutputSettings OutputSettings
-        {
-            get => _outputSettings;
-            set
-            {
-                if (value != _outputSettings)
-                {
-                    _outputSettings = value;
                     OnPropertyChanged();
                 }
             }
@@ -209,20 +166,6 @@ namespace Amplitude.Models
                     OnPropertyChanged();
                 }
             }
-        }
-
-        [Obsolete]
-        public bool CacheAudio
-        {
-            internal get => false;
-            set { }
-        }
-
-        [Obsolete]
-        public bool PreCacheAudio
-        {
-            internal get => false;
-            set { }
         }
 
         public Options()

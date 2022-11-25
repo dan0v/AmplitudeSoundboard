@@ -366,4 +366,25 @@
   <data name="ClearPositionsTooltip" xml:space="preserve">
     <value>Nel caso in cui una finestra sia fuori portata, ripristinare le dimensioni e le posizioni della finestra</value>
   </data>
+  <data name="MissingOutputProfileString" xml:space="preserve">
+    <value>Il profilo di uscita "{0}" è mancante e non può essere utilizzato per la riproduzione!</value>
+  </data>
+  <data name="OutputProfileError" xml:space="preserve">
+    <value>Il profilo di uscita "{0}" ha degli errori:\\n{1}</value>
+  </data>
+  <data name="EditOutputProfileTitle" xml:space="preserve">
+    <value>Modifica profilo di uscita</value>
+  </data>
+  <data name="OutputProfileNameLabel" xml:space="preserve">
+    <value>Nome del profilo di uscita</value>
+  </data>
+  <data name="OutputProfileLabel" xml:space="preserve">
+    <value>Profilo di uscita</value>
+  </data>
+  <data name="EditOutputProfileTooltip" xml:space="preserve">
+    <value>Modifica profilo di uscita</value>
+  </data>
+  <data name="NewOutputProfileTooltip" xml:space="preserve">
+    <value>Creare un nuovo profilo di uscita</value>
+  </data>
 </root>

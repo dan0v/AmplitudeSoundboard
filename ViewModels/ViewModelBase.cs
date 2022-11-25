@@ -34,6 +34,7 @@ namespace Amplitude.ViewModels
         protected ThemeHandler ThemeHandler { get => App.ThemeHandler; }
         protected SoundClipManager SoundClipManager { get => App.SoundClipManager; }
         protected OptionsManager OptionsManager { get => App.OptionsManager; }
+        protected OutputProfileManager OutputProfileManager { get => App.OutputProfileManager; }
         protected WindowManager WindowManager { get => App.WindowManager; }
         protected HotkeysManager HotkeysManager { get => App.HotkeysManager; }
         protected ISoundEngine SoundEngine { get => App.SoundEngine; }

@@ -313,6 +313,24 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Output Profile.
+        /// </summary>
+        internal static string EditOutputProfileTitle {
+            get {
+                return ResourceManager.GetString("EditOutputProfileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit output profile.
+        /// </summary>
+        internal static string EditOutputProfileTooltip {
+            get {
+                return ResourceManager.GetString("EditOutputProfileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Sound Clip.
         /// </summary>
         internal static string EditSoundClipTitle {
@@ -538,6 +556,24 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Output Profile &quot;{0}&quot; is missing and cannot be used for playback!.
+        /// </summary>
+        internal static string MissingOutputProfileString {
+            get {
+                return ResourceManager.GetString("MissingOutputProfileString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new output profile.
+        /// </summary>
+        internal static string NewOutputProfileTooltip {
+            get {
+                return ResourceManager.GetString("NewOutputProfileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New sound clip.
         /// </summary>
         internal static string NewSoundClip {
@@ -588,6 +624,33 @@ namespace Amplitude.Localization {
         internal static string OutputDeviceLabel {
             get {
                 return ResourceManager.GetString("OutputDeviceLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Output Profile &quot;{0}&quot; has errors:\\n{1}.
+        /// </summary>
+        internal static string OutputProfileError {
+            get {
+                return ResourceManager.GetString("OutputProfileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output Profile.
+        /// </summary>
+        internal static string OutputProfileLabel {
+            get {
+                return ResourceManager.GetString("OutputProfileLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output profile name.
+        /// </summary>
+        internal static string OutputProfileNameLabel {
+            get {
+                return ResourceManager.GetString("OutputProfileNameLabel", resourceCulture);
             }
         }
         

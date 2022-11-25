@@ -366,4 +366,25 @@
   <data name="ClearPositionsTooltip" xml:space="preserve">
     <value>In case a window is out of reach, reset window sizes and positions</value>
   </data>
+  <data name="MissingOutputProfileString" xml:space="preserve">
+    <value>The Output Profile "{0}" is missing and cannot be used for playback!</value>
+  </data>
+  <data name="OutputProfileError" xml:space="preserve">
+    <value>The Output Profile "{0}" has errors:\\n{1}</value>
+  </data>
+  <data name="EditOutputProfileTitle" xml:space="preserve">
+    <value>Edit Output Profile</value>
+  </data>
+  <data name="OutputProfileNameLabel" xml:space="preserve">
+    <value>Output profile name</value>
+  </data>
+  <data name="OutputProfileLabel" xml:space="preserve">
+    <value>Output Profile</value>
+  </data>
+  <data name="EditOutputProfileTooltip" xml:space="preserve">
+    <value>Edit output profile</value>
+  </data>
+  <data name="NewOutputProfileTooltip" xml:space="preserve">
+    <value>Create new output profile</value>
+  </data>
 </root>

@@ -77,7 +77,71 @@ namespace Amplitude.Helpers
             }
         }
 
+        private Dictionary<string, EditOutputProfile> _editOutputProfileWindows = new Dictionary<string, EditOutputProfile>();
+        public Dictionary<string, EditOutputProfile> EditOutputProfileWindows
+        {
+            get => _editOutputProfileWindows;
+            set
+            {
+                if (value != _editOutputProfileWindows)
+                {
+                    _editOutputProfileWindows = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public double DesktopScaling { get => MainWindow?.PlatformImpl.DesktopScaling ?? 1; }
+
+        public void OpenEditOutputProfileWindow(string? Id = null)
+        {
+            if (Id != null && EditOutputProfileWindows.TryGetValue(Id, out EditOutputProfile window))
+            {
+                if (window.WindowState == WindowState.Minimized)
+                {
+                    window.WindowState = WindowState.Normal;
+                }
+                window.Activate();
+            }
+            else
+            {
+                EditOutputProfile outputProf = new EditOutputProfile();
+                OutputProfile? profile = App.OutputProfileManager.GetOutputProfile(Id);
+
+                outputProf.DataContext = profile == null ? new EditOutputProfileViewModel() : new EditOutputProfileViewModel(profile);
+
+                if (windowSizesAndPositions.TryGetValue("editOutputProfile", out var info))
+                {
+                    SetAvailableWindowDetails(outputProf, info);
+                }
+
+                PixelPoint? pos = SoundClipListWindow?.Position ?? MainWindow?.Position;
+                if (pos != null)
+                {
+                    outputProf.Position = new PixelPoint(pos.Value.X + randomizer.Next(50, 100), pos.Value.Y + randomizer.Next(50, 100));
+                }
+
+                outputProf.Show();
+            }
+        }
+
+        public void OpenedEditOutputProfileWindow(string id, EditOutputProfile editOutputProfile)
+        {
+            if (!string.IsNullOrEmpty(id) && !EditOutputProfileWindows.ContainsKey(id))
+            {
+                EditOutputProfileWindows.Add(id, editOutputProfile);
+                OnPropertyChanged(nameof(EditOutputProfileWindows));
+            }
+        }
+
+        public void ClosedEditOutputProfileWindow(string Id)
+        {
+            if (!string.IsNullOrEmpty(Id) && EditOutputProfileWindows.ContainsKey(Id))
+            {
+                EditOutputProfileWindows.Remove(Id);
+                OnPropertyChanged(nameof(EditOutputProfileWindows));
+            }
+        }
 
         public void OpenEditSoundClipWindow(string? id = null)
         {
@@ -244,7 +308,21 @@ namespace Amplitude.Helpers
             ShowErrorListWindow();
         }
 
-        public void ShowErrorSoundClip(SoundClip clip, ErrorListViewModel.ErrorType errorType, string? additionalData = null)
+        public void ShowErrorOutputProfile(OutputProfile profile, ErrorListViewModel.OutputProfileErrorType errorType, string? additionalData = null)
+        {
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    ShowErrorOutputProfile(profile, errorType, additionalData);
+                });
+                return;
+            }
+            ((ErrorListViewModel)ErrorListWindow.DataContext)?.AddErrorOutputProfile(profile, errorType, additionalData);
+            ShowErrorListWindow();
+        }
+
+        public void ShowErrorSoundClip(SoundClip clip, ErrorListViewModel.SoundClipErrorType errorType, string? additionalData = null)
         {
             if (!Dispatcher.UIThread.CheckAccess())
             {
@@ -511,7 +589,7 @@ namespace Amplitude.Helpers
                 if (App.OptionsManager.Options.AutoScaleTilesToWindow && lastMainWindowSize != newWindowSize)
                 {
                     lastMainWindowSize = newWindowSize;
-                    App.SoundClipManager.RescaleAllBackgroundImages(true);
+                    App.SoundClipManager.RescaleAllBackgroundImages();
                 }
             }
 

@@ -96,7 +96,6 @@ namespace Amplitude.Helpers
             get
             {
                 List<string> devices = new List<string>();
-                devices.Add(ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME);
                 // Index 0 is "No Sound", so skip
                 for (int dev = 1; dev < Bass.DeviceCount; dev++)
                 {
@@ -111,7 +110,7 @@ namespace Amplitude.Helpers
         {
             if (playerDeviceName == ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME)
             {
-                playerDeviceName = App.OptionsManager.Options.OutputSettings.DeviceName;
+                playerDeviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
             }
 
             if (playerDeviceName == ISoundEngine.DEFAULT_DEVICE_NAME || playerDeviceName == "System default")
@@ -143,7 +142,7 @@ namespace Amplitude.Helpers
         {
             lock(queueLock)
             {
-                Queued.Add(source.CreateCopy());
+                Queued.Add(source.ShallowCopy());
             }
         }
 
@@ -154,15 +153,15 @@ namespace Amplitude.Helpers
                 return;
             }
 
-            foreach (OutputSettings settings in source.OutputSettings)
+            foreach (OutputSettings settings in source.OutputSettingsFromProfile)
             {
-                Play(source.AudioFilePath, settings.Volume, settings.DeviceName, source.Name);
+                Play(source.AudioFilePath, settings.Volume, source.Volume, settings.DeviceName, source.Name);
             }
         }
 
-        private void Play(string fileName, int volume, string playerDeviceName, string? name = null)
+        private void Play(string fileName, int volume, float volumeMultiplier, string playerDeviceName, string? name = null)
         {
-            double vol = volume / 100.0;
+            double vol = (volume / 100.0) * (volumeMultiplier / 100);
 
             int? devId = GetOutputPlayerByName(playerDeviceName);
 
@@ -228,15 +227,15 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void CheckDeviceExistsAndGenerateErrors(SoundClip clip)
+        public void CheckDeviceExistsAndGenerateErrors(OutputProfile profile)
         {
-            foreach (OutputSettings settings in clip.OutputSettings)
+            foreach (OutputSettings settings in profile.OutputSettings)
             {
                 if (GetOutputPlayerByName(settings.DeviceName) == null)
                 {
-                    if (clip != null)
+                    if (profile != null)
                     {
-                        App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_DEVICE, settings.DeviceName);
+                        App.WindowManager.ShowErrorOutputProfile(profile, ViewModels.ErrorListViewModel.OutputProfileErrorType.MISSING_DEVICE, settings.DeviceName);
                     }
                 }
             }

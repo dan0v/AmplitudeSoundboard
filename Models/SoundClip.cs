@@ -107,20 +107,6 @@ namespace Amplitude.Models
             }
         }
 
-        private bool _preCache = false;
-        public bool PreCache
-        {
-            get => _preCache;
-            set
-            {
-                if (value != _preCache)
-                {
-                    _preCache = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         private bool _nameVisibleOnGridTile = true;
         public bool NameVisibleOnGridTile
         {
@@ -135,39 +121,26 @@ namespace Amplitude.Models
             }
         }
 
-        // legacy soundclips loading
-        private string _deviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
-        [Obsolete]
-        public string DeviceName
-        {
-            internal get => _deviceName;
-            set
-            {
-                if (OutputSettings.Count <= 0)
-                {
-                    OutputSettings.Add(new OutputSettings());
-                }
-                OutputSettings[0].DeviceName = value;
-            }
-        }
-
-        // legacy soundclips loading
         private int _volume = 100;
-        [Obsolete]
         public int Volume
         {
-            internal get => _volume;
+            get => _volume;
             set
             {
-                if (OutputSettings.Count <= 0)
+                if (value != _volume)
                 {
-                    OutputSettings.Add(new OutputSettings());
+                    _volume = value;
+                    OnPropertyChanged();
                 }
-                OutputSettings[0].Volume = value;
             }
         }
 
+        private ObservableCollection<OutputSettings> _outputSettingsFromProfile = new ObservableCollection<OutputSettings>();
+        [JsonIgnore]
+        public ObservableCollection<OutputSettings> OutputSettingsFromProfile => App.OutputProfileManager.GetOutputProfile(OutputProfileId)?.OutputSettings;
+
         private ObservableCollection<OutputSettings> _outputSettings = new ObservableCollection<OutputSettings>();
+        [Obsolete]
         public ObservableCollection<OutputSettings> OutputSettings
         {
             get => _outputSettings;
@@ -176,7 +149,21 @@ namespace Amplitude.Models
                 if (value != _outputSettings)
                 {
                     _outputSettings = value;
+                }
+            }
+        }
+
+        private string _outputProfileId = OutputProfileManager.DEFAULT_OUTPUTPROFILE;
+        public string OutputProfileId
+        {
+            get => _outputProfileId;
+            set
+            {
+                if (value != _outputProfileId)
+                {
+                    _outputProfileId = value;
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(OutputSettingsFromProfile));
                 }
             }
         }
@@ -184,17 +171,11 @@ namespace Amplitude.Models
         private string _id = null;
         // Do not write to JSON, since it is stored in dictionary anyway
         [JsonIgnore]
-        public string Id
-        {
-            get => _id;
-        }
+        public string Id => _id;
 
-        private Bitmap _backgroundImage = null;
+        private Bitmap? _backgroundImage = null;
         [JsonIgnore]
-        public Bitmap BackgroundImage
-        {
-            get => _backgroundImage;
-        }
+        public Bitmap? BackgroundImage => _backgroundImage;
 
         private bool _loadBackgroundImage = false;
         [JsonIgnore]
@@ -238,7 +219,7 @@ namespace Amplitude.Models
             App.WindowManager.OpenEditSoundClipWindow(Id);
         }
 
-        public async Task SetAndRescaleBackgroundImage(bool fromBackgroundThread = false)
+        public async Task SetAndRescaleBackgroundImage()
         {
             if (LoadBackgroundImage && BrowseIO.ValidImage(_imageFilePath, false))
             {
@@ -263,28 +244,16 @@ namespace Amplitude.Models
                 _backgroundImage = null;
             }
 
-            void triggerOnChanged()
-            {
-                if (fromBackgroundThread)
-                {
-                    OnPropertyChanged(nameof(BackgroundImage));
-                }
-                else
-                {
-                    OnPropertyChanged(nameof(BackgroundImage));
-                }
-            }
-
             if (!Dispatcher.UIThread.CheckAccess())
             {
                 await Dispatcher.UIThread.InvokeAsync(() =>
                 {
-                    triggerOnChanged();
+                    OnPropertyChanged(nameof(BackgroundImage));
                 });
                 return;
             }
 
-            triggerOnChanged();
+            OnPropertyChanged(nameof(BackgroundImage));
         }
 
         public static SoundClip? FromJSON(string json)
@@ -305,17 +274,9 @@ namespace Amplitude.Models
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
-        public SoundClip CreateCopy()
+        public SoundClip ShallowCopy()
         {
-            var copy = (SoundClip)this.MemberwiseClone();
-            copy.OutputSettings = new ObservableCollection<OutputSettings>();
-
-            foreach (var setting in OutputSettings)
-            {
-                copy.OutputSettings.Add(setting.ShallowCopy());
-            }
-
-            return copy;
+            return (SoundClip)this.MemberwiseClone();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

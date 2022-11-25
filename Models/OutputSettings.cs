@@ -44,7 +44,7 @@ namespace Amplitude.Models
             }
         }
 
-        private string _deviceName = ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME;
+        private string _deviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
         public string DeviceName
         {
             get => _deviceName;

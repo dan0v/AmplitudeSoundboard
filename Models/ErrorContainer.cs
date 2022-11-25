@@ -28,14 +28,31 @@ namespace Amplitude.Models
         public string ErrorMessage { get; set; } = "";
         public bool LinkedSoundClip { get; set; } = false;
         public string SoundClipId { get; set; } = "";
+        public bool LinkedOutputProfile { get; set; } = false;
+        public string OutputProfileId { get; set; } = "";
 
-        public ErrorContainer(string errorMessage, string soundClipId = "")
+        public ErrorContainer(string errorMessage)
         {
             this.ErrorMessage = errorMessage;
-            if (!string.IsNullOrEmpty(soundClipId))
+        }
+
+        public ErrorContainer(string errorMessage, SoundClip clip)
+        {
+            this.ErrorMessage = errorMessage;
+            if (!string.IsNullOrEmpty(clip?.Id))
             {
                 this.LinkedSoundClip = true;
-                this.SoundClipId = soundClipId;
+                this.SoundClipId = clip?.Id;
+            }
+        }
+
+        public ErrorContainer(string errorMessage, OutputProfile profile)
+        {
+            this.ErrorMessage = errorMessage;
+            if (!string.IsNullOrEmpty(profile?.Id))
+            {
+                this.LinkedOutputProfile = true;
+                this.OutputProfileId = profile?.Id;
             }
         }
 
@@ -44,6 +61,13 @@ namespace Amplitude.Models
             if (App.SoundClipManager.GetClip(SoundClipId) != null)
             {
                 App.WindowManager.OpenEditSoundClipWindow(SoundClipId);
+            }
+        }
+        public void OpenEditOutputProfileWindow()
+        {
+            if (App.OutputProfileManager.GetOutputProfile(OutputProfileId) != null)
+            {
+                App.WindowManager.OpenEditOutputProfileWindow(OutputProfileId);
             }
         }
     }

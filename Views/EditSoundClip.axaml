@@ -23,12 +23,12 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="635"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="605"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.EditSoundClip"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize EditSoundClipTitle}"
-        Width="400" Height="635" MinWidth="400" MinHeight="500"
+        Width="400" Height="605" MinWidth="400" MinHeight="500"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
@@ -58,13 +58,13 @@
       </ExperimentalAcrylicBorder>
 
       <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize EditSoundClipTitle}" Classes="TITLE" FontFamily="{Binding ThemeHandler.TitleFont}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
-
       <TextBlock x:Name="txt_blk_SoundClipId" Text="{Binding Model.Id}" IsVisible="false"></TextBlock>
+      
       <!--<ScrollViewer Margin="0,30,0,0">-->
         <Grid Margin="0,30,0,0">
           <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
-            <RowDefinition Height="*" MinHeight="60"/>
+            <RowDefinition Height="135"/>
             <RowDefinition Height="90"/>
             <RowDefinition Height="90"/>
             <RowDefinition Height="90"/>
@@ -78,7 +78,7 @@
             </Border.BorderBrush>
             <StackPanel>
               <Label Content="{i18n:Localize ClipNameLabel}" HorizontalAlignment="Center" Height="30"></Label>
-              <TextBox Text="{Binding Model.Name}" Watermark="{i18n:Localize ClipNamePlaceholder}" ToolTip.Tip="{Binding Model.Name}"></TextBox>
+              <TextBox Text="{Binding Model.Name}" Watermark="{i18n:Localize ClipNamePlaceholder}" ToolTip.Tip="{Binding Model.Name}" Margin="5,0,5,0"></TextBox>
 
               <!--Show name in grid tile toggle-->
               <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center">
@@ -94,70 +94,62 @@
                 <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
               </Border.BorderBrush>
 
-              <Grid RowDefinitions="*,50">
-                
-                <ScrollViewer Grid.Row="0">
-                  <ItemsControl Items="{Binding Model.OutputSettings}">
-                    <ItemsControl.ItemTemplate>
+              <StackPanel>
+                <Label Content="{i18n:Localize OutputProfileLabel}" HorizontalAlignment="Center" Height="30" Margin="5,5,5,0"></Label>
+
+                <Grid ColumnDefinitions="*,Auto,Auto">
+                  <ComboBox x:Name="cb_OutputProfileSelection" Grid.Column="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" AutoScrollToSelectedItem="True" Margin="5,0,5,0" SelectedItem="{Binding CurrentOutputProfile}" Items="{Binding OutputProfilesList}">
+                    <ComboBox.ItemTemplate>
                       <DataTemplate>
-                        <Border BorderThickness="2" CornerRadius="5" Margin="5,5,5,0" Padding="5" Height="60">
-                          <Border.BorderBrush>
-                            <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeHandler.BorderColor}"/>
-                          </Border.BorderBrush>
-                          <Grid RowDefinitions="Auto,20,20">
-                            
-                            <Grid Grid.Row="2" Margin="0,-20,0,0">
-                              <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="150"/>
-                              </Grid.ColumnDefinitions>
-                              <Button Grid.Column="0" Margin="5,0,5,0" Cursor="Hand" Command="{Binding DecreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Panel>
-                                  <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.ArrowLeft}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                </Panel>
-                              </Button>
-                              <Grid Grid.Column="1" RowDefinitions="*,20">
-                                <StackPanel HorizontalAlignment="Center" Grid.Row="0" Orientation="Horizontal">
-                                  <Label Content="{i18n:Localize VolumeLabel}"></Label>
-                                  <Label Content="{Binding Volume}" HorizontalAlignment="Center"></Label>
-                                </StackPanel>
-                                <Slider Grid.Row="1" VerticalAlignment="Center" Height="50" Margin="0,-10,0,0" Cursor="Hand" SmallChange="1" LargeChange="10" TickFrequency="1" Orientation="Horizontal" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickPlacement="None" Value="{Binding Path=Volume, Mode=TwoWay}" Padding="5,0,5,0">
-                                  <Slider.Foreground>
-                                    <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeHandler.SliderForeground}"/>
-                                  </Slider.Foreground>
-                                  <Slider.Background>
-                                    <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeHandler.SliderBackground}"/>
-                                  </Slider.Background>
-                                </Slider>
-                              </Grid>
-                              <Button Grid.Column="2" Margin="5,0,5,0" Cursor="Hand" Command="{Binding IncreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Panel>
-                                  <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.ArrowRight}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                </Panel>
-                              </Button>
-                              <ComboBox Width="150" Grid.Column="3" AutoScrollToSelectedItem="True" Margin="0,5,0,5" SelectedItem="{Binding DeviceName}" Items="{Binding DeviceList}" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize OutputDeviceLabel}"></ComboBox>
-                            </Grid>
-                          </Grid>
-                        </Border>
+                        <TextBlock Text="{Binding Name}" />
                       </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                  </ItemsControl>
-                </ScrollViewer>
-                <Grid Grid.Row="1" ColumnDefinitions="*,*">
-                  <Button Cursor="Hand" IsEnabled="{Binding CanRemoveOutputDevices}" Grid.Column="0" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize RemoveSoundClipOutput}" Command="{Binding RemoveOutputDevice}">
+                    </ComboBox.ItemTemplate>
+                  </ComboBox>
+                  
+                  <Button Grid.Column="1" Margin="5,0,5,0" Cursor="Hand" Command="{Binding EditOutputProfile}" ToolTip.Tip="{i18n:Localize EditOutputProfileTooltip}" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Panel>
-                      <Image Source="{Binding ThemeHandler.Minus}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                      <Image Source="{Binding ThemeHandler.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Panel>
                   </Button>
-                  <Button Cursor="Hand" Grid.Column="1" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize AddSoundClipOutput}" Command="{Binding AddOutputDevice}">
+                  <Button Grid.Column="2" Margin="5,0,5,0" Cursor="Hand" Command="{Binding NewOutputProfile}" ToolTip.Tip="{i18n:Localize NewOutputProfileTooltip}"  HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Panel>
                       <Image Source="{Binding ThemeHandler.Plus}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Panel>
                   </Button>
                 </Grid>
-            </Grid>
+
+                <Grid Grid.Row="2" Margin="0,5,0,5">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+                  <Button Grid.Column="0" Margin="5,0,5,0" Cursor="Hand" Command="{Binding DecreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Panel>
+                      <Image Source="{Binding ThemeHandler.ArrowLeft}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Panel>
+                  </Button>
+                  <Grid Grid.Column="1" RowDefinitions="*,20">
+                    <StackPanel HorizontalAlignment="Center" Grid.Row="0" Orientation="Horizontal">
+                      <Label Content="{i18n:Localize VolumeLabel}"></Label>
+                      <Label Content="{Binding Model.Volume}" HorizontalAlignment="Center"></Label>
+                    </StackPanel>
+                    <Slider Grid.Row="1" VerticalAlignment="Center" Height="50" Margin="0,-10,0,0" Cursor="Hand" SmallChange="1" LargeChange="10" TickFrequency="1" Orientation="Horizontal" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickPlacement="None" Value="{Binding Path=Model.Volume, Mode=TwoWay}" Padding="5,0,5,0">
+                      <Slider.Foreground>
+                        <SolidColorBrush Color="{Binding ThemeHandler.SliderForeground}"/>
+                      </Slider.Foreground>
+                      <Slider.Background>
+                        <SolidColorBrush Color="{Binding ThemeHandler.SliderBackground}"/>
+                      </Slider.Background>
+                    </Slider>
+                  </Grid>
+                  <Button Grid.Column="2" Margin="5,0,5,0" Cursor="Hand" Command="{Binding IncreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Panel>
+                      <Image Source="{Binding ThemeHandler.ArrowRight}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Panel>
+                  </Button>
+                </Grid>
+              </StackPanel>
           </Border>
           
           <!--Audio File-->

@@ -24,6 +24,7 @@ using AmplitudeSoundboard;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -32,12 +33,12 @@ using System.Threading.Tasks;
 
 namespace Amplitude.Models
 {
-    public class SoundClipManager : INotifyPropertyChanged
+    public class SoundClipManager : JSONIOManager, INotifyPropertyChanged
     {
         private static SoundClipManager? _instance;
         public static SoundClipManager Instance { get => _instance ??= new SoundClipManager(); }
 
-        private static string SOUNDCLIPS_FILE_LOCATION => Path.Join(App.APP_STORAGE, "soundclips.json");
+        private const string SOUNDCLIPS_FILE = "soundclips.json";
 
         private string _soundClipListFilter = "";
         public string SoundClipListFilter
@@ -88,9 +89,9 @@ namespace Amplitude.Models
         private Dictionary<string, SoundClip> _soundClips;
         public Dictionary<string, SoundClip> SoundClips { get => _soundClips; }
 
-        public async void RescaleAllBackgroundImages(bool fromBackgroundThread = false)
+        public async void RescaleAllBackgroundImages()
         {
-            var rescaleTasks = SoundClips.Values.Select(clip => clip.SetAndRescaleBackgroundImage(fromBackgroundThread)).ToArray();
+            var rescaleTasks = SoundClips.Values.Select(clip => clip.SetAndRescaleBackgroundImage()).ToArray();
             await Task.WhenAll(rescaleTasks);
         }
 
@@ -102,6 +103,7 @@ namespace Amplitude.Models
             {
                 _soundClips = retrievedClips;
                 InitializeSoundClips(SoundClips);
+                StoreSavedSoundClips();
             }
             else
             {
@@ -114,6 +116,13 @@ namespace Amplitude.Models
             foreach (KeyValuePair<string, SoundClip> item in soundClips)
             {
                 item.Value.InitializeId(item.Key);
+
+                if (item.Value.OutputSettings.Any())
+                {
+                    item.Value.OutputProfileId = App.OutputProfileManager.FindOrCreateIdOfSimilarOutputProfile(item.Value.OutputSettings);
+                    item.Value.OutputSettings = new ObservableCollection<OutputSettings>();
+                }
+
                 ValidateSoundClip(item.Value);
                 RegisterSoundClipHotkey(item.Value);
             }
@@ -132,21 +141,22 @@ namespace Amplitude.Models
         {
             if (!string.IsNullOrEmpty(clip.AudioFilePath) && !File.Exists(clip.AudioFilePath))
             {
-                App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_AUDIO_FILE);
+                App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.SoundClipErrorType.MISSING_AUDIO_FILE);
             }
             if (!string.IsNullOrEmpty(clip.ImageFilePath) && !File.Exists(clip.ImageFilePath))
             {
-                App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.ErrorType.MISSING_IMAGE_FILE);
+                App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.SoundClipErrorType.MISSING_IMAGE_FILE);
             }
-            foreach (OutputSettings settings in clip.OutputSettings)
+            
+            var profile = App.OutputProfileManager.GetOutputProfile(clip.OutputProfileId);
+            if (profile == null)
             {
-                if (string.IsNullOrEmpty(settings.DeviceName) || settings.DeviceName == "DEFAULT")
-                {
-                    settings.DeviceName = ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME;
-                }
+                clip.OutputProfileId = OutputProfileManager.DEFAULT_OUTPUTPROFILE;
+                profile = App.OutputProfileManager.GetOutputProfile(clip.OutputProfileId);
             }
 
-            App.SoundEngine.CheckDeviceExistsAndGenerateErrors(clip);
+            App.OutputProfileManager.ValidateOutputProfile(profile);
+            App.SoundEngine.CheckDeviceExistsAndGenerateErrors(profile);
         }
 
         /// <summary>
@@ -247,7 +257,7 @@ namespace Amplitude.Models
                 return null;
             }
 
-            if (SoundClips.TryGetValue(id, out SoundClip clip))
+            if (SoundClips.TryGetValue(id, out SoundClip? clip))
             {
                 return clip;
             }
@@ -258,71 +268,22 @@ namespace Amplitude.Models
             return null;
         }
 
-        public Dictionary<string, SoundClip>? RetrieveSavedSoundClips()
+        private static Dictionary<string, SoundClip>? RetrieveSavedSoundClips()
         {
-            string? clipsInJson = RetrieveJSONFromFile();
-
-            if (!string.IsNullOrEmpty(clipsInJson))
-            {
-                return ConvertClipsFromJSON(clipsInJson);
-            }
-            else
-            {
-                return null;
-            }
+            string? clipsInJson = RetrieveJSONFromFile(SOUNDCLIPS_FILE);
+            return ConvertObjectsFromJSON<SoundClip>(clipsInJson);
         }
 
-        public void StoreSavedSoundClips()
+        private void StoreSavedSoundClips()
         {
             string clipsInJson = ConvertClipsToJSON();
 
-            SaveJSONToFile(clipsInJson);
-        }
-
-        private static Dictionary<string, SoundClip>? ConvertClipsFromJSON(string json)
-        {
-            try
-            {
-                return JsonConvert.DeserializeObject<Dictionary<string, SoundClip>>(json);
-            }
-            catch (Exception e)
-            {
-                App.WindowManager.ShowErrorString(e.Message);
-            }
-            return null;
+            SaveJSONToFile(SOUNDCLIPS_FILE, clipsInJson);
         }
 
         private string ConvertClipsToJSON()
         {
             return JsonConvert.SerializeObject(SoundClips, Formatting.Indented);
-        }
-
-        private string? RetrieveJSONFromFile()
-        {
-            try
-            {
-                if (File.Exists(SOUNDCLIPS_FILE_LOCATION))
-                {
-                    return File.ReadAllText(SOUNDCLIPS_FILE_LOCATION);
-                }
-            }
-            catch (Exception e)
-            {
-                App.WindowManager.ShowErrorString(e.Message);
-            }
-            return null;
-        }
-
-        private void SaveJSONToFile(string json)
-        {
-            try
-            {
-                File.WriteAllText(SOUNDCLIPS_FILE_LOCATION, json);
-            }
-            catch (Exception e)
-            {
-                App.WindowManager.ShowErrorString(e.Message);
-            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

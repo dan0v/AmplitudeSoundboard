@@ -366,4 +366,25 @@
   <data name="ClearPositionsTooltip" xml:space="preserve">
     <value>Jeśli okno jest poza zasięgiem, zresetuj rozmiary i pozycje okien</value>
   </data>
+  <data name="MissingOutputProfileString" xml:space="preserve">
+    <value>Brak profilu wyjściowego "{0}" i nie może być użyty do odtwarzania!</value>
+  </data>
+  <data name="OutputProfileError" xml:space="preserve">
+    <value>Profil wyjściowy "{0}" ma błędy:\\n{1}</value>
+  </data>
+  <data name="EditOutputProfileTitle" xml:space="preserve">
+    <value>Edytuj profil wyjściowy</value>
+  </data>
+  <data name="OutputProfileNameLabel" xml:space="preserve">
+    <value>Edycja profilu wyjściowego</value>
+  </data>
+  <data name="OutputProfileLabel" xml:space="preserve">
+    <value>Nazwa profilu wyjściowego</value>
+  </data>
+  <data name="EditOutputProfileTooltip" xml:space="preserve">
+    <value>Edycja profilu wyjściowego</value>
+  </data>
+  <data name="NewOutputProfileTooltip" xml:space="preserve">
+    <value>Tworzyć nowy profil wyjściowy</value>
+  </data>
 </root>
