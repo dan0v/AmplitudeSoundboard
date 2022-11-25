@@ -217,7 +217,7 @@ namespace Amplitude.ViewModels
 
         public void NewOutputProfile()
         {
-            Model.OutputProfileId = WindowManager.OpenEditOutputProfileWindow(null);
+            WindowManager.OpenEditOutputProfileWindow(null);
             OnPropertyChanged(nameof(OutputProfilesList));
             
         }

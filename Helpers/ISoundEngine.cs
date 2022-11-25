@@ -34,6 +34,7 @@ namespace Amplitude.Helpers
         public ObservableCollection<SoundClip> Queued { get; }
 
         public const string DEFAULT_DEVICE_NAME = "Default";
+        [Obsolete]
         public const string GLOBAL_DEFAULT_DEVICE_NAME = "Global setting";
 
         public void AddToQueue(SoundClip source);

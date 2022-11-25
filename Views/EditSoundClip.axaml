@@ -58,8 +58,8 @@
       </ExperimentalAcrylicBorder>
 
       <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize EditSoundClipTitle}" Classes="TITLE" FontFamily="{Binding ThemeHandler.TitleFont}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
-
       <TextBlock x:Name="txt_blk_SoundClipId" Text="{Binding Model.Id}" IsVisible="false"></TextBlock>
+      
       <!--<ScrollViewer Margin="0,30,0,0">-->
         <Grid Margin="0,30,0,0">
           <Grid.RowDefinitions>
@@ -98,7 +98,7 @@
                 <Label Content="{i18n:Localize OutputProfileLabel}" HorizontalAlignment="Center" Height="30" Margin="5,5,5,0"></Label>
 
                 <Grid ColumnDefinitions="*,Auto,Auto">
-                  <ComboBox x:Name="cb_outputProfileSelection" Grid.Column="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" AutoScrollToSelectedItem="True" Margin="5,0,5,0" SelectedItem="{Binding CurrentOutputProfile}" Items="{Binding OutputProfilesList}">
+                  <ComboBox x:Name="cb_OutputProfileSelection" Grid.Column="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" AutoScrollToSelectedItem="True" Margin="5,0,5,0" SelectedItem="{Binding CurrentOutputProfile}" Items="{Binding OutputProfilesList}">
                     <ComboBox.ItemTemplate>
                       <DataTemplate>
                         <TextBlock Text="{Binding Name}" />

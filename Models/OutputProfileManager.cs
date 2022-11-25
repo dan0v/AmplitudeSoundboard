@@ -35,6 +35,9 @@ namespace Amplitude.Models
     {
         private static OutputProfileManager? _instance;
         public static OutputProfileManager Instance { get => _instance ??= new OutputProfileManager(); }
+
+        private const string MIGRATED_PROFILES_NAME_BASE = "Migrated_Profile";
+        private int migratedProfileCounter = 1;
         
         private const string OUTPUTPROFILES_FILE = "profiles.json";
         public const string DEFAULT_OUTPUTPROFILE = "DEFAULT";
@@ -60,7 +63,7 @@ namespace Amplitude.Models
             if (!_outputProfiles.ContainsKey(DEFAULT_OUTPUTPROFILE))
             {
                 var profile = new OutputProfile();
-                profile.OverrideId(DEFAULT_OUTPUTPROFILE);
+                profile.InitializeId(DEFAULT_OUTPUTPROFILE);
                 profile.Name = "Default";
                 profile.OutputSettings.Add(new OutputSettings());
                 AddOutputProfile(profile);
@@ -72,13 +75,14 @@ namespace Amplitude.Models
             foreach (var profile in OutputProfiles)
             {
                 var profileDevs = profile.Value.OutputSettings.Select(s => s.DeviceName).ToList();
-                var settingsDevs = settings.Select(s => s.DeviceName);
+                var settingsDevs = settings.Select(s => s.DeviceName == ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME ? ISoundEngine.DEFAULT_DEVICE_NAME : s.DeviceName);
                 if (settingsDevs.All(s => profileDevs.Contains(s)))
                 {
                     return profile.Key;
                 }
             }
             var newProf = new OutputProfile(settings);
+            newProf.Name = MIGRATED_PROFILES_NAME_BASE + "_" + migratedProfileCounter++;
             AddOutputProfile(newProf);
             OnPropertyChanged(nameof(OutputProfilesList));
             return newProf.Id;
@@ -96,6 +100,11 @@ namespace Amplitude.Models
         /// <param name="clip"></param>
         public void SaveOutputProfile(OutputProfile profile)
         {
+            if (string.IsNullOrEmpty(profile.Id))
+            {
+                profile.InitializeId(null);
+            }
+
             if (string.IsNullOrEmpty(profile.Name))
             {
                 profile.Name = profile.Id;
@@ -141,9 +150,9 @@ namespace Amplitude.Models
         {
             foreach (OutputSettings settings in profile?.OutputSettings ?? new ObservableCollection<OutputSettings>())
             {
-                if (string.IsNullOrEmpty(settings.DeviceName) || settings.DeviceName == "DEFAULT")
+                if (string.IsNullOrEmpty(settings.DeviceName) || settings.DeviceName == "DEFAULT" || settings.DeviceName == ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME)
                 {
-                    settings.DeviceName = ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME;
+                    settings.DeviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
                 }
             }
         }
@@ -172,7 +181,7 @@ namespace Amplitude.Models
             var profiles = ConvertObjectsFromJSON<OutputProfile>(clipsInJson);
             foreach (var profile in profiles ?? new Dictionary<string, OutputProfile>())
             {
-                profile.Value.OverrideId(profile.Key);
+                profile.Value.InitializeId(profile.Key);
             }
             return profiles;
         }

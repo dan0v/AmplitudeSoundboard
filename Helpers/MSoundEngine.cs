@@ -96,7 +96,6 @@ namespace Amplitude.Helpers
             get
             {
                 List<string> devices = new List<string>();
-                devices.Add(ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME);
                 // Index 0 is "No Sound", so skip
                 for (int dev = 1; dev < Bass.DeviceCount; dev++)
                 {
@@ -111,7 +110,7 @@ namespace Amplitude.Helpers
         {
             if (playerDeviceName == ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME)
             {
-                playerDeviceName = App.OptionsManager.Options.OutputSettings.DeviceName;
+                playerDeviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
             }
 
             if (playerDeviceName == ISoundEngine.DEFAULT_DEVICE_NAME || playerDeviceName == "System default")

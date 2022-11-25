@@ -66,11 +66,6 @@ namespace Amplitude.Models
                 _options = new Options();
             }
 
-            if (string.IsNullOrEmpty(_options.OutputSettings.DeviceName) || _options.OutputSettings.DeviceName == ISoundEngine.GLOBAL_DEFAULT_DEVICE_NAME)
-            {
-                _options.OutputSettings.DeviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
-            }
-
             OnPropertyChanged(nameof(Options));
         }
 

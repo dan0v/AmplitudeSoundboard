@@ -58,7 +58,8 @@
       </ExperimentalAcrylicBorder>
 
       <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize EditOutputProfileTitle}" Classes="TITLE" FontFamily="{Binding ThemeHandler.TitleFont}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
-
+      <TextBlock x:Name="txt_blk_OutputProfileId" Text="{Binding Model.Id}" IsVisible="false"></TextBlock>
+      
       <!--<ScrollViewer Margin="0,30,0,0">-->
         <Grid Margin="0,30,0,0">
           <Grid.RowDefinitions>
@@ -150,7 +151,7 @@
 
           <Grid Grid.Row="2"  ColumnDefinitions="*,Auto">
             <StackPanel Orientation="Horizontal" Grid.Column="1">
-              <Button x:Name="btn_removeOutputProfile" Command="{Binding DeleteOutputProfile}" ToolTip.Tip="{i18n:Localize DeleteSoundClipButton}" Cursor="Hand" IsEnabled="{Binding Model.Id, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Margin="5,5,10,5" HorizontalAlignment="Left">
+              <Button x:Name="btn_RemoveOutputProfile" Command="{Binding DeleteOutputProfile}" ToolTip.Tip="{i18n:Localize DeleteSoundClipButton}" Cursor="Hand" IsEnabled="{Binding Model.Id, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Margin="5,5,10,5" HorizontalAlignment="Left">
                 <Panel>
                   <Image Source="{Binding ThemeHandler.Delete}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Panel>

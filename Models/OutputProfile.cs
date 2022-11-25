@@ -21,6 +21,7 @@
 
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -29,13 +30,25 @@ namespace Amplitude.Models
 {
     public class OutputProfile : INotifyPropertyChanged
     {
+        private string _id = null;
         [JsonIgnore]
-        public string Id { get; protected set; }
+        public string Id => _id;
 
-        public void OverrideId(string newId)
+        public void InitializeId(string newId)
         {
-            Id = newId;
-            OnPropertyChanged(nameof(Id));
+            if (string.IsNullOrEmpty(newId))
+            {
+                newId = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "" + GetHashCode();
+            }
+            if (string.IsNullOrEmpty(Id))
+            {
+                _id = newId;
+                OnPropertyChanged(nameof(Id));
+            }
+            else
+            {
+                throw new NotSupportedException("Do not alter Id once it has been set");
+            }
         }
 
         private string _name = "";
@@ -68,12 +81,15 @@ namespace Amplitude.Models
 
         public OutputProfile(Collection<OutputSettings>? settings = null)
         {
-            if (settings != null)
+            if (settings == null)
+            {
+                OutputSettings defaultSettings = new OutputSettings();
+                OutputSettings = new ObservableCollection<OutputSettings>(new List<OutputSettings>() { defaultSettings });
+            }
+            else
             {
                 OutputSettings = new ObservableCollection<OutputSettings>(settings);
             }
-
-            Id = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "" + GetHashCode();
         }
 
         public string ToJSON()

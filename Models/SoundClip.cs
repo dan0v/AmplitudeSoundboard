@@ -107,20 +107,6 @@ namespace Amplitude.Models
             }
         }
 
-        private bool _preCache = false;
-        public bool PreCache
-        {
-            get => _preCache;
-            set
-            {
-                if (value != _preCache)
-                {
-                    _preCache = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         private bool _nameVisibleOnGridTile = true;
         public bool NameVisibleOnGridTile
         {
@@ -132,22 +118,6 @@ namespace Amplitude.Models
                     _nameVisibleOnGridTile = value;
                     OnPropertyChanged();
                 }
-            }
-        }
-
-        // legacy soundclips loading
-        private string _deviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
-        [Obsolete]
-        public string DeviceName
-        {
-            internal get => _deviceName;
-            set
-            {
-                if (OutputSettingsFromProfile.Count <= 0)
-                {
-                    OutputSettingsFromProfile.Add(new OutputSettings());
-                }
-                OutputSettingsFromProfile[0].DeviceName = value;
             }
         }
 

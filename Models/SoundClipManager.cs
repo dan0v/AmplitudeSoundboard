@@ -24,6 +24,7 @@ using AmplitudeSoundboard;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -102,6 +103,7 @@ namespace Amplitude.Models
             {
                 _soundClips = retrievedClips;
                 InitializeSoundClips(SoundClips);
+                StoreSavedSoundClips();
             }
             else
             {
@@ -118,7 +120,7 @@ namespace Amplitude.Models
                 if (item.Value.OutputSettings.Any())
                 {
                     item.Value.OutputProfileId = App.OutputProfileManager.FindOrCreateIdOfSimilarOutputProfile(item.Value.OutputSettings);
-                    item.Value.OutputSettings = new System.Collections.ObjectModel.ObservableCollection<OutputSettings>();
+                    item.Value.OutputSettings = new ObservableCollection<OutputSettings>();
                 }
 
                 ValidateSoundClip(item.Value);

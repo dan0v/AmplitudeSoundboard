@@ -21,6 +21,7 @@
 
 using Amplitude.ViewModels;
 using AmplitudeSoundboard;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System.ComponentModel;
@@ -29,7 +30,8 @@ namespace Amplitude.Views
 {
     public partial class EditOutputProfile : Window
     {
-        Button btn_removeOutputProfile;
+        Button btn_RemoveOutputProfile;
+        TextBlock txt_blk_OutputProfileId;
 
         public EditOutputProfile()
         {
@@ -41,13 +43,27 @@ namespace Amplitude.Views
         {
             AvaloniaXamlLoader.Load(this);
 
-            btn_removeOutputProfile = this.Find<Button>("btn_removeOutputProfile");
-            btn_removeOutputProfile.Click += Btn_removeOutputProfile_Click;
+            txt_blk_OutputProfileId = this.FindControl<TextBlock>("txt_blk_OutputProfileId");
+            txt_blk_OutputProfileId.PropertyChanged += Txt_blk_OutputProfileId_PropertyChanged;
+
+            btn_RemoveOutputProfile = this.Find<Button>("btn_RemoveOutputProfile");
+            btn_RemoveOutputProfile.Click += Btn_RemoveOutputProfile_Click;
         }
 
-        private void Btn_removeOutputProfile_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        private void Btn_RemoveOutputProfile_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Txt_blk_OutputProfileId_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+        {
+            if (e.Property == TextBlock.TextProperty)
+            {
+                if (!string.IsNullOrEmpty((string)e.NewValue) && e.NewValue != e.OldValue)
+                {
+                    App.WindowManager.OpenedEditOutputProfileWindow(((EditOutputProfileViewModel)this.DataContext).Model.Id, this);
+                }
+            }
         }
 
         protected override void OnClosing(CancelEventArgs e)

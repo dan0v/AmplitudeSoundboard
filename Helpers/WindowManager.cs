@@ -93,7 +93,7 @@ namespace Amplitude.Helpers
 
         public double DesktopScaling { get => MainWindow?.PlatformImpl.DesktopScaling ?? 1; }
 
-        public string OpenEditOutputProfileWindow(string? Id = null)
+        public void OpenEditOutputProfileWindow(string? Id = null)
         {
             if (Id != null && EditOutputProfileWindows.TryGetValue(Id, out EditOutputProfile window))
             {
@@ -102,7 +102,6 @@ namespace Amplitude.Helpers
                     window.WindowState = WindowState.Normal;
                 }
                 window.Activate();
-                return Id;
             }
             else
             {
@@ -122,10 +121,16 @@ namespace Amplitude.Helpers
                     outputProf.Position = new PixelPoint(pos.Value.X + randomizer.Next(50, 100), pos.Value.Y + randomizer.Next(50, 100));
                 }
 
-                var id = ((EditOutputProfileViewModel?)outputProf.DataContext)?.Model.Id;
-                EditOutputProfileWindows.Add(id, outputProf);
                 outputProf.Show();
-                return id;
+            }
+        }
+
+        public void OpenedEditOutputProfileWindow(string id, EditOutputProfile editOutputProfile)
+        {
+            if (!string.IsNullOrEmpty(id) && !EditOutputProfileWindows.ContainsKey(id))
+            {
+                EditOutputProfileWindows.Add(id, editOutputProfile);
+                OnPropertyChanged(nameof(EditOutputProfileWindows));
             }
         }
 
