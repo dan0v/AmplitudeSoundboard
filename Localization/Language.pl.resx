@@ -366,11 +366,11 @@
   <data name="ClearPositionsTooltip" xml:space="preserve">
     <value>Jeśli okno jest poza zasięgiem, zresetuj rozmiary i pozycje okien</value>
   </data>
-  <data name="MissingOutputProfileString" xml:space="preserve">.
+  <data name="MissingOutputProfileString" xml:space="preserve">
     <value>Brak profilu wyjściowego "{0}" i nie może być użyty do odtwarzania!</value>
   </data>
   <data name="OutputProfileError" xml:space="preserve">
-    <value>Profil wyjściowy "{0}" ma błędy:\\n{1}</value>.
+    <value>Profil wyjściowy "{0}" ma błędy:\\n{1}</value>
   </data>
   <data name="EditOutputProfileTitle" xml:space="preserve">
     <value>Edytuj profil wyjściowy</value>

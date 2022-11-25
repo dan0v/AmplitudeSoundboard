@@ -155,13 +155,13 @@ namespace Amplitude.Helpers
 
             foreach (OutputSettings settings in source.OutputSettingsFromProfile)
             {
-                Play(source.AudioFilePath, settings.Volume, settings.DeviceName, source.Name);
+                Play(source.AudioFilePath, settings.Volume, source.Volume, settings.DeviceName, source.Name);
             }
         }
 
-        private void Play(string fileName, int volume, string playerDeviceName, string? name = null)
+        private void Play(string fileName, int volume, float volumeMultiplier, string playerDeviceName, string? name = null)
         {
-            double vol = volume / 100.0;
+            double vol = (volume / 100.0) * (volumeMultiplier / 100);
 
             int? devId = GetOutputPlayerByName(playerDeviceName);
 
