@@ -11,7 +11,7 @@
     <OutputType>WinExe</OutputType>
     <!--<TargetFramework Condition="'$(Windows)'=='false'">net5.0</TargetFramework>
     <TargetFramework Condition="'$(Windows)'=='true'">net5.0-windows</TargetFramework>-->
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>dan0v</Authors>
     <Description>A sleek soundboard</Description>
     <Nullable>enable</Nullable>
@@ -19,7 +19,7 @@
     <RootNamespace>Amplitude</RootNamespace>
     <NeutralLanguage>en</NeutralLanguage>
     <Platforms>AnyCPU;x64</Platforms>
-    <Version>2.3.0</Version>
+    <Version>2.4.0</Version>
     <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>Link</TrimMode>
