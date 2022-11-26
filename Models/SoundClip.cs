@@ -135,6 +135,20 @@ namespace Amplitude.Models
             }
         }
 
+        private bool _loopClip = false;
+        public bool LoopClip
+        {
+            get => _loopClip;
+            set
+            {
+                if (value != _loopClip)
+                {
+                    _loopClip = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private ObservableCollection<OutputSettings> _outputSettingsFromProfile = new ObservableCollection<OutputSettings>();
         [JsonIgnore]
         public ObservableCollection<OutputSettings> OutputSettingsFromProfile => App.OutputProfileManager.GetOutputProfile(OutputProfileId)?.OutputSettings;

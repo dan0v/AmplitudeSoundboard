@@ -63,7 +63,18 @@ namespace Amplitude.Helpers
                     track.CurrentPos += TIMER_MS * 0.001d;
                 }
                 var toRemove = CurrentlyPlaying.Where(t => t.ProgressPct == 1).ToList();
-                toRemove.ForEach(t => CurrentlyPlaying.Remove(t));
+                toRemove.ForEach(t =>
+                {
+                    if (t.LoopClip)
+                    {
+                        t.CurrentPos = 0;
+                        Bass.ChannelPlay(t.BassStreamId, false);
+                    }
+                    else
+                    {
+                        CurrentlyPlaying.Remove(t);
+                    }
+                });
             }
             lock (queueLock)
             {
@@ -155,13 +166,13 @@ namespace Amplitude.Helpers
 
             foreach (OutputSettings settings in source.OutputSettingsFromProfile)
             {
-                Play(source.AudioFilePath, settings.Volume, source.Volume, settings.DeviceName, source.Name);
+                Play(source.AudioFilePath, settings.Volume, source.Volume, settings.DeviceName, source.LoopClip, source.Name);
             }
         }
 
-        private void Play(string fileName, int volume, float volumeMultiplier, string playerDeviceName, string? name = null)
+        private void Play(string fileName, int volume, int volumeMultiplier, string playerDeviceName, bool loopClip, string? name = null)
         {
-            double vol = (volume / 100.0) * (volumeMultiplier / 100);
+            double vol = (volume / 100.0) * (volumeMultiplier / 100.0);
 
             int? devId = GetOutputPlayerByName(playerDeviceName);
 
@@ -194,7 +205,7 @@ namespace Amplitude.Helpers
                         {
                             var len = Bass.ChannelGetLength(stream, PositionFlags.Bytes);
                             double length = Bass.ChannelBytes2Seconds(stream, len);
-                            PlayingClip track = new PlayingClip(name ?? Path.GetFileNameWithoutExtension(fileName) ?? "", playerDeviceName, stream, length);
+                            PlayingClip track = new PlayingClip(name ?? Path.GetFileNameWithoutExtension(fileName) ?? "", playerDeviceName, stream, length, loopClip);
 
                             lock(currentlyPlayingLock)
                             {

@@ -387,4 +387,10 @@
   <data name="NewOutputProfileTooltip" xml:space="preserve">
     <value>Új kimeneti profil</value>
   </data>
+  <data name="LoopClipLabel" xml:space="preserve">
+    <value>Hang ismétlése</value>
+  </data>
+  <data name="LoopClipTooltip" xml:space="preserve">
+    <value>Hang ismétlése örökké</value>
+  </data>
 </root>

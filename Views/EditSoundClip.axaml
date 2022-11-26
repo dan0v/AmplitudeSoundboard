@@ -23,12 +23,12 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="605"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="635"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.EditSoundClip"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize EditSoundClipTitle}"
-        Width="400" Height="605" MinWidth="400" MinHeight="500"
+        Width="400" Height="635" MinWidth="400" MinHeight="500"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
@@ -63,8 +63,8 @@
       <!--<ScrollViewer Margin="0,30,0,0">-->
         <Grid Margin="0,30,0,0">
           <Grid.RowDefinitions>
-            <RowDefinition Height="120"/>
-            <RowDefinition Height="135"/>
+            <RowDefinition Height="115"/>
+            <RowDefinition Height="170"/>
             <RowDefinition Height="90"/>
             <RowDefinition Height="90"/>
             <RowDefinition Height="90"/>
@@ -82,13 +82,13 @@
 
               <!--Show name in grid tile toggle-->
               <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center">
-                <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{i18n:Localize ShowNameOnGridTile}" ToolTip.Tip="{i18n:Localize ShowNameOnGridTile}" ></TextBlock>
-                <CheckBox Grid.Column="1" Cursor="Hand" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.NameVisibleOnGridTile}"/>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{i18n:Localize ShowNameOnGridTile}" ToolTip.Tip="{i18n:Localize ShowNameOnGridTile}"></TextBlock>
+                <CheckBox Grid.Column="1" Cursor="Hand" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize ShowNameOnGridTile}" IsChecked="{Binding Model.NameVisibleOnGridTile}"/>
               </Grid>
             </StackPanel>
           </Border>
 
-          <!--Output devices-->
+          <!--Output profile-->
             <Border Grid.Row="1" Padding="5,0,5,0" Margin="5" BorderThickness="2" CornerRadius="5">
               <Border.BorderBrush>
                 <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
@@ -148,6 +148,10 @@
                       <Image Source="{Binding ThemeHandler.ArrowRight}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Panel>
                   </Button>
+                </Grid>
+                <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center">
+                  <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{i18n:Localize LoopClipLabel}" ToolTip.Tip="{i18n:Localize LoopClipTooltip}" ></TextBlock>
+                  <CheckBox Grid.Column="1" Cursor="Hand" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize LoopClipTooltip}" IsChecked="{Binding Model.LoopClip}"/>
                 </Grid>
               </StackPanel>
           </Border>

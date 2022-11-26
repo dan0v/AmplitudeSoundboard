@@ -387,4 +387,10 @@
   <data name="NewOutputProfileTooltip" xml:space="preserve">
     <value>Tworzyć nowy profil wyjściowy</value>
   </data>
+  <data name="LoopClipLabel" xml:space="preserve">
+    <value>Powtórzenie klipu</value>
+  </data>
+  <data name="LoopClipTooltip" xml:space="preserve">
+    <value>Powtarzaj klip w nieskończoność</value>
+  </data>
 </root>

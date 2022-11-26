@@ -387,4 +387,10 @@
   <data name="NewOutputProfileTooltip" xml:space="preserve">
     <value>Nieuw uitvoerprofiel aanmaken</value>
   </data>
+  <data name="LoopClipLabel" xml:space="preserve">
+    <value>Herhaal clip</value>
+  </data>
+  <data name="LoopClipTooltip" xml:space="preserve">
+    <value>Herhaal clip voor altijd</value>
+  </data>
 </root>

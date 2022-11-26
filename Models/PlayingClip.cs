@@ -32,6 +32,7 @@ namespace Amplitude.Models
         public string OutputDevice { get; init; }
         public double Length { get; init; }
         public int BassStreamId { get; init; }
+        public bool LoopClip { get; init; }
 
         public string ToolTip => $"{Name} - {OutputDevice}";
 
@@ -66,7 +67,7 @@ namespace Amplitude.Models
             App.SoundEngine.StopPlaying(BassStreamId);
         }
 
-        public PlayingClip(string name, string outputDevice, int bassStreamId, double length)
+        public PlayingClip(string name, string outputDevice, int bassStreamId, double length, bool loopClip)
         {
             if (length == 0)
             {
@@ -76,6 +77,7 @@ namespace Amplitude.Models
             OutputDevice = outputDevice;
             BassStreamId = bassStreamId;
             Length = length;
+            LoopClip = loopClip;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -538,6 +538,24 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loop clip.
+        /// </summary>
+        internal static string LoopClipLabel {
+            get {
+                return ResourceManager.GetString("LoopClipLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loop clip forever.
+        /// </summary>
+        internal static string LoopClipTooltip {
+            get {
+                return ResourceManager.GetString("LoopClipTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Master volume.
         /// </summary>
         internal static string MasterVolumeLabel {
