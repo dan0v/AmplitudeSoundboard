@@ -23,7 +23,7 @@
     <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>Link</TrimMode>
-    <Copyright>Copyright (C) 2021-2022 dan0v</Copyright>
+    <Copyright>Copyright (C) 2021-2023 dan0v</Copyright>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageIconUrl />
     <ApplicationIcon>Icon.ico</ApplicationIcon>

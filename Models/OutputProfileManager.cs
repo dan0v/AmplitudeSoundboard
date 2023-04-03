@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2022 dan0v
+    Copyright (C) 2021-2023 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -63,9 +63,7 @@ namespace Amplitude.Models
             if (!_outputProfiles.ContainsKey(DEFAULT_OUTPUTPROFILE))
             {
                 var profile = new OutputProfile();
-                profile.InitializeId(DEFAULT_OUTPUTPROFILE);
-                profile.Name = "Default";
-                profile.OutputSettings.Add(new OutputSettings());
+                profile.InitializeId(OutputProfileManager.DEFAULT_OUTPUTPROFILE);
                 AddOutputProfile(profile);
             }
         }

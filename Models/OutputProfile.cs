@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2022 dan0v
+    Copyright (C) 2021-2023 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -19,6 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -85,6 +86,7 @@ namespace Amplitude.Models
             {
                 OutputSettings defaultSettings = new OutputSettings();
                 OutputSettings = new ObservableCollection<OutputSettings>(new List<OutputSettings>() { defaultSettings });
+                Name = ISoundEngine.DEFAULT_DEVICE_NAME;
             }
             else
             {

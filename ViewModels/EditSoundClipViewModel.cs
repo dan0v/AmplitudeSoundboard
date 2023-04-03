@@ -1,6 +1,6 @@
 /*
     AmplitudeSoundboard
-    Copyright (C) 2021-2022 dan0v
+    Copyright (C) 2021-2023 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -122,7 +122,6 @@ namespace Amplitude.ViewModels
         public EditSoundClipViewModel()
         {
             _model = new SoundClip();
-            Model.OutputSettingsFromProfile.Add(new OutputSettings());
             CanRemoveOutputDevices = Model.OutputSettingsFromProfile.Count > 1;
             SetBindings();
         }
