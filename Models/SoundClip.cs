@@ -250,7 +250,7 @@ namespace Amplitude.Models
                 }
                 catch (Exception e)
                 {
-                    App.WindowManager.ShowErrorString(e.ToString());
+                    App.WindowManager.ShowErrorString(e.Message);
                 }
             }
             else

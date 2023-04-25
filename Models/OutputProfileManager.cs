@@ -156,20 +156,20 @@ namespace Amplitude.Models
             }
         }
 
-        public OutputProfile? GetOutputProfile(string? id, bool ignoreErrors = false)
+        public OutputProfile? GetOutputProfile(string? profileId, bool ignoreErrors = false)
         {
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(profileId))
             {
                 return null;
             }
 
-            if (OutputProfiles.TryGetValue(id, out OutputProfile? profile))
+            if (OutputProfiles.TryGetValue(profileId, out OutputProfile? profile))
             {
                 return profile;
             }
             if (!ignoreErrors)
             {
-                App.WindowManager.ShowErrorString("OutputProfile with ID: " + id + " does not exist!");
+                App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["MissingOutputProfileString"], profileId));
             }
             return null;
         }
