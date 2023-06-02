@@ -20,9 +20,6 @@
 */
 
 using Amplitude.Models;
-using AmplitudeSoundboard;
-using Avalonia.Media;
-using System.Collections.Generic;
 
 namespace Amplitude.ViewModels
 {

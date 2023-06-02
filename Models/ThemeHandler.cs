@@ -234,8 +234,6 @@ namespace Amplitude.Models
             }
         }
 
-        private IAssetLoader assetLoader = AvaloniaLocator.Current.GetService<IAssetLoader>();
-
         private string folder
         {
             get
@@ -260,7 +258,7 @@ namespace Amplitude.Models
 
         private Bitmap GetBitmap(string uriPath)
         {
-            return new Bitmap(assetLoader.Open(new Uri(uriPath)));
+            return new Bitmap(AssetLoader.Open(new Uri(uriPath)));
         }
 
         private void RefreshTheme()

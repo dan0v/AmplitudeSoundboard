@@ -30,23 +30,11 @@ namespace Amplitude.Views
 {
     public partial class EditOutputProfile : Window
     {
-        Button btn_RemoveOutputProfile;
-        TextBlock txt_blk_OutputProfileId;
-
         public EditOutputProfile()
         {
             InitializeComponent();
 
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-
-            txt_blk_OutputProfileId = this.FindControl<TextBlock>("txt_blk_OutputProfileId");
             txt_blk_OutputProfileId.PropertyChanged += Txt_blk_OutputProfileId_PropertyChanged;
-
-            btn_RemoveOutputProfile = this.Find<Button>("btn_RemoveOutputProfile");
             btn_RemoveOutputProfile.Click += Btn_RemoveOutputProfile_Click;
         }
 
@@ -66,7 +54,7 @@ namespace Amplitude.Views
             }
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        protected override void OnClosing(WindowClosingEventArgs e)
         {
             App.WindowManager.ClosedEditOutputProfileWindow(((EditOutputProfileViewModel)this.DataContext).Model.Id);
             ((EditOutputProfileViewModel)DataContext).Dispose();

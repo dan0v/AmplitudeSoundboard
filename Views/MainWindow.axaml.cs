@@ -22,8 +22,6 @@
 using Amplitude.ViewModels;
 using AmplitudeSoundboard;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.Threading;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -31,8 +29,6 @@ namespace Amplitude.Views
 {
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        ScrollViewer scrl_GridScroll;
-
         private (double width, double height) _gridSize;
         public (double width, double height) GridSize
         {
@@ -53,7 +49,6 @@ namespace Amplitude.Views
         public MainWindow()
         {
             InitializeComponent();
-            scrl_GridScroll = this.Find<ScrollViewer>(nameof(scrl_GridScroll));
 
             PositionChanged += MainWindow_PositionChanged;
             EffectiveViewportChanged += MainWindow_EffectiveViewportChanged;
@@ -76,12 +71,7 @@ namespace Amplitude.Views
             App.WindowManager.WindowSizesOrPositionsChanged();
         }
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
+        protected override void OnClosing(WindowClosingEventArgs e)
         {
             PositionChanged -= MainWindow_PositionChanged;
             EffectiveViewportChanged -= MainWindow_EffectiveViewportChanged;

@@ -91,7 +91,7 @@ namespace Amplitude.Helpers
             }
         }
 
-        public double DesktopScaling { get => MainWindow?.PlatformImpl.DesktopScaling ?? 1; }
+        public double DesktopScaling { get => MainWindow?.DesktopScaling ?? 1; }
 
         public void OpenEditOutputProfileWindow(string? Id = null)
         {

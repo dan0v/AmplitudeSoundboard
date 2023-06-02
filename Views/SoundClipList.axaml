@@ -63,7 +63,7 @@
         <TextBox Grid.Row="0" Margin="10,0,10,5" Watermark="{i18n:Localize SoundClipListSearch}" Text="{Binding SoundClipManager.SoundClipListFilter}"></TextBox>
         <ScrollViewer Grid.Row="1">
           <StackPanel>
-            <ItemsControl Items="{Binding SoundClipManager.FilteredSoundClipList}">
+            <ItemsControl ItemsSource="{Binding SoundClipManager.FilteredSoundClipList}">
               <ItemsControl.ItemTemplate>
                 <DataTemplate>
                   <Border BorderThickness="2" CornerRadius="5" Margin="10,2,10,2" Padding="5">

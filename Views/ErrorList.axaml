@@ -62,7 +62,7 @@
       <ScrollViewer>
         <StackPanel x:Name="sp_Errors">
 
-          <ItemsControl Items="{Binding Errors}">
+          <ItemsControl ItemsSource="{Binding Errors}">
             <ItemsControl.ItemTemplate>
               <DataTemplate>
                 <Border BorderThickness="2" CornerRadius="5" Margin="10,2,10,2" Padding="5">

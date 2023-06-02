@@ -40,12 +40,7 @@ namespace Amplitude.Views
             App.WindowManager.WindowSizesOrPositionsChanged();
         }
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
+        protected override void OnClosing(WindowClosingEventArgs e)
         {
             App.WindowManager.GlobalSettingsWindow = null;
             EffectiveViewportChanged -= GlobalSettings_EffectiveViewportChanged;
