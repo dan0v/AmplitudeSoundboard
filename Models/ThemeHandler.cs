@@ -203,21 +203,6 @@ namespace Amplitude.Models
             MaterialOpacity = 0.4d
         };
 
-        private static readonly Styles fluentDark = new Styles
-        {
-            new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
-            {
-                Source = new Uri("avares://Avalonia.Themes.Fluent/FluentDark.xaml")
-            },
-        };
-        private static readonly Styles fluentLight = new Styles
-        {
-            new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
-            {
-                Source = new Uri("avares://Avalonia.Themes.Fluent/FluentLight.xaml")
-            },
-        };
-
         public ExperimentalAcrylicMaterial Acrylic
         {
             get
@@ -263,17 +248,13 @@ namespace Amplitude.Models
 
         private void RefreshTheme()
         {
-            switch (SelectedTheme)
+            App.Current.RequestedThemeVariant = SelectedTheme switch
             {
-                case Theme.LIGHT:
-                    App.Current.Styles[0] = fluentLight;
-                    break;
-                case Theme.DARK:
-                    App.Current.Styles[0] = fluentDark;
-                    break;
-                default:
-                    throw new NotImplementedException("Not yet implemented theme: " + SelectedTheme);
-            }
+                Theme.LIGHT => ThemeVariant.Light,
+                Theme.DARK => ThemeVariant.Dark,
+                Theme.CUSTOM => ThemeVariant.Dark,
+                _ => ThemeVariant.Dark,
+            };
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
