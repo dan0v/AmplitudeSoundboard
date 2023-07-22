@@ -22,19 +22,14 @@
 using Amplitude.Models;
 using Amplitude.ViewModels;
 using Avalonia.Controls;
-using Avalonia.Input;
-using Avalonia.Markup.Xaml;
 
 namespace Amplitude.Views
 {
     public partial class SoundBoardGridItem : UserControl
     {
-        private Panel grd_Control;
-
         public SoundBoardGridItem()
         {
             InitializeComponent();
-            this.grd_Control = this.FindControl<Grid>("grd_Control");
             this.grd_Control.PointerPressed += Control_PointerPressed;
         }
 
@@ -56,11 +51,6 @@ namespace Amplitude.Views
                     Model.AddAudioToQueue();
                 }
             }
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
         }
     }
 }

@@ -84,7 +84,7 @@ namespace Amplitude.Views
             OnPropertyChanged(nameof(UpdatePromptText));
         }
 
-        private async void Update()
+        protected async void Update()
         {
             await Task.Run(RunUpdateAsync);
         }
@@ -155,17 +155,12 @@ namespace Amplitude.Views
             }
         }
 
-        private void Dismiss()
+        protected void Dismiss()
         {
             this.Close();
         }
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
+        protected override void OnClosing(WindowClosingEventArgs e)
         {
             if (Updating)
             {

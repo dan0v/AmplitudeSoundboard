@@ -21,8 +21,6 @@
 
 using Amplitude.ViewModels;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using System.ComponentModel;
 
 namespace Amplitude.Views
 {
@@ -33,12 +31,7 @@ namespace Amplitude.Views
             InitializeComponent();
         }
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
+        protected override void OnClosing(WindowClosingEventArgs e)
         {
             ((ErrorListViewModel)this.DataContext).Dismiss();
 

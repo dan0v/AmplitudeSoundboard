@@ -246,7 +246,7 @@ namespace Amplitude.Models
                 scaleFactor /= App.WindowManager.DesktopScaling;
                 try
                 {
-                    _backgroundImage = _backgroundImage.CreateScaledBitmap(new PixelSize((int)(initialWidth / scaleFactor), (int)(initialHeight / scaleFactor)), Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode.HighQuality);
+                    _backgroundImage = _backgroundImage.CreateScaledBitmap(new PixelSize((int)(initialWidth / scaleFactor), (int)(initialHeight / scaleFactor)), BitmapInterpolationMode.HighQuality);
                 }
                 catch (Exception e)
                 {

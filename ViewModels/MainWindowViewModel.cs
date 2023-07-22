@@ -21,9 +21,6 @@
 
 using Amplitude.Helpers;
 using Amplitude.Models;
-using AmplitudeSoundboard;
-using Avalonia.Threading;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 

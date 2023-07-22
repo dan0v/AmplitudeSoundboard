@@ -58,7 +58,7 @@
     </Design.DataContext>
   
   <Panel>
-      <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
+      <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
       
       <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
@@ -103,7 +103,7 @@
 
             <ScrollViewer Grid.Row="1" Width="160" Padding="10,10,10,5">
               <StackPanel>
-                <ItemsControl Items="{Binding SoundEngine.CurrentlyPlaying}">
+                <ItemsControl ItemsSource="{Binding SoundEngine.CurrentlyPlaying}">
                   <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                       <StackPanel Orientation="Vertical" Spacing="10"/>
@@ -132,7 +132,7 @@
                   </Rectangle.Stroke>
                 </Rectangle>
                   
-                <ItemsControl Items="{Binding SoundEngine.Queued}" Margin="0,5,0,0">
+                <ItemsControl ItemsSource="{Binding SoundEngine.Queued}" Margin="0,5,0,0">
                   <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                       <StackPanel Orientation="Vertical" Spacing="10"/>
@@ -157,11 +157,11 @@
           
           <Grid x:Name="grd_TileGrid" Grid.Column="1" RowDefinitions="*,Auto">
             <ScrollViewer x:Name="scrl_GridScroll" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="0" Padding="10,10,10,5">
-              <ItemsControl Items="{Binding GridItemsRows}">
+              <ItemsControl ItemsSource="{Binding GridItemsRows}">
                 <ItemsControl.ItemTemplate>
                   <DataTemplate>
                     <StackPanel Margin="0,3,0,5">
-                      <ItemsControl Items="{Binding List}">
+                      <ItemsControl ItemsSource="{Binding List}">
                         <ItemsControl.ItemsPanel>
                           <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal" Spacing="10"/>

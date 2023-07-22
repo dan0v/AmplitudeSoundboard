@@ -34,30 +34,15 @@ namespace Amplitude.Views
 {
     public partial class EditSoundClip : Window
     {
-        private TextBlock txt_blk_SoundClipId;
-        private ComboBox cb_OutputProfileSelection;
-        private Button btn_BrowseAudioFilePath;
-        private Button btn_BrowseImageFilePath;
-        private Button btn_Delete;
 
         public EditSoundClip()
         {
             InitializeComponent();
-            txt_blk_SoundClipId = this.FindControl<TextBlock>("txt_blk_SoundClipId");
             txt_blk_SoundClipId.PropertyChanged += Txt_blk_SoundClipId_PropertyChanged;
-
-            btn_BrowseAudioFilePath = this.FindControl<Button>("btn_BrowseAudioFilePath");
             btn_BrowseAudioFilePath.Click += BrowseSoundClip;
-
-            btn_BrowseImageFilePath = this.FindControl<Button>("btn_BrowseImageFilePath");
             btn_BrowseImageFilePath.Click += BrowseImage;
-
-            btn_Delete = this.FindControl<Button>("btn_Delete");
             btn_Delete.Click += DeleteSoundClip;
-
-            cb_OutputProfileSelection = this.Find<ComboBox>("cb_OutputProfileSelection");
             cb_OutputProfileSelection.SelectionChanged += Cb_OutputProfileSelectionChanged;
-
             EffectiveViewportChanged += EditSoundClip_EffectiveViewportChanged;
 
         }
@@ -83,7 +68,7 @@ namespace Amplitude.Views
             }
         }
 
-        public async void BrowseSoundClip(object? sender, RoutedEventArgs args)
+        protected async void BrowseSoundClip(object? sender, RoutedEventArgs args)
         {
             try
             {
@@ -96,7 +81,7 @@ namespace Amplitude.Views
             }
         }
 
-        public async void BrowseImage(object? sender, RoutedEventArgs args)
+        protected async void BrowseImage(object? sender, RoutedEventArgs args)
         {
             try
             {
@@ -109,13 +94,13 @@ namespace Amplitude.Views
             }
         }
 
-        public void DeleteSoundClip(object? sender, RoutedEventArgs args)
+        protected void DeleteSoundClip(object? sender, RoutedEventArgs args)
         {
             ((EditSoundClipViewModel)this.DataContext).DeleteSoundClip();
             this.Close();
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        protected override void OnClosing(WindowClosingEventArgs e)
         {
             EffectiveViewportChanged -= EditSoundClip_EffectiveViewportChanged;
             App.WindowManager.ClosedEditSoundClipWindow(((EditSoundClipViewModel)this.DataContext).Model.Id);
@@ -124,10 +109,5 @@ namespace Amplitude.Views
         }
 
         Window GetWindow() => (Window)this.VisualRoot;
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
     }
 }
