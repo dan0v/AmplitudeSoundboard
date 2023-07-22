@@ -33,7 +33,6 @@ namespace Amplitude.Views
         public EditOutputProfile()
         {
             InitializeComponent();
-
             txt_blk_OutputProfileId.PropertyChanged += Txt_blk_OutputProfileId_PropertyChanged;
             btn_RemoveOutputProfile.Click += Btn_RemoveOutputProfile_Click;
         }

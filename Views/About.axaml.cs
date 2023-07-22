@@ -22,6 +22,7 @@
 using Amplitude.Helpers;
 using Amplitude.Models;
 using AmplitudeSoundboard;
+using Avalonia;
 using Avalonia.Controls;
 using System;
 using System.ComponentModel;
@@ -34,7 +35,7 @@ namespace Amplitude.Views
     {
         private string projectUrl = "https://amplitude-soundboard.dan0v.com";
 
-        public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        protected ThemeHandler ThemeHandler { get => App.ThemeHandler; }
         public static bool CanUseCustomTitlebar { get => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR); }
 
         public About()
@@ -66,7 +67,7 @@ Copyright (C) 2021-2023 dan0v";
             }
         }
 
-        private void Dismiss()
+        protected void Dismiss()
         {
             this.Close();
         }

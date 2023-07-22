@@ -27,7 +27,7 @@
         x:Class="Amplitude.Views.About"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize AboutTitle}"
-        Width="400" Height="400" MinWidth="360" MinHeight="200"
+        Width="400" Height="400" MinWidth="360" MinHeight="250"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
@@ -49,8 +49,8 @@
   </Window.Styles>
 
   <Panel>
-      
-    <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
+
+    <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
     </ExperimentalAcrylicBorder>
 
     <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize AboutTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>

@@ -84,7 +84,7 @@ namespace Amplitude.Views
             OnPropertyChanged(nameof(UpdatePromptText));
         }
 
-        private async void Update()
+        protected async void Update()
         {
             await Task.Run(RunUpdateAsync);
         }
@@ -155,7 +155,7 @@ namespace Amplitude.Views
             }
         }
 
-        private void Dismiss()
+        protected void Dismiss()
         {
             this.Close();
         }

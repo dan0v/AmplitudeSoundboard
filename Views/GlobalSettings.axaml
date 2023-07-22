@@ -62,7 +62,7 @@
   
     <Panel>
       
-      <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
+      <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
       
       <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize GlobalSettingsTitle}" Classes="TITLE" FontFamily="{Binding ThemeHandler.TitleFont}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>

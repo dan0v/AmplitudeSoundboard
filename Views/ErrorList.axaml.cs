@@ -21,7 +21,6 @@
 
 using Amplitude.ViewModels;
 using Avalonia.Controls;
-using System.ComponentModel;
 
 namespace Amplitude.Views
 {

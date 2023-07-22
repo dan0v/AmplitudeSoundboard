@@ -49,7 +49,6 @@ namespace Amplitude.Views
         public MainWindow()
         {
             InitializeComponent();
-
             PositionChanged += MainWindow_PositionChanged;
             EffectiveViewportChanged += MainWindow_EffectiveViewportChanged;
 

@@ -68,7 +68,7 @@ namespace Amplitude.Views
             }
         }
 
-        public async void BrowseSoundClip(object? sender, RoutedEventArgs args)
+        protected async void BrowseSoundClip(object? sender, RoutedEventArgs args)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace Amplitude.Views
             }
         }
 
-        public async void BrowseImage(object? sender, RoutedEventArgs args)
+        protected async void BrowseImage(object? sender, RoutedEventArgs args)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace Amplitude.Views
             }
         }
 
-        public void DeleteSoundClip(object? sender, RoutedEventArgs args)
+        protected void DeleteSoundClip(object? sender, RoutedEventArgs args)
         {
             ((EditSoundClipViewModel)this.DataContext).DeleteSoundClip();
             this.Close();

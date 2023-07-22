@@ -20,8 +20,6 @@
 */
 
 using AmplitudeSoundboard;
-using Avalonia;
-using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -30,7 +28,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Amplitude.Models
+namespace Amplitude.Helpers
 {
     public class ThemeHandler : INotifyPropertyChanged
     {
@@ -44,7 +42,6 @@ namespace Amplitude.Models
 
         public void SelectTheme(int selection)
         {
-            OnPropertyChanged(nameof(ThemesList));
             if (selection > -1 && selection < ThemesList.Length)
             {
                 SelectedTheme = (Theme)selection;
@@ -54,6 +51,7 @@ namespace Amplitude.Models
                 SelectedTheme = Theme.DARK;
                 App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["InvalidThemeError"], selection));
             }
+            OnPropertyChanged(nameof(ThemesList));
         }
 
         public static string[] ThemesList
@@ -184,6 +182,10 @@ namespace Amplitude.Models
                 {
                     _selectedTheme = value;
                     RefreshTheme();
+                    foreach(var p in typeof(ThemeHandler).GetProperties())
+                    {
+                        OnPropertyChanged(p.Name);
+                    }
                 }
             }
         }
@@ -193,14 +195,14 @@ namespace Amplitude.Models
             BackgroundSource = AcrylicBackgroundSource.Digger,
             TintColor = Color.Parse("#0b1932"), // Should be #252A36, but material shifts the color, so current value unshifts it 
             TintOpacity = 1,
-            MaterialOpacity = 0.8d
+            MaterialOpacity = 0.7d
         };
         private readonly static ExperimentalAcrylicMaterial lightAcrylic = new ExperimentalAcrylicMaterial
         {
             BackgroundSource = AcrylicBackgroundSource.Digger,
             TintColor = Color.Parse("White"),
             TintOpacity = 1,
-            MaterialOpacity = 0.4d
+            MaterialOpacity = 0.5d
         };
 
         public ExperimentalAcrylicMaterial Acrylic

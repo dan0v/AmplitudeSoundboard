@@ -28,7 +28,7 @@
         x:Class="Amplitude.Views.EditSoundClip"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize EditSoundClipTitle}"
-        Width="400" Height="635" MinWidth="400" MinHeight="500"
+        Width="400" Height="635" MinWidth="400" MinHeight="605"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
@@ -54,7 +54,7 @@
   
     <Panel>
       
-      <ExperimentalAcrylicBorder IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
+      <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
       </ExperimentalAcrylicBorder>
 
       <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize EditSoundClipTitle}" Classes="TITLE" FontFamily="{Binding ThemeHandler.TitleFont}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
