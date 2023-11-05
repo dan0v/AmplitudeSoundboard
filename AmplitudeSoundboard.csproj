@@ -17,7 +17,7 @@
     <RootNamespace>Amplitude</RootNamespace>
     <NeutralLanguage>en</NeutralLanguage>
     <Platforms>AnyCPU;x64</Platforms>
-    <Version>2.6.1</Version>
+    <Version>2.6.2</Version>
     <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>Link</TrimMode>
@@ -33,10 +33,10 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.0" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.0" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0" />
+    <PackageReference Include="Avalonia" Version="11.0.5" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.5" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.5" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.5" />
     <PackageReference Include="ManagedBass" Version="3.1.1" />
     <PackageReference Include="ManagedBass.Flac" Version="3.1.1" />
     <PackageReference Include="ManagedBass.Mix" Version="3.1.1" />
