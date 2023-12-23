@@ -195,7 +195,7 @@
     <ItemGroup>
       <VersionNumber Include="$([System.Text.RegularExpressions.Regex]::Replace(&quot;%(Targets.Version)&quot;, &quot;^(.+?)(\.0+)$&quot;, &quot;$1&quot;))" />
     </ItemGroup>
-    <Exec Command="echo @(VersionNumber) > $(ProjectDir)Publish/version.txt" />
+    <Exec Command="echo @(VersionNumber) &gt; $(ProjectDir)Publish/version.txt" />
   </Target>
 
 </Project>
