@@ -246,6 +246,11 @@ namespace Amplitude.Helpers
 
         private void RefreshTheme()
         {
+            if (App.Current == null)
+            {
+                return;
+            }
+            
             App.Current.RequestedThemeVariant = SelectedTheme switch
             {
                 Theme.LIGHT => ThemeVariant.Light,

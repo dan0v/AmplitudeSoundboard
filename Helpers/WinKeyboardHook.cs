@@ -46,7 +46,7 @@ namespace Amplitude.Helpers
         private delegate int LowLevelKeyboardProcDelegate(int nCode, int wParam, ref KBDLLHOOKSTRUCT lParam);
 
         private static List<(SoundClip clip, Action<SoundClip, string> callback)> soundClipCallbacks = new List<(SoundClip, Action<SoundClip, string>)>();
-        private static (Config config, Action<Config, string> callback) globalStopCallback;
+        private static (Config? config, Action<Config, string> callback) globalStopCallback;
 
         // Kind of janky, but works for now
         public const long KEYPRESSTIMEOUT = 150;

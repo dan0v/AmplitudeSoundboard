@@ -213,7 +213,7 @@ namespace Amplitude.Helpers
                             }
                             Bass.ChannelPlay(stream, false);
                         }
-                        catch(Exception e)
+                        catch(Exception)
                         {
                             App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName));
                         }

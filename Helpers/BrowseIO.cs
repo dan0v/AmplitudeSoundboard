@@ -50,7 +50,7 @@ namespace Amplitude.Helpers
         };
         public static FileDialogFilter ImageFileTypesFilter => _imageFileTypesFilter;
 
-        public static async Task<string[]> OpenFileBrowser(Window parent, FileBrowserType type, bool allowMultiple = false)
+        public static async Task<string[]?> OpenFileBrowser(Window parent, FileBrowserType type, bool allowMultiple = false)
         {
             string title = "";
 

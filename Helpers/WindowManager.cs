@@ -280,18 +280,16 @@ namespace Amplitude.Helpers
         }
 
         public bool ErrorListWindowOpen = false;
-        private ErrorList _errorListWindow;
+        private ErrorList? _errorListWindow = null;
         public ErrorList ErrorListWindow
         {
             get
             {
-                if (_errorListWindow == null)
+                _errorListWindow ??= new ErrorList
                 {
-                    _errorListWindow = new ErrorList
-                    {
-                        DataContext = new ErrorListViewModel(),
-                    };
-                }
+                    DataContext = new ErrorListViewModel(),
+                };
+                
                 return _errorListWindow;
             }
         }
