@@ -28,6 +28,6 @@ namespace Amplitude.Helpers
     {
         public static IKeyboardHook Instance { get; }
         public void SetSoundClipHotkey(SoundClip clip, Action<SoundClip, string> callback);
-        public void SetGlobalStopHotkey(Options options, Action<Options, string> callback);
+        public void SetGlobalStopHotkey(Config config, Action<Config, string> callback);
     }
 }

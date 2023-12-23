@@ -26,9 +26,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 
 namespace Amplitude.Models
 {
+    [JsonSerializable(typeof(Dictionary<string, OutputProfile>))]
+    public partial class OutputProfileManagerContext : JsonSerializerContext { }
+    
     public class OutputProfileManager : INotifyPropertyChanged
     {
         private static OutputProfileManager? _instance;
@@ -171,7 +175,7 @@ namespace Amplitude.Models
         {
             string? clipsInJson = App.JsonIoManager.RetrieveJSONFromFile(OUTPUTPROFILES_FILE);
             var profiles = App.JsonIoManager.ConvertObjectsFromJSON<Dictionary<string, OutputProfile>>(clipsInJson);
-            foreach (var profile in profiles ?? new Dictionary<string, OutputProfile>())
+            foreach (var profile in profiles ?? [])
             {
                 profile.Value.InitializeId(profile.Key);
             }

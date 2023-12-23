@@ -28,13 +28,13 @@ namespace Amplitude.ViewModels
 {
     public sealed class GlobalSettingsViewModel : ViewModelBase
     {
-        private Options _model;
-        public Options Model => _model;
+        private Config _model;
+        public Config Model => _model;
         public static string[] Languages => Localization.Localizer.Languages.Keys.ToArray();
 
         public GlobalSettingsViewModel()
         {
-            _model = OptionsManager.Options.ShallowCopy();
+            _model = ConfigManager.Config.ShallowCopy();
             Model.PropertyChanged += Model_PropertyChanged;
         }
 
@@ -73,9 +73,9 @@ namespace Amplitude.ViewModels
             HotkeysManager.RecordGlobalStopSoundHotkey(Model);
         }
 
-        public void SaveOptions()
+        public void SaveConfig()
         {
-            OptionsManager.SaveAndOverwriteOptions(Model);
+            ConfigManager.SaveAndOverwriteConfig(Model);
             _model = Model.ShallowCopy();
             OnPropertyChanged(nameof(Model));
         }

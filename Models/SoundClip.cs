@@ -27,7 +27,6 @@ using Avalonia.Threading;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -149,7 +148,6 @@ namespace Amplitude.Models
             }
         }
 
-        private ObservableCollection<OutputSettings> _outputSettingsFromProfile = new ObservableCollection<OutputSettings>();
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public ObservableCollection<OutputSettings> OutputSettingsFromProfile => App.OutputProfileManager.GetOutputProfile(OutputProfileId)?.OutputSettings;
 
@@ -239,8 +237,8 @@ namespace Amplitude.Models
                 _backgroundImage = new Bitmap(_imageFilePath);
                 double initialWidth = _backgroundImage.PixelSize.Width;
                 double initialHeight = _backgroundImage.PixelSize.Height;
-                double intendedHeight = App.OptionsManager.Options.DesiredImageHeight;
-                double intendedWidth = App.OptionsManager.Options.DesiredImageWidth;
+                double intendedHeight = App.ConfigManager.Config.DesiredImageHeight;
+                double intendedWidth = App.ConfigManager.Config.DesiredImageWidth;
                 double scaleFactor = intendedWidth > intendedHeight ? initialWidth / intendedWidth : initialHeight / intendedHeight;
                 scaleFactor /= App.WindowManager.DesktopScaling;
                 try

@@ -19,6 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Models;
 using AmplitudeSoundboard;
 using System;
 using System.IO;
@@ -27,10 +28,23 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace Amplitude.Helpers
 {
-    public class JSONIOManager
+
+    public class JsonIoManager
     {
-        private static JSONIOManager? _instance;
-        public static JSONIOManager Instance => _instance ??= new JSONIOManager();
+        private static JsonIoManager? _instance;
+        public static JsonIoManager Instance => _instance ??= new JsonIoManager();
+
+        private readonly JsonSerializerOptions jsonSerializerOptions = new()
+        {
+            WriteIndented = true,
+            IncludeFields = true,
+            TypeInfoResolver = JsonTypeInfoResolver.Combine(
+                SoundClipManagerContext.Default,
+                OutputProfileManagerContext.Default,
+                ConfigManagerContext.Default,
+                WindowManagerContext.Default
+                )
+        };
 
         public T? ConvertObjectsFromJSON<T>(string? json)
         {
@@ -41,7 +55,7 @@ namespace Amplitude.Helpers
 
             try
             {
-                var obj = JsonSerializer.Deserialize<T>(json);
+                var obj = JsonSerializer.Deserialize<T>(json, jsonSerializerOptions);
                 return obj == null ? default : (T?) obj;
             }
             catch (Exception e)
@@ -77,7 +91,7 @@ namespace Amplitude.Helpers
 
             try
             {
-                return JsonSerializer.Serialize<T>(obj, new JsonSerializerOptions { WriteIndented = true });
+                return JsonSerializer.Serialize(obj, jsonSerializerOptions);
             }
             catch (Exception e)
             {

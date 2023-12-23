@@ -31,7 +31,7 @@ namespace Amplitude.ViewModels
 
         public (int x, int y) WindowPosition = (0, 0);
 
-        private string StopAudioHotkey => string.IsNullOrEmpty(OptionsManager.Options.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + OptionsManager.Options.GlobalKillAudioHotkey;
+        private string StopAudioHotkey => string.IsNullOrEmpty(ConfigManager.Config.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + ConfigManager.Config.GlobalKillAudioHotkey;
 
         private bool _queueSeperatorVisible = false;
         public bool QueueSeperatorVisible
@@ -49,11 +49,11 @@ namespace Amplitude.ViewModels
 
         public MainWindowViewModel()
         {
-            OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
+            ConfigManager.PropertyChanged += ConfigManager_PropertyChanged;
             SoundEngine.Queued.CollectionChanged += Queued_CollectionChanged;
 
             GridItemsRows.Clear();
-            foreach (GridItemRow temp in OptionsManager.GetGridLayout())
+            foreach (GridItemRow temp in ConfigManager.GetGridLayout())
             {
                 GridItemsRows.Add(temp);
             }
@@ -72,14 +72,14 @@ namespace Amplitude.ViewModels
             }
         }
 
-        private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ConfigManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(OptionsManager.Options))
+            if (e.PropertyName == nameof(ConfigManager.Config))
             {
                 OnPropertyChanged(nameof(StopAudioHotkey));
 
                 GridItemsRows.Clear();
-                foreach (GridItemRow temp in OptionsManager.GetGridLayout())
+                foreach (GridItemRow temp in ConfigManager.GetGridLayout())
                 {
                     GridItemsRows.Add(temp);
                 }
@@ -120,7 +120,7 @@ namespace Amplitude.ViewModels
 
         public override void Dispose()
         {
-            OptionsManager.PropertyChanged -= OptionsManager_PropertyChanged;
+            ConfigManager.PropertyChanged -= ConfigManager_PropertyChanged;
             base.Dispose();
         }
     }

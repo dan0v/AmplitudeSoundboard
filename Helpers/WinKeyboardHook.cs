@@ -46,7 +46,7 @@ namespace Amplitude.Helpers
         private delegate int LowLevelKeyboardProcDelegate(int nCode, int wParam, ref KBDLLHOOKSTRUCT lParam);
 
         private static List<(SoundClip clip, Action<SoundClip, string> callback)> soundClipCallbacks = new List<(SoundClip, Action<SoundClip, string>)>();
-        private static (Options options, Action<Options, string> callback) globalStopCallback;
+        private static (Config config, Action<Config, string> callback) globalStopCallback;
 
         // Kind of janky, but works for now
         public const long KEYPRESSTIMEOUT = 150;
@@ -110,10 +110,10 @@ namespace Amplitude.Helpers
 
                             if (!KeySpecial(currentKey))
                             {
-                                if (globalStopCallback.options != null)
+                                if (globalStopCallback.config != null)
                                 {
-                                    globalStopCallback.callback(globalStopCallback.options, fullKey);
-                                    globalStopCallback.options = null;
+                                    globalStopCallback.callback(globalStopCallback.config, fullKey);
+                                    globalStopCallback.config = null;
                                 }
                                 else if (soundClipCallbacks.Count > 0)
                                 {
@@ -239,9 +239,9 @@ namespace Amplitude.Helpers
             soundClipCallbacks.Add((clip, callback));
         }
 
-        public void SetGlobalStopHotkey(Options options, Action<Options, string> callback)
+        public void SetGlobalStopHotkey(Config config, Action<Config, string> callback)
         {
-            globalStopCallback = (options, callback);
+            globalStopCallback = (config, callback);
         }
 
         public void Dispose()

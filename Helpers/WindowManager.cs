@@ -32,11 +32,15 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Timers;
 
 namespace Amplitude.Helpers
 {
+    [JsonSerializable(typeof(Dictionary<string, WindowSizeAndPosition>))]
+    public partial class WindowManagerContext : JsonSerializerContext { }
+
     public class WindowManager : INotifyPropertyChanged
     {
         private static WindowManager? _instance;
@@ -586,7 +590,7 @@ namespace Amplitude.Helpers
             {
                 var newWindowSize = MainWindow.WindowSize;
 
-                if (App.OptionsManager.Options.AutoScaleTilesToWindow && lastMainWindowSize != newWindowSize)
+                if (App.ConfigManager.Config.AutoScaleTilesToWindow && lastMainWindowSize != newWindowSize)
                 {
                     lastMainWindowSize = newWindowSize;
                     App.SoundClipManager.RescaleAllBackgroundImages();

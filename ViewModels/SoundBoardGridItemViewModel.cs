@@ -28,10 +28,10 @@ namespace Amplitude.ViewModels
 {
     public sealed class SoundBoardGridItemViewModel : ViewModelBase
     {
-        private string soundClipId = "";
+        private string? soundClipId = null;
 
-        private double Height => OptionsManager.Options.AutoScaleTilesToWindow ? GetHeight() : OptionsManager.Options.GridTileHeight ?? 0;
-        private double Width => OptionsManager.Options.AutoScaleTilesToWindow ? GetWidth() : OptionsManager.Options.GridTileWidth ?? 0;
+        private double Height => ConfigManager.Config.AutoScaleTilesToWindow ? GetHeight() : ConfigManager.Config.GridTileHeight ?? 0;
+        private double Width => ConfigManager.Config.AutoScaleTilesToWindow ? GetWidth() : ConfigManager.Config.GridTileWidth ?? 0;
 
         private int row = 0;
         private int col = 0;
@@ -116,12 +116,12 @@ namespace Amplitude.ViewModels
 
         public SoundBoardGridItemViewModel() { }
 
-        public SoundBoardGridItemViewModel(string clipId, int row, int col)
+        public SoundBoardGridItemViewModel(string? clipId, int row, int col)
         {
             this.row = row;
             this.col = col;
             SoundClipManager.PropertyChanged += Manager_PropertyChanged;
-            OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
+            ConfigManager.PropertyChanged += ConfigManager_PropertyChanged;
             WindowManager.PropertyChanged += WindowManager_PropertyChanged;
             Model.PropertyChanged += Model_PropertyChanged;
 
@@ -166,9 +166,9 @@ namespace Amplitude.ViewModels
             }
         }
 
-        private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ConfigManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(OptionsManager.Options))
+            if (e.PropertyName == nameof(ConfigManager.Config))
             {
                 OnPropertyChanged(nameof(Height));
                 OnPropertyChanged(nameof(Width));
@@ -177,27 +177,27 @@ namespace Amplitude.ViewModels
 
         private double GetWidth()
         {
-            var cols = OptionsManager.Options.GridColumns;
+            var cols = ConfigManager.Config.GridColumns;
             // TODO this is wasteful, but fine for now
-            OptionsManager.Options.ActualTileWidth = (int)(((WindowManager.MainWindow?.GridSize.width  - (11 * (cols + 1))) / cols) ?? OptionsManager.Options.GridTileWidth ?? 100);
-            return OptionsManager.Options.ActualTileWidth;
+            ConfigManager.Config.ActualTileWidth = (int)(((WindowManager.MainWindow?.GridSize.width  - (11 * (cols + 1))) / cols) ?? ConfigManager.Config.GridTileWidth ?? 100);
+            return ConfigManager.Config.ActualTileWidth;
         }
 
         private double GetHeight()
         {
-            var rows = OptionsManager.Options.GridRows;
+            var rows = ConfigManager.Config.GridRows;
             // TODO this is wasteful, but fine for now
-            OptionsManager.Options.ActualTileHeight = (int)(((WindowManager.MainWindow?.GridSize.height - (11 * (rows + 1))) / rows) ?? OptionsManager.Options.GridTileHeight ?? 100);
-            return OptionsManager.Options.ActualTileHeight;
+            ConfigManager.Config.ActualTileHeight = (int)(((WindowManager.MainWindow?.GridSize.height - (11 * (rows + 1))) / rows) ?? ConfigManager.Config.GridTileHeight ?? 100);
+            return ConfigManager.Config.ActualTileHeight;
         }
 
         public void Unbind()
         {
             Model.LoadBackgroundImage = false;
             this.soundClipId = "";
-            OptionsManager.Options.GridSoundClipIds[row, col] = null;
+            ConfigManager.Config.GridSoundClipIds[row][col] = null;
             OnPropertyChanged(nameof(Model));
-            OptionsManager.SaveAndOverwriteOptions(OptionsManager.Options);
+            ConfigManager.SaveAndOverwriteConfig(ConfigManager.Config);
         }
 
         public void PasteClip()
@@ -208,9 +208,9 @@ namespace Amplitude.ViewModels
             }
             soundClipId = SoundClipManager.CopiedClipId;
             SoundClipManager.CopiedClipId = "";
-            OptionsManager.Options.GridSoundClipIds[row, col] = soundClipId;
+            ConfigManager.Config.GridSoundClipIds[row][col] = soundClipId;
             OnPropertyChanged(nameof(Model));
-            OptionsManager.SaveAndOverwriteOptions(OptionsManager.Options);
+            ConfigManager.SaveAndOverwriteConfig(ConfigManager.Config);
         }
 
         public void CreateClipInPlace()
@@ -240,7 +240,7 @@ namespace Amplitude.ViewModels
         public override void Dispose()
         {
             SoundClipManager.PropertyChanged -= Manager_PropertyChanged;
-            OptionsManager.PropertyChanged -= OptionsManager_PropertyChanged;
+            ConfigManager.PropertyChanged -= ConfigManager_PropertyChanged;
             WindowManager.PropertyChanged -= WindowManager_PropertyChanged;
             Model.PropertyChanged -= Model_PropertyChanged;
             base.Dispose();

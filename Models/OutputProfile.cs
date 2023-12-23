@@ -81,18 +81,17 @@ namespace Amplitude.Models
             }
         }
 
-        public OutputProfile(Collection<OutputSettings>? settings = null)
+        [JsonConstructor]
+        public OutputProfile()
         {
-            if (settings == null)
-            {
-                OutputSettings defaultSettings = new OutputSettings();
-                OutputSettings = new ObservableCollection<OutputSettings>(new List<OutputSettings>() { defaultSettings });
-                Name = ISoundEngine.DEFAULT_DEVICE_NAME;
-            }
-            else
-            {
-                OutputSettings = new ObservableCollection<OutputSettings>(settings);
-            }
+            OutputSettings defaultSettings = new OutputSettings();
+            OutputSettings = new ObservableCollection<OutputSettings>(new List<OutputSettings>() { defaultSettings });
+            Name = ISoundEngine.DEFAULT_DEVICE_NAME;
+        }
+
+        public OutputProfile(Collection<OutputSettings> settings)
+        {
+            OutputSettings = new ObservableCollection<OutputSettings>(settings);
         }
 
         public OutputProfile ShallowCopy()

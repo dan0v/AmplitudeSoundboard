@@ -20,16 +20,16 @@
 */
 
 using Amplitude.Localization;
-using AmplitudeSoundboard;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 
 namespace Amplitude.Models
 {
-    public class Options : INotifyPropertyChanged
+    public class Config : INotifyPropertyChanged
     {
-        public string?[,] GridSoundClipIds = new string[5, 5];
+        private const int DEFAULT_GRID_SIZE = 5;
+        public string?[][] GridSoundClipIds = new string?[DEFAULT_GRID_SIZE][];
 
         private string _language = ""; // Start blank, so that system language can be attempted first
         public string Language
@@ -168,28 +168,35 @@ namespace Amplitude.Models
             }
         }
 
-        public Options()
+        public Config()
         {
             Language = Localizer.Instance.TryUseSystemLanguageFallbackEnglish();
+
+            for (int row = 0; row < DEFAULT_GRID_SIZE; row++)
+            {
+                GridSoundClipIds[row] = new string[DEFAULT_GRID_SIZE];
+            }
         }
 
         public void ApplyGridSizing()
         {
-            string?[,] newGrid = new string[_gridRows ?? 1, _gridColumns ?? 1];
-
-            for (int row = 0; row <= newGrid.GetUpperBound(0); row++)
+            string?[][] newGrid = new string[_gridRows ?? 1][];
+            
+            for (int row = 0; row < newGrid.Length; row++)
             {
-                if (row > GridSoundClipIds.GetUpperBound(0))
+                newGrid[row] = new string?[_gridColumns ?? 1];
+
+                if (row >= GridSoundClipIds.Length)
                 {
                     break;
                 }
-                for (int col = 0; col <= newGrid.GetUpperBound(1); col++)
+                for (int col = 0; col < newGrid[row].Length; col++)
                 {
-                    if (col > GridSoundClipIds.GetUpperBound(1))
+                    if (GridSoundClipIds[row] == null || col >= GridSoundClipIds[row]?.Length)
                     {
                         break;
                     }
-                    newGrid[row, col] = GridSoundClipIds[row, col];
+                    newGrid[row][col] = GridSoundClipIds[row][col];
                 }
             }
 
@@ -216,14 +223,9 @@ namespace Amplitude.Models
             }
         }
 
-        public string ToJSON()
+        public Config ShallowCopy()
         {
-            return App.JsonIoManager.ConvertObjectsToJSON(this);
-        }
-
-        public Options ShallowCopy()
-        {
-            return (Options)this.MemberwiseClone();
+            return (Config)this.MemberwiseClone();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

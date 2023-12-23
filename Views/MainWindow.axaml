@@ -181,7 +181,7 @@
             </ScrollViewer>
           </Grid>
         </Grid>
-        <TextBlock IsVisible="{Binding !OptionsManager.Options.HideTutorial}" Grid.Row="1" Margin="5,0,5,5" Text="{i18n:Localize GridTutorial}" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize GridTutorial}" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock IsVisible="{Binding !ConfigManager.Config.HideTutorial}" Grid.Row="1" Margin="5,0,5,5" Text="{i18n:Localize GridTutorial}" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize GridTutorial}" HorizontalAlignment="Center"></TextBlock>
       </Grid>
       
     </Panel>

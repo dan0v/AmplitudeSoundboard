@@ -34,7 +34,7 @@ namespace Amplitude.Helpers
 
         }
 
-        public void SetGlobalStopHotkey(Options options, Action<Options, string> callback)
+        public void SetGlobalStopHotkey(Config config, Action<Config, string> callback)
         {
 
         }

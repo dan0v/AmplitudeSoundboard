@@ -62,27 +62,27 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void RecordGlobalStopSoundHotkey(Options options)
+        public void RecordGlobalStopSoundHotkey(Config config)
         {
-            App.KeyboardHook.SetGlobalStopHotkey(options, RecordGlobalStopSoundHotkeyCallback);
+            App.KeyboardHook.SetGlobalStopHotkey(config, RecordGlobalStopSoundHotkeyCallback);
         }
 
-        public void RecordGlobalStopSoundHotkeyCallback(Options options, string hotkeyString)
+        public void RecordGlobalStopSoundHotkeyCallback(Config config, string hotkeyString)
         {
             if (string.IsNullOrEmpty(hotkeyString))
             {
                 return;
             }
 
-            if (options != null)
+            if (config != null)
             {
                 if (hotkeyString == UNBIND_HOTKEY)
                 {
-                    options.GlobalKillAudioHotkey = "";
+                    config.GlobalKillAudioHotkey = "";
                 }
                 else
                 {
-                    options.GlobalKillAudioHotkey = hotkeyString;
+                    config.GlobalKillAudioHotkey = hotkeyString;
                 }
             }
         }

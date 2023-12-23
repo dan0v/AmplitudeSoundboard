@@ -37,7 +37,7 @@ namespace Amplitude.Helpers
 
         private ThemeHandler()
         {
-            SelectTheme(App.OptionsManager.Options.ThemeId);
+            SelectTheme(App.ConfigManager.Config.ThemeId);
         }
 
         public void SelectTheme(int selection)
