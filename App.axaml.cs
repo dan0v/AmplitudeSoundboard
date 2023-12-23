@@ -62,6 +62,7 @@ namespace AmplitudeSoundboard
         public static WindowManager WindowManager => WindowManager.Instance;
         public static OptionsManager OptionsManager => OptionsManager.Instance;
         public static ISoundEngine SoundEngine => MSoundEngine.Instance;
+        public static JSONIOManager JsonIoManager => JSONIOManager.Instance;
 
 #if Windows
         public static IKeyboardHook KeyboardHook => WinKeyboardHook.Instance;

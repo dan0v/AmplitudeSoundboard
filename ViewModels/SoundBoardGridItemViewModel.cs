@@ -36,7 +36,7 @@ namespace Amplitude.ViewModels
         private int row = 0;
         private int col = 0;
 
-        private Cursor Cursor { get => SoundClipExists ? new Cursor(StandardCursorType.Hand) : new Cursor(StandardCursorType.Arrow); }
+        private Cursor Cursor => SoundClipExists ? new Cursor(StandardCursorType.Hand) : new Cursor(StandardCursorType.Arrow);
 
         private bool _soundClipExists = false;
         private bool SoundClipExists
@@ -179,7 +179,7 @@ namespace Amplitude.ViewModels
         {
             var cols = OptionsManager.Options.GridColumns;
             // TODO this is wasteful, but fine for now
-            OptionsManager.Options.ActualTileWidth = (int)(((WindowManager.MainWindow?.GridSize.width - (11 * (cols + 1))) / cols) ?? OptionsManager.Options.GridTileWidth);
+            OptionsManager.Options.ActualTileWidth = (int)(((WindowManager.MainWindow?.GridSize.width  - (11 * (cols + 1))) / cols) ?? OptionsManager.Options.GridTileWidth ?? 100);
             return OptionsManager.Options.ActualTileWidth;
         }
 
@@ -187,7 +187,7 @@ namespace Amplitude.ViewModels
         {
             var rows = OptionsManager.Options.GridRows;
             // TODO this is wasteful, but fine for now
-            OptionsManager.Options.ActualTileHeight = (int)(((WindowManager.MainWindow?.GridSize.height - (11 * (rows + 1))) / rows) ?? OptionsManager.Options.GridTileHeight);
+            OptionsManager.Options.ActualTileHeight = (int)(((WindowManager.MainWindow?.GridSize.height - (11 * (rows + 1))) / rows) ?? OptionsManager.Options.GridTileHeight ?? 100);
             return OptionsManager.Options.ActualTileHeight;
         }
 

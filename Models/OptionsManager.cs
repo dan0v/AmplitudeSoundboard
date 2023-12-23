@@ -23,7 +23,6 @@ using Amplitude.Helpers;
 using Amplitude.Localization;
 using Amplitude.ViewModels;
 using AmplitudeSoundboard;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,16 +34,16 @@ namespace Amplitude.Models
     public class OptionsManager : INotifyPropertyChanged
     {
         private static OptionsManager? _instance;
-        public static OptionsManager Instance { get => _instance ??= new OptionsManager(); }
+        public static OptionsManager Instance => _instance ??= new OptionsManager();
 
         private Options _options;
-        public Options Options { get => _options; }
+        public Options Options => _options;
 
-        private static string OPTIONS_FILE_LOCATION => Path.Join(App.APP_STORAGE, "options.json");
+        private const string OPTIONS_FILE_LOCATION = "options.json";
 
         private OptionsManager()
         {
-            Options? retrievedOptions = RetrieveOptionsFromFile();
+            var retrievedOptions = RetrieveOptionsFromFile();
 
             if (retrievedOptions != null)
             {
@@ -80,7 +79,7 @@ namespace Amplitude.Models
             {
                 options.ValidateAndCorrectGridLayoutSettings();
                 options.ApplyGridSizing();
-                File.WriteAllText(OPTIONS_FILE_LOCATION, options.ToJSON());
+                App.JsonIoManager.SaveJSONToFile(OPTIONS_FILE_LOCATION, options.ToJSON());
                 App.HotkeysManager.RemoveHotkey(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, Options.GlobalKillAudioHotkey);
                 App.HotkeysManager.RegisterHotkeyAtStartup(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, options.GlobalKillAudioHotkey);
                 _options = options;
@@ -99,10 +98,10 @@ namespace Amplitude.Models
         {
             try
             {
-                if (File.Exists(OPTIONS_FILE_LOCATION))
+                string json = App.JsonIoManager.RetrieveJSONFromFile(OPTIONS_FILE_LOCATION);
+                if (!string.IsNullOrEmpty(json)) 
                 {
-                    string json = File.ReadAllText(OPTIONS_FILE_LOCATION);
-                    return JsonConvert.DeserializeObject<Options>(json);
+                    return App.JsonIoManager.ConvertObjectsFromJSON<Options>(json);
                 }
             }
             catch (Exception e)

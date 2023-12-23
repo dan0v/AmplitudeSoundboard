@@ -32,7 +32,7 @@ namespace Amplitude.Helpers
     public class HotkeysManager
     {
         private static HotkeysManager? _instance;
-        public static HotkeysManager Instance { get => _instance ??= new HotkeysManager(); }
+        public static HotkeysManager Instance => _instance ??= new HotkeysManager();
 
         public const string UNBIND_HOTKEY = "UNBIND_HOTKEY";
         public const string MASTER_STOP_SOUND_HOTKEY = "MASTER_STOP_SOUND_HOTKEY";
@@ -133,7 +133,7 @@ namespace Amplitude.Helpers
 
             if (id != MASTER_STOP_SOUND_HOTKEY)
             {
-                SoundClip clip = App.SoundClipManager.GetClip(id);
+                var clip = App.SoundClipManager.GetClip(id);
 
                 if (clip != null)
                 {

@@ -20,16 +20,16 @@
 */
 
 using Amplitude.Localization;
-using Newtonsoft.Json;
-using System;
+using AmplitudeSoundboard;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 
 namespace Amplitude.Models
 {
     public class Options : INotifyPropertyChanged
     {
-        public string[,] GridSoundClipIds = new string[5, 5];
+        public string?[,] GridSoundClipIds = new string[5, 5];
 
         private string _language = ""; // Start blank, so that system language can be attempted first
         public string Language
@@ -144,14 +144,14 @@ namespace Amplitude.Models
             }
         }
 
-        [JsonIgnore]
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public int ActualTileHeight = 100;
-        [JsonIgnore]
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public int ActualTileWidth = 100;
 
-        [JsonIgnore]
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public int DesiredImageHeight => AutoScaleTilesToWindow ? ActualTileHeight : GridTileHeight ?? 1;
-        [JsonIgnore]
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public int DesiredImageWidth => AutoScaleTilesToWindow ? ActualTileWidth : GridTileWidth ?? 1;
 
         private bool _hideTutorial = false;
@@ -175,7 +175,7 @@ namespace Amplitude.Models
 
         public void ApplyGridSizing()
         {
-            string[,] newGrid = new string[_gridRows ?? 1, _gridColumns ?? 1];
+            string?[,] newGrid = new string[_gridRows ?? 1, _gridColumns ?? 1];
 
             for (int row = 0; row <= newGrid.GetUpperBound(0); row++)
             {
@@ -218,7 +218,7 @@ namespace Amplitude.Models
 
         public string ToJSON()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            return App.JsonIoManager.ConvertObjectsToJSON(this);
         }
 
         public Options ShallowCopy()

@@ -29,8 +29,8 @@ namespace Amplitude.ViewModels
     public sealed class GlobalSettingsViewModel : ViewModelBase
     {
         private Options _model;
-        public Options Model { get => _model; }
-        public static string[] Languages { get => Localization.Localizer.Languages.Keys.ToArray(); }
+        public Options Model => _model;
+        public static string[] Languages => Localization.Localizer.Languages.Keys.ToArray();
 
         public GlobalSettingsViewModel()
         {
@@ -46,13 +46,7 @@ namespace Amplitude.ViewModels
             }
         }
 
-        public bool CanSave
-        {
-            get
-            {
-                return !WaitingForHotkey;
-            }
-        }
+        public bool CanSave => !WaitingForHotkey;
 
         private bool _waitingForHotkey;
         public bool WaitingForHotkey

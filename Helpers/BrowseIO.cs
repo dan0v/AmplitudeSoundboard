@@ -41,20 +41,14 @@ namespace Amplitude.Helpers
             Name = "Audio file",
             Extensions = { "aac", "aiff", "alac", "flac", "m4a", "mp3", "mp4", "ogg", "opus", "wav" }
         };
-        public static FileDialogFilter AudioFileTypesFilter
-        {
-            get => _audioFileTypesFilter;
-        }
+        public static FileDialogFilter AudioFileTypesFilter => _audioFileTypesFilter;
 
         private static FileDialogFilter _imageFileTypesFilter = new FileDialogFilter
         {
             Name = "Image file",
             Extensions = { "png", "jpg", "jpeg", "gif", "bmp" }
         };
-        public static FileDialogFilter ImageFileTypesFilter
-        {
-            get => _imageFileTypesFilter;
-        }
+        public static FileDialogFilter ImageFileTypesFilter => _imageFileTypesFilter;
 
         public static async Task<string[]> OpenFileBrowser(Window parent, FileBrowserType type, bool allowMultiple = false)
         {

@@ -20,19 +20,20 @@
 */
 
 using Amplitude.Helpers;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 
 namespace Amplitude.Models
 {
     public class OutputProfile : INotifyPropertyChanged
     {
         private string _id = null;
-        [JsonIgnore]
+        
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public string Id => _id;
 
         public void InitializeId(string? newId)
@@ -92,11 +93,6 @@ namespace Amplitude.Models
             {
                 OutputSettings = new ObservableCollection<OutputSettings>(settings);
             }
-        }
-
-        public string ToJSON()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         public OutputProfile ShallowCopy()

@@ -88,7 +88,7 @@ namespace Amplitude.ViewModels
         }
 
         private ObservableCollection<GridItemRow> _gridItemsRows = new();
-        private ObservableCollection<GridItemRow> GridItemsRows { get => _gridItemsRows; }
+        private ObservableCollection<GridItemRow> GridItemsRows => _gridItemsRows;
 
         public void ShowList()
         {

@@ -21,7 +21,6 @@
 
 using Amplitude.Helpers;
 using AmplitudeSoundboard;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,10 +32,10 @@ using System.Threading.Tasks;
 
 namespace Amplitude.Models
 {
-    public class SoundClipManager : JSONIOManager, INotifyPropertyChanged
+    public class SoundClipManager: INotifyPropertyChanged
     {
         private static SoundClipManager? _instance;
-        public static SoundClipManager Instance { get => _instance ??= new SoundClipManager(); }
+        public static SoundClipManager Instance => _instance ??= new SoundClipManager();
 
         private const string SOUNDCLIPS_FILE = "soundclips.json";
 
@@ -87,7 +86,7 @@ namespace Amplitude.Models
         private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         private Dictionary<string, SoundClip> _soundClips;
-        public Dictionary<string, SoundClip> SoundClips { get => _soundClips; }
+        public Dictionary<string, SoundClip> SoundClips => _soundClips;
 
         public async void RescaleAllBackgroundImages()
         {
@@ -270,20 +269,14 @@ namespace Amplitude.Models
 
         private static Dictionary<string, SoundClip>? RetrieveSavedSoundClips()
         {
-            string? clipsInJson = RetrieveJSONFromFile(SOUNDCLIPS_FILE);
-            return ConvertObjectsFromJSON<SoundClip>(clipsInJson);
+            var clipsInJson = App.JsonIoManager.RetrieveJSONFromFile(SOUNDCLIPS_FILE);
+            return App.JsonIoManager.ConvertObjectsFromJSON<Dictionary<string, SoundClip>>(clipsInJson);
         }
 
         private void StoreSavedSoundClips()
         {
-            string clipsInJson = ConvertClipsToJSON();
-
-            SaveJSONToFile(SOUNDCLIPS_FILE, clipsInJson);
-        }
-
-        private string ConvertClipsToJSON()
-        {
-            return JsonConvert.SerializeObject(SoundClips, Formatting.Indented);
+            var clipsInJson = App.JsonIoManager.ConvertObjectsToJSON(SoundClips);
+            App.JsonIoManager.SaveJSONToFile(SOUNDCLIPS_FILE, clipsInJson);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -52,14 +52,14 @@ namespace Amplitude.Helpers
         public const long KEYPRESSTIMEOUT = 150;
         private static string currentKey = "";
 
-        static LowLevelKeyboardProcDelegate hook;
+        readonly LowLevelKeyboardProcDelegate hook;
         const int WH_KEYBOARD_LL = 13;
-        private IntPtr winHook;
+        private readonly IntPtr winHook;
 
         private static SortedSet<string> specialKey = new SortedSet<string>();
 
         private static WinKeyboardHook? _instance;
-        public static WinKeyboardHook Instance { get => _instance ??= new WinKeyboardHook(); }
+        public static WinKeyboardHook Instance => _instance ??= new WinKeyboardHook();
 
         private WinKeyboardHook()
         {
@@ -134,12 +134,8 @@ namespace Amplitude.Helpers
                                         }
                                         else
                                         {
-                                            SoundClip clip = App.SoundClipManager.GetClip(item);
-
-                                            if (clip != null)
-                                            {
-                                                clip.PlayAudio();
-                                            }
+                                            var clip = App.SoundClipManager.GetClip(item);
+                                            clip?.PlayAudio();
                                         }
 
                                     }

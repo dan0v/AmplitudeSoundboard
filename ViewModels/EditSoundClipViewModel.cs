@@ -34,11 +34,11 @@ namespace Amplitude.ViewModels
         private string StopAudioHotkey => string.IsNullOrEmpty(OptionsManager.Options.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + OptionsManager.Options.GlobalKillAudioHotkey;
 
         private SoundClip _model;
-        public SoundClip Model { get => _model; }
+        public SoundClip Model => _model;
 
         private (int row, int col)? addToGridCell = null;
 
-        public bool CanSave { get => HasNameField && !WaitingForHotkey; }
+        public bool CanSave => HasNameField && !WaitingForHotkey;
 
         public List<OutputProfile> OutputProfilesList => OutputProfileManager.OutputProfilesList;
 

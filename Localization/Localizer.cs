@@ -42,7 +42,7 @@ namespace Amplitude.Localization
 
         private static Dictionary<string, string> inverseLanguages => Languages.ToDictionary(l => l.Value, l => l.Key);
 
-        public readonly string FALLBACK_LANGUAGE = "English";
+        public const string FALLBACK_LANGUAGE = "English";
 
         private const string IndexerName = "Item";
         private const string IndexerArrayName = "Item[]";

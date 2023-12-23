@@ -20,55 +20,73 @@
 */
 
 using AmplitudeSoundboard;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 
 namespace Amplitude.Helpers
 {
     public class JSONIOManager
     {
-        protected static Dictionary<string, T>? ConvertObjectsFromJSON<T>(string? json)
+        private static JSONIOManager? _instance;
+        public static JSONIOManager Instance => _instance ??= new JSONIOManager();
+
+        public T? ConvertObjectsFromJSON<T>(string? json)
         {
             if (string.IsNullOrEmpty(json))
             {
-                return null;
+                return default;
             }
 
             try
             {
-                var obj = JsonConvert.DeserializeObject(json, typeof(Dictionary<string, T>));
-                return obj == null ? null : (Dictionary<string, T>?)obj;
+                var obj = JsonSerializer.Deserialize<T>(json);
+                return obj == null ? default : (T?) obj;
             }
             catch (Exception e)
             {
                 App.WindowManager.ShowErrorString(e.Message);
             }
-            return null;
+            return default(T);
         }
 
-        protected static string? RetrieveJSONFromFile(string file)
+        public string RetrieveJSONFromFile(string file)
         {
             try
             {
-                if (File.Exists(Path.Join(App.APP_STORAGE, file)))
+                var path = Path.Join(App.APP_STORAGE, file);
+                if (File.Exists(path))
                 {
-                    return File.ReadAllText(Path.Join(App.APP_STORAGE, file));
+                    return File.ReadAllText(path);
                 }
             }
             catch (Exception e)
             {
                 App.WindowManager.ShowErrorString(e.Message);
             }
-            return null;
+            return "";
         }
 
-        protected static void SaveJSONToFile(string file, string json)
+        public string ConvertObjectsToJSON<T>(T? obj)
+        {
+            if (obj == null)
+            {
+                return "";
+            }
+
+            try
+            {
+                return JsonSerializer.Serialize<T>(obj, new JsonSerializerOptions { WriteIndented = true });
+            }
+            catch (Exception e)
+            {
+                App.WindowManager.ShowErrorString(e.Message);
+            }
+            return "";
+        }
+
+        public void SaveJSONToFile(string file, string json)
         {
             try
             {

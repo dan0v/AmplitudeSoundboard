@@ -17,14 +17,14 @@ limitations under the License.
 
 ORIGIN="$(pwd)"
 cd "../.."
-dotnet publish -r osx-x64 -c Release -p:SelfContained=True -o bin/Release/net6.0/publishMac
+dotnet publish -r osx-x64 -c Release -p:SelfContained=True -o bin/Release/net8.0/publishMac
 cd "$ORIGIN"
 
 APP_NAME="Amplitude Soundboard.app"
 APP_OUTPUT_PATH="Output"
 APP_TAR_NAME1="Amplitude_Soundboard_"
 APP_TAR_NAME2="macOS_x86_64"
-PUBLISH_OUTPUT_DIRECTORY="../../bin/Release/net6.0/publishMac/."
+PUBLISH_OUTPUT_DIRECTORY="../../bin/Release/net8.0/publishMac/."
 INFO_PLIST="Info.plist"
 ICON_FILE="Icon.icns"
 

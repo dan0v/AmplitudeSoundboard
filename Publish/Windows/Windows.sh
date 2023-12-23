@@ -19,12 +19,12 @@ ORIGIN="$(pwd)"
 cd "../.."
 
 # RUN IN POWERSHELL
-#dotnet publish -r win-x64 -c Release -p:SelfContained=True -p:IncludeAllContentForSelfExtract=True -p:PublishSingleFile=True -o bin/Release/net6.0/publishWin
+dotnet publish -r win-x64 -c Release -p:SelfContained=True -p:IncludeAllContentForSelfExtract=True -p:PublishSingleFile=True -o bin/Release/net8.0/publishWin
 cd "$ORIGIN"
 
 APP_NAME="Amplitude Soundboard"
 APP_OUTPUT_PATH="Build"
-PUBLISH_OUTPUT_DIRECTORY="../../bin/Release/net6.0/publishWin/."
+PUBLISH_OUTPUT_DIRECTORY="../../bin/Release/net8.0/publishWin/."
 APP_TAR_NAME1="Amplitude_Soundboard_"
 APP_TAR_NAME2="win_x86_64"
 

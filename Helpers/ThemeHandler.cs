@@ -33,7 +33,7 @@ namespace Amplitude.Helpers
     public class ThemeHandler : INotifyPropertyChanged
     {
         private static ThemeHandler? _instance;
-        public static ThemeHandler Instance { get => _instance ??= new ThemeHandler(); }
+        public static ThemeHandler Instance => _instance ??= new ThemeHandler();
 
         private ThemeHandler()
         {
@@ -54,16 +54,12 @@ namespace Amplitude.Helpers
             OnPropertyChanged(nameof(ThemesList));
         }
 
-        public static string[] ThemesList
-        {
-            get =>
-            new string[]
+        public static string[] ThemesList => new string[]
             {
                 Localization.Localizer.Instance["DarkTheme"],
                 Localization.Localizer.Instance["LightTheme"],
                 //Localization.Localizer.Instance["CustomTheme"]
             };
-        }
 
         public FontFamily TitleFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/JosefinSans/#Josefin Sans");
         public FontFamily BodyFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/NotoSansDisplay/");

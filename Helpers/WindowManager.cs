@@ -26,7 +26,6 @@ using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,7 +40,7 @@ namespace Amplitude.Helpers
     public class WindowManager : INotifyPropertyChanged
     {
         private static WindowManager? _instance;
-        public static WindowManager Instance { get => _instance ??= new WindowManager(); }
+        public static WindowManager Instance => _instance ??= new WindowManager();
 
         public WindowManager()
         {
@@ -59,7 +58,7 @@ namespace Amplitude.Helpers
             AutoReset = false,
         };
 
-        private static string WINDOW_POSITION_FILE_LOCATION => Path.Join(App.APP_STORAGE, "window-positions.json");
+        private const string WINDOW_POSITION_FILE_LOCATION = "window-positions.json";
 
         private Dictionary<string, WindowSizeAndPosition> windowSizesAndPositions = new();
 
@@ -91,7 +90,7 @@ namespace Amplitude.Helpers
             }
         }
 
-        public double DesktopScaling { get => MainWindow?.DesktopScaling ?? 1; }
+        public double DesktopScaling => MainWindow?.DesktopScaling ?? 1;
 
         public void OpenEditOutputProfileWindow(string? Id = null)
         {
@@ -304,7 +303,7 @@ namespace Amplitude.Helpers
                 return;
             }
 
-            ((ErrorListViewModel)ErrorListWindow.DataContext)?.AddErrorString(errorString);
+            ((ErrorListViewModel?)ErrorListWindow.DataContext)?.AddErrorString(errorString);
             ShowErrorListWindow();
         }
 
@@ -318,7 +317,7 @@ namespace Amplitude.Helpers
                 });
                 return;
             }
-            ((ErrorListViewModel)ErrorListWindow.DataContext)?.AddErrorOutputProfile(profile, errorType, additionalData);
+            ((ErrorListViewModel?)ErrorListWindow.DataContext)?.AddErrorOutputProfile(profile, errorType, additionalData);
             ShowErrorListWindow();
         }
 
@@ -332,7 +331,7 @@ namespace Amplitude.Helpers
                 });
                 return;
             }
-            ((ErrorListViewModel)ErrorListWindow.DataContext)?.AddErrorSoundClip(clip, errorType, additionalData);
+            ((ErrorListViewModel?)ErrorListWindow.DataContext)?.AddErrorSoundClip(clip, errorType, additionalData);
             ShowErrorListWindow();
         }
 
@@ -473,7 +472,8 @@ namespace Amplitude.Helpers
 
                     try
                     {
-                        File.WriteAllText(WINDOW_POSITION_FILE_LOCATION, JsonConvert.SerializeObject(windowSizesAndPositions, Formatting.Indented));
+                        var json = App.JsonIoManager.ConvertObjectsToJSON(windowSizesAndPositions);
+                        App.JsonIoManager.SaveJSONToFile(WINDOW_POSITION_FILE_LOCATION, json);
                     } catch { }
                 }
             });
@@ -511,9 +511,9 @@ namespace Amplitude.Helpers
             {
                 try
                 {
-                    var saved = File.ReadAllText(WINDOW_POSITION_FILE_LOCATION);
-                    Dictionary<string, WindowSizeAndPosition>? processed = JsonConvert.DeserializeObject<Dictionary<string, WindowSizeAndPosition>>(saved);
-
+                    var saved = App.JsonIoManager.RetrieveJSONFromFile(WINDOW_POSITION_FILE_LOCATION);
+                    var processed = App.JsonIoManager.ConvertObjectsFromJSON<Dictionary<string, WindowSizeAndPosition>>(saved);
+                    
                     if (processed != null)
                     {
                         windowSizesAndPositions = processed;

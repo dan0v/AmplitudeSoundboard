@@ -31,13 +31,13 @@ namespace Amplitude.ViewModels
 {
     public abstract class ViewModelBase : ReactiveObject, INotifyPropertyChanged, IDisposable
     {
-        protected ThemeHandler ThemeHandler { get => App.ThemeHandler; }
-        protected SoundClipManager SoundClipManager { get => App.SoundClipManager; }
-        protected OptionsManager OptionsManager { get => App.OptionsManager; }
-        protected OutputProfileManager OutputProfileManager { get => App.OutputProfileManager; }
-        protected WindowManager WindowManager { get => App.WindowManager; }
-        protected HotkeysManager HotkeysManager { get => App.HotkeysManager; }
-        protected ISoundEngine SoundEngine { get => App.SoundEngine; }
+        protected ThemeHandler ThemeHandler => App.ThemeHandler;
+        protected SoundClipManager SoundClipManager => App.SoundClipManager;
+        protected OptionsManager OptionsManager => App.OptionsManager;
+        protected OutputProfileManager OutputProfileManager => App.OutputProfileManager;
+        protected WindowManager WindowManager => App.WindowManager;
+        protected HotkeysManager HotkeysManager => App.HotkeysManager;
+        protected ISoundEngine SoundEngine => App.SoundEngine;
 
         public bool CanUseHotkeys => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.HOTKEYS);
         public double HotkeysOpacity => CanUseHotkeys ? 1 : 0.3d;

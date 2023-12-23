@@ -35,7 +35,7 @@ namespace Amplitude.Helpers
     class MSoundEngine : ISoundEngine
     {
         private static MSoundEngine? _instance;
-        public static MSoundEngine Instance { get => _instance ??= new MSoundEngine(); }
+        public static MSoundEngine Instance => _instance ??= new MSoundEngine();
 
         object currentlyPlayingLock = new object();
 
