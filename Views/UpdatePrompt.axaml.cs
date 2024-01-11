@@ -22,10 +22,15 @@
 using Amplitude.Helpers;
 using Amplitude.Localization;
 using AmplitudeSoundboard;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
