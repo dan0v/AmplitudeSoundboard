@@ -1,6 +1,6 @@
 /*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -44,7 +44,7 @@ namespace Amplitude.Views
             this.txt_bx_License.Text = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Doc", "LICENSE.txt"));
             this.txt_bx_Notice.Text = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Doc", "NOTICE.txt"));
             this.txt_blk_Copyright.Text = @"AmplitudeSoundboard
-Copyright (C) 2021-2023 dan0v";
+Copyright (C) 2021-2024 dan0v";
             this.txt_blk_Version.Text = "Version " + App.VERSION;
             this.txt_blk_URL.Text = projectUrl;
             this.txt_blk_URL.PointerPressed += Txt_blk_URL_PointerPressed;

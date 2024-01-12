@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
   <PropertyGroup>
     <DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x64'">$(DefineConstants);Windows</DefineConstants>
@@ -17,17 +17,18 @@
     <RootNamespace>Amplitude</RootNamespace>
     <NeutralLanguage>en</NeutralLanguage>
     <Platforms>AnyCPU;x64</Platforms>
-    <Version>2.6.3</Version>
+    <Version>2.7.0</Version>
     <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
     <PublishTrimmed>true</PublishTrimmed>
-    <TrimMode>Link</TrimMode>
-    <Copyright>Copyright (C) 2021-2023 dan0v</Copyright>
+    <TrimMode>partial</TrimMode>
+    <Copyright>Copyright (C) 2021-2024 dan0v</Copyright>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageIconUrl />
     <ApplicationIcon>Icon.ico</ApplicationIcon>
     <PackageProjectUrl>https://amplitude-soundboard.dan0v.com/</PackageProjectUrl>
     <RepositoryUrl>https://git.dan0v.com/AmplitudeSoundboard</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
