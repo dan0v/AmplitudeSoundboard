@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -27,14 +27,14 @@ namespace Amplitude.Helpers
     public class BlankHotkeysManager : IKeyboardHook
     {
         private static BlankHotkeysManager? _instance;
-        public static BlankHotkeysManager Instance { get => _instance ??= new BlankHotkeysManager(); }
+        public static BlankHotkeysManager Instance => _instance ??= new BlankHotkeysManager();
 
         public void Dispose()
         {
 
         }
 
-        public void SetGlobalStopHotkey(Options options, Action<Options, string> callback)
+        public void SetGlobalStopHotkey(Config config, Action<Config, string> callback)
         {
 
         }

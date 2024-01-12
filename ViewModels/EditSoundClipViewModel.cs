@@ -1,6 +1,6 @@
 /*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -31,14 +31,14 @@ namespace Amplitude.ViewModels
 {
     public sealed class EditSoundClipViewModel : ViewModelBase
     {
-        private string StopAudioHotkey => string.IsNullOrEmpty(OptionsManager.Options.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + OptionsManager.Options.GlobalKillAudioHotkey;
+        private string StopAudioHotkey => string.IsNullOrEmpty(ConfigManager.Config.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + ConfigManager.Config.GlobalKillAudioHotkey;
 
         private SoundClip _model;
-        public SoundClip Model { get => _model; }
+        public SoundClip Model => _model;
 
         private (int row, int col)? addToGridCell = null;
 
-        public bool CanSave { get => HasNameField && !WaitingForHotkey; }
+        public bool CanSave => HasNameField && !WaitingForHotkey;
 
         public List<OutputProfile> OutputProfilesList => OutputProfileManager.OutputProfilesList;
 
@@ -149,7 +149,7 @@ namespace Amplitude.ViewModels
             SaveButtonTooltip = HasNameField ? "" : Localization.Localizer.Instance["SaveButtonDisabledTooltip"];
             OutputProfileManager.PropertyChanged += OutputProfileManager_PropertyChanged;
             Model.PropertyChanged += Model_PropertyChanged;
-            OptionsManager.PropertyChanged += OptionsManager_PropertyChanged;
+            ConfigManager.PropertyChanged += ConfigManager_PropertyChanged;
         }
 
         private void OutputProfileManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -161,9 +161,9 @@ namespace Amplitude.ViewModels
             }
         }
 
-        private void OptionsManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ConfigManager_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(OptionsManager.Options))
+            if (e.PropertyName == nameof(ConfigManager.Config))
             {
                 OnPropertyChanged(nameof(StopAudioHotkey));
             }
@@ -266,11 +266,11 @@ namespace Amplitude.ViewModels
             OnPropertyChanged(nameof(Model));
 
             if (addToGridCell != null && addToGridCell.Value.row >= 0 && addToGridCell.Value.col >= 0 &&
-                addToGridCell.Value.row < App.OptionsManager.Options.GridRows &&
-                addToGridCell.Value.col < App.OptionsManager.Options.GridColumns)
+                addToGridCell.Value.row < App.ConfigManager.Config.GridRows &&
+                addToGridCell.Value.col < App.ConfigManager.Config.GridColumns)
             {
-                OptionsManager.Options.GridSoundClipIds[addToGridCell.Value.row, addToGridCell.Value.col] = Model.Id;
-                OptionsManager.SaveAndOverwriteOptions(OptionsManager.Options);
+                ConfigManager.Config.GridSoundClipIds[addToGridCell.Value.row][addToGridCell.Value.col] = Model.Id;
+                ConfigManager.SaveAndOverwriteConfig(ConfigManager.Config);
             }
         }
 
@@ -297,7 +297,7 @@ namespace Amplitude.ViewModels
         public override void Dispose()
         {
             Model.PropertyChanged -= Model_PropertyChanged;
-            OptionsManager.PropertyChanged -= OptionsManager_PropertyChanged;
+            ConfigManager.PropertyChanged -= ConfigManager_PropertyChanged;
             OutputProfileManager.PropertyChanged -= OutputProfileManager_PropertyChanged;
             base.Dispose();
         }

@@ -4,7 +4,7 @@
 
 /*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -32,7 +32,7 @@ namespace Amplitude.Helpers
     public class HotkeysManager
     {
         private static HotkeysManager? _instance;
-        public static HotkeysManager Instance { get => _instance ??= new HotkeysManager(); }
+        public static HotkeysManager Instance => _instance ??= new HotkeysManager();
 
         public const string UNBIND_HOTKEY = "UNBIND_HOTKEY";
         public const string MASTER_STOP_SOUND_HOTKEY = "MASTER_STOP_SOUND_HOTKEY";
@@ -62,27 +62,27 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void RecordGlobalStopSoundHotkey(Options options)
+        public void RecordGlobalStopSoundHotkey(Config config)
         {
-            App.KeyboardHook.SetGlobalStopHotkey(options, RecordGlobalStopSoundHotkeyCallback);
+            App.KeyboardHook.SetGlobalStopHotkey(config, RecordGlobalStopSoundHotkeyCallback);
         }
 
-        public void RecordGlobalStopSoundHotkeyCallback(Options options, string hotkeyString)
+        public void RecordGlobalStopSoundHotkeyCallback(Config config, string hotkeyString)
         {
             if (string.IsNullOrEmpty(hotkeyString))
             {
                 return;
             }
 
-            if (options != null)
+            if (config != null)
             {
                 if (hotkeyString == UNBIND_HOTKEY)
                 {
-                    options.GlobalKillAudioHotkey = "";
+                    config.GlobalKillAudioHotkey = "";
                 }
                 else
                 {
-                    options.GlobalKillAudioHotkey = hotkeyString;
+                    config.GlobalKillAudioHotkey = hotkeyString;
                 }
             }
         }
@@ -133,7 +133,7 @@ namespace Amplitude.Helpers
 
             if (id != MASTER_STOP_SOUND_HOTKEY)
             {
-                SoundClip clip = App.SoundClipManager.GetClip(id);
+                var clip = App.SoundClipManager.GetClip(id);
 
                 if (clip != null)
                 {

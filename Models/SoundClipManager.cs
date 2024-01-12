@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -19,9 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
 using AmplitudeSoundboard;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,14 +27,18 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Amplitude.Models
 {
-    public class SoundClipManager : JSONIOManager, INotifyPropertyChanged
+    [JsonSerializable(typeof(Dictionary<string, SoundClip>))]
+    public partial class SoundClipManagerContext : JsonSerializerContext { }
+
+    public class SoundClipManager: INotifyPropertyChanged
     {
         private static SoundClipManager? _instance;
-        public static SoundClipManager Instance { get => _instance ??= new SoundClipManager(); }
+        public static SoundClipManager Instance => _instance ??= new SoundClipManager();
 
         private const string SOUNDCLIPS_FILE = "soundclips.json";
 
@@ -87,7 +89,7 @@ namespace Amplitude.Models
         private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         private Dictionary<string, SoundClip> _soundClips;
-        public Dictionary<string, SoundClip> SoundClips { get => _soundClips; }
+        public Dictionary<string, SoundClip> SoundClips => _soundClips;
 
         public async void RescaleAllBackgroundImages()
         {
@@ -270,20 +272,14 @@ namespace Amplitude.Models
 
         private static Dictionary<string, SoundClip>? RetrieveSavedSoundClips()
         {
-            string? clipsInJson = RetrieveJSONFromFile(SOUNDCLIPS_FILE);
-            return ConvertObjectsFromJSON<SoundClip>(clipsInJson);
+            var clipsInJson = App.JsonIoManager.RetrieveJSONFromFile(SOUNDCLIPS_FILE);
+            return App.JsonIoManager.ConvertObjectsFromJSON<Dictionary<string, SoundClip>>(clipsInJson);
         }
 
         private void StoreSavedSoundClips()
         {
-            string clipsInJson = ConvertClipsToJSON();
-
-            SaveJSONToFile(SOUNDCLIPS_FILE, clipsInJson);
-        }
-
-        private string ConvertClipsToJSON()
-        {
-            return JsonConvert.SerializeObject(SoundClips, Formatting.Indented);
+            var clipsInJson = App.JsonIoManager.ConvertObjectsToJSON(SoundClips);
+            App.JsonIoManager.SaveJSONToFile(SOUNDCLIPS_FILE, clipsInJson);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

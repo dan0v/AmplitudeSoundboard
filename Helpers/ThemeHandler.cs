@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -33,11 +33,11 @@ namespace Amplitude.Helpers
     public class ThemeHandler : INotifyPropertyChanged
     {
         private static ThemeHandler? _instance;
-        public static ThemeHandler Instance { get => _instance ??= new ThemeHandler(); }
+        public static ThemeHandler Instance => _instance ??= new ThemeHandler();
 
         private ThemeHandler()
         {
-            SelectTheme(App.OptionsManager.Options.ThemeId);
+            SelectTheme(App.ConfigManager.Config.ThemeId);
         }
 
         public void SelectTheme(int selection)
@@ -54,16 +54,12 @@ namespace Amplitude.Helpers
             OnPropertyChanged(nameof(ThemesList));
         }
 
-        public static string[] ThemesList
-        {
-            get =>
-            new string[]
+        public static string[] ThemesList => new string[]
             {
                 Localization.Localizer.Instance["DarkTheme"],
                 Localization.Localizer.Instance["LightTheme"],
                 //Localization.Localizer.Instance["CustomTheme"]
             };
-        }
 
         public FontFamily TitleFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/JosefinSans/#Josefin Sans");
         public FontFamily BodyFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/NotoSansDisplay/");
@@ -250,6 +246,11 @@ namespace Amplitude.Helpers
 
         private void RefreshTheme()
         {
+            if (App.Current == null)
+            {
+                return;
+            }
+            
             App.Current.RequestedThemeVariant = SelectedTheme switch
             {
                 Theme.LIGHT => ThemeVariant.Light,

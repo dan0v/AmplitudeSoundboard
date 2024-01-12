@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -35,7 +35,7 @@ namespace Amplitude.Helpers
     class MSoundEngine : ISoundEngine
     {
         private static MSoundEngine? _instance;
-        public static MSoundEngine Instance { get => _instance ??= new MSoundEngine(); }
+        public static MSoundEngine Instance => _instance ??= new MSoundEngine();
 
         object currentlyPlayingLock = new object();
 
@@ -213,7 +213,7 @@ namespace Amplitude.Helpers
                             }
                             Bass.ChannelPlay(stream, false);
                         }
-                        catch(Exception e)
+                        catch(Exception)
                         {
                             App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName));
                         }

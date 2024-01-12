@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -28,6 +28,6 @@ namespace Amplitude.Helpers
     {
         public static IKeyboardHook Instance { get; }
         public void SetSoundClipHotkey(SoundClip clip, Action<SoundClip, string> callback);
-        public void SetGlobalStopHotkey(Options options, Action<Options, string> callback);
+        public void SetGlobalStopHotkey(Config config, Action<Config, string> callback);
     }
 }

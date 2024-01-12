@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -24,12 +24,11 @@ using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
-using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Amplitude.Models
@@ -149,8 +148,7 @@ namespace Amplitude.Models
             }
         }
 
-        private ObservableCollection<OutputSettings> _outputSettingsFromProfile = new ObservableCollection<OutputSettings>();
-        [JsonIgnore]
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public ObservableCollection<OutputSettings> OutputSettingsFromProfile => App.OutputProfileManager.GetOutputProfile(OutputProfileId)?.OutputSettings;
 
         private ObservableCollection<OutputSettings> _outputSettings = new ObservableCollection<OutputSettings>();
@@ -184,15 +182,15 @@ namespace Amplitude.Models
 
         private string _id = null;
         // Do not write to JSON, since it is stored in dictionary anyway
-        [JsonIgnore]
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public string Id => _id;
 
         private Bitmap? _backgroundImage = null;
-        [JsonIgnore]
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public Bitmap? BackgroundImage => _backgroundImage;
 
         private bool _loadBackgroundImage = false;
-        [JsonIgnore]
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public bool LoadBackgroundImage
         {
             get => _loadBackgroundImage;
@@ -207,9 +205,8 @@ namespace Amplitude.Models
             }
         }
 
-
-        [JsonIgnore]
-        public string? PlayAudioTooltip { get => string.IsNullOrEmpty(Id) ? null : string.IsNullOrEmpty(Hotkey) ? Localization.Localizer.Instance["PlaySound"] : Localization.Localizer.Instance["PlaySound"] + ": " + Hotkey; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+        public string? PlayAudioTooltip => string.IsNullOrEmpty(Id) ? null : string.IsNullOrEmpty(Hotkey) ? Localization.Localizer.Instance["PlaySound"] : Localization.Localizer.Instance["PlaySound"] + ": " + Hotkey;
 
         public SoundClip() { }
 
@@ -240,8 +237,8 @@ namespace Amplitude.Models
                 _backgroundImage = new Bitmap(_imageFilePath);
                 double initialWidth = _backgroundImage.PixelSize.Width;
                 double initialHeight = _backgroundImage.PixelSize.Height;
-                double intendedHeight = App.OptionsManager.Options.DesiredImageHeight;
-                double intendedWidth = App.OptionsManager.Options.DesiredImageWidth;
+                double intendedHeight = App.ConfigManager.Config.DesiredImageHeight;
+                double intendedWidth = App.ConfigManager.Config.DesiredImageWidth;
                 double scaleFactor = intendedWidth > intendedHeight ? initialWidth / intendedWidth : initialHeight / intendedHeight;
                 scaleFactor /= App.WindowManager.DesktopScaling;
                 try
@@ -268,24 +265,6 @@ namespace Amplitude.Models
             }
 
             OnPropertyChanged(nameof(BackgroundImage));
-        }
-
-        public static SoundClip? FromJSON(string json)
-        {
-            try
-            {
-                return JsonConvert.DeserializeObject<SoundClip>(json);
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-            }
-            return null;
-        }
-
-        public string ToJSON()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         public SoundClip ShallowCopy()

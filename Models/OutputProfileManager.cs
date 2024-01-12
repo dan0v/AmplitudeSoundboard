@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -21,20 +21,22 @@
 
 using Amplitude.Helpers;
 using AmplitudeSoundboard;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 
 namespace Amplitude.Models
 {
-    public class OutputProfileManager : JSONIOManager, INotifyPropertyChanged
+    [JsonSerializable(typeof(Dictionary<string, OutputProfile>))]
+    public partial class OutputProfileManagerContext : JsonSerializerContext { }
+    
+    public class OutputProfileManager : INotifyPropertyChanged
     {
         private static OutputProfileManager? _instance;
-        public static OutputProfileManager Instance { get => _instance ??= new OutputProfileManager(); }
+        public static OutputProfileManager Instance => _instance ??= new OutputProfileManager();
 
         private const string MIGRATED_PROFILES_NAME_BASE = "Migrated_Profile";
         private int migratedProfileCounter = 1;
@@ -43,9 +45,9 @@ namespace Amplitude.Models
         public const string DEFAULT_OUTPUTPROFILE = "DEFAULT";
 
         private Dictionary<string, OutputProfile> _outputProfiles;
-        public Dictionary<string, OutputProfile> OutputProfiles { get => _outputProfiles; }
+        public Dictionary<string, OutputProfile> OutputProfiles => _outputProfiles;
 
-        public List<OutputProfile> OutputProfilesList { get => OutputProfiles.Values.ToList(); }
+        public List<OutputProfile> OutputProfilesList => OutputProfiles.Values.ToList();
 
         private OutputProfileManager()
         {
@@ -135,14 +137,9 @@ namespace Amplitude.Models
 
         private void StoreSavedOutputProfiles()
         {
-            string profilesInJson = ConvertOutputProfilesToJSON();
+            string profilesInJson = App.JsonIoManager.ConvertObjectsToJSON(OutputProfiles);
 
-            SaveJSONToFile(OUTPUTPROFILES_FILE, profilesInJson);
-        }
-
-        private string ConvertOutputProfilesToJSON()
-        {
-            return JsonConvert.SerializeObject(OutputProfiles, Formatting.Indented);
+            App.JsonIoManager.SaveJSONToFile(OUTPUTPROFILES_FILE, profilesInJson);
         }
 
         public void ValidateOutputProfile(OutputProfile? profile)
@@ -176,9 +173,9 @@ namespace Amplitude.Models
 
         private static Dictionary<string, OutputProfile>? RetrieveSavedOutputProfiles()
         {
-            string? clipsInJson = RetrieveJSONFromFile(OUTPUTPROFILES_FILE);
-            var profiles = ConvertObjectsFromJSON<OutputProfile>(clipsInJson);
-            foreach (var profile in profiles ?? new Dictionary<string, OutputProfile>())
+            string? clipsInJson = App.JsonIoManager.RetrieveJSONFromFile(OUTPUTPROFILES_FILE);
+            var profiles = App.JsonIoManager.ConvertObjectsFromJSON<Dictionary<string, OutputProfile>>(clipsInJson);
+            foreach (var profile in profiles ?? [])
             {
                 profile.Value.InitializeId(profile.Key);
             }

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo 'Copyright 2020-2023 dan0v
+echo 'Copyright 2020-2024 dan0v
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,12 +17,12 @@ limitations under the License.
 
 ORIGIN="$(pwd)"
 cd "../.."
-if [ -d "bin/Release/net6.0/publishLinux" ]
+if [ -d "bin/Release/net8.0/publishLinux" ]
 then
-    rm -rf "bin/Release/net6.0/publishLinux"
+    rm -rf "bin/Release/net8.0/publishLinux"
 fi
-mkdir -p "bin/Release/net6.0/publishLinux"
-dotnet publish -r linux-x64 -c Release -p:SelfContained=True -o bin/Release/net6.0/publishLinux
+mkdir -p "bin/Release/net8.0/publishLinux"
+dotnet publish -r linux-x64 -c Release -p:SelfContained=True -o bin/Release/net8.0/publishLinux
 cd "$ORIGIN"
 
 cd "Sources"
@@ -32,7 +32,7 @@ chmod +x Sources/appimagetool-x86_64.AppImage
 
 APP_NAME="Amplitude Soundboard"
 APP_OUTPUT_PATH="Build"
-PUBLISH_OUTPUT_DIRECTORY="../../bin/Release/net6.0/publishLinux/."
+PUBLISH_OUTPUT_DIRECTORY="../../bin/Release/net8.0/publishLinux/."
 APP_TAR_NAME1="Amplitude_Soundboard_"
 APP_TAR_NAME2="linux_AppImage_x86_64"
 

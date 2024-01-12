@@ -1,6 +1,6 @@
 /*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -21,12 +21,10 @@
 
 using Amplitude.Helpers;
 using Amplitude.Localization;
-using Amplitude.Models;
 using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -40,7 +38,7 @@ namespace Amplitude.Views
 {
     public partial class UpdatePrompt : Window, INotifyPropertyChanged
     {
-        public static ThemeHandler ThemeHandler { get => App.ThemeHandler; }
+        public static ThemeHandler ThemeHandler => App.ThemeHandler;
         public bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
 
         private string newVersion = "";

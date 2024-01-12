@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -46,20 +46,20 @@ namespace Amplitude.Helpers
         private delegate int LowLevelKeyboardProcDelegate(int nCode, int wParam, ref KBDLLHOOKSTRUCT lParam);
 
         private static List<(SoundClip clip, Action<SoundClip, string> callback)> soundClipCallbacks = new List<(SoundClip, Action<SoundClip, string>)>();
-        private static (Options options, Action<Options, string> callback) globalStopCallback;
+        private static (Config? config, Action<Config, string> callback) globalStopCallback;
 
         // Kind of janky, but works for now
         public const long KEYPRESSTIMEOUT = 150;
         private static string currentKey = "";
 
-        static LowLevelKeyboardProcDelegate hook;
+        readonly LowLevelKeyboardProcDelegate hook;
         const int WH_KEYBOARD_LL = 13;
-        private IntPtr winHook;
+        private readonly IntPtr winHook;
 
         private static SortedSet<string> specialKey = new SortedSet<string>();
 
         private static WinKeyboardHook? _instance;
-        public static WinKeyboardHook Instance { get => _instance ??= new WinKeyboardHook(); }
+        public static WinKeyboardHook Instance => _instance ??= new WinKeyboardHook();
 
         private WinKeyboardHook()
         {
@@ -110,10 +110,10 @@ namespace Amplitude.Helpers
 
                             if (!KeySpecial(currentKey))
                             {
-                                if (globalStopCallback.options != null)
+                                if (globalStopCallback.config != null)
                                 {
-                                    globalStopCallback.callback(globalStopCallback.options, fullKey);
-                                    globalStopCallback.options = null;
+                                    globalStopCallback.callback(globalStopCallback.config, fullKey);
+                                    globalStopCallback.config = null;
                                 }
                                 else if (soundClipCallbacks.Count > 0)
                                 {
@@ -134,12 +134,8 @@ namespace Amplitude.Helpers
                                         }
                                         else
                                         {
-                                            SoundClip clip = App.SoundClipManager.GetClip(item);
-
-                                            if (clip != null)
-                                            {
-                                                clip.PlayAudio();
-                                            }
+                                            var clip = App.SoundClipManager.GetClip(item);
+                                            clip?.PlayAudio();
                                         }
 
                                     }
@@ -243,9 +239,9 @@ namespace Amplitude.Helpers
             soundClipCallbacks.Add((clip, callback));
         }
 
-        public void SetGlobalStopHotkey(Options options, Action<Options, string> callback)
+        public void SetGlobalStopHotkey(Config config, Action<Config, string> callback)
         {
-            globalStopCallback = (options, callback);
+            globalStopCallback = (config, callback);
         }
 
         public void Dispose()

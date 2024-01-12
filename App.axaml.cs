@@ -1,6 +1,6 @@
 /*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -60,8 +60,9 @@ namespace AmplitudeSoundboard
         public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
         public static ThemeHandler ThemeHandler => ThemeHandler.Instance;
         public static WindowManager WindowManager => WindowManager.Instance;
-        public static OptionsManager OptionsManager => OptionsManager.Instance;
+        public static ConfigManager ConfigManager => ConfigManager.Instance;
         public static ISoundEngine SoundEngine => MSoundEngine.Instance;
+        public static JsonIoManager JsonIoManager => JsonIoManager.Instance;
 
 #if Windows
         public static IKeyboardHook KeyboardHook => WinKeyboardHook.Instance;
@@ -111,7 +112,7 @@ namespace AmplitudeSoundboard
                 // Initialize managers to make sure they are active
                 var e = SoundEngine;
                 var k = KeyboardHook;
-                var o = OptionsManager;
+                var o = ConfigManager;
                 var p = OutputProfileManager;
                 var s = SoundClipManager;
                 var h = HotkeysManager;
@@ -121,7 +122,7 @@ namespace AmplitudeSoundboard
                 w.SetMainWindow((MainWindow)desktop.MainWindow);
 
                 // Trigger UI redraw
-                OptionsManager.OnPropertyChanged(nameof(OptionsManager.Options));
+                ConfigManager.OnPropertyChanged(nameof(ConfigManager.Config));
 #if !DEBUG
 #if Windows
                 Task.Run(CleanupOldFiles);

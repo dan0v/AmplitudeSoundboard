@@ -1,6 +1,6 @@
 /*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -28,13 +28,13 @@ namespace Amplitude.ViewModels
 {
     public sealed class GlobalSettingsViewModel : ViewModelBase
     {
-        private Options _model;
-        public Options Model { get => _model; }
-        public static string[] Languages { get => Localization.Localizer.Languages.Keys.ToArray(); }
+        private Config _model;
+        public Config Model => _model;
+        public static string[] Languages => Localization.Localizer.Languages.Keys.ToArray();
 
         public GlobalSettingsViewModel()
         {
-            _model = OptionsManager.Options.ShallowCopy();
+            _model = ConfigManager.Config.ShallowCopy();
             Model.PropertyChanged += Model_PropertyChanged;
         }
 
@@ -46,13 +46,7 @@ namespace Amplitude.ViewModels
             }
         }
 
-        public bool CanSave
-        {
-            get
-            {
-                return !WaitingForHotkey;
-            }
-        }
+        public bool CanSave => !WaitingForHotkey;
 
         private bool _waitingForHotkey;
         public bool WaitingForHotkey
@@ -79,9 +73,9 @@ namespace Amplitude.ViewModels
             HotkeysManager.RecordGlobalStopSoundHotkey(Model);
         }
 
-        public void SaveOptions()
+        public void SaveConfig()
         {
-            OptionsManager.SaveAndOverwriteOptions(Model);
+            ConfigManager.SaveAndOverwriteConfig(Model);
             _model = Model.ShallowCopy();
             OnPropertyChanged(nameof(Model));
         }

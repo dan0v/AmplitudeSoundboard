@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -20,19 +20,20 @@
 */
 
 using Amplitude.Helpers;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 
 namespace Amplitude.Models
 {
     public class OutputProfile : INotifyPropertyChanged
     {
         private string _id = null;
-        [JsonIgnore]
+        
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public string Id => _id;
 
         public void InitializeId(string? newId)
@@ -80,23 +81,17 @@ namespace Amplitude.Models
             }
         }
 
-        public OutputProfile(Collection<OutputSettings>? settings = null)
+        [JsonConstructor]
+        public OutputProfile()
         {
-            if (settings == null)
-            {
-                OutputSettings defaultSettings = new OutputSettings();
-                OutputSettings = new ObservableCollection<OutputSettings>(new List<OutputSettings>() { defaultSettings });
-                Name = ISoundEngine.DEFAULT_DEVICE_NAME;
-            }
-            else
-            {
-                OutputSettings = new ObservableCollection<OutputSettings>(settings);
-            }
+            OutputSettings defaultSettings = new OutputSettings();
+            OutputSettings = new ObservableCollection<OutputSettings>(new List<OutputSettings>() { defaultSettings });
+            Name = ISoundEngine.DEFAULT_DEVICE_NAME;
         }
 
-        public string ToJSON()
+        public OutputProfile(Collection<OutputSettings> settings)
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            OutputSettings = new ObservableCollection<OutputSettings>(settings);
         }
 
         public OutputProfile ShallowCopy()

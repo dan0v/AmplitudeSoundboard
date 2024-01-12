@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -26,22 +26,25 @@ using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Timers;
 
 namespace Amplitude.Helpers
 {
+    [JsonSerializable(typeof(Dictionary<string, WindowSizeAndPosition>))]
+    public partial class WindowManagerContext : JsonSerializerContext { }
+
     public class WindowManager : INotifyPropertyChanged
     {
         private static WindowManager? _instance;
-        public static WindowManager Instance { get => _instance ??= new WindowManager(); }
+        public static WindowManager Instance => _instance ??= new WindowManager();
 
         public WindowManager()
         {
@@ -59,7 +62,7 @@ namespace Amplitude.Helpers
             AutoReset = false,
         };
 
-        private static string WINDOW_POSITION_FILE_LOCATION => Path.Join(App.APP_STORAGE, "window-positions.json");
+        private const string WINDOW_POSITION_FILE_LOCATION = "window-positions.json";
 
         private Dictionary<string, WindowSizeAndPosition> windowSizesAndPositions = new();
 
@@ -91,7 +94,7 @@ namespace Amplitude.Helpers
             }
         }
 
-        public double DesktopScaling { get => MainWindow?.DesktopScaling ?? 1; }
+        public double DesktopScaling => MainWindow?.DesktopScaling ?? 1;
 
         public void OpenEditOutputProfileWindow(string? Id = null)
         {
@@ -277,18 +280,16 @@ namespace Amplitude.Helpers
         }
 
         public bool ErrorListWindowOpen = false;
-        private ErrorList _errorListWindow;
+        private ErrorList? _errorListWindow = null;
         public ErrorList ErrorListWindow
         {
             get
             {
-                if (_errorListWindow == null)
+                _errorListWindow ??= new ErrorList
                 {
-                    _errorListWindow = new ErrorList
-                    {
-                        DataContext = new ErrorListViewModel(),
-                    };
-                }
+                    DataContext = new ErrorListViewModel(),
+                };
+                
                 return _errorListWindow;
             }
         }
@@ -304,7 +305,7 @@ namespace Amplitude.Helpers
                 return;
             }
 
-            ((ErrorListViewModel)ErrorListWindow.DataContext)?.AddErrorString(errorString);
+            ((ErrorListViewModel?)ErrorListWindow.DataContext)?.AddErrorString(errorString);
             ShowErrorListWindow();
         }
 
@@ -318,7 +319,7 @@ namespace Amplitude.Helpers
                 });
                 return;
             }
-            ((ErrorListViewModel)ErrorListWindow.DataContext)?.AddErrorOutputProfile(profile, errorType, additionalData);
+            ((ErrorListViewModel?)ErrorListWindow.DataContext)?.AddErrorOutputProfile(profile, errorType, additionalData);
             ShowErrorListWindow();
         }
 
@@ -332,7 +333,7 @@ namespace Amplitude.Helpers
                 });
                 return;
             }
-            ((ErrorListViewModel)ErrorListWindow.DataContext)?.AddErrorSoundClip(clip, errorType, additionalData);
+            ((ErrorListViewModel?)ErrorListWindow.DataContext)?.AddErrorSoundClip(clip, errorType, additionalData);
             ShowErrorListWindow();
         }
 
@@ -473,7 +474,8 @@ namespace Amplitude.Helpers
 
                     try
                     {
-                        File.WriteAllText(WINDOW_POSITION_FILE_LOCATION, JsonConvert.SerializeObject(windowSizesAndPositions, Formatting.Indented));
+                        var json = App.JsonIoManager.ConvertObjectsToJSON(windowSizesAndPositions);
+                        App.JsonIoManager.SaveJSONToFile(WINDOW_POSITION_FILE_LOCATION, json);
                     } catch { }
                 }
             });
@@ -511,9 +513,9 @@ namespace Amplitude.Helpers
             {
                 try
                 {
-                    var saved = File.ReadAllText(WINDOW_POSITION_FILE_LOCATION);
-                    Dictionary<string, WindowSizeAndPosition>? processed = JsonConvert.DeserializeObject<Dictionary<string, WindowSizeAndPosition>>(saved);
-
+                    var saved = App.JsonIoManager.RetrieveJSONFromFile(WINDOW_POSITION_FILE_LOCATION);
+                    var processed = App.JsonIoManager.ConvertObjectsFromJSON<Dictionary<string, WindowSizeAndPosition>>(saved);
+                    
                     if (processed != null)
                     {
                         windowSizesAndPositions = processed;
@@ -586,7 +588,7 @@ namespace Amplitude.Helpers
             {
                 var newWindowSize = MainWindow.WindowSize;
 
-                if (App.OptionsManager.Options.AutoScaleTilesToWindow && lastMainWindowSize != newWindowSize)
+                if (App.ConfigManager.Config.AutoScaleTilesToWindow && lastMainWindowSize != newWindowSize)
                 {
                     lastMainWindowSize = newWindowSize;
                     App.SoundClipManager.RescaleAllBackgroundImages();

@@ -1,6 +1,6 @@
 <!--
     AmplitudeSoundboard
-    Copyright (C) 2021-2023 dan0v
+    Copyright (C) 2021-2024 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -225,7 +225,7 @@
             <!--Can't put a tooltip on disabled elements and even putting it on the parent doesn't work, so I don't know how we can signal why this button is disabled-->
             <Panel Grid.Column="1">
               <!--ToolTip.Tip="{Binding SaveButtonTooltip}">-->
-              <Button ToolTip.Tip="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveOptions}" IsEnabled="{Binding CanSave}" Margin="5,5,10,5" HorizontalAlignment="Right">
+              <Button ToolTip.Tip="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveConfig}" IsEnabled="{Binding CanSave}" Margin="5,5,10,5" HorizontalAlignment="Right">
                 <Panel>
                   <Image Source="{Binding ThemeHandler.Save}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Panel>
