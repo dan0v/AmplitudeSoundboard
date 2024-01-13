@@ -103,12 +103,12 @@ namespace AmplitudeSoundboard
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
+                MigrateLocalAppData();
+
                 desktop.MainWindow = new MainWindow
                 {
                     DataContext = new MainWindowViewModel(),
                 };
-
-                MigrateLocalAppData();
 
                 // Initialize managers to make sure they are active
                 var e = SoundEngine;
@@ -195,12 +195,8 @@ namespace AmplitudeSoundboard
 #if MacOS
             var oldLocalAppData = Path.Join(GetFolderPath(SpecialFolder.UserProfile, SpecialFolderOption.DoNotVerify), ".local/share/amplitude-soundboard");
 
-            if (Directory.Exists(oldLocalAppData))
+            if (Directory.Exists(oldLocalAppData) && !Directory.Exists(localApplicationDataPath))
             {
-                if (Directory.Exists(localApplicationDataPath))
-                {
-                    Directory.Delete(localApplicationDataPath, true);
-                }
                 Directory.Move(oldLocalAppData, localApplicationDataPath);
             }
 #endif
