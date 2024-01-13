@@ -1,7 +1,7 @@
 # Amplitude Soundboard
 ![GitHub Logo](Branding/Banner.png)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # [Website](https://amplitude-soundboard.dan0v.com/index.html)
@@ -73,18 +73,21 @@ Many thanks to all these people! ([emoji key](https://allcontributors.org/docs/e
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://github.com/dan0v"><img src="https://avatars.githubusercontent.com/u/7658521?v=4?s=100" width="100px;" alt=""/><br /><sub><b>dan0v</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=dan0v" title="Code">💻</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/issues?q=author%3Adan0v" title="Bug reports">🐛</a> <a href="#design-dan0v" title="Design">🎨</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=dan0v" title="Documentation">📖</a> <a href="#maintenance-dan0v" title="Maintenance">🚧</a> <a href="#platform-dan0v" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/pulls?q=is%3Apr+reviewed-by%3Adan0v" title="Reviewed Pull Requests">👀</a> <a href="#userTesting-dan0v" title="User Testing">📓</a></td>
-    <td align="center"><a href="https://github.com/Taylor-Cozy"><img src="https://avatars.githubusercontent.com/u/19821121?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Taylor Hetherington</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=Taylor-Cozy" title="Code">💻</a> <a href="#userTesting-Taylor-Cozy" title="User Testing">📓</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=Taylor-Cozy" title="Documentation">📖</a> <a href="#design-Taylor-Cozy" title="Design">🎨</a></td>
-    <td align="center"><a href="https://github.com/John-Cozy"><img src="https://avatars.githubusercontent.com/u/36801893?v=4?s=100" width="100px;" alt=""/><br /><sub><b>John</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=John-Cozy" title="Code">💻</a> <a href="#userTesting-John-Cozy" title="User Testing">📓</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=John-Cozy" title="Documentation">📖</a> <a href="#design-John-Cozy" title="Design">🎨</a></td>
-    <td align="center"><a href="https://github.com/scottajevans"><img src="https://avatars.githubusercontent.com/u/39980206?v=4?s=100" width="100px;" alt=""/><br /><sub><b>scottajevans</b></sub></a><br /><a href="#translation-scottajevans" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/SonjaVredeveld"><img src="https://avatars.githubusercontent.com/u/10913197?v=4?s=100" width="100px;" alt=""/><br /><sub><b>SVredeveld</b></sub></a><br /><a href="#translation-SonjaVredeveld" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/GF1977"><img src="https://avatars.githubusercontent.com/u/13718260?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ilia Opiakin</b></sub></a><br /><a href="#translation-GF1977" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/AntoSkate"><img src="https://avatars.githubusercontent.com/u/36473846?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Antonio Brugnolo</b></sub></a><br /><a href="#translation-AntoSkate" title="Translation">🌍</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://ktos.info"><img src="https://avatars.githubusercontent.com/u/1633261?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcin Badurowicz</b></sub></a><br /><a href="#translation-ktos" title="Translation">🌍</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=ktos" title="Code">💻</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/dan0v"><img src="https://avatars.githubusercontent.com/u/7658521?v=4?s=100" width="100px;" alt="dan0v"/><br /><sub><b>dan0v</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=dan0v" title="Code">💻</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/issues?q=author%3Adan0v" title="Bug reports">🐛</a> <a href="#design-dan0v" title="Design">🎨</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=dan0v" title="Documentation">📖</a> <a href="#maintenance-dan0v" title="Maintenance">🚧</a> <a href="#platform-dan0v" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/pulls?q=is%3Apr+reviewed-by%3Adan0v" title="Reviewed Pull Requests">👀</a> <a href="#userTesting-dan0v" title="User Testing">📓</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Taylor-Cozy"><img src="https://avatars.githubusercontent.com/u/19821121?v=4?s=100" width="100px;" alt="Taylor Hetherington"/><br /><sub><b>Taylor Hetherington</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=Taylor-Cozy" title="Code">💻</a> <a href="#userTesting-Taylor-Cozy" title="User Testing">📓</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=Taylor-Cozy" title="Documentation">📖</a> <a href="#design-Taylor-Cozy" title="Design">🎨</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/John-Cozy"><img src="https://avatars.githubusercontent.com/u/36801893?v=4?s=100" width="100px;" alt="John"/><br /><sub><b>John</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=John-Cozy" title="Code">💻</a> <a href="#userTesting-John-Cozy" title="User Testing">📓</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=John-Cozy" title="Documentation">📖</a> <a href="#design-John-Cozy" title="Design">🎨</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/scottajevans"><img src="https://avatars.githubusercontent.com/u/39980206?v=4?s=100" width="100px;" alt="scottajevans"/><br /><sub><b>scottajevans</b></sub></a><br /><a href="#translation-scottajevans" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/SonjaVredeveld"><img src="https://avatars.githubusercontent.com/u/10913197?v=4?s=100" width="100px;" alt="SVredeveld"/><br /><sub><b>SVredeveld</b></sub></a><br /><a href="#translation-SonjaVredeveld" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/GF1977"><img src="https://avatars.githubusercontent.com/u/13718260?v=4?s=100" width="100px;" alt="Ilia Opiakin"/><br /><sub><b>Ilia Opiakin</b></sub></a><br /><a href="#translation-GF1977" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/AntoSkate"><img src="https://avatars.githubusercontent.com/u/36473846?v=4?s=100" width="100px;" alt="Antonio Brugnolo"/><br /><sub><b>Antonio Brugnolo</b></sub></a><br /><a href="#translation-AntoSkate" title="Translation">🌍</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://ktos.info"><img src="https://avatars.githubusercontent.com/u/1633261?v=4?s=100" width="100px;" alt="Marcin Badurowicz"/><br /><sub><b>Marcin Badurowicz</b></sub></a><br /><a href="#translation-ktos" title="Translation">🌍</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=ktos" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Swell61"><img src="https://avatars.githubusercontent.com/u/32226560?v=4?s=100" width="100px;" alt="Samuel"/><br /><sub><b>Samuel</b></sub></a><br /><a href="#userTesting-swell61" title="User Testing">📓</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->
