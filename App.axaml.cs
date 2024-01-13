@@ -40,18 +40,17 @@ namespace AmplitudeSoundboard
 {
     public class App : Application, INotifyPropertyChanged
     {
+        private static string localApplicationDataPath = Path.Join(GetFolderPath(SpecialFolder.LocalApplicationData, SpecialFolderOption.DoNotVerify), "amplitude-soundboard");
         public static string APP_STORAGE
         {
             get
             {
-                string path = Path.Join(GetFolderPath(SpecialFolder.LocalApplicationData, SpecialFolderOption.DoNotVerify), "amplitude-soundboard");
-
-                if (!Directory.Exists(path))
+                if (!Directory.Exists(localApplicationDataPath))
                 {
-                    Directory.CreateDirectory(path);
+                    Directory.CreateDirectory(localApplicationDataPath);
                 }
 
-                return path;
+                return localApplicationDataPath;
             }
         }
 
@@ -108,6 +107,8 @@ namespace AmplitudeSoundboard
                 {
                     DataContext = new MainWindowViewModel(),
                 };
+
+                MigrateLocalAppData();
 
                 // Initialize managers to make sure they are active
                 var e = SoundEngine;
@@ -186,6 +187,18 @@ namespace AmplitudeSoundboard
             {
                 Debug.WriteLine(e);
             }
+        }
+
+        private void MigrateLocalAppData()
+        {
+#if MacOS
+            var oldLocalAppData = Path.Join(GetFolderPath(SpecialFolder.UserProfile, SpecialFolderOption.DoNotVerify), ".local/share/amplitude-soundboard");
+
+            if (Directory.Exists(oldLocalAppData))
+            {
+                Directory.Move(oldLocalAppData, localApplicationDataPath);
+            }
+#endif
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

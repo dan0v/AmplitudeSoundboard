@@ -110,7 +110,7 @@ namespace Amplitude.Views
                         await streamToReadFrom.CopyToAsync(streamToWriteTo);
                     }
 
-                    ZipFile.ExtractToDirectory(zipPath, outputPath);
+                    ZipFile.ExtractToDirectory(zipPath, outputPath, true);
 
                     // Mark current application as outdated
                     if (File.Exists(oldFilePath))
