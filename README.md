@@ -1,7 +1,7 @@
 # Amplitude Soundboard
 ![GitHub Logo](Branding/Banner.png)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # [Website](https://amplitude-soundboard.dan0v.com/index.html)
@@ -86,7 +86,6 @@ Many thanks to all these people! ([emoji key](https://allcontributors.org/docs/e
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://ktos.info"><img src="https://avatars.githubusercontent.com/u/1633261?v=4?s=100" width="100px;" alt="Marcin Badurowicz"/><br /><sub><b>Marcin Badurowicz</b></sub></a><br /><a href="#translation-ktos" title="Translation">🌍</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=ktos" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Swell61"><img src="https://avatars.githubusercontent.com/u/32226560?v=4?s=100" width="100px;" alt="Samuel"/><br /><sub><b>Samuel</b></sub></a><br /><a href="#userTesting-swell61" title="User Testing">📓</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/thanks"><img src="https://avatars.githubusercontent.com/u/1121545?v=4?s=100" width="100px;" alt="Thanks"/><br /><sub><b>Thanks</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=Thanks" title="Tests">⚠️</a></td>
     </tr>
   </tbody>
 </table>
