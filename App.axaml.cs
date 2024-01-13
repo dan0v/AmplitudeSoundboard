@@ -191,11 +191,16 @@ namespace AmplitudeSoundboard
 
         private void MigrateLocalAppData()
         {
+
 #if MacOS
             var oldLocalAppData = Path.Join(GetFolderPath(SpecialFolder.UserProfile, SpecialFolderOption.DoNotVerify), ".local/share/amplitude-soundboard");
 
             if (Directory.Exists(oldLocalAppData))
             {
+                if (Directory.Exists(localApplicationDataPath))
+                {
+                    Directory.Delete(localApplicationDataPath, true);
+                }
                 Directory.Move(oldLocalAppData, localApplicationDataPath);
             }
 #endif
