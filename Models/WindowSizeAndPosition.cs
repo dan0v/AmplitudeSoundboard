@@ -25,16 +25,42 @@ namespace Amplitude.Models
 {
     public class WindowSizeAndPosition
     {
-        public PixelPoint? WindowPosition;
+        public Position? WindowPosition;
         public double? Height;
         public double? Width;
 
+        public WindowSizeAndPosition() { }
+
         public WindowSizeAndPosition(PixelPoint? windowPosition, double? height, double? width)
         {
-            WindowPosition = windowPosition;
+            if (windowPosition != null)
+            {
+                WindowPosition = new Position(windowPosition?.X ?? 0, windowPosition?.Y ?? 0);
+            }
+
             Height = height;
             Width = width;
         }
 
+    }
+
+    public class Position
+    {
+        public int X = 0;
+        public int Y = 0;
+
+        public Position()
+        { }
+
+        public Position(int x, int y)
+        {
+            this.X = x;
+            this.Y = y;
+        }
+
+        public PixelPoint ToPixelPoint()
+        {
+            return new PixelPoint().WithX(X).WithY(Y);
+        }
     }
 }

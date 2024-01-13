@@ -154,6 +154,20 @@ namespace Amplitude.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public int DesiredImageWidth => AutoScaleTilesToWindow ? ActualTileWidth : GridTileWidth ?? 1;
 
+        private bool _checkForUpdates = true;
+        public bool CheckForUpdates
+        {
+            get => _checkForUpdates;
+            set
+            {
+                if (value != _checkForUpdates)
+                {
+                    _checkForUpdates = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private bool _hideTutorial = false;
         public bool HideTutorial
         {

@@ -227,9 +227,9 @@ namespace Amplitude.Helpers
                     {
                         window.Width = mainWindowData.Width.Value;
                     }
-                    if (mainWindowData.WindowPosition.HasValue)
+                    if (mainWindowData.WindowPosition != null)
                     {
-                        window.Position = mainWindowData.WindowPosition.Value;
+                        window.Position = mainWindowData.WindowPosition.ToPixelPoint();
                     }
                 }
             }
@@ -525,9 +525,9 @@ namespace Amplitude.Helpers
         }
         private void SetAvailableWindowDetails(Window window, WindowSizeAndPosition info)
         {
-            if (info.WindowPosition.HasValue)
+            if (info.WindowPosition != null)
             {
-                window.Position = new PixelPoint(info.WindowPosition.Value.X, info.WindowPosition.Value.Y);
+                window.Position = info.WindowPosition.ToPixelPoint();
             }
             if (info.Height.HasValue)
             {

@@ -38,6 +38,7 @@ namespace Amplitude.Helpers
         private ThemeHandler()
         {
             SelectTheme(App.ConfigManager.Config.ThemeId);
+            RefreshTheme();
         }
 
         public void SelectTheme(int selection)
@@ -62,7 +63,7 @@ namespace Amplitude.Helpers
             };
 
         public FontFamily TitleFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/JosefinSans/#Josefin Sans");
-        public FontFamily BodyFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/NotoSansDisplay/");
+        public FontFamily BodyFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/NotoSansDisplay/#Noto Sans Display");
 
 
         public Color FadedTextBackgroundColor
@@ -250,7 +251,7 @@ namespace Amplitude.Helpers
             {
                 return;
             }
-            
+
             App.Current.RequestedThemeVariant = SelectedTheme switch
             {
                 Theme.LIGHT => ThemeVariant.Light,

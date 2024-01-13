@@ -142,6 +142,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check for updates.
+        /// </summary>
+        internal static string CheckForUpdates {
+            get {
+                return ResourceManager.GetString("CheckForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear audio cache to free RAM.
         /// </summary>
         internal static string ClearCache {
@@ -538,7 +547,7 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loop clip.
+        ///   Looks up a localized string similar to Repeat clip.
         /// </summary>
         internal static string LoopClipLabel {
             get {
@@ -547,7 +556,7 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loop clip forever.
+        ///   Looks up a localized string similar to Repeat clip forever.
         /// </summary>
         internal static string LoopClipTooltip {
             get {

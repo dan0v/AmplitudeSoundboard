@@ -393,4 +393,7 @@
   <data name="LoopClipTooltip" xml:space="preserve">
     <value>Hang ismétlése örökké</value>
   </data>
+  <data name="CheckForUpdates" xml:space="preserve">
+    <value>Frissítések keresése</value>
+  </data>
 </root>

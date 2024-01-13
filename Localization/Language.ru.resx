@@ -393,4 +393,7 @@
   <data name="LoopClipTooltip" xml:space="preserve">
     <value>Повторять клип бесконечно</value>
   </data>
+  <data name="CheckForUpdates" xml:space="preserve">
+    <value>Проверьте наличие обновлений</value>
+  </data>
 </root>

@@ -393,4 +393,7 @@
   <data name="LoopClipTooltip" xml:space="preserve">
     <value>Herhaal clip voor altijd</value>
   </data>
+  <data name="CheckForUpdates" xml:space="preserve">
+    <value>Controleer op updates</value>
+  </data>
 </root>

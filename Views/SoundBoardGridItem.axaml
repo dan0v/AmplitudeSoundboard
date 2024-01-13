@@ -27,19 +27,9 @@
              mc:Ignorable="d" d:DesignWidth="150" d:DesignHeight="150"
              Height="{Binding Height}" Width="{Binding Width}"
              x:Class="Amplitude.Views.SoundBoardGridItem">
+  
   <UserControl.Styles>
-    <Style Selector="Image:disabled">
-      <Setter Property="Opacity" Value="0.5"/>
-    </Style>
-    <Style Selector="TextBlock">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
-    </Style>
-    <Style Selector="TextBox">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
-    </Style>
-    <Style Selector="Button">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
-    </Style>
+    <StyleInclude Source="/Styles/DefaultStyle.axaml" />
   </UserControl.Styles>
 
   <Design.DataContext>

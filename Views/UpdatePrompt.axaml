@@ -22,30 +22,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="420" d:DesignHeight="170"
+        mc:Ignorable="d" d:DesignWidth="420" d:DesignHeight="200"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.UpdatePrompt"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize UpdatePromptTitle}"
-        Width="420" Height="170" MinWidth="420" MinHeight="170" MaxHeight="170" MaxWidth="420"
+        Width="420" Height="200" MinWidth="420" MinHeight="170" MaxHeight="200" MaxWidth="420"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
 
   <Window.Styles>
-    <Style Selector="Image:disabled">
-      <Setter Property="Opacity" Value="0.5"/>
-    </Style>
-    <Style Selector="TextBlock">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
-    </Style>
-    <Style Selector="TextBox">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
-    </Style>
-    <Style Selector="Button">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
-    </Style>
+    <StyleInclude Source="/Styles/DefaultStyle.axaml" />
   </Window.Styles>
 
   <Panel>

@@ -34,23 +34,9 @@
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
-  
+
     <Window.Styles>
-      <Style Selector="Image:disabled">
-        <Setter Property="Opacity" Value="0.5"/>
-      </Style>
-      <Style Selector="TextBlock">
-        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
-      </Style>
-      <Style Selector="TextBox">
-        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
-      </Style>
-      <Style Selector="Button">
-        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
-      </Style>
-      <Style Selector="Label:disabled">
-        <Setter Property="Opacity" Value="0.25"/>
-      </Style>
+      <StyleInclude Source="/Styles/DefaultStyle.axaml" />
     </Window.Styles>
   
     <Design.DataContext>

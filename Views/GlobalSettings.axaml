@@ -23,33 +23,19 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="620"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="680"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         xmlns:converters="clr-namespace:Amplitude.Converters"
         x:Class="Amplitude.Views.GlobalSettings"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize GlobalSettingsTitle}"
-        Width="400" Height="620" MinWidth="400" MinHeight="320"
+        Width="400" Height="680" MinWidth="400" MinHeight="320"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
 
     <Window.Styles>
-      <Style Selector="Image:disabled">
-        <Setter Property="Opacity" Value="0.5"/>
-      </Style>
-      <Style Selector="TextBlock">
-        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
-      </Style>
-      <Style Selector="TextBox">
-        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
-      </Style>
-      <Style Selector="Button">
-        <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
-      </Style>
-      <Style Selector="Label:disabled">
-        <Setter Property="Opacity" Value="0.25"/>
-      </Style>
+      <StyleInclude Source="/Styles/DefaultStyle.axaml" />
     </Window.Styles>
 
     <Window.Resources>
@@ -95,52 +81,6 @@
               <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,5,0,5" SelectedIndex="{Binding Model.ThemeId}" ItemsSource="{Binding ThemeHandler.ThemesList}" HorizontalAlignment="Center"/>
             </Grid>
           </Border>
-
-          <!--Volume-->
-          <!--
-          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
-            <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
-            </Border.BorderBrush>
-            <Grid RowDefinitions="Auto,*">
-              <Label Grid.Row="0" Content="{i18n:Localize GlobalOutputDefaults}" HorizontalAlignment="Center"></Label>
-
-              <Grid Grid.Row="1" Margin="0,0,0,5">
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="Auto"/>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="Auto"/>
-                  <ColumnDefinition Width="150"/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Margin="5,0,5,0" Cursor="Hand" Command="{Binding Model.OutputSettings.DecreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                  <Panel>
-                    <Image Source="{Binding ThemeHandler.ArrowLeft}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                  </Panel>
-                </Button>
-                <Grid Grid.Column="1" RowDefinitions="*,20">
-                  <StackPanel HorizontalAlignment="Center" Grid.Row="0" Orientation="Horizontal">
-                    <Label Content="{i18n:Localize VolumeLabel}"></Label>
-                    <Label Content="{Binding Model.OutputSettings.Volume}" HorizontalAlignment="Center"></Label>
-                  </StackPanel>
-                  <Slider Grid.Row="1" VerticalAlignment="Center" Height="50" Margin="0,-15,0,0" Cursor="Hand" SmallChange="1" LargeChange="10" TickFrequency="1" Orientation="Horizontal" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickPlacement="None" Value="{Binding Path=Model.OutputSettings.Volume, Mode=TwoWay}" Padding="5,0,5,0">
-                    <Slider.Foreground>
-                      <SolidColorBrush Color="{Binding ThemeHandler.SliderForeground}"/>
-                    </Slider.Foreground>
-                    <Slider.Background>
-                      <SolidColorBrush Color="{Binding ThemeHandler.SliderBackground}"/>
-                    </Slider.Background>
-                  </Slider>
-                </Grid>
-                <Button Grid.Column="2" Margin="5,0,5,0" Cursor="Hand" Command="{Binding Model.OutputSettings.IncreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                  <Panel>
-                    <Image Source="{Binding ThemeHandler.ArrowRight}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                  </Panel>
-                </Button>
-                <ComboBox Width="150" Grid.Column="3" AutoScrollToSelectedItem="True" Margin="0,5,0,5" SelectedItem="{Binding Model.OutputSettings.DeviceName}" ItemsSource="{Binding Model.OutputSettings.DeviceListForGlobal}" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize OutputDeviceLabel}"></ComboBox>
-              </Grid>
-            </Grid>
-          </Border>
-          -->
           
           <!--Grid size-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
@@ -209,6 +149,17 @@
               <Button HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" Command="{Binding ClearPositions}" Content="{i18n:Localize ClearPositions}" ToolTip.Tip="{i18n:Localize ClearPositionsTooltip}" Cursor="Hand"/>
           </Border>
 
+          <!--Check for updates-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+            </Border.BorderBrush>
+            <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center">
+              <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"  Text="{i18n:Localize CheckForUpdates}" ></TextBlock>
+              <CheckBox Grid.Column="1" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.CheckForUpdates}" Cursor="Hand"/>
+            </Grid>
+          </Border>
+          
           <!--Tutorial-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
@@ -219,7 +170,8 @@
               <CheckBox Grid.Column="1" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.HideTutorial}" Cursor="Hand"/>
             </Grid>
           </Border>
-          
+
+
           <!--Save button-->
           <Grid ColumnDefinitions="*,Auto">
             <!--Can't put a tooltip on disabled elements and even putting it on the parent doesn't work, so I don't know how we can signal why this button is disabled-->

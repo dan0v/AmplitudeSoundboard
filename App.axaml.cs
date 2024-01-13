@@ -164,6 +164,11 @@ namespace AmplitudeSoundboard
 
         private async void CheckForUpdates()
         {
+            if (!ConfigManager.Config.CheckForUpdates)
+            {
+                return;
+            }
+
             try
             {
                 HttpResponseMessage response = await new HttpClient().GetAsync(VERSION_CHECK_URL);
