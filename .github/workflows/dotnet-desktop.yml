@@ -36,12 +36,14 @@ jobs:
         cd Publish/Windows && /usr/bin/bash ./Windows.sh
         cd ../Linux && /usr/bin/bash ./Appimage.sh
         cd ../MacOS && /usr/bin/bash ./MacOS.sh
+        echo "VERSION=$(cat ../version.txt | sed 's/ *$//g' | sed 's/\r//' | sed ':a;N;$!ba;s/\n//g')" >> "$GITHUB_ENV"
 
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        name: latest_build
+        name: "Version $VERSION"
         prerelease: true
+        tag_name: "$VERSION"
         path: |
           Publish/Amplitude_Soundboard_linux_AppImage_x86_64.tar.gz
           Publish/Amplitude_Soundboard_macOS_x86_64.tar.gz
