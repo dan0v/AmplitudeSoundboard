@@ -69,7 +69,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y zip unzip
-        cd Publish/Windows && /usr/bin/bash./Windows.sh
+        cd Publish/Windows && /usr/bin/bash ./Windows.sh
         cd ../Linux && /usr/bin/bash ./Appimage.sh
         cd ../MacOS && /usr/bin/bash ./MacOS.sh
 
