@@ -2,7 +2,8 @@ name: Release .NET Cross Platform Desktop
 
 on:
   push:
-    branches: [ "temp" ]
+    tags:
+      - "v*.*.*"
 
 jobs:
 
@@ -37,7 +38,6 @@ jobs:
 
     - name: Release
       uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
       with:
         name: Latest
         path: |
