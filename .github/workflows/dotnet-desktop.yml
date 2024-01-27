@@ -68,7 +68,7 @@ jobs:
     - name: Publish packages
       run: |
         sudo apt-get update
-        sudo apt-get install -y zip unzip
+        sudo apt-get install -y zip unzip libfuse2
         cd Publish/Windows && /usr/bin/bash ./Windows.sh
         cd ../Linux && /usr/bin/bash ./Appimage.sh
         cd ../MacOS && /usr/bin/bash ./MacOS.sh
