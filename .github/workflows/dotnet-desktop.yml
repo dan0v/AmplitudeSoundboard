@@ -69,9 +69,9 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y zip unzip
-        /usr/bin/bash Publish/Windows/Windows.sh
-        /usr/bin/bash Publish/Linux/Appimage.sh
-        /usr/bin/bash Publish/Windows/MacOS.sh
+        cd Publish/Windows && /usr/bin/bash./Windows.sh
+        cd ../Linux && /usr/bin/bash ./Appimage.sh
+        cd ../MacOS && /usr/bin/bash ./MacOS.sh
 
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
