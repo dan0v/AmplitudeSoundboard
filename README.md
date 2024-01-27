@@ -1,5 +1,6 @@
 # Amplitude Soundboard
 ![GitHub Logo](Branding/Banner.png)
+[![Release .NET Cross Platform App](https://github.com/dan0v/AmplitudeSoundboard/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/dan0v/AmplitudeSoundboard/actions/workflows/dotnet-desktop.yml)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
