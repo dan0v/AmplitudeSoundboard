@@ -234,19 +234,34 @@ namespace Amplitude.Models
         {
             if (LoadBackgroundImage && BrowseIO.ValidImage(_imageFilePath, false))
             {
-                _backgroundImage = new Bitmap(_imageFilePath);
-                double initialWidth = _backgroundImage.PixelSize.Width;
-                double initialHeight = _backgroundImage.PixelSize.Height;
                 double intendedHeight = App.ConfigManager.Config.DesiredImageHeight;
                 double intendedWidth = App.ConfigManager.Config.DesiredImageWidth;
-                double scaleFactor = intendedWidth > intendedHeight ? initialWidth / intendedWidth : initialHeight / intendedHeight;
+
+                if (_backgroundImage != null)
+                {
+                    double currentWidth = _backgroundImage.PixelSize.Width;
+                    double currentHeight = _backgroundImage.PixelSize.Height;
+
+                    if (intendedHeight == currentHeight || intendedWidth == currentWidth)
+                    {
+                        return;
+                    }
+                }
+
+                var newImage = new Bitmap(_imageFilePath);
+                double imageWidth = newImage.PixelSize.Width;
+                double imageHeight = newImage.PixelSize.Height;
+
+                double scaleFactor = intendedWidth > intendedHeight ? imageWidth / intendedWidth : imageHeight / intendedHeight;
                 scaleFactor /= App.WindowManager.DesktopScaling;
                 try
                 {
-                    _backgroundImage = _backgroundImage.CreateScaledBitmap(new PixelSize((int)(initialWidth / scaleFactor), (int)(initialHeight / scaleFactor)), BitmapInterpolationMode.HighQuality);
+                    _backgroundImage = newImage.CreateScaledBitmap(new PixelSize((int)(imageWidth / scaleFactor), (int)(imageHeight / scaleFactor)), BitmapInterpolationMode.HighQuality);
+                    newImage.Dispose();
                 }
                 catch (Exception e)
                 {
+                    _backgroundImage = null;
                     App.WindowManager.ShowErrorString(e.Message);
                 }
             }

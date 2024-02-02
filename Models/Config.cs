@@ -202,7 +202,7 @@ namespace Amplitude.Models
 
                 if (row >= GridSoundClipIds.Length)
                 {
-                    break;
+                    continue;
                 }
                 for (int col = 0; col < newGrid[row].Length; col++)
                 {

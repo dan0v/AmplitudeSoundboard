@@ -30,11 +30,34 @@ namespace Amplitude.ViewModels
     {
         private string? soundClipId = null;
 
-        private double Height => ConfigManager.Config.AutoScaleTilesToWindow ? GetHeight() : ConfigManager.Config.GridTileHeight ?? 0;
-        private double Width => ConfigManager.Config.AutoScaleTilesToWindow ? GetWidth() : ConfigManager.Config.GridTileWidth ?? 0;
+        private double Height
+        {
+            get
+            {
+                if (ConfigManager.Config.AutoScaleTilesToWindow)
+                {
+                    return ConfigManager.Config.ActualTileHeight;
+                }
 
-        private int row = 0;
-        private int col = 0;
+                return ConfigManager.Config.GridTileHeight ?? 100;
+            }
+        }
+
+        private double Width
+        {
+            get
+            {
+                if (ConfigManager.Config.AutoScaleTilesToWindow)
+                {
+                    return ConfigManager.Config.ActualTileWidth;
+                }
+
+                return ConfigManager.Config.GridTileWidth ?? 100;
+            }
+        }
+
+        private readonly int row = 0;
+        private readonly int col = 0;
 
         private Cursor Cursor => SoundClipExists ? new Cursor(StandardCursorType.Hand) : new Cursor(StandardCursorType.Arrow);
 
@@ -146,6 +169,7 @@ namespace Amplitude.ViewModels
         {
             if (e.PropertyName == nameof(MainWindow.GridSize))
             {
+                ConfigManager.ComputeGridTileSizes();
                 OnPropertyChanged(nameof(Height));
                 OnPropertyChanged(nameof(Width));
             }
@@ -170,25 +194,10 @@ namespace Amplitude.ViewModels
         {
             if (e.PropertyName == nameof(ConfigManager.Config))
             {
+                ConfigManager.ComputeGridTileSizes();
                 OnPropertyChanged(nameof(Height));
                 OnPropertyChanged(nameof(Width));
             }
-        }
-
-        private double GetWidth()
-        {
-            var cols = ConfigManager.Config.GridColumns;
-            // TODO this is wasteful, but fine for now
-            ConfigManager.Config.ActualTileWidth = (int)(((WindowManager.MainWindow?.GridSize.width  - (11 * (cols + 1))) / cols) ?? ConfigManager.Config.GridTileWidth ?? 100);
-            return ConfigManager.Config.ActualTileWidth;
-        }
-
-        private double GetHeight()
-        {
-            var rows = ConfigManager.Config.GridRows;
-            // TODO this is wasteful, but fine for now
-            ConfigManager.Config.ActualTileHeight = (int)(((WindowManager.MainWindow?.GridSize.height - (11 * (rows + 1))) / rows) ?? ConfigManager.Config.GridTileHeight ?? 100);
-            return ConfigManager.Config.ActualTileHeight;
         }
 
         public void Unbind()

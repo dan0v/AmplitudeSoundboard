@@ -160,6 +160,15 @@ namespace Amplitude.Models
             return list;
         }
 
+        public void ComputeGridTileSizes()
+        {
+            var rows = Config.GridRows;
+            Config.ActualTileHeight = (int)(((App.WindowManager.MainWindow?.GridSize.height - (8 * rows) - 15) / rows) ?? Config.GridTileHeight ?? 100);
+            
+            var cols = Config.GridColumns;
+            Config.ActualTileWidth = (int)(((App.WindowManager.MainWindow?.GridSize.width - (10 * cols) - 10) / cols) ?? Config.GridTileWidth ?? 100);
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         public virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {

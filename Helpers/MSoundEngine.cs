@@ -68,7 +68,7 @@ namespace Amplitude.Helpers
                     if (t.LoopClip)
                     {
                         t.CurrentPos = 0;
-                        Bass.ChannelPlay(t.BassStreamId, false);
+                        Bass.ChannelPlay(t.BassStreamId, true);
                     }
                     else
                     {
