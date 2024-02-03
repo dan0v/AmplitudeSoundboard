@@ -211,12 +211,18 @@ namespace Amplitude.ViewModels
 
         public void PasteClip()
         {
+            if (SoundClipManager.GetClip(SoundClipManager.CopiedClipId, true) == null)
+            {
+                SoundClipManager.CopiedClipId = "";
+                return;
+            }
+
             if (!string.IsNullOrEmpty(soundClipId))
             {
                 Model.LoadBackgroundImage = false;
             }
+
             soundClipId = SoundClipManager.CopiedClipId;
-            SoundClipManager.CopiedClipId = "";
             ConfigManager.Config.GridSoundClipIds[row][col] = soundClipId;
             OnPropertyChanged(nameof(Model));
             ConfigManager.SaveAndOverwriteConfig(ConfigManager.Config);

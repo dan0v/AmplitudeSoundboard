@@ -21,6 +21,7 @@
 
 using Amplitude.Helpers;
 using Amplitude.Models;
+using DynamicData;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -52,11 +53,9 @@ namespace Amplitude.ViewModels
             ConfigManager.PropertyChanged += ConfigManager_PropertyChanged;
             SoundEngine.Queued.CollectionChanged += Queued_CollectionChanged;
 
+            var newRows = ConfigManager.GetGridLayout();
             GridItemsRows.Clear();
-            foreach (GridItemRow temp in ConfigManager.GetGridLayout())
-            {
-                GridItemsRows.Add(temp);
-            }
+            GridItemsRows.AddRange(newRows);
             OnPropertyChanged(nameof(GridItemsRows));
         }
 
@@ -78,11 +77,9 @@ namespace Amplitude.ViewModels
             {
                 OnPropertyChanged(nameof(StopAudioHotkey));
 
+                var newRows = ConfigManager.GetGridLayout();
                 GridItemsRows.Clear();
-                foreach (GridItemRow temp in ConfigManager.GetGridLayout())
-                {
-                    GridItemsRows.Add(temp);
-                }
+                GridItemsRows.AddRange(newRows);
                 OnPropertyChanged(nameof(GridItemsRows));
             }
         }

@@ -101,7 +101,7 @@ namespace Amplitude.Models
                 {
                     _imageFilePath = value;
                     OnPropertyChanged();
-                    SetAndRescaleBackgroundImage().Wait();
+                    SetAndRescaleBackgroundImage(true).Wait();
                 }
             }
         }
@@ -230,14 +230,14 @@ namespace Amplitude.Models
             App.WindowManager.OpenEditSoundClipWindow(Id);
         }
 
-        public async Task SetAndRescaleBackgroundImage()
+        public async Task SetAndRescaleBackgroundImage(bool forceUpdate = false)
         {
             if (LoadBackgroundImage && BrowseIO.ValidImage(_imageFilePath, false))
             {
                 double intendedHeight = App.ConfigManager.Config.DesiredImageHeight;
                 double intendedWidth = App.ConfigManager.Config.DesiredImageWidth;
 
-                if (_backgroundImage != null)
+                if (!forceUpdate && _backgroundImage != null)
                 {
                     double currentWidth = _backgroundImage.PixelSize.Width;
                     double currentHeight = _backgroundImage.PixelSize.Height;

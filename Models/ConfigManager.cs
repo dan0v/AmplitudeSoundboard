@@ -138,7 +138,7 @@ namespace Amplitude.Models
             List<GridItemRow> list = [];
             for (int row = 0; row < Config.GridSoundClipIds.Length; row++)
             {
-                GridItemRow rowItem = new GridItemRow();
+                GridItemRow rowItem = new();
 
                 if (Config.GridSoundClipIds[row] == null)
                 {
