@@ -1,5 +1,9 @@
 AmplitudeSoundboard relies on
 
+Avalonia
+Copyright (c) .NET Foundation and Contributors All Rights Reserved
+https://github.com/AvaloniaUI/Avalonia
+
 BASS, BASS_AAC, BASSALAC, BASSFLAC, BASSmix, BASSOPUS
 Copyright (C) 2003-2021 un4seen developments
 https://www.un4seen.com/
@@ -17,3 +21,7 @@ https://github.com/google/material-design-icons
 
 Noto Sans Display
 https://github.com/googlefonts/noto-fonts
+
+SharpHook
+Copyright (c) 2021 Anatoliy Pylypchuk
+https://github.com/TolikPylypchuk/SharpHook
