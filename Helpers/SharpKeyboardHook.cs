@@ -35,7 +35,7 @@ namespace Amplitude.Helpers
         private static List<(SoundClip clip, Action<SoundClip, string> callback)> soundClipCallbacks = new();
         private static (Config? config, Action<Config, string> callback) globalStopCallback;
 
-        private static readonly SortedSet<string> keySet = new();
+        private static readonly SortedSet<KeyCode> keySet = new();
         private readonly object keySetLock = new();
 
         private static SharpKeyboardHook? _instance;
@@ -50,43 +50,38 @@ namespace Amplitude.Helpers
 
         private void HandleKeyReleased(object? sender, KeyboardHookEventArgs e)
         {
-            var currentKey = GetFriendlyKeyName(e.Data.KeyCode);
             lock (keySetLock)
             {
-                keySet.Remove(currentKey);
+                keySet.Remove(e.Data.KeyCode);
             }
         }
 
         private void HandleKeyPressed(object? sender, KeyboardHookEventArgs e)
         {
-            var currentKey = GetFriendlyKeyName(e.Data.KeyCode);
+            var keyCode = e.Data.KeyCode;
 
-            if (currentKey == "" || currentKey == "LWin" || currentKey == "RWin" || currentKey == "Undefined")
+            if (IgnoreKey(keyCode))
             {
                 return;
             }
 
-            if (IsKeySpecial(currentKey))
+            if (IsKeySpecial(keyCode))
             {
                 lock (keySetLock)
                 {
-                    keySet.Add(currentKey);
+                    keySet.Add(keyCode);
                 }
             }
             else
             {
-                ProcessHotkey(currentKey);
+                ProcessHotkey(GetFriendlyKeyName(keyCode));
             }
+
         }
 
         private void ProcessHotkey(string currentKey)
         {
             var fullKey = FullKey(currentKey);
-
-            if (currentKey == "Esc")
-            {
-                currentKey = HotkeysManager.UNBIND_HOTKEY;
-            }
 
             if (globalStopCallback.config != null)
             {
@@ -123,15 +118,15 @@ namespace Amplitude.Helpers
         {
             lock (keySetLock)
             {
-                var keySetCopy = new SortedSet<string>(keySet);
+                var keySetCopy = new SortedSet<KeyCode>(keySet);
             }
 
             if (keySet.Count > 0)
             {
                 string full = "";
-                foreach (string key in keySet)
+                foreach (KeyCode keyCode in keySet)
                 {
-                    full += key + "|";
+                    full += GetFriendlyKeyName(keyCode) + "|";
                 }
                 return full + currentKey;
             }
@@ -141,13 +136,31 @@ namespace Amplitude.Helpers
             }
         }
 
-        private static bool IsKeySpecial(string key)
+        private static bool IgnoreKey(KeyCode keyCode)
         {
-            if (key == "LAlt" || key == "RAlt" || key == "LCtrl" || key == "RCtrl" || key == "LShift" || key == "RShift")
+            switch (keyCode)
             {
-                return true;
+                case KeyCode.VcLeftMeta:
+                case KeyCode.VcRightMeta:
+                case KeyCode.VcUndefined:
+                    return true;
+                default: return false;
             }
-            return false;
+        }
+
+        private static bool IsKeySpecial(KeyCode keyCode)
+        {
+            switch (keyCode)
+            {
+                case KeyCode.VcLeftAlt:
+                case KeyCode.VcRightAlt:
+                case KeyCode.VcLeftControl:
+                case KeyCode.VcRightControl:
+                case KeyCode.VcLeftShift:
+                case KeyCode.VcRightShift:
+                    return true;
+                default: return false;
+            }
         }
 
         private static string GetFriendlyKeyName(KeyCode keycode)
@@ -157,7 +170,7 @@ namespace Amplitude.Helpers
                 case KeyCode.VcTab: return "Tab";
                 case KeyCode.VcEnter: return "Enter";
                 case KeyCode.VcCapsLock: return "Caps";
-                case KeyCode.VcEscape: return "Esc";
+                case KeyCode.VcEscape: return HotkeysManager.UNBIND_HOTKEY;
                 case KeyCode.VcSpace: return "Space";
                 case KeyCode.VcPageUp: return "PgUp";
                 case KeyCode.VcPageDown: return "PgDown";
