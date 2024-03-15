@@ -73,8 +73,8 @@ namespace Amplitude.Helpers
                 new()
                 {
                     { OSPlatform.Windows, true },
-                    { OSPlatform.OSX, false },
-                    { OSPlatform.Linux, false },
+                    { OSPlatform.OSX, true },
+                    { OSPlatform.Linux, true },
                 }
             },
             {
