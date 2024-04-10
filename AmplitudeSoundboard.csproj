@@ -17,7 +17,7 @@
     <RootNamespace>Amplitude</RootNamespace>
     <NeutralLanguage>en</NeutralLanguage>
     <Platforms>AnyCPU;x64</Platforms>
-    <Version>2.8.0</Version>
+    <Version>2.9.0</Version>
     <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>partial</TrimMode>
@@ -42,7 +42,7 @@
     <PackageReference Include="ManagedBass.Flac" Version="3.1.1" />
     <PackageReference Include="ManagedBass.Mix" Version="3.1.1" />
     <PackageReference Include="ManagedBass.Opus" Version="3.1.1" />
-    <PackageReference Include="SharpHook" Version="5.3.1" />
+    <PackageReference Include="SharpHook" Version="5.3.2" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Localization\Language.Designer.cs">

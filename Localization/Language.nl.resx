@@ -370,7 +370,7 @@
     <value>Het uitvoerprofiel "{0}" ontbreekt en kan niet worden gebruikt om af te spelen!</value>
   </data>
   <data name="OutputProfileError" xml:space="preserve">
-    <value>Het uitvoerprofiel "{0}" heeft fouten:\\n{1}</value>.
+    <value>.</value>
   </data>
   <data name="EditOutputProfileTitle" xml:space="preserve">
     <value>Bewerk uitvoerprofiel</value>
@@ -395,5 +395,8 @@
   </data>
   <data name="CheckForUpdates" xml:space="preserve">
     <value>Controleer op updates</value>
+  </data>
+  <data name="StopAudioOnRetrigger" xml:space="preserve">
+    <value>Schakel audio in wanneer herhaaldelijk geactiveerd</value>
   </data>
 </root>

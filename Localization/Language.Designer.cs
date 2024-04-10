@@ -835,6 +835,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle audio when triggered repeatedly.
+        /// </summary>
+        internal static string StopAudioOnRetrigger {
+            get {
+                return ResourceManager.GetString("StopAudioOnRetrigger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test audio.
         /// </summary>
         internal static string TestSound {
