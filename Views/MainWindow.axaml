@@ -127,7 +127,7 @@
                   <ItemsControl.ItemTemplate>
                     <DataTemplate>
                       <Grid ColumnDefinitions="*,Auto" >
-                        <TextBlock Grid.Row="0" Text="{Binding Name}" ToolTip.Tip="{Binding Name}" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Column="0" Text="{Binding Name}" ToolTip.Tip="{Binding Name}" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <Button Grid.Column="1" ToolTip.Tip="{i18n:Localize Remove}" Command="{Binding $parent[ItemsControl].DataContext.RemoveFromQueue}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}" Cursor="Hand" Margin="2">
                           <Panel>
                             <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />

@@ -106,7 +106,7 @@ namespace Amplitude.Helpers
         {
             get
             {
-                List<string> devices = new List<string>();
+                List<string> devices = [];
                 // Index 0 is "No Sound", so skip
                 for (int dev = 1; dev < Bass.DeviceCount; dev++)
                 {
@@ -157,8 +157,55 @@ namespace Amplitude.Helpers
             }
         }
 
+        private void StopAndRemoveFromQueue(string id)
+        {
+            lock (queueLock)
+            {
+                var toRemove = Queued.Where(clip => clip.Id == id).ToList();
+                foreach (var clip in toRemove)
+                {
+                    Queued.Remove(clip);
+                }
+            }
+            lock (currentlyPlayingLock)
+            {
+                var toRemove = CurrentlyPlaying.Where(clip => clip.SoundClipId == id).ToList();
+                foreach (var clip in toRemove)
+                {
+                    Bass.StreamFree(clip.BassStreamId);
+                    CurrentlyPlaying.Remove(clip);
+                }
+            }
+        }
+
+        private bool ClipPlayingOrQueued(string id)
+        {
+            lock (queueLock)
+            {
+                if (Queued.Any(clip => clip.Id == id))
+                {
+                    return true;
+                }
+            }
+            lock (currentlyPlayingLock)
+            {
+                if (CurrentlyPlaying.Any(clip => clip.SoundClipId == id))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void Play(SoundClip source)
         {
+            var tempId = source.Id ?? source.AudioFilePath;
+            if (App.ConfigManager.Config.StopAudioOnRepeatTrigger && ClipPlayingOrQueued(tempId))
+            {
+                StopAndRemoveFromQueue(tempId);
+                return;
+            }
+
             if (!BrowseIO.ValidAudioFile(source.AudioFilePath, true, source))
             {
                 return;
@@ -166,11 +213,11 @@ namespace Amplitude.Helpers
 
             foreach (OutputSettings settings in source.OutputSettingsFromProfile)
             {
-                Play(source.AudioFilePath, settings.Volume, source.Volume, settings.DeviceName, source.LoopClip, source.Name);
+                Play(source.AudioFilePath, settings.Volume, source.Volume, settings.DeviceName, source.LoopClip, tempId, source.Name);
             }
         }
 
-        private void Play(string fileName, int volume, int volumeMultiplier, string playerDeviceName, bool loopClip, string? name = null)
+        private void Play(string fileName, int volume, int volumeMultiplier, string playerDeviceName, bool loopClip, string soundClipId, string ? name = null)
         {
             double vol = (volume / 100.0) * (volumeMultiplier / 100.0);
 
@@ -205,7 +252,7 @@ namespace Amplitude.Helpers
                         {
                             var len = Bass.ChannelGetLength(stream, PositionFlags.Bytes);
                             double length = Bass.ChannelBytes2Seconds(stream, len);
-                            PlayingClip track = new PlayingClip(name ?? Path.GetFileNameWithoutExtension(fileName) ?? "", playerDeviceName, stream, length, loopClip);
+                            PlayingClip track = new (string.IsNullOrEmpty(name) ? Path.GetFileNameWithoutExtension(fileName) ?? "" : name, soundClipId, playerDeviceName, stream, length, loopClip);
 
                             lock(currentlyPlayingLock)
                             {
@@ -269,14 +316,6 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void Dispose()
-        {
-            timer.Stop();
-            timer.Elapsed -= RefreshPlaybackProgressAndCheckQueue;
-            Reset();
-            Bass.Free();
-        }
-
         public void StopPlaying(int bassId)
         {
             lock (currentlyPlayingLock)
@@ -296,6 +335,14 @@ namespace Amplitude.Helpers
             {
                 Queued.Remove(clip);
             }
+        }
+
+        public void Dispose()
+        {
+            timer.Stop();
+            timer.Elapsed -= RefreshPlaybackProgressAndCheckQueue;
+            Reset();
+            Bass.Free();
         }
     }
 }
