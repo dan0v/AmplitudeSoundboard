@@ -29,6 +29,7 @@ namespace Amplitude.Models
     public class PlayingClip : INotifyPropertyChanged
     {
         public string Name { get; init; }
+        public string SoundClipId { get; init; }
         public string OutputDevice { get; init; }
         public double Length { get; init; }
         public int BassStreamId { get; init; }
@@ -67,13 +68,14 @@ namespace Amplitude.Models
             App.SoundEngine.StopPlaying(BassStreamId);
         }
 
-        public PlayingClip(string name, string outputDevice, int bassStreamId, double length, bool loopClip)
+        public PlayingClip(string name, string soundClipId, string outputDevice, int bassStreamId, double length, bool loopClip)
         {
             if (length == 0)
             {
                 throw new ArgumentOutOfRangeException();
             }
             Name = name;
+            SoundClipId = soundClipId;
             OutputDevice = outputDevice;
             BassStreamId = bassStreamId;
             Length = length;

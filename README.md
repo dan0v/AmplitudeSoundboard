@@ -32,22 +32,24 @@
 
 ## Installation
 ### Windows *(x64)*
-1. Download and unzip [latest Windows build](https://git.dan0v.com/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/)
-2. Run executable (`amplitude_soundboard.exe`)
-3. If you would like to play sound through an input device like a microphone, set up a program like [Virtual Audio Cable](https://vac.muzychenko.net/en/download.htm) and set the newly created virtual cable as your clip output device
+1. Download and unzip [latest Windows build](https://git.dan0v.com/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/).
+2. Run executable (`amplitude_soundboard.exe`).
+3. If you would like to play sound through an input device like a microphone, set up a program like [Virtual Audio Cable](https://vac.muzychenko.net/en/download.htm) and set the newly created virtual cable as your clip output device.
 
 ### MacOS *(x64)*
-1. Download and unzip [latest MacOS build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/)
-2. Run executable (`Amplitude Soundboard.app`)
- - If a security warning blocks the app from running, open `System Preferences -> Security & Privacy -> General` and click `Open Anyway`. This is due to not signing the app with an Apple Developer ID
-3. If you would like to play sound through an input device like a microphone, set up a program like [BlackHole](https://github.com/ExistentialAudio/BlackHole) and set the newly created virtual cable as your clip output device
+1. Download and unzip [latest MacOS build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/).
+2. Run executable (`Amplitude Soundboard.app`).
+ - If a security warning blocks the app from running, open `System Preferences -> Privacy & Security -> General` and click `Open Anyway`. This is due to not signing the app with an Apple Developer ID.
+ - In order to use hotkeys, Amplitude Soundboard must be given accessibility permission to control your computer. This can be done under `System Preferences -> Privacy & Security -> Accessibility`. A popup should take you directly to this option at application startup. Amplitude Soundboard will need to be restarted after granting permissions for hotkeys to start working.
+3. If you would like to play sound through an input device like a microphone, set up a program like [BlackHole](https://github.com/ExistentialAudio/BlackHole) and set the newly created virtual cable as your clip output device.
 
 ### Linux *(x64)*
-1. Download and unzip [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_linux_AppImage_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/)
-2. Run executable (`Amplitude_Soundboard-x86_64.AppImage`)
-3. If you would like to play sound through an input device like a microphone, [set up a sink in PulseAudio](https://www.onetransistor.eu/2017/10/virtual-audio-cable-in-linux-ubuntu.html) and set the monitor output of it to your desired input device
+1. Download and unzip [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_linux_AppImage_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/).
+2. Run executable (`Amplitude_Soundboard-x86_64.AppImage`).
+ - Hotkeys will currently only work under x11, not Wayland, as supported by [SharpHook](https://github.com/TolikPylypchuk/SharpHook).
+3. If you would like to play sound through an input device like a microphone, [set up a sink in PulseAudio](https://www.onetransistor.eu/2017/10/virtual-audio-cable-in-linux-ubuntu.html) and set the monitor output of it to your desired input device.
 
-## Updating
+## Updates
 ### Windows
 A dialog automatically notifies users of available updates at application startup. To automatically update, click `Update`, or, to manually update, just download the [latest Windows build](https://git.dan0v.com/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `amplitude_soundboard.exe` with the new version.
 
@@ -88,7 +90,6 @@ Many thanks to all these people! ([emoji key](https://allcontributors.org/docs/e
       <td align="center" valign="top" width="14.28%"><a href="https://ktos.info"><img src="https://avatars.githubusercontent.com/u/1633261?v=4?s=100" width="100px;" alt="Marcin Badurowicz"/><br /><sub><b>Marcin Badurowicz</b></sub></a><br /><a href="#translation-ktos" title="Translation">🌍</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=ktos" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Swell61"><img src="https://avatars.githubusercontent.com/u/32226560?v=4?s=100" width="100px;" alt="Samuel"/><br /><sub><b>Samuel</b></sub></a><br /><a href="#userTesting-swell61" title="User Testing">📓</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/teacup775"><img src="https://avatars.githubusercontent.com/u/2474259?v=4?s=100" width="100px;" alt="teacup775"/><br /><sub><b>teacup775</b></sub></a><br /><a href="#userTesting-teacup775" title="User Testing">📓</a></td>
-      
     </tr>
   </tbody>
 </table>

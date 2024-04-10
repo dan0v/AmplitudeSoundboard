@@ -396,4 +396,7 @@
   <data name="CheckForUpdates" xml:space="preserve">
     <value>Buscar actualizaciones</value>
   </data>
+  <data name="StopAudioOnRetrigger" xml:space="preserve">
+    <value>Alternar audio cuando se activa repetidamente</value>
+  </data>
 </root>

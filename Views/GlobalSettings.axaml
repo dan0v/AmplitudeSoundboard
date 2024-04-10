@@ -23,13 +23,13 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="680"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="730"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         xmlns:converters="clr-namespace:Amplitude.Converters"
         x:Class="Amplitude.Views.GlobalSettings"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize GlobalSettingsTitle}"
-        Width="400" Height="680" MinWidth="400" MinHeight="320"
+        Width="400" Height="730" MinWidth="400" MinHeight="320"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
@@ -140,13 +140,16 @@
               </StackPanel>
             </Grid>
           </Border>
-          
-          <!--Clear position data-->
+
+          <!--Stop audio when retriggered-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
             </Border.BorderBrush>
-              <Button HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" Command="{Binding ClearPositions}" Content="{i18n:Localize ClearPositions}" ToolTip.Tip="{i18n:Localize ClearPositionsTooltip}" Cursor="Hand"/>
+            <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center">
+              <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"  Text="{i18n:Localize StopAudioOnRetrigger}" ></TextBlock>
+              <CheckBox Grid.Column="1" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.StopAudioOnRepeatTrigger}" Cursor="Hand"/>
+            </Grid>
           </Border>
 
           <!--Check for updates-->
@@ -171,6 +174,13 @@
             </Grid>
           </Border>
 
+          <!--Clear position data-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+            </Border.BorderBrush>
+            <Button HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" Command="{Binding ClearPositions}" Content="{i18n:Localize ClearPositions}" ToolTip.Tip="{i18n:Localize ClearPositionsTooltip}" Cursor="Hand"/>
+          </Border>
 
           <!--Save button-->
           <Grid ColumnDefinitions="*,Auto">
