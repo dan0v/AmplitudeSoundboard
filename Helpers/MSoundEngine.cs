@@ -157,12 +157,11 @@ namespace Amplitude.Helpers
             }
         }
 
-        private void StopAndRemoveFromQueue(string? id)
+        private void StopAndRemoveFromQueue(string id)
         {
             lock (queueLock)
             {
                 var toRemove = Queued.Where(clip => clip.Id == id).ToList();
-                
                 foreach (var clip in toRemove)
                 {
                     Queued.Remove(clip);
@@ -179,10 +178,8 @@ namespace Amplitude.Helpers
             }
         }
 
-        private bool ClipPlayingOrQueued(SoundClip source)
+        private bool ClipPlayingOrQueued(string id)
         {
-            var id = source.Id ?? source.AudioFilePath;
-
             lock (queueLock)
             {
                 if (Queued.Any(clip => clip.Id == id))
@@ -202,9 +199,10 @@ namespace Amplitude.Helpers
 
         public void Play(SoundClip source)
         {
-            if (App.ConfigManager.Config.StopAudioOnRepeatTrigger && ClipPlayingOrQueued(source))
+            var tempId = source.Id ?? source.AudioFilePath;
+            if (App.ConfigManager.Config.StopAudioOnRepeatTrigger && ClipPlayingOrQueued(tempId))
             {
-                StopAndRemoveFromQueue(source.Id ?? source.AudioFilePath);
+                StopAndRemoveFromQueue(tempId);
                 return;
             }
 
@@ -215,7 +213,7 @@ namespace Amplitude.Helpers
 
             foreach (OutputSettings settings in source.OutputSettingsFromProfile)
             {
-                Play(source.AudioFilePath, settings.Volume, source.Volume, settings.DeviceName, source.LoopClip, source.Id ?? source.AudioFilePath, source.Name);
+                Play(source.AudioFilePath, settings.Volume, source.Volume, settings.DeviceName, source.LoopClip, tempId, source.Name);
             }
         }
 
@@ -254,7 +252,7 @@ namespace Amplitude.Helpers
                         {
                             var len = Bass.ChannelGetLength(stream, PositionFlags.Bytes);
                             double length = Bass.ChannelBytes2Seconds(stream, len);
-                            PlayingClip track = new PlayingClip(string.IsNullOrEmpty(name) ? Path.GetFileNameWithoutExtension(fileName) ?? "" : name, soundClipId, playerDeviceName, stream, length, loopClip);
+                            PlayingClip track = new (string.IsNullOrEmpty(name) ? Path.GetFileNameWithoutExtension(fileName) ?? "" : name, soundClipId, playerDeviceName, stream, length, loopClip);
 
                             lock(currentlyPlayingLock)
                             {
@@ -318,14 +316,6 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void Dispose()
-        {
-            timer.Stop();
-            timer.Elapsed -= RefreshPlaybackProgressAndCheckQueue;
-            Reset();
-            Bass.Free();
-        }
-
         public void StopPlaying(int bassId)
         {
             lock (currentlyPlayingLock)
@@ -345,6 +335,14 @@ namespace Amplitude.Helpers
             {
                 Queued.Remove(clip);
             }
+        }
+
+        public void Dispose()
+        {
+            timer.Stop();
+            timer.Elapsed -= RefreshPlaybackProgressAndCheckQueue;
+            Reset();
+            Bass.Free();
         }
     }
 }
