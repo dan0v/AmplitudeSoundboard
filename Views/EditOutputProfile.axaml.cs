@@ -30,6 +30,8 @@ namespace Amplitude.Views
 {
     public partial class EditOutputProfile : Window
     {
+        public const string WindowId = "editOutputProfile";
+
         public EditOutputProfile()
         {
             InitializeComponent();

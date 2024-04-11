@@ -34,6 +34,7 @@ namespace Amplitude.Views
 {
     public partial class EditSoundClip : Window
     {
+        public const string WindowId = "editSoundClip";
 
         public EditSoundClip()
         {
