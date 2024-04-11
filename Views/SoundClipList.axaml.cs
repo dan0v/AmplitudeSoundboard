@@ -27,6 +27,8 @@ namespace Amplitude.Views
 {
     public partial class SoundClipList : Window
     {
+        public const string WindowId = "soundClipList";
+
         public SoundClipList()
         {
             InitializeComponent();

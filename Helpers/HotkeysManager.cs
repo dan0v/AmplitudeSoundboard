@@ -42,7 +42,7 @@ namespace Amplitude.Helpers
 
         }
 
-        public Dictionary<string, List<string>> Hotkeys = new();
+        public Dictionary<string, List<string>> Hotkeys = [];
 
         public void RegisterHotkeyAtStartup(string? id, string hotkeyString)
         {
@@ -58,7 +58,7 @@ namespace Amplitude.Helpers
             }
             else
             {
-                Hotkeys.Add(hotkeyString, new List<string> { id });
+                Hotkeys.Add(hotkeyString, [id]);
             }
         }
 

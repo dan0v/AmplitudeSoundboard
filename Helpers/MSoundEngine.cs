@@ -58,30 +58,36 @@ namespace Amplitude.Helpers
         {
             lock(currentlyPlayingLock)
             {
+                List<PlayingClip> toRemove = [];
                 foreach(var track in CurrentlyPlaying)
                 {
                     track.CurrentPos += TIMER_MS * 0.001d;
-                }
-                var toRemove = CurrentlyPlaying.Where(t => t.ProgressPct == 1).ToList();
-                toRemove.ForEach(t =>
-                {
-                    if (t.LoopClip)
+                    if (track.ProgressPct == 1)
                     {
-                        t.CurrentPos = 0;
-                        Bass.ChannelPlay(t.BassStreamId, true);
+                        toRemove.Add(track);
+                    }
+                }
+                
+                foreach(var track in toRemove)
+                {
+                    if (track.LoopClip)
+                    {
+                        track.CurrentPos = 0;
+                        Bass.ChannelPlay(track.BassStreamId, true);
                     }
                     else
                     {
-                        CurrentlyPlaying.Remove(t);
+                        Bass.StreamFree(track.BassStreamId);
+                        CurrentlyPlaying.Remove(track);
                     }
-                });
+                }
             }
             lock (queueLock)
             {
                 if (!CurrentlyPlaying.Any() && Queued.Any())
                 {
                     var clip = Queued[0];
-                    Play(clip);
+                    Play(clip, true);
                     Queued.RemoveAt(0);
                 }
             }
@@ -108,9 +114,8 @@ namespace Amplitude.Helpers
             {
                 List<string> devices = [];
                 // Index 0 is "No Sound", so skip
-                for (int dev = 1; dev < Bass.DeviceCount; dev++)
+                for (int dev = 1; Bass.GetDeviceInfo(dev, out DeviceInfo info); dev++)
                 {
-                    var info = Bass.GetDeviceInfo(dev);
                     devices.Add(info.Name);
                 }
                 return devices;
@@ -197,10 +202,10 @@ namespace Amplitude.Helpers
             return false;
         }
 
-        public void Play(SoundClip source)
+        public void Play(SoundClip source, bool fromQueue = false)
         {
             var tempId = source.Id ?? source.AudioFilePath;
-            if (App.ConfigManager.Config.StopAudioOnRepeatTrigger && ClipPlayingOrQueued(tempId))
+            if (!fromQueue && App.ConfigManager.Config.StopAudioOnRepeatTrigger && ClipPlayingOrQueued(tempId))
             {
                 StopAndRemoveFromQueue(tempId);
                 return;
@@ -320,12 +325,12 @@ namespace Amplitude.Helpers
         {
             lock (currentlyPlayingLock)
             {
-                Bass.StreamFree(bassId);
                 PlayingClip? track = CurrentlyPlaying.FirstOrDefault(c => c.BassStreamId == bassId);
                 if (track != null)
                 {
                     CurrentlyPlaying.Remove(track);
                 }
+                Bass.StreamFree(bassId);
             }
         }
 

@@ -27,6 +27,8 @@ namespace Amplitude.Views
 {
     public partial class GlobalSettings : Window
     {
+        public const string WindowId = "globalSettings";
+        
         public GlobalSettings()
         {
             InitializeComponent();

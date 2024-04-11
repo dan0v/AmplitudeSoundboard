@@ -113,7 +113,7 @@ namespace Amplitude.Helpers
 
                 outputProf.DataContext = profile == null ? new EditOutputProfileViewModel() : new EditOutputProfileViewModel(profile);
 
-                if (windowSizesAndPositions.TryGetValue("editOutputProfile", out var info))
+                if (windowSizesAndPositions.TryGetValue(EditOutputProfile.WindowId, out var info))
                 {
                     SetAvailableWindowDetails(outputProf, info);
                 }
@@ -163,7 +163,7 @@ namespace Amplitude.Helpers
 
                 sound.DataContext = clip == null ? new EditSoundClipViewModel() : new EditSoundClipViewModel(clip);
 
-                if (windowSizesAndPositions.TryGetValue("editSoundClip", out var info))
+                if (windowSizesAndPositions.TryGetValue(EditSoundClip.WindowId, out var info))
                 {
                     SetAvailableWindowDetails(sound, info);
                 }
@@ -215,7 +215,7 @@ namespace Amplitude.Helpers
 
         public void SetMainWindow(MainWindow window)
         {
-            if (windowSizesAndPositions.TryGetValue("main", out var mainWindowData))
+            if (windowSizesAndPositions.TryGetValue(MainWindow.WindowId, out var mainWindowData))
             {
                 if (mainWindowData != null)
                 {
@@ -375,7 +375,7 @@ namespace Amplitude.Helpers
                 {
                     DataContext = new SoundClipListViewModel(),
                 };
-                if (windowSizesAndPositions.TryGetValue("soundClipList", out var soundClipsInfo))
+                if (windowSizesAndPositions.TryGetValue(SoundClipList.WindowId, out var soundClipsInfo))
                 {
                     SetAvailableWindowDetails(SoundClipListWindow, soundClipsInfo);
                 }
@@ -403,7 +403,7 @@ namespace Amplitude.Helpers
                 {
                     DataContext = new GlobalSettingsViewModel(),
                 };
-                if (windowSizesAndPositions.TryGetValue("globalSettings", out var soundClipsInfo))
+                if (windowSizesAndPositions.TryGetValue(GlobalSettings.WindowId, out var soundClipsInfo))
                 {
                     SetAvailableWindowDetails(GlobalSettingsWindow, soundClipsInfo);
                 }
@@ -455,21 +455,21 @@ namespace Amplitude.Helpers
             {
                 lock (windowPositionSaveLock)
                 {
-                    windowSizesAndPositions["main"] = dict["main"];
+                    windowSizesAndPositions[MainWindow.WindowId] = dict[MainWindow.WindowId];
 
                     if (SoundClipListWindow != null)
                     {
-                        windowSizesAndPositions["soundClipList"] = dict["soundClipList"];
+                        windowSizesAndPositions[SoundClipList.WindowId] = dict[SoundClipList.WindowId];
                     }
 
                     if (GlobalSettingsWindow != null)
                     {
-                        windowSizesAndPositions["globalSettings"] = dict["globalSettings"];
+                        windowSizesAndPositions[GlobalSettings.WindowId] = dict[GlobalSettings.WindowId];
                     }
 
                     if (EditSoundClipWindows.Any())
                     {
-                        windowSizesAndPositions["editSoundClip"] = dict["editSoundClip"];
+                        windowSizesAndPositions[EditSoundClip.WindowId] = dict[EditSoundClip.WindowId];
                     }
 
                     try
@@ -485,10 +485,7 @@ namespace Amplitude.Helpers
         {
             if (!Dispatcher.UIThread.CheckAccess())
             {
-                return Dispatcher.UIThread.InvokeAsync<Dictionary<string, WindowSizeAndPosition>>(() =>
-                {
-                    return CaptureWindowSizesAndPositions();
-                }).Result;
+                return Dispatcher.UIThread.InvokeAsync(CaptureWindowSizesAndPositions).Result;
             }
 
             var soundClips = new WindowSizeAndPosition(null, null, null);
@@ -500,10 +497,10 @@ namespace Amplitude.Helpers
             }
             return new Dictionary<string, WindowSizeAndPosition>()
             {
-                { "main", new WindowSizeAndPosition(MainWindow?.Position, MainWindow?.Height, MainWindow?.Width) },
-                { "soundClipList", new WindowSizeAndPosition(SoundClipListWindow?.Position, SoundClipListWindow?.Height, SoundClipListWindow?.Width) },
-                { "globalSettings", new WindowSizeAndPosition(null, GlobalSettingsWindow?.Height, GlobalSettingsWindow?.Width) },
-                { "editSoundClip", soundClips },
+                { MainWindow.WindowId, new WindowSizeAndPosition(MainWindow?.Position, MainWindow?.Height, MainWindow?.Width) },
+                { SoundClipList.WindowId, new WindowSizeAndPosition(SoundClipListWindow?.Position, SoundClipListWindow?.Height, SoundClipListWindow?.Width) },
+                { GlobalSettings.WindowId, new WindowSizeAndPosition(null, GlobalSettingsWindow?.Height, GlobalSettingsWindow?.Width) },
+                { EditSoundClip.WindowId, soundClips },
             };
         }
 
@@ -543,10 +540,7 @@ namespace Amplitude.Helpers
         {
             if (!Dispatcher.UIThread.CheckAccess())
             {
-                Dispatcher.UIThread.InvokeAsync(() =>
-                {
-                    ClearWindowSizesAndPositions();
-                });
+                Dispatcher.UIThread.InvokeAsync(ClearWindowSizesAndPositions);
                 return;
             }
 
