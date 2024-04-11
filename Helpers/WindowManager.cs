@@ -540,10 +540,7 @@ namespace Amplitude.Helpers
         {
             if (!Dispatcher.UIThread.CheckAccess())
             {
-                Dispatcher.UIThread.InvokeAsync(() =>
-                {
-                    ClearWindowSizesAndPositions();
-                });
+                Dispatcher.UIThread.InvokeAsync(ClearWindowSizesAndPositions);
                 return;
             }
 
