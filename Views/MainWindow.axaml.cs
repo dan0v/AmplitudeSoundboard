@@ -29,6 +29,8 @@ namespace Amplitude.Views
 {
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public const string WindowId = "main";
+
         private (double width, double height) _gridSize;
         public (double width, double height) GridSize
         {
