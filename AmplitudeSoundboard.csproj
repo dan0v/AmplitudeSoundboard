@@ -29,6 +29,7 @@
     <RepositoryUrl>https://git.dan0v.com/AmplitudeSoundboard</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <LangVersion>preview</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
@@ -38,10 +39,13 @@
     <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.10" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.10" />
+    <PackageReference Include="Bassoon" Version="1.1.2" />
+    <PackageReference Include="libsndfileSharp" Version="0.2.1" />
     <PackageReference Include="ManagedBass" Version="3.1.1" />
     <PackageReference Include="ManagedBass.Flac" Version="3.1.1" />
     <PackageReference Include="ManagedBass.Mix" Version="3.1.1" />
     <PackageReference Include="ManagedBass.Opus" Version="3.1.1" />
+    <PackageReference Include="PortAudioSharp2" Version="1.0.0" />
     <PackageReference Include="SharpHook" Version="5.3.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />

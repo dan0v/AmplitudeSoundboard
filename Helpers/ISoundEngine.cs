@@ -43,11 +43,9 @@ namespace Amplitude.Helpers
 
         public void CheckDeviceExistsAndGenerateErrors(OutputProfile outputProfile);
 
-        public List<string> OutputDeviceListWithoutGlobal { get; }
+        public List<string> OutputDeviceList { get; }
 
-        public List<string> OutputDeviceListWithGlobal { get; }
-
-        public void StopPlaying(int bassId);
+        public void StopPlaying(SoundFile? bassId);
 
         public void RemoveFromQueue(SoundClip clip);
 

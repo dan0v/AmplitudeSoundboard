@@ -31,13 +31,16 @@ namespace Amplitude.Models
         public string Name { get; init; }
         public string SoundClipId { get; init; }
         public string OutputDevice { get; init; }
-        public double Length { get; init; }
-        public int BassStreamId { get; init; }
+        public double Length => SoundFile?.Duration.TotalSeconds ?? 0;
+
+        public SoundFile? SoundFile { get; set; } = null;
+
         public bool LoopClip { get; init; }
 
         public string ToolTip => $"{Name} - {OutputDevice}";
 
         private double _currentPos = 0;
+
         public double CurrentPos
         {
             get => _currentPos;
@@ -65,20 +68,14 @@ namespace Amplitude.Models
 
         public void StopPlayback()
         {
-            App.SoundEngine.StopPlaying(BassStreamId);
+            App.SoundEngine.StopPlaying(SoundFile);
         }
 
-        public PlayingClip(string name, string soundClipId, string outputDevice, int bassStreamId, double length, bool loopClip)
+        public PlayingClip(string name, string soundClipId, string outputDevice, bool loopClip)
         {
-            if (length == 0)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
             Name = name;
             SoundClipId = soundClipId;
             OutputDevice = outputDevice;
-            BassStreamId = bassStreamId;
-            Length = length;
             LoopClip = loopClip;
         }
 

@@ -21,9 +21,7 @@
 
 using Amplitude.Models;
 using AmplitudeSoundboard;
-using ManagedBass;
-using ManagedBass.Mix;
-using System;
+using PortAudioSharp;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -72,12 +70,15 @@ namespace Amplitude.Helpers
                 {
                     if (track.LoopClip)
                     {
-                        track.CurrentPos = 0;
-                        Bass.ChannelPlay(track.BassStreamId, true);
+                        if (track.SoundFile?.IsPlaying != true) {
+                            track.CurrentPos = 0;
+                            track.SoundFile?.Play();
+                        }
                     }
                     else
                     {
-                        Bass.StreamFree(track.BassStreamId);
+                        track.SoundFile?.Pause();
+                        track.SoundFile?.Dispose();
                         CurrentlyPlaying.Remove(track);
                     }
                 }
@@ -98,25 +99,17 @@ namespace Amplitude.Helpers
         private readonly object bass_lock = new object();
 
 
-        public List<string> OutputDeviceListWithoutGlobal
+        public List<string> OutputDeviceList
         {
             get
             {
-                var all = OutputDeviceListWithGlobal.ToList();
-                all.RemoveAt(0);
-                return all;
-            }
-        }
-
-        public List<string> OutputDeviceListWithGlobal
-        {
-            get
-            {
-                List<string> devices = [];
-                // Index 0 is "No Sound", so skip
-                for (int dev = 1; Bass.GetDeviceInfo(dev, out DeviceInfo info); dev++)
-                {
-                    devices.Add(info.Name);
+               List<string> devices = [];
+                for (int i = 0; i < PortAudio.DeviceCount; i++) {
+                    try {
+                        devices.Add(PortAudio.GetDeviceInfo(i).name);
+                    } catch {
+                        return devices;
+                    }
                 }
                 return devices;
             }
@@ -134,22 +127,13 @@ namespace Amplitude.Helpers
                 return 1;
             }
 
-            if (OutputDeviceListWithoutGlobal.Contains(playerDeviceName))
-            {
-                for (int n = 0; n < Bass.DeviceCount; n++)
-                {
-                    var info = Bass.GetDeviceInfo(n);
-                    if (playerDeviceName == info.Name)
-                    {
-                        return n;
-                    }
-                }
-            }
-            return null;
+            var index = OutputDeviceList.IndexOf(playerDeviceName);
+            return index == -1 ? null : index;
         }
 
         private MSoundEngine()
         {
+            PortAudio.Initialize();
             timer.Elapsed += RefreshPlaybackProgressAndCheckQueue;
             timer.Start();
         }
@@ -177,7 +161,8 @@ namespace Amplitude.Helpers
                 var toRemove = CurrentlyPlaying.Where(clip => clip.SoundClipId == id).ToList();
                 foreach (var clip in toRemove)
                 {
-                    Bass.StreamFree(clip.BassStreamId);
+                    clip.SoundFile?.Pause();
+                    clip.SoundFile?.Dispose();
                     CurrentlyPlaying.Remove(clip);
                 }
             }
@@ -234,59 +219,22 @@ namespace Amplitude.Helpers
                 return;
             }
 
-            bool streamError = false;
-            bool bassError = false;
-
             lock (bass_lock)
             {
-                // Init device
-                if (Bass.Init(devId.Value, SAMPLE_RATE) || Bass.LastError == Errors.Already)
+
+                var sound = new SoundFile(fileName, (int)devId)
                 {
-                    Bass.CurrentDevice = devId.Value;
-                    int mixer = BassMix.CreateMixerStream(SAMPLE_RATE, 2, BassFlags.Default);
-                    int stream = Bass.CreateStream(fileName);
+                    volume = (float)vol
+                };
 
-                    Bass.ChannelSetAttribute(stream, ChannelAttribute.Volume, vol);
-                    BassMix.MixerAddChannel(mixer, stream, BassFlags.AutoFree | BassFlags.MixerChanDownMix);
-                    Bass.ChannelPlay(mixer);
+                PlayingClip track = new (string.IsNullOrEmpty(name) ? Path.GetFileNameWithoutExtension(fileName) ?? "" : name, soundClipId, playerDeviceName, loopClip);
 
-                    if (stream != 0)
-                    {
-                        // Track active streams so they can be stopped
-                        try
-                        {
-                            var len = Bass.ChannelGetLength(stream, PositionFlags.Bytes);
-                            double length = Bass.ChannelBytes2Seconds(stream, len);
-                            PlayingClip track = new (string.IsNullOrEmpty(name) ? Path.GetFileNameWithoutExtension(fileName) ?? "" : name, soundClipId, playerDeviceName, stream, length, loopClip);
-
-                            lock(currentlyPlayingLock)
-                            {
-                                CurrentlyPlaying.Add(track);
-                            }
-                            Bass.ChannelPlay(stream, false);
-                        }
-                        catch(Exception)
-                        {
-                            App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName));
-                        }
-                    }
-                    else
-                    {
-                        streamError = true;
-                    }
-                }
-                else
+                lock(currentlyPlayingLock)
                 {
-                    bassError = true;
+                    CurrentlyPlaying.Add(track);
                 }
-            }
-            if (streamError)
-            {
-                App.WindowManager.ShowErrorString($"Stream error: {Bass.LastError}");
-            }
-            if (bassError)
-            {
-                App.WindowManager.ShowErrorString($"ManagedBass error: {Bass.LastError}");
+
+                sound.Play();
             }
         }
 
@@ -312,25 +260,31 @@ namespace Amplitude.Helpers
             }
             lock(currentlyPlayingLock)
             {
-                foreach (var stream in CurrentlyPlaying)
+                foreach (var track in CurrentlyPlaying)
                 {
-                    Bass.StreamFree(stream.BassStreamId);
+                    track.SoundFile?.Pause();
+                    track.SoundFile?.Dispose();
                 }
 
                 CurrentlyPlaying.Clear();
             }
         }
 
-        public void StopPlaying(int bassId)
+        public void StopPlaying(SoundFile? soundFile)
         {
+            if (soundFile == null) {
+                return;
+            }
+
             lock (currentlyPlayingLock)
             {
-                PlayingClip? track = CurrentlyPlaying.FirstOrDefault(c => c.BassStreamId == bassId);
+                PlayingClip? track = CurrentlyPlaying.FirstOrDefault(c => c.SoundFile == soundFile);
                 if (track != null)
                 {
                     CurrentlyPlaying.Remove(track);
                 }
-                Bass.StreamFree(bassId);
+                soundFile.Pause();
+                soundFile.Dispose();
             }
         }
 
@@ -347,7 +301,7 @@ namespace Amplitude.Helpers
             timer.Stop();
             timer.Elapsed -= RefreshPlaybackProgressAndCheckQueue;
             Reset();
-            Bass.Free();
+            PortAudio.Terminate();
         }
     }
 }
