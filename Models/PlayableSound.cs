@@ -20,23 +20,19 @@
 */
 
 using AmplitudeSoundboard;
+using Avalonia.Input;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Amplitude.Models
 {
-    public class PlayingClip : INotifyPropertyChanged
+    public class PlayableSound : SoundFile, INotifyPropertyChanged
     {
         public string Name { get; init; }
         public string SoundClipId { get; init; }
         public string OutputDevice { get; init; }
-        public double Length => SoundFile?.Duration.TotalSeconds ?? 0;
-
-        public SoundFile? SoundFile { get; set; } = null;
-
         public bool LoopClip { get; init; }
-
         public string ToolTip => $"{Name} - {OutputDevice}";
 
         private double _currentPos = 0;
@@ -54,29 +50,30 @@ namespace Amplitude.Models
                 }
             }
         }
-        public float ProgressPct
+
+        public float ProgressPct => (float)Math.Clamp(CurrentPos / Duration.TotalMilliseconds, 0, 1);
+
+        public new void Play(bool restart = false)
         {
-            get
+            if (restart)
             {
-                if (CurrentPos > Length)
-                {
-                    return 1;
-                }
-                return (float)(CurrentPos / Length);
+                _currentPos = 0f;
             }
+            base.Play(restart);
         }
 
         public void StopPlayback()
         {
-            App.SoundEngine.StopPlaying(SoundFile);
+            App.SoundEngine.StopPlaying(this);
         }
 
-        public PlayingClip(string name, string soundClipId, string outputDevice, bool loopClip)
+        public PlayableSound(string filePath, int deviceId, float volume, string soundClipName, string soundClipId, string outputDevice, bool loopClip): base(filePath, deviceId)
         {
-            Name = name;
+            Name = soundClipName;
             SoundClipId = soundClipId;
             OutputDevice = outputDevice;
             LoopClip = loopClip;
+            Volume = volume;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

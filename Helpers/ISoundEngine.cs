@@ -30,7 +30,7 @@ namespace Amplitude.Helpers
     {
         public static ISoundEngine Instance { get; }
 
-        public ObservableCollection<PlayingClip> CurrentlyPlaying { get; }
+        public ObservableCollection<PlayableSound> CurrentlyPlaying { get; }
         public ObservableCollection<SoundClip> Queued { get; }
 
         public const string DEFAULT_DEVICE_NAME = "Default";
@@ -45,7 +45,7 @@ namespace Amplitude.Helpers
 
         public List<string> OutputDeviceList { get; }
 
-        public void StopPlaying(SoundFile? bassId);
+        public void StopPlaying(PlayableSound? playableSound);
 
         public void RemoveFromQueue(SoundClip clip);
 

@@ -3,9 +3,9 @@
 // https://gitlab.com/define-private-public/Bassoon
 // Modifications by dan0v include changing field visibilities and removing unused fields
 
-using Bassoon;
 using libsndfileSharp;
 using PortAudioSharp;
+using System;
 
 namespace Amplitude.Models;
 
@@ -37,13 +37,15 @@ public class SoundFile
         }
         set
         {
-            volume = Clamp(value, 0f, 1f);
+            volume = Math.Clamp(value, 0f, 1f);
         }
     }
 
     public bool IsPlaying => playingBack;
 
-    public float Cursor
+    public long TotalFrames => totalFrames;
+
+    private float Cursor
     {
         get
         {
@@ -52,7 +54,7 @@ public class SoundFile
         set
         {
             long value2 = (long)(value / (float)audioFile.Info.Duration.TotalSeconds * (float)totalFrames);
-            value2 = Clamp(value2, 0L, totalFrames);
+            value2 = Math.Clamp(value2, 0L, totalFrames);
             bool isPlaying = IsPlaying;
             if (cursor != totalFrames)
             {
@@ -70,14 +72,32 @@ public class SoundFile
 
     public SoundFile(string path, int device)
     {
-        BassoonEngine instance = BassoonEngine.Instance;
         audioFile = new SndFile(path);
-        StreamParameters defaultOutputParams = instance.DefaultOutputParams;
+        StreamParameters defaultOutputParams = defaultOutputParameters();
         defaultOutputParams.channelCount = audioFile.Info.channels;
         defaultOutputParams.device = device;
-        stream = new Stream(null, defaultOutputParams, audioFile.Info.samplerate, (uint)instance.FramesPerBuffer, StreamFlags.ClipOff, playCallback, this);
-        finalFrameSize = audioFile.Info.channels * instance.FramesPerBuffer;
+        stream = new Stream(null, defaultOutputParams, audioFile.Info.samplerate, framesPerBuffer, StreamFlags.ClipOff, playCallback, this);
+        var frameSize = (int)(audioFile.Info.channels * framesPerBuffer);
+        finalFrameSize = frameSize < 0 ? int.MaxValue : frameSize;
         totalFrames = audioFile.Info.channels * audioFile.Info.frames;
+    }
+
+    private const uint framesPerBuffer = 4096;
+
+    private StreamParameters defaultOutputParameters()
+    {
+        StreamParameters defaultOutputParams = default;
+        defaultOutputParams.device = PortAudio.DefaultOutputDevice;
+        if (defaultOutputParams.device == -1)
+        {
+            throw new Exception("No default audio output device available");
+        }
+
+        defaultOutputParams.channelCount = 2;
+        defaultOutputParams.sampleFormat = SampleFormat.Float32;
+        defaultOutputParams.suggestedLatency = PortAudio.GetDeviceInfo(defaultOutputParams.device).defaultLowOutputLatency;
+        defaultOutputParams.hostApiSpecificStreamInfo = IntPtr.Zero;
+        return defaultOutputParams;
     }
 
     ~SoundFile()
@@ -105,22 +125,26 @@ public class SoundFile
         }
     }
 
-    public void Play()
+    public void Play(bool restart = false)
     {
-        playingBack = true;
+        if (restart)
+        {
+            Cursor = 0f;
+        }
         if (stream.IsStopped)
         {
             stream.Start();
         }
+        playingBack = true;
     }
 
     public void Pause()
     {
-        playingBack = false;
         if (stream.IsActive)
         {
             stream.Stop();
         }
+        playingBack = false;
     }
 
     private unsafe static StreamCallbackResult playCallback(nint input, nint output, uint frameCount, ref StreamCallbackTimeInfo timeInfo, StreamCallbackFlags statusFlags, nint dataPtr)
@@ -146,15 +170,9 @@ public class SoundFile
         userData.cursor += num;
         if (userData.playingBack && num < frameCount)
         {
-            userData.Cursor = 0f;
             userData.playingBack = false;
         }
 
         return StreamCallbackResult.Continue;
     }
-
-    private static float Clamp(float value, float min, float max) => System.Math.Max(System.Math.Min(value, max), min);
-
-    private static long Clamp(long value, long min, long max) => System.Math.Max(System.Math.Min(value, max), min);
-
 }
