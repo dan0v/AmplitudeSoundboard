@@ -35,6 +35,7 @@ namespace Amplitude.Views
     public partial class EditSoundClip : Window
     {
         public const string WindowId = "editSoundClip";
+        public long lastTouchedTime = 0;
 
         public EditSoundClip()
         {
@@ -55,6 +56,7 @@ namespace Amplitude.Views
 
         private void EditSoundClip_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
         {
+            lastTouchedTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             App.WindowManager.WindowSizesOrPositionsChanged();
         }
 
