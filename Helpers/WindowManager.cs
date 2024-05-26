@@ -491,8 +491,8 @@ namespace Amplitude.Helpers
             var soundClips = new WindowSizeAndPosition(null, null, null);
             if (EditSoundClipWindows.Any())
             {
-                var maxHeight = EditSoundClipWindows.Select(w => w.Value.Height).FirstOrDefault();
-                var maxWidth = EditSoundClipWindows.Select(w => w.Value.Width).FirstOrDefault();
+                var maxHeight = EditSoundClipWindows.OrderByDescending(s => s.Value.lastTouchedTime).First().Value.Height;
+                var maxWidth = EditSoundClipWindows.OrderByDescending(s => s.Value.lastTouchedTime).First().Value.Width;
                 soundClips = new WindowSizeAndPosition(null, maxHeight, maxWidth);
             }
             return new Dictionary<string, WindowSizeAndPosition>()
@@ -512,9 +512,14 @@ namespace Amplitude.Helpers
                 {
                     var saved = App.JsonIoManager.RetrieveJSONFromFile(WINDOW_POSITION_FILE_LOCATION);
                     var processed = App.JsonIoManager.ConvertObjectsFromJSON<Dictionary<string, WindowSizeAndPosition>>(saved);
-                    
+
                     if (processed != null)
                     {
+                        processed.Values.Where(w => w.WindowPosition?.X != null && w.WindowPosition?.Y != null).ToList().ForEach(w =>
+                        {
+                            w.WindowPosition.X = w.WindowPosition.X < 0 ? 0 : w.WindowPosition.X;
+                            w.WindowPosition.Y = w.WindowPosition.Y < 0 ? 0 : w.WindowPosition.Y;
+                        });
                         windowSizesAndPositions = processed;
                     }
                 } catch { }

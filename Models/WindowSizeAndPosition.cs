@@ -52,10 +52,15 @@ namespace Amplitude.Models
         public Position()
         { }
 
+        /// <summary>
+        /// A 2d position, defined by x and y coordinates. Negative values will be floored to 0.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public Position(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            this.X = x < 0 ? 0 : x;
+            this.Y = y < 0 ? 0 : y;
         }
 
         public PixelPoint ToPixelPoint()
