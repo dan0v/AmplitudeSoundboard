@@ -1,20 +1,16 @@
 AmplitudeSoundboard relies on
 
 Avalonia
-Copyright (c) .NET Foundation and Contributors All Rights Reserved
+Copyright (C) .NET Foundation and Contributors All Rights Reserved
 https://github.com/AvaloniaUI/Avalonia
-
-BASS, BASS_AAC, BASSALAC, BASSFLAC, BASSmix, BASSOPUS
-Copyright (C) 2003-2021 un4seen developments
-https://www.un4seen.com/
 
 Josefin Sans
 Copyright (C) 2010 Santiago Orozco (hi@typemade.mx)
 https://github.com/googlefonts/josefinsans
 
-ManagedBass
-Copyright (c) 2015-2020 Mathew Sachin
-https://github.com/ManagedBass/ManagedBass
+LibSndFile
+Licensed under LGPL 2.1
+https://libsndfile.github.io/libsndfile/
 
 Material Design Icons
 https://github.com/google/material-design-icons
@@ -22,6 +18,14 @@ https://github.com/google/material-design-icons
 Noto Sans Display
 https://github.com/googlefonts/noto-fonts
 
+PortAudio Portable Real-Time Audio Library
+Copyright (C) 1999-2011 Ross Bencina and Phil Burk
+https://www.portaudio.com
+
+PortAudioSharp
+Copyright (C) 2019 Benjamin N. Summerton
+https://16bpp.net
+
 SharpHook
-Copyright (c) 2021 Anatoliy Pylypchuk
+Copyright (C) 2021 Anatoliy Pylypchuk
 https://github.com/TolikPylypchuk/SharpHook

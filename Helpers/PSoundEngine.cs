@@ -21,8 +21,9 @@
 
 using Amplitude.Models;
 using AmplitudeSoundboard;
-using ManagedBass;
-using ManagedBass.Mix;
+using Avalonia.Controls.Primitives;
+using DynamicData;
+using PortAudioSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,36 +33,35 @@ using System.Timers;
 
 namespace Amplitude.Helpers
 {
-    class MSoundEngine : ISoundEngine
+    class PSoundEngine : ISoundEngine
     {
-        private static MSoundEngine? _instance;
-        public static MSoundEngine Instance => _instance ??= new MSoundEngine();
+        private static PSoundEngine? _instance;
+        public static PSoundEngine Instance => _instance ??= new PSoundEngine();
 
-        object currentlyPlayingLock = new object();
+        private readonly object _currentlyPlayingLock = new();
 
-        private ObservableCollection<PlayingClip> _currentlyPlaying = new ObservableCollection<PlayingClip>();
-        public ObservableCollection<PlayingClip> CurrentlyPlaying => _currentlyPlaying;
+        private ObservableCollection<PlayableSound> _currentlyPlaying = [];
+        public ObservableCollection<PlayableSound> CurrentlyPlaying => _currentlyPlaying;
 
-        object queueLock = new object();
+        private readonly object _queueLock = new();
 
-        private ObservableCollection<SoundClip> _queued = new ObservableCollection<SoundClip>();
+        private ObservableCollection<SoundClip> _queued = [];
         public ObservableCollection<SoundClip> Queued => _queued;
 
-
         private const long TIMER_MS = 200;
-        private Timer timer = new Timer(TIMER_MS)
+        private Timer timer = new(TIMER_MS)
         {
             AutoReset = true,
         };
 
         private void RefreshPlaybackProgressAndCheckQueue(object? sender, ElapsedEventArgs e)
         {
-            lock(currentlyPlayingLock)
+            lock(_currentlyPlayingLock)
             {
-                List<PlayingClip> toRemove = [];
+                List<PlayableSound> toRemove = [];
                 foreach(var track in CurrentlyPlaying)
                 {
-                    track.CurrentPos += TIMER_MS * 0.001d;
+                    track.CurrentPos += TIMER_MS;
                     if (track.ProgressPct == 1)
                     {
                         toRemove.Add(track);
@@ -72,17 +72,19 @@ namespace Amplitude.Helpers
                 {
                     if (track.LoopClip)
                     {
-                        track.CurrentPos = 0;
-                        Bass.ChannelPlay(track.BassStreamId, true);
+                        if (track.IsPlaying != true) {
+                            track.Play(true);
+                        }
                     }
                     else
                     {
-                        Bass.StreamFree(track.BassStreamId);
+                        track.Pause();
+                        track.Dispose();
                         CurrentlyPlaying.Remove(track);
                     }
                 }
             }
-            lock (queueLock)
+            lock (_queueLock)
             {
                 if (!CurrentlyPlaying.Any() && Queued.Any())
                 {
@@ -93,34 +95,28 @@ namespace Amplitude.Helpers
             }
         }
 
-        public const int SAMPLE_RATE = 44100;
-
-        private readonly object bass_lock = new object();
-
-
-        public List<string> OutputDeviceListWithoutGlobal
+        private Dictionary<string, int> OutputDevices
         {
             get
             {
-                var all = OutputDeviceListWithGlobal.ToList();
-                all.RemoveAt(0);
-                return all;
-            }
-        }
-
-        public List<string> OutputDeviceListWithGlobal
-        {
-            get
-            {
-                List<string> devices = [];
-                // Index 0 is "No Sound", so skip
-                for (int dev = 1; Bass.GetDeviceInfo(dev, out DeviceInfo info); dev++)
+                Dictionary<string, int> devices = [];
+                for (int i = 0; i < PortAudio.DeviceCount; i++)
                 {
-                    devices.Add(info.Name);
+                    try
+                    {
+                        var device = PortAudio.GetDeviceInfo(i);
+                        if (device.maxOutputChannels > 0 && device.maxInputChannels == 0)
+                        {
+                            devices.Add(device.name, i);
+                        }
+                    }
+                    catch { }
                 }
                 return devices;
             }
         }
+
+        public List<string> OutputDeviceList => [.. OutputDevices.Keys];
 
         private int? GetOutputPlayerByName(string playerDeviceName)
         {
@@ -129,34 +125,25 @@ namespace Amplitude.Helpers
                 playerDeviceName = ISoundEngine.DEFAULT_DEVICE_NAME;
             }
 
-            if (playerDeviceName == ISoundEngine.DEFAULT_DEVICE_NAME || playerDeviceName == "System default")
+            if (playerDeviceName == ISoundEngine.DEFAULT_DEVICE_NAME || playerDeviceName == "System default" || !OutputDevices.ContainsKey(playerDeviceName))
             {
                 return 1;
             }
 
-            if (OutputDeviceListWithoutGlobal.Contains(playerDeviceName))
-            {
-                for (int n = 0; n < Bass.DeviceCount; n++)
-                {
-                    var info = Bass.GetDeviceInfo(n);
-                    if (playerDeviceName == info.Name)
-                    {
-                        return n;
-                    }
-                }
-            }
-            return null;
+            var index = OutputDevices[playerDeviceName];
+            return index == -1 ? null : index;
         }
 
-        private MSoundEngine()
+        private PSoundEngine()
         {
+            PortAudio.Initialize();
             timer.Elapsed += RefreshPlaybackProgressAndCheckQueue;
             timer.Start();
         }
 
         public void AddToQueue(SoundClip source)
         {
-            lock(queueLock)
+            lock(_queueLock)
             {
                 Queued.Add(source.ShallowCopy());
             }
@@ -164,35 +151,27 @@ namespace Amplitude.Helpers
 
         private void StopAndRemoveFromQueue(string id)
         {
-            lock (queueLock)
+            lock (_queueLock)
             {
-                var toRemove = Queued.Where(clip => clip.Id == id).ToList();
-                foreach (var clip in toRemove)
+                foreach (var clip in Queued.Where(clip => clip.Id == id).ToList())
                 {
                     Queued.Remove(clip);
                 }
             }
-            lock (currentlyPlayingLock)
-            {
-                var toRemove = CurrentlyPlaying.Where(clip => clip.SoundClipId == id).ToList();
-                foreach (var clip in toRemove)
-                {
-                    Bass.StreamFree(clip.BassStreamId);
-                    CurrentlyPlaying.Remove(clip);
-                }
-            }
+            var toRemove = CurrentlyPlaying.Where(clip => clip.SoundClipId == id).ToList();
+            RemoveFromCurrentlyPlaying(toRemove);
         }
 
         private bool ClipPlayingOrQueued(string id)
         {
-            lock (queueLock)
+            lock (_queueLock)
             {
                 if (Queued.Any(clip => clip.Id == id))
                 {
                     return true;
                 }
             }
-            lock (currentlyPlayingLock)
+            lock (_currentlyPlayingLock)
             {
                 if (CurrentlyPlaying.Any(clip => clip.SoundClipId == id))
                 {
@@ -234,59 +213,20 @@ namespace Amplitude.Helpers
                 return;
             }
 
-            bool streamError = false;
-            bool bassError = false;
-
-            lock (bass_lock)
+            try
             {
-                // Init device
-                if (Bass.Init(devId.Value, SAMPLE_RATE) || Bass.LastError == Errors.Already)
+                PlayableSound track = new(fileName, (int)devId, (float)vol, string.IsNullOrEmpty(name) ? Path.GetFileNameWithoutExtension(fileName) ?? "" : name, soundClipId, playerDeviceName, loopClip);
+
+                lock (_currentlyPlayingLock)
                 {
-                    Bass.CurrentDevice = devId.Value;
-                    int mixer = BassMix.CreateMixerStream(SAMPLE_RATE, 2, BassFlags.Default);
-                    int stream = Bass.CreateStream(fileName);
-
-                    Bass.ChannelSetAttribute(stream, ChannelAttribute.Volume, vol);
-                    BassMix.MixerAddChannel(mixer, stream, BassFlags.AutoFree | BassFlags.MixerChanDownMix);
-                    Bass.ChannelPlay(mixer);
-
-                    if (stream != 0)
-                    {
-                        // Track active streams so they can be stopped
-                        try
-                        {
-                            var len = Bass.ChannelGetLength(stream, PositionFlags.Bytes);
-                            double length = Bass.ChannelBytes2Seconds(stream, len);
-                            PlayingClip track = new (string.IsNullOrEmpty(name) ? Path.GetFileNameWithoutExtension(fileName) ?? "" : name, soundClipId, playerDeviceName, stream, length, loopClip);
-
-                            lock(currentlyPlayingLock)
-                            {
-                                CurrentlyPlaying.Add(track);
-                            }
-                            Bass.ChannelPlay(stream, false);
-                        }
-                        catch(Exception)
-                        {
-                            App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName));
-                        }
-                    }
-                    else
-                    {
-                        streamError = true;
-                    }
+                    CurrentlyPlaying.Add(track);
                 }
-                else
-                {
-                    bassError = true;
-                }
+
+                track.Play();
             }
-            if (streamError)
+            catch (Exception e)
             {
-                App.WindowManager.ShowErrorString($"Stream error: {Bass.LastError}");
-            }
-            if (bassError)
-            {
-                App.WindowManager.ShowErrorString($"ManagedBass error: {Bass.LastError}");
+                App.WindowManager.ShowErrorString($"problem: {e.Message}");
             }
         }
 
@@ -306,37 +246,44 @@ namespace Amplitude.Helpers
 
         public void Reset()
         {
-            lock(queueLock)
+            lock(_queueLock)
             {
                 Queued.Clear();
             }
-            lock(currentlyPlayingLock)
+            RemoveFromCurrentlyPlaying(CurrentlyPlaying.ToList());
+        }
+
+        private void RemoveFromCurrentlyPlaying(IEnumerable<PlayableSound> toRemove)
+        {
+            lock (_currentlyPlayingLock)
             {
-                foreach (var stream in CurrentlyPlaying)
+                foreach (var track in toRemove)
                 {
-                    Bass.StreamFree(stream.BassStreamId);
+                    track.Pause();
+                    track.Dispose();
                 }
 
-                CurrentlyPlaying.Clear();
+                CurrentlyPlaying.RemoveMany(toRemove);
             }
         }
 
-        public void StopPlaying(int bassId)
+        public void StopPlaying(PlayableSound? track)
         {
-            lock (currentlyPlayingLock)
+            if (track == null) {
+                return;
+            }
+
+            lock (_currentlyPlayingLock)
             {
-                PlayingClip? track = CurrentlyPlaying.FirstOrDefault(c => c.BassStreamId == bassId);
-                if (track != null)
-                {
-                    CurrentlyPlaying.Remove(track);
-                }
-                Bass.StreamFree(bassId);
+                CurrentlyPlaying.Remove(track);
+                track.Pause();
+                track.Dispose();
             }
         }
 
         public void RemoveFromQueue(SoundClip clip)
         {
-            lock(queueLock)
+            lock(_queueLock)
             {
                 Queued.Remove(clip);
             }
@@ -347,7 +294,7 @@ namespace Amplitude.Helpers
             timer.Stop();
             timer.Elapsed -= RefreshPlaybackProgressAndCheckQueue;
             Reset();
-            Bass.Free();
+            PortAudio.Terminate();
         }
     }
 }

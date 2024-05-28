@@ -20,24 +20,23 @@
 */
 
 using AmplitudeSoundboard;
+using Avalonia.Input;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Amplitude.Models
 {
-    public class PlayingClip : INotifyPropertyChanged
+    public class PlayableSound : SoundFile, INotifyPropertyChanged
     {
         public string Name { get; init; }
         public string SoundClipId { get; init; }
         public string OutputDevice { get; init; }
-        public double Length { get; init; }
-        public int BassStreamId { get; init; }
         public bool LoopClip { get; init; }
-
         public string ToolTip => $"{Name} - {OutputDevice}";
 
         private double _currentPos = 0;
+
         public double CurrentPos
         {
             get => _currentPos;
@@ -51,35 +50,30 @@ namespace Amplitude.Models
                 }
             }
         }
-        public float ProgressPct
+
+        public float ProgressPct => (float)Math.Clamp(CurrentPos / Duration.TotalMilliseconds, 0, 1);
+
+        public new void Play(bool restart = false)
         {
-            get
+            if (restart)
             {
-                if (CurrentPos > Length)
-                {
-                    return 1;
-                }
-                return (float)(CurrentPos / Length);
+                _currentPos = 0f;
             }
+            base.Play(restart);
         }
 
         public void StopPlayback()
         {
-            App.SoundEngine.StopPlaying(BassStreamId);
+            App.SoundEngine.StopPlaying(this);
         }
 
-        public PlayingClip(string name, string soundClipId, string outputDevice, int bassStreamId, double length, bool loopClip)
+        public PlayableSound(string filePath, int deviceId, float volume, string soundClipName, string soundClipId, string outputDevice, bool loopClip): base(filePath, deviceId)
         {
-            if (length == 0)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-            Name = name;
+            Name = soundClipName;
             SoundClipId = soundClipId;
             OutputDevice = outputDevice;
-            BassStreamId = bassStreamId;
-            Length = length;
             LoopClip = loopClip;
+            Volume = volume;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

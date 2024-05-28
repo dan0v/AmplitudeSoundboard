@@ -74,9 +74,7 @@ namespace Amplitude.Models
         }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public List<string> DeviceList => App.SoundEngine.OutputDeviceListWithGlobal;
-        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public List<string> DeviceListForGlobal => App.SoundEngine.OutputDeviceListWithoutGlobal;
+        public List<string> DeviceList => App.SoundEngine.OutputDeviceList;
 
         public OutputSettings ShallowCopy()
         {
