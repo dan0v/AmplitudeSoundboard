@@ -19,18 +19,17 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
 using Amplitude.Localization;
+using Amplitude.Models;
 using Amplitude.ViewModels;
 using AmplitudeSoundboard;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 
-namespace Amplitude.Models
+namespace Amplitude.Helpers
 {
     [JsonSerializable(typeof(Config))]
     public partial class ConfigManagerContext : JsonSerializerContext { }
@@ -98,10 +97,6 @@ namespace Amplitude.Models
                 if (_config.Language != config.Language)
                 {
                     Localizer.Instance.ChangeLanguage(config.Language);
-                }
-                if (_config.ThemeId != config.ThemeId)
-                {
-                    App.ThemeHandler.SelectTheme(config.ThemeId);
                 }
 
                 var json = App.JsonIoManager.ConvertObjectsToJSON(config);

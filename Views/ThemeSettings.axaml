@@ -1,0 +1,165 @@
+<!--
+    AmplitudeSoundboard
+    Copyright (C) 2021-2024 dan0v
+    https://git.dan0v.com/AmplitudeSoundboard
+
+    This file is part of AmplitudeSoundboard.
+
+    AmplitudeSoundboard is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    AmplitudeSoundboard is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Amplitude.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="730"
+        xmlns:i18n="clr-namespace:Amplitude.Localization"
+        xmlns:converters="clr-namespace:Amplitude.Converters"
+        x:Class="Amplitude.Views.ThemeSettings"
+        Icon="/Assets/Icon.ico"
+        Title="{i18n:Localize ThemeSettingsTitle}"
+        Width="400" Height="730" MinWidth="400" MinHeight="320"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
+
+    <Window.Styles>
+      <StyleInclude Source="/Styles/DefaultStyle.axaml" />
+    </Window.Styles>
+
+    <Window.Resources>
+      <converters:NullableIntConverter x:Key="NullableIntConverter"/>
+    </Window.Resources>
+  
+    <Design.DataContext>
+        <vm:ThemeSettingsViewModel/>
+    </Design.DataContext>
+  
+    <Panel>
+      
+      <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding Model.Acrylic}">
+      </ExperimentalAcrylicBorder>
+      
+      <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize ThemeSettingsTitle}" Classes="TITLE" FontFamily="{Binding ThemeManager.TitleFont}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+
+      <ScrollViewer Margin="0,30,0,0">
+        <StackPanel>
+          <!--ThemeBase-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeManager.BorderColor}"/>
+            </Border.BorderBrush>
+            <Grid ColumnDefinitions="*,*">
+              <Label Grid.Column="0" Content="{i18n:Localize ThemeLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+              <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,5,0,5" SelectedIndex="{Binding Model.SelectedThemeBase}" ItemsSource="{Binding ThemeManager.ThemesBaseList}" HorizontalAlignment="Center"/>
+            </Grid>
+          </Border>
+          <!--TextBoxNormalColor-->
+          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+            </Border.BorderBrush>
+            <StackPanel>
+              <Label Content="{i18n:Localize TextBoxNormalColor}" HorizontalAlignment="Center" Height="30"></Label>
+              <TextBox Text="{Binding TextBoxNormalColor}" Watermark="{i18n:Localize TextBoxNormalColorPlaceholder}" ToolTip.Tip="{Binding TextBoxNormalColor}" Margin="5,0,5,0"></TextBox>
+            </StackPanel>
+          </Border>
+          <!--TextBoxHighlightedColor-->
+          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+            </Border.BorderBrush>
+            <StackPanel>
+              <Label Content="{i18n:Localize TextBoxHighlightedColor}" HorizontalAlignment="Center" Height="30"></Label>
+              <TextBox Text="{Binding TextBoxHighlightedColor}" Watermark="{i18n:Localize TextBoxHighlightedColorPlaceholder}" ToolTip.Tip="{Binding TextBoxHighlightedColor}" Margin="5,0,5,0"></TextBox>
+            </StackPanel>
+          </Border>
+          <!--SliderForegroundColor-->
+          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+            </Border.BorderBrush>
+            <StackPanel>
+              <Label Content="{i18n:Localize SliderForegroundColor}" HorizontalAlignment="Center" Height="30"></Label>
+              <TextBox Text="{Binding SliderForegroundColor}" Watermark="{i18n:Localize SliderForegroundColorPlaceholder}" ToolTip.Tip="{Binding SliderForegroundColor}" Margin="5,0,5,0"></TextBox>
+            </StackPanel>
+          </Border>
+          <!--SliderBackgroundColor-->
+          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+            </Border.BorderBrush>
+            <StackPanel>
+              <Label Content="{i18n:Localize SliderBackgroundColor}" HorizontalAlignment="Center" Height="30"></Label>
+              <TextBox Text="{Binding SliderBackgroundColor}" Watermark="{i18n:Localize SliderBackgroundColorPlaceholder}" ToolTip.Tip="{Binding SliderBackgroundColor}" Margin="5,0,5,0"></TextBox>
+            </StackPanel>
+          </Border>
+          <!--FadedTextBackgroundColor-->
+          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+            </Border.BorderBrush>
+            <StackPanel>
+              <Label Content="{i18n:Localize FadedTextBackgroundColor}" HorizontalAlignment="Center" Height="30"></Label>
+              <TextBox Text="{Binding FadedTextBackgroundColor}" Watermark="{i18n:Localize FadedTextBackgroundColorPlaceholder}" ToolTip.Tip="{Binding FadedTextBackgroundColor}" Margin="5,0,5,0"></TextBox>
+            </StackPanel>
+          </Border>
+          <!--BorderColor-->
+          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+            </Border.BorderBrush>
+            <StackPanel>
+              <Label Content="{i18n:Localize BorderColor}" HorizontalAlignment="Center" Height="30"></Label>
+              <TextBox Text="{Binding BorderColor}" Watermark="{i18n:Localize BorderColorPlaceholder}" ToolTip.Tip="{Binding BorderColor}" Margin="5,0,5,0"></TextBox>
+            </StackPanel>
+          </Border>
+          <!--WindowBackgroundColor-->
+          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+            </Border.BorderBrush>
+            <StackPanel>
+              <Label Content="{i18n:Localize WindowBackgroundColor}" HorizontalAlignment="Center" Height="30"></Label>
+              <TextBox Text="{Binding WindowBackgroundColor}" Watermark="{i18n:Localize WindowBackgroundColorPlaceholder}" ToolTip.Tip="{Binding WindowBackgroundColor}" Margin="5,0,5,0"></TextBox>
+            </StackPanel>
+          </Border>
+          <!--WindowBackgroundOpacity-->
+          <Border IsVisible="{Binding CanAdjustWindowOpacity}" Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+            </Border.BorderBrush>
+            <StackPanel>
+              <Label Content="{i18n:Localize WindowBackgroundOpacity}" HorizontalAlignment="Center" Height="30"></Label>
+              <TextBox Text="{Binding WindowBackgroundOpacity}" Watermark="{i18n:Localize WindowBackgroundOpacityPlaceholder}" ToolTip.Tip="{Binding WindowBackgroundOpacity}" Margin="5,0,5,0"></TextBox>
+            </StackPanel>
+          </Border>
+
+          <!--Save button-->
+          <Grid ColumnDefinitions="*,Auto">
+            <!--Can't put a tooltip on disabled elements and even putting it on the parent doesn't work, so I don't know how we can signal why this button is disabled-->
+            <Panel Grid.Column="1">
+              <!--ToolTip.Tip="{Binding SaveButtonTooltip}">-->
+              <Button ToolTip.Tip="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveConfig}" Margin="5,5,10,5" HorizontalAlignment="Right">
+                <Panel>
+                  <Image Source="{Binding ThemeManager.Save}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Panel>
+              </Button>
+            </Panel>
+          </Grid>
+        </StackPanel>
+      </ScrollViewer>
+    </Panel>
+  
+</Window>

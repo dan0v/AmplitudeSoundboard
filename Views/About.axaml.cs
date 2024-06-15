@@ -35,7 +35,7 @@ namespace Amplitude.Views
     {
         private string projectUrl = "https://amplitude-soundboard.dan0v.com";
 
-        protected ThemeHandler ThemeHandler => App.ThemeHandler;
+        protected ThemeManager ThemeHandler => App.ThemeManager;
         public static bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
 
         public About()

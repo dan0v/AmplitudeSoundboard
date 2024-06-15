@@ -4,15 +4,15 @@
       <Setter Property="Opacity" Value="0.5"/>
     </Style>
     <Style Selector="TextBlock">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      <Setter Property="FontFamily" Value="{Binding ThemeManager.BodyFont}"/>
     </Style>
     <Style Selector="Label">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      <Setter Property="FontFamily" Value="{Binding ThemeManager.BodyFont}"/>
     </Style>
     <Style Selector="TextBox">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      <Setter Property="FontFamily" Value="{Binding ThemeManager.BodyFont}"/>
     </Style>
     <Style Selector="Button">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      <Setter Property="FontFamily" Value="{Binding ThemeManager.BodyFont}"/>
     </Style>
 </Styles>

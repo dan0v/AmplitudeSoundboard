@@ -31,7 +31,7 @@ namespace Amplitude.ViewModels
 {
     public abstract class ViewModelBase : ReactiveObject, INotifyPropertyChanged, IDisposable
     {
-        protected ThemeHandler ThemeHandler => App.ThemeHandler;
+        protected ThemeManager ThemeManager => App.ThemeManager;
         protected SoundClipManager SoundClipManager => App.SoundClipManager;
         protected ConfigManager ConfigManager => App.ConfigManager;
         protected OutputProfileManager OutputProfileManager => App.OutputProfileManager;
@@ -43,6 +43,8 @@ namespace Amplitude.ViewModels
         public double HotkeysOpacity => CanUseHotkeys ? 1 : 0.3d;
 
         public bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
+
+        public bool CanAdjustWindowOpacity => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.BACKGROUND_OPACTIY);
 
         public virtual void Dispose() { }
 

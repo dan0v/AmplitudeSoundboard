@@ -44,10 +44,10 @@
     </Design.DataContext>
   
   <Panel>
-      <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
+      <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding ThemeManager.Theme.Acrylic}">
       </ExperimentalAcrylicBorder>
       
-      <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" FontFamily="{Binding ThemeHandler.TitleFont}" Classes="TITLE" Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+      <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" FontFamily="{Binding ThemeManager.TitleFont}" Classes="TITLE" Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
       <Grid RowDefinitions="*,Auto,Auto" Margin="5,30,5,0" >
         <Grid Grid.Row="0" ColumnDefinitions="Auto,*">
@@ -56,7 +56,7 @@
               <Grid ColumnDefinitions="Auto,*">
                 <Button Grid.Column="0" ToolTip.Tip="{i18n:Localize SoundClipListTitle}" Command="{Binding ShowList}" Cursor="Hand" Margin="5,5,5,5">
                   <Panel>
-                    <Image Source="{Binding ThemeHandler.SoundClipList}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Image Source="{Binding ThemeManager.SoundClipList}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
                 </Button>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{i18n:Localize SoundClipListTitle}"/>
@@ -64,7 +64,7 @@
               <Grid ColumnDefinitions="Auto,*">
                 <Button ToolTip.Tip="{Binding StopAudioHotkey}" Command="{Binding StopAudio}" Cursor="Hand" Margin="5,5,5,5">
                   <Panel>
-                    <Image Source="{Binding ThemeHandler.StopSound}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Image Source="{Binding ThemeManager.StopSound}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
                 </Button>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{i18n:Localize StopAllAudio}"/>
@@ -72,7 +72,7 @@
               <Grid ColumnDefinitions="Auto,*">
                 <Button ToolTip.Tip="{i18n:Localize GlobalSettingsTitle}" Command="{Binding ShowGlobalSettings}" Cursor="Hand" Margin="5,5,5,5">
                   <Panel>
-                    <Image Source="{Binding ThemeHandler.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Image Source="{Binding ThemeManager.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
                 </Button>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{i18n:Localize GlobalSettingsTitle}"/>
@@ -80,7 +80,7 @@
               <Grid ColumnDefinitions="Auto,*">
                 <Button ToolTip.Tip="{i18n:Localize AboutTitle}" Command="{Binding ShowAbout}" Cursor="Hand" Margin="5,5,5,5">
                   <Panel>
-                    <Image Source="{Binding ThemeHandler.Info}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Image Source="{Binding ThemeManager.Info}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                   </Panel>
                 </Button>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{i18n:Localize AboutTitle}"/>
@@ -104,7 +104,7 @@
                         </Grid>
                         <Button Grid.Column="1" ToolTip.Tip="{i18n:Localize Remove}" Command="{Binding StopPlayback}" Cursor="Hand" Margin="2">
                           <Panel>
-                            <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeManager.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
                           </Panel>
                         </Button>
                       </Grid>
@@ -114,7 +114,7 @@
 
                 <Rectangle StrokeLineCap="Round" Stretch="Fill" StrokeThickness="1" Height="0" IsVisible="{Binding QueueSeperatorVisible}" Margin="5">
                   <Rectangle.Stroke>
-                    <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+                    <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
                   </Rectangle.Stroke>
                 </Rectangle>
                   
@@ -130,7 +130,7 @@
                         <TextBlock Grid.Column="0" Text="{Binding Name}" ToolTip.Tip="{Binding Name}" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <Button Grid.Column="1" ToolTip.Tip="{i18n:Localize Remove}" Command="{Binding $parent[ItemsControl].DataContext.RemoveFromQueue}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}" Cursor="Hand" Margin="2">
                           <Panel>
-                            <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeHandler.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeManager.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
                           </Panel>
                         </Button>
                       </Grid>
