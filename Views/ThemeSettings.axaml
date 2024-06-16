@@ -1,0 +1,147 @@
+<!--
+    AmplitudeSoundboard
+    Copyright (C) 2021-2024 dan0v
+    https://git.dan0v.com/AmplitudeSoundboard
+
+    This file is part of AmplitudeSoundboard.
+
+    AmplitudeSoundboard is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    AmplitudeSoundboard is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Amplitude.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="780"
+        xmlns:i18n="clr-namespace:Amplitude.Localization"
+        xmlns:converters="clr-namespace:Amplitude.Converters"
+        x:Class="Amplitude.Views.ThemeSettings"
+        Icon="/Assets/Icon.ico"
+        Title="{i18n:Localize ThemeSettingsTitle}"
+        Width="400" Height="780" MinWidth="400" MinHeight="320"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
+
+    <Window.Styles>
+      <StyleInclude Source="/Styles/DefaultStyle.axaml" />
+    </Window.Styles>
+
+    <Window.Resources>
+      <converters:NullableIntConverter x:Key="NullableIntConverter"/>
+    </Window.Resources>
+  
+    <Design.DataContext>
+        <vm:ThemeSettingsViewModel/>
+    </Design.DataContext>
+  
+    <Panel>
+      
+      <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding Model.Acrylic}">
+      </ExperimentalAcrylicBorder>
+      
+      <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize ThemeSettingsTitle}" Classes="TITLE" FontFamily="{Binding ThemeManager.TitleFont}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+
+      <ScrollViewer Margin="0,30,0,0">
+        <StackPanel>
+          <!--ThemeBase-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
+            </Border.BorderBrush>
+            <Grid ColumnDefinitions="*,*">
+              <Label Grid.Column="0" Content="{i18n:Localize ThemeLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+              <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,5,0,5" SelectedIndex="{Binding Model.SelectedThemeBase}" ItemsSource="{Binding ThemeManager.ThemesBaseList}" HorizontalAlignment="Center"/>
+            </Grid>
+          </Border>
+          <!--AccentColor-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
+            </Border.BorderBrush>
+            <Grid ColumnDefinitions="*,Auto">
+              <Label Grid.Column="0" Content="{i18n:Localize AccentColor}" HorizontalAlignment="Center" Height="26"></Label>
+              <ColorPicker Grid.Column="1" Color="{Binding Model.AccentColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
+            </Grid>
+          </Border>
+          <!--SecondaryColor-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
+            </Border.BorderBrush>
+            <Grid ColumnDefinitions="*,Auto">
+              <Label Grid.Column="0" Content="{i18n:Localize SecondaryColor}" HorizontalAlignment="Center" Height="26"></Label>
+              <ColorPicker Grid.Column="1" Color="{Binding Model.SecondaryColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
+              </Grid>
+          </Border>
+          <!--WindowBackgroundColor-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
+            </Border.BorderBrush>
+            <Grid ColumnDefinitions="*,Auto">
+              <Label Grid.Column="0" Content="{i18n:Localize WindowBackgroundColor}" HorizontalAlignment="Center" Height="26"></Label>
+              <ColorPicker Grid.Column="1" Color="{Binding Model.WindowBackgroundColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
+            </Grid>
+          </Border>
+          <!--WindowBackgroundOpacity-->
+          <Border IsVisible="{Binding CanAdjustWindowOpacity}" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
+            </Border.BorderBrush>
+            <Grid ColumnDefinitions="*,Auto">
+              <Label Grid.Column="0" Content="{i18n:Localize WindowBackgroundOpacity}" HorizontalAlignment="Center" Height="30"></Label>
+              <TextBox Grid.Column="1" Text="{Binding WindowBackgroundOpacity}" Watermark="{i18n:Localize WindowBackgroundOpacityPlaceholder}" ToolTip.Tip="{Binding WindowBackgroundOpacity}" Margin="5,0,5,0"></TextBox>
+            </Grid>
+          </Border>
+
+          <!--Reset buttons-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Grid ColumnDefinitions="*,*">
+              <Panel Grid.Column="0">
+                <!--ToolTip.Tip="{Binding SaveButtonTooltip}">-->
+                <Button ToolTip.Tip="{i18n:Localize ResetDefaultLightThemeLabel}" Cursor="Hand" Command="{Binding Model.ResetDefaultLightTheme}" Margin="5,5,10,5" HorizontalAlignment="Center">
+                  <Panel>
+                    <Image Source="{Binding ThemeManager.Save}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  </Panel>
+                </Button>
+              </Panel>
+              <Panel Grid.Column="1">
+                <!--ToolTip.Tip="{Binding SaveButtonTooltip}">-->
+                <Button ToolTip.Tip="{i18n:Localize ResetDefaultDarkThemeLabel}" Cursor="Hand" Command="{Binding Model.ResetDefaultDarkTheme}" Margin="5,5,10,5" HorizontalAlignment="Center">
+                  <Panel>
+                    <Image Source="{Binding ThemeManager.Save}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  </Panel>
+                </Button>
+              </Panel>
+            </Grid>
+          </Border>
+          
+          <!--Save button-->
+          <Grid ColumnDefinitions="*,Auto">
+            <!--Can't put a tooltip on disabled elements and even putting it on the parent doesn't work, so I don't know how we can signal why this button is disabled-->
+            <Panel Grid.Column="1">
+              <!--ToolTip.Tip="{Binding SaveButtonTooltip}">-->
+              <Button ToolTip.Tip="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveConfig}" Margin="5,5,10,5" HorizontalAlignment="Right">
+                <Panel>
+                  <Image Source="{Binding ThemeManager.Save}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Panel>
+              </Button>
+            </Panel>
+          </Grid>
+        </StackPanel>
+      </ScrollViewer>
+    </Panel>
+  
+</Window>

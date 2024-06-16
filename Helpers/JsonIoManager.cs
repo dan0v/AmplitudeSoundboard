@@ -19,7 +19,6 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Models;
 using AmplitudeSoundboard;
 using System;
 using System.IO;
@@ -42,6 +41,7 @@ namespace Amplitude.Helpers
                 SoundClipManagerContext.Default,
                 OutputProfileManagerContext.Default,
                 ConfigManagerContext.Default,
+                ThemeManagerContext.Default,
                 WindowManagerContext.Default
                 )
         };
