@@ -161,7 +161,27 @@ namespace Amplitude.Helpers
 
             Theme.RefreshAcrylic();
             OnPropertyChanged(nameof(Theme));
-        }
+            OnPropertyChanged(nameof(ArrowLeft));
+            OnPropertyChanged(nameof(ArrowRight));
+            OnPropertyChanged(nameof(FileBrowse));
+            OnPropertyChanged(nameof(Keyboard));
+            OnPropertyChanged(nameof(Settings));
+            OnPropertyChanged(nameof(Play));
+            OnPropertyChanged(nameof(Clipboard));
+            OnPropertyChanged(nameof(SoundClipList));
+            OnPropertyChanged(nameof(StopSound));
+            OnPropertyChanged(nameof(Info));
+            OnPropertyChanged(nameof(Save));
+            OnPropertyChanged(nameof(Delete));
+            OnPropertyChanged(nameof(AddAudio));
+            OnPropertyChanged(nameof(Plus));
+            OnPropertyChanged(nameof(Minus));
+            OnPropertyChanged(nameof(ClearCache));
+            OnPropertyChanged(nameof(LaunchItem));
+            OnPropertyChanged(nameof(RemoveItem));
+            OnPropertyChanged(nameof(AddToQueue));
+            OnPropertyChanged(nameof(Language));
+    }
 
 
 

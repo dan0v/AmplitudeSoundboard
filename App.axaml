@@ -33,5 +33,6 @@
           <ColorPaletteResources x:Key="Dark" Accent="#ff9821af" AltHigh="Black" AltLow="Black" AltMedium="Black" AltMediumHigh="Black" AltMediumLow="#1f2329" BaseHigh="White" BaseLow="#fff0813a" BaseMedium="#fffcbf95" BaseMediumHigh="#ffffceac" BaseMediumLow="#fff6a068" ChromeAltLow="#ffffceac" ChromeBlackHigh="Black" ChromeBlackLow="#ffffceac" ChromeBlackMedium="Black" ChromeBlackMediumLow="Black" ChromeDisabledHigh="#fff0813a" ChromeDisabledLow="#fffcbf95" ChromeGray="#fff9af7e" ChromeHigh="#fff9af7e" ChromeLow="#ff97320c" ChromeMedium="#ffad4617" ChromeMediumLow="#ffda6d2e" ChromeWhite="White" ListLow="#ffad4617" ListMedium="#fff0813a" RegionColor="#ff171a21" />
         </FluentTheme.Palettes>
       </FluentTheme>
+      <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
     </Application.Styles>
 </Application>

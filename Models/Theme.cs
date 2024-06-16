@@ -235,33 +235,33 @@ namespace Amplitude.Models
             OnPropertyChanged(nameof(Acrylic));
         }
 
-        public void ResetProperties()
+        public void ResetDefaultDarkTheme()
         {
-            switch (SelectedThemeBase)
-            {
-                case ThemeBase.DARK:
-                    TextBoxNormalColor = ThemeManager.DefaultDarkTextBoxNormalColor;
-                    TextBoxHighlightedColor = ThemeManager.DefaultDarkTextBoxHighlightedColor;
-                    SliderForegroundColor = ThemeManager.DefaultDarkSliderForegroundColor;
-                    SliderBackgroundColor = ThemeManager.DefaultDarkSliderBackgroundColor;
-                    FadedTextBackgroundColor = ThemeManager.DefaultDarkFadedTextBackgroundColor;
-                    BorderColor = ThemeManager.DefaultDarkBorderColor;
-                    WindowBackgroundColor = ThemeManager.DefaultDarkWindowBackgroundColor;
-                    WindowBackgroundOpacity = ThemeManager.DefaultDarkWindowBackgroundOpacity;
-                    break;
-                case ThemeBase.LIGHT:
-                    TextBoxNormalColor = ThemeManager.DefaultLightTextBoxNormalColor;
-                    TextBoxHighlightedColor = ThemeManager.DefaultLightTextBoxHighlightedColor;
-                    SliderForegroundColor = ThemeManager.DefaultLightSliderForegroundColor;
-                    SliderBackgroundColor = ThemeManager.DefaultLightSliderBackgroundColor;
-                    FadedTextBackgroundColor = ThemeManager.DefaultLightFadedTextBackgroundColor;
-                    BorderColor = ThemeManager.DefaultLightBorderColor;
-                    WindowBackgroundColor = ThemeManager.DefaultLightWindowBackgroundColor;
-                    WindowBackgroundOpacity = ThemeManager.DefaultLightWindowBackgroundOpacity;
-                    break;
-            }
+            SelectedThemeBase = ThemeBase.DARK;
+            TextBoxNormalColor = ThemeManager.DefaultDarkTextBoxNormalColor;
+            TextBoxHighlightedColor = ThemeManager.DefaultDarkTextBoxHighlightedColor;
+            SliderForegroundColor = ThemeManager.DefaultDarkSliderForegroundColor;
+            SliderBackgroundColor = ThemeManager.DefaultDarkSliderBackgroundColor;
+            FadedTextBackgroundColor = ThemeManager.DefaultDarkFadedTextBackgroundColor;
+            BorderColor = ThemeManager.DefaultDarkBorderColor;
+            WindowBackgroundColor = ThemeManager.DefaultDarkWindowBackgroundColor;
+            WindowBackgroundOpacity = ThemeManager.DefaultDarkWindowBackgroundOpacity;
         }
-        
+
+        public void ResetDefaultLightTheme()
+        {
+            SelectedThemeBase = ThemeBase.LIGHT;
+            TextBoxNormalColor = ThemeManager.DefaultLightTextBoxNormalColor;
+            TextBoxHighlightedColor = ThemeManager.DefaultLightTextBoxHighlightedColor;
+            SliderForegroundColor = ThemeManager.DefaultLightSliderForegroundColor;
+            SliderBackgroundColor = ThemeManager.DefaultLightSliderBackgroundColor;
+            FadedTextBackgroundColor = ThemeManager.DefaultLightFadedTextBackgroundColor;
+            BorderColor = ThemeManager.DefaultLightBorderColor;
+            WindowBackgroundColor = ThemeManager.DefaultLightWindowBackgroundColor;
+            WindowBackgroundOpacity = ThemeManager.DefaultLightWindowBackgroundOpacity;
+        }
+
+
         public Theme ShallowCopy()
         {
             return (Theme)this.MemberwiseClone();

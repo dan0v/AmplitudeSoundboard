@@ -23,13 +23,13 @@
         xmlns:vm="using:Amplitude.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="730"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="780"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         xmlns:converters="clr-namespace:Amplitude.Converters"
         x:Class="Amplitude.Views.ThemeSettings"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize ThemeSettingsTitle}"
-        Width="400" Height="730" MinWidth="400" MinHeight="320"
+        Width="400" Height="780" MinWidth="400" MinHeight="320"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
@@ -66,86 +66,108 @@
             </Grid>
           </Border>
           <!--TextBoxNormalColor-->
-          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
-            <StackPanel>
-              <Label Content="{i18n:Localize TextBoxNormalColor}" HorizontalAlignment="Center" Height="30"></Label>
-              <TextBox Text="{Binding TextBoxNormalColor}" Watermark="{i18n:Localize TextBoxNormalColorPlaceholder}" ToolTip.Tip="{Binding TextBoxNormalColor}" Margin="5,0,5,0"></TextBox>
-            </StackPanel>
+            <Grid ColumnDefinitions="*,Auto">
+              <Label Grid.Column="0" Content="{i18n:Localize TextBoxNormalColor}" HorizontalAlignment="Center" Height="26"></Label>
+              <ColorPicker Grid.Column="1" Color="{Binding Model.TextBoxNormalColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
+            </Grid>
           </Border>
           <!--TextBoxHighlightedColor-->
-          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
-            <StackPanel>
-              <Label Content="{i18n:Localize TextBoxHighlightedColor}" HorizontalAlignment="Center" Height="30"></Label>
-              <TextBox Text="{Binding TextBoxHighlightedColor}" Watermark="{i18n:Localize TextBoxHighlightedColorPlaceholder}" ToolTip.Tip="{Binding TextBoxHighlightedColor}" Margin="5,0,5,0"></TextBox>
-            </StackPanel>
+            <Grid ColumnDefinitions="*,Auto">
+              <Label Grid.Column="0" Content="{i18n:Localize TextBoxHighlightedColor}" HorizontalAlignment="Center" Height="26"></Label>
+              <ColorPicker Grid.Column="1" Color="{Binding Model.TextBoxHighlightedColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
+              </Grid>
           </Border>
           <!--SliderForegroundColor-->
-          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
-            <StackPanel>
-              <Label Content="{i18n:Localize SliderForegroundColor}" HorizontalAlignment="Center" Height="30"></Label>
-              <TextBox Text="{Binding SliderForegroundColor}" Watermark="{i18n:Localize SliderForegroundColorPlaceholder}" ToolTip.Tip="{Binding SliderForegroundColor}" Margin="5,0,5,0"></TextBox>
-            </StackPanel>
+            <Grid ColumnDefinitions="*,Auto">
+              <Label Grid.Column="0" Content="{i18n:Localize SliderForegroundColor}" HorizontalAlignment="Center" Height="26"></Label>
+              <ColorPicker Grid.Column="1" Color="{Binding Model.SliderForegroundColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
+            </Grid>
           </Border>
           <!--SliderBackgroundColor-->
-          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
-            <StackPanel>
-              <Label Content="{i18n:Localize SliderBackgroundColor}" HorizontalAlignment="Center" Height="30"></Label>
-              <TextBox Text="{Binding SliderBackgroundColor}" Watermark="{i18n:Localize SliderBackgroundColorPlaceholder}" ToolTip.Tip="{Binding SliderBackgroundColor}" Margin="5,0,5,0"></TextBox>
-            </StackPanel>
+            <Grid ColumnDefinitions="*,Auto">
+              <Label Grid.Column="0" Content="{i18n:Localize SliderBackgroundColor}" HorizontalAlignment="Center" Height="26"></Label>
+              <ColorPicker Grid.Column="1" Color="{Binding Model.SliderBackgroundColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
+            </Grid>
           </Border>
           <!--FadedTextBackgroundColor-->
-          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
-            <StackPanel>
-              <Label Content="{i18n:Localize FadedTextBackgroundColor}" HorizontalAlignment="Center" Height="30"></Label>
-              <TextBox Text="{Binding FadedTextBackgroundColor}" Watermark="{i18n:Localize FadedTextBackgroundColorPlaceholder}" ToolTip.Tip="{Binding FadedTextBackgroundColor}" Margin="5,0,5,0"></TextBox>
-            </StackPanel>
+            <Grid ColumnDefinitions="*,Auto">
+              <Label Grid.Column="0" Content="{i18n:Localize FadedTextBackgroundColor}" HorizontalAlignment="Center" Height="26"></Label>
+              <ColorPicker Grid.Column="1" Color="{Binding Model.FadedTextBackgroundColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
+            </Grid>
           </Border>
           <!--BorderColor-->
-          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
-            <StackPanel>
-              <Label Content="{i18n:Localize BorderColor}" HorizontalAlignment="Center" Height="30"></Label>
-              <TextBox Text="{Binding BorderColor}" Watermark="{i18n:Localize BorderColorPlaceholder}" ToolTip.Tip="{Binding BorderColor}" Margin="5,0,5,0"></TextBox>
-            </StackPanel>
+            <Grid ColumnDefinitions="*,Auto">
+              <Label Grid.Column="0" Content="{i18n:Localize BorderColor}" HorizontalAlignment="Center" Height="26"></Label>
+              <ColorPicker Grid.Column="1" Color="{Binding Model.BorderColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
+            </Grid>
           </Border>
           <!--WindowBackgroundColor-->
-          <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
-            <StackPanel>
-              <Label Content="{i18n:Localize WindowBackgroundColor}" HorizontalAlignment="Center" Height="30"></Label>
-              <TextBox Text="{Binding WindowBackgroundColor}" Watermark="{i18n:Localize WindowBackgroundColorPlaceholder}" ToolTip.Tip="{Binding WindowBackgroundColor}" Margin="5,0,5,0"></TextBox>
-            </StackPanel>
+            <Grid ColumnDefinitions="*,Auto">
+              <Label Grid.Column="0" Content="{i18n:Localize WindowBackgroundColor}" HorizontalAlignment="Center" Height="26"></Label>
+              <ColorPicker Grid.Column="1" Color="{Binding Model.WindowBackgroundColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
+            </Grid>
           </Border>
           <!--WindowBackgroundOpacity-->
-          <Border IsVisible="{Binding CanAdjustWindowOpacity}" Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+          <Border IsVisible="{Binding CanAdjustWindowOpacity}" BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding Model.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
-            <StackPanel>
-              <Label Content="{i18n:Localize WindowBackgroundOpacity}" HorizontalAlignment="Center" Height="30"></Label>
-              <TextBox Text="{Binding WindowBackgroundOpacity}" Watermark="{i18n:Localize WindowBackgroundOpacityPlaceholder}" ToolTip.Tip="{Binding WindowBackgroundOpacity}" Margin="5,0,5,0"></TextBox>
-            </StackPanel>
+            <Grid ColumnDefinitions="*,Auto">
+              <Label Grid.Column="0" Content="{i18n:Localize WindowBackgroundOpacity}" HorizontalAlignment="Center" Height="30"></Label>
+              <TextBox Grid.Column="1" Text="{Binding WindowBackgroundOpacity}" Watermark="{i18n:Localize WindowBackgroundOpacityPlaceholder}" ToolTip.Tip="{Binding WindowBackgroundOpacity}" Margin="5,0,5,0"></TextBox>
+            </Grid>
           </Border>
 
+          <!--Reset buttons-->
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+            <Grid ColumnDefinitions="*,*">
+              <Panel Grid.Column="0">
+                <!--ToolTip.Tip="{Binding SaveButtonTooltip}">-->
+                <Button ToolTip.Tip="{i18n:Localize ResetDefaultLightThemeLabel}" Cursor="Hand" Command="{Binding Model.ResetDefaultLightTheme}" Margin="5,5,10,5" HorizontalAlignment="Center">
+                  <Panel>
+                    <Image Source="{Binding ThemeManager.Save}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  </Panel>
+                </Button>
+              </Panel>
+              <Panel Grid.Column="1">
+                <!--ToolTip.Tip="{Binding SaveButtonTooltip}">-->
+                <Button ToolTip.Tip="{i18n:Localize ResetDefaultDarkThemeLabel}" Cursor="Hand" Command="{Binding Model.ResetDefaultDarkTheme}" Margin="5,5,10,5" HorizontalAlignment="Center">
+                  <Panel>
+                    <Image Source="{Binding ThemeManager.Save}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  </Panel>
+                </Button>
+              </Panel>
+            </Grid>
+          </Border>
+          
           <!--Save button-->
           <Grid ColumnDefinitions="*,Auto">
             <!--Can't put a tooltip on disabled elements and even putting it on the parent doesn't work, so I don't know how we can signal why this button is disabled-->
