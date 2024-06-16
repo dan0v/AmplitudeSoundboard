@@ -38,7 +38,7 @@ namespace Amplitude.Views
 {
     public partial class UpdatePrompt : Window, INotifyPropertyChanged
     {
-        public static ThemeManager ThemeHandler => App.ThemeManager;
+        public static ThemeManager ThemeManager => App.ThemeManager;
         public bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
 
         private string newVersion = "";

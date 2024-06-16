@@ -39,12 +39,12 @@ namespace Amplitude.ViewModels
         protected HotkeysManager HotkeysManager => App.HotkeysManager;
         protected ISoundEngine SoundEngine => App.SoundEngine;
 
-        public bool CanUseHotkeys => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.HOTKEYS);
-        public double HotkeysOpacity => CanUseHotkeys ? 1 : 0.3d;
+        protected bool CanUseHotkeys => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.HOTKEYS);
+        protected double HotkeysOpacity => CanUseHotkeys ? 1 : 0.3d;
 
-        public bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
+        protected bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
 
-        public bool CanAdjustWindowOpacity => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.BACKGROUND_OPACTIY);
+        protected bool CanAdjustWindowOpacity => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.BACKGROUND_OPACTIY);
 
         public virtual void Dispose() { }
 

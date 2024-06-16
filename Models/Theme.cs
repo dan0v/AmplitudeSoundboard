@@ -23,6 +23,7 @@ using Amplitude.Helpers;
 using Amplitude.Localization;
 using AmplitudeSoundboard;
 using Avalonia.Media;
+using Avalonia.Themes.Fluent;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -43,6 +44,66 @@ namespace Amplitude.Models
             }
         }
 
+        private Color _accentColor = ThemeManager.DefaultDarkAccentColor;
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+        public Color AccentColor
+        {
+            get => _accentColor;
+            set
+            {
+                if (value != _accentColor)
+                {
+                    _accentColor = value;
+                    _accentColorBrush = new(_accentColor);
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(AccentColorBrush));
+                }
+            }
+        }
+
+        public string AccentColorString
+        {
+            get => AccentColor.ToString();
+            set
+            {
+                AccentColor = Color.Parse(value);
+                OnPropertyChanged();
+            }
+        }
+
+        private SolidColorBrush _accentColorBrush = new();
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+        public SolidColorBrush AccentColorBrush => _accentColorBrush;
+
+        //private HighlightBrush _accentColorSelectionBrush = new();
+        //[JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+        //public SolidColorBrush AccentColorSelectionBrush => _accentColorSelectionBrush;
+
+
+        private Color _secondaryColor = ThemeManager.DefaultDarkSecondaryColor;
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+        public Color SecondaryColor
+        {
+            get => _secondaryColor;
+            set
+            {
+                _secondaryColor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string SecondaryColorString
+        {
+            get => SecondaryColor.ToString();
+            set
+            {
+                SecondaryColor = Color.Parse(value);
+                OnPropertyChanged();
+            }
+        }
+
         private Color _textBoxNormalColor = ThemeManager.DefaultDarkTextBoxNormalColor;
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
@@ -56,85 +117,14 @@ namespace Amplitude.Models
             }
         }
 
-        public string TextBoxNormalColorString
-        {
-            get => TextBoxNormalColor.ToString();
-            set
-            {
-                TextBoxNormalColor = Color.Parse(value);
-                OnPropertyChanged();
-            }
-        }
-
-
-        private Color _textBoxHighlightedColor = ThemeManager.DefaultDarkTextBoxHighlightedColor;
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+        public Color TextBoxHighlightedColor => SecondaryColor;
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public Color TextBoxHighlightedColor
-        {
-            get => _textBoxHighlightedColor;
-            set
-            {
-                _textBoxHighlightedColor = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string TextBoxHighlightedColorString
-        {
-            get => TextBoxHighlightedColor.ToString();
-            set
-            {
-                TextBoxHighlightedColor = Color.Parse(value);
-                OnPropertyChanged();
-            }
-        }
-
-        private Color _sliderForegroundColor = ThemeManager.DefaultDarkSliderForegroundColor;
+        public Color SliderForegroundColor => AccentColor;
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public Color SliderForegroundColor
-        {
-            get => _sliderForegroundColor;
-            set
-            {
-                _sliderForegroundColor = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string SliderForegroundColorString
-        {
-            get => SliderForegroundColor.ToString();
-            set
-            {
-                SliderForegroundColor = Color.Parse(value);
-                OnPropertyChanged();
-            }
-        }
-
-        private Color _sliderBackgroundColor = ThemeManager.DefaultDarkSliderBackgroundColor;
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public Color SliderBackgroundColor
-        {
-            get => _sliderBackgroundColor;
-            set
-            {
-                _sliderBackgroundColor = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string SliderBackgroundColorString
-        {
-            get => SliderBackgroundColor.ToString();
-            set
-            {
-                SliderBackgroundColor = Color.Parse(value);
-                OnPropertyChanged();
-            }
-        }
+        public Color SliderBackgroundColor => SecondaryColor;
 
         private Color _fadedTextBackgroundColor = ThemeManager.DefaultDarkFadedTextBackgroundColor;
 
@@ -149,38 +139,8 @@ namespace Amplitude.Models
             }
         }
 
-        public string FadedTextBackgroundColorString
-        {
-            get => FadedTextBackgroundColor.ToString();
-            set
-            {
-                FadedTextBackgroundColor = Color.Parse(value);
-                OnPropertyChanged();
-            }
-        }
-
-        private Color _borderColor = ThemeManager.DefaultDarkBorderColor;
-
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public Color BorderColor
-        {
-            get => _borderColor;
-            set
-            {
-                _borderColor = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string BorderColorString
-        {
-            get => BorderColor.ToString();
-            set
-            {
-                BorderColor = Color.Parse(value);
-                OnPropertyChanged();
-            }
-        }
+        public Color BorderColor => SecondaryColor;
 
         private Color _windowBackgroundColor = ThemeManager.DefaultDarkWindowBackgroundColor;
 
@@ -238,12 +198,10 @@ namespace Amplitude.Models
         public void ResetDefaultDarkTheme()
         {
             SelectedThemeBase = ThemeBase.DARK;
+            AccentColor = ThemeManager.DefaultDarkAccentColor;
+            SecondaryColor = ThemeManager.DefaultDarkSecondaryColor;
             TextBoxNormalColor = ThemeManager.DefaultDarkTextBoxNormalColor;
-            TextBoxHighlightedColor = ThemeManager.DefaultDarkTextBoxHighlightedColor;
-            SliderForegroundColor = ThemeManager.DefaultDarkSliderForegroundColor;
-            SliderBackgroundColor = ThemeManager.DefaultDarkSliderBackgroundColor;
             FadedTextBackgroundColor = ThemeManager.DefaultDarkFadedTextBackgroundColor;
-            BorderColor = ThemeManager.DefaultDarkBorderColor;
             WindowBackgroundColor = ThemeManager.DefaultDarkWindowBackgroundColor;
             WindowBackgroundOpacity = ThemeManager.DefaultDarkWindowBackgroundOpacity;
         }
@@ -251,12 +209,10 @@ namespace Amplitude.Models
         public void ResetDefaultLightTheme()
         {
             SelectedThemeBase = ThemeBase.LIGHT;
+            AccentColor = ThemeManager.DefaultLightAccentColor;
+            SecondaryColor = ThemeManager.DefaultLightSecondaryColor;
             TextBoxNormalColor = ThemeManager.DefaultLightTextBoxNormalColor;
-            TextBoxHighlightedColor = ThemeManager.DefaultLightTextBoxHighlightedColor;
-            SliderForegroundColor = ThemeManager.DefaultLightSliderForegroundColor;
-            SliderBackgroundColor = ThemeManager.DefaultLightSliderBackgroundColor;
             FadedTextBackgroundColor = ThemeManager.DefaultLightFadedTextBackgroundColor;
-            BorderColor = ThemeManager.DefaultLightBorderColor;
             WindowBackgroundColor = ThemeManager.DefaultLightWindowBackgroundColor;
             WindowBackgroundOpacity = ThemeManager.DefaultLightWindowBackgroundOpacity;
         }

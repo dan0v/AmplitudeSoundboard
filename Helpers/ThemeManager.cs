@@ -57,14 +57,17 @@ namespace Amplitude.Helpers
         }
 
         // Light Defaults
+        public static readonly Color DefaultLightAccentColor = Color.Parse("#F08A5D");
+        public static readonly Color DefaultLightSecondaryColor = Color.Parse("#252A36");
         public static readonly Color DefaultLightTextBoxNormalColor = Color.Parse("#66ffffff");
-        public static readonly Color DefaultLightTextBoxHighlightedColor = Color.Parse("#252A36");
-        public static readonly Color DefaultLightSliderForegroundColor = Color.Parse("#252A36");
-        public static readonly Color DefaultLightSliderBackgroundColor = Color.Parse("#EBAEFF");
+        public static readonly Color DefaultLightTextBoxHighlightedColor = DefaultLightSecondaryColor;
+        public static readonly Color DefaultLightSliderForegroundColor = DefaultLightSecondaryColor;
+        public static readonly Color DefaultLightSliderBackgroundColor = DefaultLightAccentColor;
         public static readonly Color DefaultLightFadedTextBackgroundColor = Color.Parse("#BFBFC1");
-        public static readonly Color DefaultLightBorderColor = Color.Parse("#F08A5D");
+        public static readonly Color DefaultLightBorderColor = DefaultLightAccentColor;
         public static readonly Color DefaultLightWindowBackgroundColor = Color.Parse("White");
-        public static readonly double DefaultLightWindowBackgroundOpacity = 0.5d;
+        public static double DefaultLightWindowBackgroundOpacity => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.BACKGROUND_OPACTIY) ? 0.5d : 1;
+
         public static readonly ExperimentalAcrylicMaterial DefaultLightAcrylic = new()
         {
             BackgroundSource = AcrylicBackgroundSource.Digger,
@@ -74,14 +77,16 @@ namespace Amplitude.Helpers
         };
 
         // Dark Defaults
+        public static readonly Color DefaultDarkAccentColor = Color.Parse("#F08A5D");
+        public static readonly Color DefaultDarkSecondaryColor = Color.Parse("#EBAEFF");
         public static readonly Color DefaultDarkTextBoxNormalColor = Color.Parse("#66000000");
-        public static readonly Color DefaultDarkTextBoxHighlightedColor = Color.Parse("#EBAEFF");
-        public static readonly Color DefaultDarkSliderForegroundColor = Color.Parse("#EBAEFF");
-        public static readonly Color DefaultDarkSliderBackgroundColor = Color.Parse("#F08A5D");
+        public static readonly Color DefaultDarkTextBoxHighlightedColor = DefaultDarkSecondaryColor;
+        public static readonly Color DefaultDarkSliderForegroundColor = DefaultDarkSecondaryColor;
+        public static readonly Color DefaultDarkSliderBackgroundColor = DefaultDarkAccentColor;
         public static readonly Color DefaultDarkFadedTextBackgroundColor = Color.Parse("#171A21");
-        public static readonly Color DefaultDarkBorderColor = Color.Parse("#F08A5D");
+        public static readonly Color DefaultDarkBorderColor = DefaultDarkAccentColor;
         public static readonly Color DefaultDarkWindowBackgroundColor = Color.Parse("#0b1932");
-        public static readonly double DefaultDarkWindowBackgroundOpacity = 0.7d;
+        public static double DefaultDarkWindowBackgroundOpacity => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.BACKGROUND_OPACTIY) ? 0.7d : 1;
         public static readonly ExperimentalAcrylicMaterial DefaultDarkAcrylic = new()
         {
             BackgroundSource = AcrylicBackgroundSource.Digger,

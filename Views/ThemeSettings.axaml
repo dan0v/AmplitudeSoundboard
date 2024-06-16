@@ -58,72 +58,32 @@
           <!--ThemeBase-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeManager.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <Grid ColumnDefinitions="*,*">
               <Label Grid.Column="0" Content="{i18n:Localize ThemeLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
               <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,5,0,5" SelectedIndex="{Binding Model.SelectedThemeBase}" ItemsSource="{Binding ThemeManager.ThemesBaseList}" HorizontalAlignment="Center"/>
             </Grid>
           </Border>
-          <!--TextBoxNormalColor-->
+          <!--AccentColor-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <Grid ColumnDefinitions="*,Auto">
-              <Label Grid.Column="0" Content="{i18n:Localize TextBoxNormalColor}" HorizontalAlignment="Center" Height="26"></Label>
-              <ColorPicker Grid.Column="1" Color="{Binding Model.TextBoxNormalColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
+              <Label Grid.Column="0" Content="{i18n:Localize AccentColor}" HorizontalAlignment="Center" Height="26"></Label>
+              <ColorPicker Grid.Column="1" Color="{Binding Model.AccentColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
             </Grid>
           </Border>
-          <!--TextBoxHighlightedColor-->
+          <!--SecondaryColor-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <Grid ColumnDefinitions="*,Auto">
-              <Label Grid.Column="0" Content="{i18n:Localize TextBoxHighlightedColor}" HorizontalAlignment="Center" Height="26"></Label>
-              <ColorPicker Grid.Column="1" Color="{Binding Model.TextBoxHighlightedColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
+              <Label Grid.Column="0" Content="{i18n:Localize SecondaryColor}" HorizontalAlignment="Center" Height="26"></Label>
+              <ColorPicker Grid.Column="1" Color="{Binding Model.SecondaryColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
               </Grid>
-          </Border>
-          <!--SliderForegroundColor-->
-          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
-            <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
-            </Border.BorderBrush>
-            <Grid ColumnDefinitions="*,Auto">
-              <Label Grid.Column="0" Content="{i18n:Localize SliderForegroundColor}" HorizontalAlignment="Center" Height="26"></Label>
-              <ColorPicker Grid.Column="1" Color="{Binding Model.SliderForegroundColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
-            </Grid>
-          </Border>
-          <!--SliderBackgroundColor-->
-          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
-            <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
-            </Border.BorderBrush>
-            <Grid ColumnDefinitions="*,Auto">
-              <Label Grid.Column="0" Content="{i18n:Localize SliderBackgroundColor}" HorizontalAlignment="Center" Height="26"></Label>
-              <ColorPicker Grid.Column="1" Color="{Binding Model.SliderBackgroundColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
-            </Grid>
-          </Border>
-          <!--FadedTextBackgroundColor-->
-          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
-            <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
-            </Border.BorderBrush>
-            <Grid ColumnDefinitions="*,Auto">
-              <Label Grid.Column="0" Content="{i18n:Localize FadedTextBackgroundColor}" HorizontalAlignment="Center" Height="26"></Label>
-              <ColorPicker Grid.Column="1" Color="{Binding Model.FadedTextBackgroundColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
-            </Grid>
-          </Border>
-          <!--BorderColor-->
-          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
-            <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
-            </Border.BorderBrush>
-            <Grid ColumnDefinitions="*,Auto">
-              <Label Grid.Column="0" Content="{i18n:Localize BorderColor}" HorizontalAlignment="Center" Height="26"></Label>
-              <ColorPicker Grid.Column="1" Color="{Binding Model.BorderColor}" ColorSpectrumShape="0" IsAlphaEnabled="False" IsHexInputVisible="True" />
-            </Grid>
           </Border>
           <!--WindowBackgroundColor-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
