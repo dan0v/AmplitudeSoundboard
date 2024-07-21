@@ -24,8 +24,6 @@ using AmplitudeSoundboard;
 using Avalonia.Controls;
 using Avalonia.Media;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
 namespace Amplitude.ViewModels
 {
@@ -117,7 +115,7 @@ namespace Amplitude.ViewModels
             }
         }
 
-        public Color HotkeyBackgroundColor => WaitingForHotkey ? ThemeHandler.TextBoxHighlightedColor : ThemeHandler.TextBoxNormalColor;
+        public Color HotkeyBackgroundColor => WaitingForHotkey ? ThemeManager.Theme.TextBoxHighlightedColor : ThemeManager.Theme.TextBoxNormalColor;
 
         public EditSoundClipViewModel()
         {
@@ -218,7 +216,7 @@ namespace Amplitude.ViewModels
         {
             WindowManager.OpenEditOutputProfileWindow(null);
             OnPropertyChanged(nameof(OutputProfilesList));
-            
+
         }
 
         public void EditOutputProfile()

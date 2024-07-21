@@ -19,7 +19,6 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Models;
 using AmplitudeSoundboard;
 using System;
 using System.IO;
@@ -42,6 +41,7 @@ namespace Amplitude.Helpers
                 SoundClipManagerContext.Default,
                 OutputProfileManagerContext.Default,
                 ConfigManagerContext.Default,
+                ThemeManagerContext.Default,
                 WindowManagerContext.Default
                 )
         };
@@ -56,7 +56,7 @@ namespace Amplitude.Helpers
             try
             {
                 var obj = JsonSerializer.Deserialize<T>(json, jsonSerializerOptions);
-                return obj == null ? default : (T?) obj;
+                return obj == null ? default : (T?)obj;
             }
             catch (Exception e)
             {

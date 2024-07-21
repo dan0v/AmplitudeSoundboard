@@ -19,7 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
+using Amplitude.Models;
 using AmplitudeSoundboard;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,11 +28,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 
-namespace Amplitude.Models
+namespace Amplitude.Helpers
 {
     [JsonSerializable(typeof(Dictionary<string, OutputProfile>))]
     public partial class OutputProfileManagerContext : JsonSerializerContext { }
-    
+
     public class OutputProfileManager : INotifyPropertyChanged
     {
         private static OutputProfileManager? _instance;
@@ -40,7 +40,7 @@ namespace Amplitude.Models
 
         private const string MIGRATED_PROFILES_NAME_BASE = "Migrated_Profile";
         private int migratedProfileCounter = 1;
-        
+
         private const string OUTPUTPROFILES_FILE = "profiles.json";
         public const string DEFAULT_OUTPUTPROFILE = "DEFAULT";
 

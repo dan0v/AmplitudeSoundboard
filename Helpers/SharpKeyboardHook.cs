@@ -25,7 +25,6 @@ using SharpHook;
 using SharpHook.Native;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Amplitude.Helpers
 {

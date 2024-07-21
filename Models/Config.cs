@@ -45,21 +45,6 @@ namespace Amplitude.Models
             }
         }
 
-        private int _themeId = 0;
-        public int ThemeId
-        {
-            get => _themeId;
-            set
-            {
-                // UI sends -1 when theme list is refreshed, so ignore this
-                if (value != -1 && value != _themeId)
-                {
-                    _themeId = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         private string _globalKillAudioHotkey = "";
         public string GlobalKillAudioHotkey
         {
@@ -209,7 +194,7 @@ namespace Amplitude.Models
         public void ApplyGridSizing()
         {
             string?[][] newGrid = new string[_gridRows ?? 1][];
-            
+
             for (int row = 0; row < newGrid.Length; row++)
             {
                 newGrid[row] = new string?[_gridColumns ?? 1];

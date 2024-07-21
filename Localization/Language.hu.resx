@@ -280,7 +280,7 @@
     <value>Hang próba</value>
   </data>
   <data name="ThemeLabel" xml:space="preserve">
-    <value>Színek</value>
+    <value>Alap színek</value>
   </data>
   <data name="UpdateLabel" xml:space="preserve">
     <value>Frissítés</value>
@@ -398,5 +398,26 @@
   </data>
   <data name="StopAudioOnRetrigger" xml:space="preserve">
     <value>Hang ki/bekapcsolása többszörös indítás esetén</value>
+  </data>
+  <data name="AccentColorLabel" xml:space="preserve">
+    <value>Kiemelt szín</value>
+  </data>
+  <data name="OpenThemeSettingsButton" xml:space="preserve">
+    <value>Színek beállítása</value>
+  </data>
+  <data name="ResetThemeBaseTooltip" xml:space="preserve">
+    <value>Színek az alapértelmezettre visszaállítása</value>
+  </data>
+  <data name="SecondaryColorLabel" xml:space="preserve">
+    <value>Másodlagos szín</value>
+  </data>
+  <data name="ThemeSettingsTitle" xml:space="preserve">
+    <value>Szín Beállítások</value>
+  </data>
+  <data name="WindowBackgroundColorLabel" xml:space="preserve">
+    <value>Ablak háttérszíne</value>
+  </data>
+  <data name="WindowBackgroundOpacityLabel" xml:space="preserve">
+    <value>Ablak háttér átlátszatlansága</value>
   </data>
 </root>

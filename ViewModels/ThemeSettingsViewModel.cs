@@ -19,33 +19,44 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.ViewModels;
-using AmplitudeSoundboard;
-using Avalonia.Controls;
+using Amplitude.Helpers;
+using Amplitude.Models;
 
-namespace Amplitude.Views
+namespace Amplitude.ViewModels
 {
-    public partial class GlobalSettings : Window
+    public sealed class ThemeSettingsViewModel : ViewModelBase
     {
-        public const string WindowId = "globalSettings";
+        private Theme _model;
+        public Theme Model => _model;
 
-        public GlobalSettings()
+        public ThemeSettingsViewModel()
         {
-            InitializeComponent();
-            EffectiveViewportChanged += GlobalSettings_EffectiveViewportChanged;
+            _model = ThemeManager.Theme.ShallowCopy();
         }
 
-        private void GlobalSettings_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
+        public int SelectedThemeBase
         {
-            App.WindowManager.WindowSizesOrPositionsChanged();
+            get => (int)Model.SelectedThemeBase;
+            set
+            {
+                if (value != (int)Model.SelectedThemeBase)
+                {
+                    Model.SelectedThemeBase = (ThemeBase)value;
+                }
+            }
         }
 
-        protected override void OnClosing(WindowClosingEventArgs e)
+        public void SaveConfig()
         {
-            App.WindowManager.GlobalSettingsWindow = null;
-            EffectiveViewportChanged -= GlobalSettings_EffectiveViewportChanged;
-            ((GlobalSettingsViewModel)DataContext).Dispose();
-            base.OnClosing(e);
+            ThemeManager.SaveAndOverwriteTheme(Model);
+            _model = Model.ShallowCopy();
+            ThemeManager.RefreshTheme();
+            OnPropertyChanged(nameof(Model));
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
         }
     }
 }

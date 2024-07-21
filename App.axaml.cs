@@ -20,7 +20,6 @@
 */
 
 using Amplitude.Helpers;
-using Amplitude.Models;
 using Amplitude.ViewModels;
 using Amplitude.Views;
 using Avalonia;
@@ -57,7 +56,7 @@ namespace AmplitudeSoundboard
         public static SoundClipManager SoundClipManager => SoundClipManager.Instance;
         public static OutputProfileManager OutputProfileManager => OutputProfileManager.Instance;
         public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
-        public static ThemeHandler ThemeHandler => ThemeHandler.Instance;
+        public static ThemeManager ThemeManager => ThemeManager.Instance;
         public static WindowManager WindowManager => WindowManager.Instance;
         public static ConfigManager ConfigManager => ConfigManager.Instance;
         public static ISoundEngine SoundEngine => MSoundEngine.Instance;
@@ -112,7 +111,7 @@ namespace AmplitudeSoundboard
                 var p = OutputProfileManager;
                 var s = SoundClipManager;
                 var h = HotkeysManager;
-                var t = ThemeHandler;
+                var t = ThemeManager;
                 var w = WindowManager;
                 w.ReadWindowSizesAndPositions();
                 w.SetMainWindow((MainWindow)desktop.MainWindow);

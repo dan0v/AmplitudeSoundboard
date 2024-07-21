@@ -70,6 +70,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accent color.
+        /// </summary>
+        internal static string AccentColorLabel {
+            get {
+                return ResourceManager.GetString("AccentColorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accept.
         /// </summary>
         internal static string AcceptButton {
@@ -646,6 +655,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configure theme.
+        /// </summary>
+        internal static string OpenThemeSettingsButton {
+            get {
+                return ResourceManager.GetString("OpenThemeSettingsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Output device.
         /// </summary>
         internal static string OutputDeviceLabel {
@@ -754,6 +772,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset theme settings.
+        /// </summary>
+        internal static string ResetThemeBaseTooltip {
+            get {
+                return ResourceManager.GetString("ResetThemeBaseTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rows.
         /// </summary>
         internal static string RowsPlaceholder {
@@ -777,6 +804,15 @@ namespace Amplitude.Localization {
         internal static string SaveButtonDisabledTooltip {
             get {
                 return ResourceManager.GetString("SaveButtonDisabledTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secondary color.
+        /// </summary>
+        internal static string SecondaryColorLabel {
+            get {
+                return ResourceManager.GetString("SecondaryColorLabel", resourceCulture);
             }
         }
         
@@ -853,11 +889,20 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Theme.
+        ///   Looks up a localized string similar to Base theme.
         /// </summary>
         internal static string ThemeLabel {
             get {
                 return ResourceManager.GetString("ThemeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme Settings.
+        /// </summary>
+        internal static string ThemeSettingsTitle {
+            get {
+                return ResourceManager.GetString("ThemeSettingsTitle", resourceCulture);
             }
         }
         
@@ -903,6 +948,24 @@ namespace Amplitude.Localization {
         internal static string WidthPlaceholder {
             get {
                 return ResourceManager.GetString("WidthPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window background color.
+        /// </summary>
+        internal static string WindowBackgroundColorLabel {
+            get {
+                return ResourceManager.GetString("WindowBackgroundColorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window background opacity.
+        /// </summary>
+        internal static string WindowBackgroundOpacityLabel {
+            get {
+                return ResourceManager.GetString("WindowBackgroundOpacityLabel", resourceCulture);
             }
         }
     }

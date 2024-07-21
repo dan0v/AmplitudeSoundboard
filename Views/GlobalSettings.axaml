@@ -48,23 +48,23 @@
   
     <Panel>
       
-      <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
+      <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding ThemeManager.Theme.Acrylic}">
       </ExperimentalAcrylicBorder>
       
-      <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize GlobalSettingsTitle}" Classes="TITLE" FontFamily="{Binding ThemeHandler.TitleFont}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+      <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize GlobalSettingsTitle}" Classes="TITLE" FontFamily="{Binding ThemeManager.TitleFont}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
       <ScrollViewer Margin="0,30,0,0">
         <StackPanel>
           <!--Language-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <Grid ColumnDefinitions="*,*">
               <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
                 <Label Content="{i18n:Localize LanguageLabel}" VerticalAlignment="Center"></Label>
                 <Panel>
-                  <Image Source="{Binding ThemeHandler.Language}" Height="20" VerticalAlignment="Center" />
+                  <Image Source="{Binding ThemeManager.Language}" Height="20" VerticalAlignment="Center" />
                 </Panel>
               </StackPanel>
               <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" Margin="0,5,0,5" SelectedItem="{Binding Model.Language}" ItemsSource="{Binding Languages}" HorizontalAlignment="Center"></ComboBox>
@@ -74,18 +74,15 @@
           <!--Theme-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
-            <Grid ColumnDefinitions="*,*">
-              <Label Grid.Column="0" Content="{i18n:Localize ThemeLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-              <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,5,0,5" SelectedIndex="{Binding Model.ThemeId}" ItemsSource="{Binding ThemeHandler.ThemesList}" HorizontalAlignment="Center"/>
-            </Grid>
+            <Button HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" Command="{Binding OpenThemeSettings}" Content="{i18n:Localize OpenThemeSettingsButton}" ToolTip.Tip="{i18n:Localize OpenThemeSettingsButton}" Cursor="Hand"/>
           </Border>
           
           <!--Grid size-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <StackPanel>
               <Label Content="{i18n:Localize GridSizeLabel}" HorizontalAlignment="Center" Height="30"></Label>
@@ -100,7 +97,7 @@
           <!--Grid Tile size-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <StackPanel>
               <Label Content="{i18n:Localize GridTileSizeLabel}" HorizontalAlignment="Center" Height="30"></Label>
@@ -119,7 +116,7 @@
           <!--Hotkey-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <Grid>
               <TextBlock IsVisible="{Binding !CanUseHotkeys}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{i18n:Localize FeatureUnavailable}"/>
@@ -133,7 +130,7 @@
                   </TextBox>
                   <Button Grid.Column="1" Cursor="Hand" Margin="5,0,5,5" ToolTip.Tip="{i18n:Localize HotkeyPlaceholder}" DockPanel.Dock="Right" Command="{Binding RecordHotkey}">
                     <Panel>
-                      <Image Source="{Binding ThemeHandler.Keyboard}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                      <Image Source="{Binding ThemeManager.Keyboard}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Panel>
                   </Button>
                 </Grid>
@@ -144,7 +141,7 @@
           <!--Stop audio when retriggered-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center">
               <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"  Text="{i18n:Localize StopAudioOnRetrigger}" ></TextBlock>
@@ -155,7 +152,7 @@
           <!--Check for updates-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center">
               <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"  Text="{i18n:Localize CheckForUpdates}" ></TextBlock>
@@ -166,7 +163,7 @@
           <!--Tutorial-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center">
               <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"  Text="{i18n:Localize HideTutorial}" ></TextBlock>
@@ -177,7 +174,7 @@
           <!--Clear position data-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <Button HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" Command="{Binding ClearPositions}" Content="{i18n:Localize ClearPositions}" ToolTip.Tip="{i18n:Localize ClearPositionsTooltip}" Cursor="Hand"/>
           </Border>
@@ -189,7 +186,7 @@
               <!--ToolTip.Tip="{Binding SaveButtonTooltip}">-->
               <Button ToolTip.Tip="{i18n:Localize SaveButton}" Cursor="Hand" Command="{Binding SaveConfig}" IsEnabled="{Binding CanSave}" Margin="5,5,10,5" HorizontalAlignment="Right">
                 <Panel>
-                  <Image Source="{Binding ThemeHandler.Save}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                  <Image Source="{Binding ThemeManager.Save}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Panel>
               </Button>
             </Panel>

@@ -25,35 +25,26 @@ using Avalonia.Controls;
 
 namespace Amplitude.Views
 {
-    public partial class SoundClipList : Window
+    public partial class ThemeSettings : Window
     {
-        public const string WindowId = "soundClipList";
+        public const string WindowId = "themeSettings";
 
-        public SoundClipList()
+        public ThemeSettings()
         {
             InitializeComponent();
-            App.WindowManager.SoundClipListWindow = this;
-
-            PositionChanged += SoundClipList_PositionChanged;
-            EffectiveViewportChanged += SoundClipList_EffectiveViewportChanged;
+            EffectiveViewportChanged += ThemeSettings_EffectiveViewportChanged;
         }
 
-        private void SoundClipList_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
-        {
-            App.WindowManager.WindowSizesOrPositionsChanged();
-        }
-
-        private void SoundClipList_PositionChanged(object? sender, PixelPointEventArgs e)
+        private void ThemeSettings_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
         {
             App.WindowManager.WindowSizesOrPositionsChanged();
         }
 
         protected override void OnClosing(WindowClosingEventArgs e)
         {
-            App.WindowManager.SoundClipListWindow = null;
-            PositionChanged -= SoundClipList_PositionChanged;
-            EffectiveViewportChanged -= SoundClipList_EffectiveViewportChanged;
-            ((SoundClipListViewModel)DataContext).Dispose();
+            App.WindowManager.ThemeSettingsWindow = null;
+            EffectiveViewportChanged -= ThemeSettings_EffectiveViewportChanged;
+            ((ThemeSettingsViewModel)DataContext).Dispose();
             base.OnClosing(e);
         }
     }

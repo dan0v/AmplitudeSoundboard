@@ -39,10 +39,10 @@
 
   <Panel>
 
-    <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding ThemeHandler.Acrylic}">
+    <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding ThemeManager.Theme.Acrylic}">
     </ExperimentalAcrylicBorder>
 
-    <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize AboutTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeHandler.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+    <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize AboutTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeManager.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
     <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
       <DockPanel Grid.Row="0">
@@ -50,7 +50,7 @@
           <!--Copyright-->
           <Border Grid.Row="0" BorderThickness="2" CornerRadius="5" Margin="10,5,10,5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <StackPanel>
               <TextBlock TextAlignment="Center" x:Name="txt_blk_Copyright" Text="COPYRIGHT"></TextBlock>
@@ -61,7 +61,7 @@
           <!--License-->
           <Border Grid.Row="1" BorderThickness="2" CornerRadius="5" Margin="10,5,10,5" Padding="5">
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <Grid RowDefinitions="Auto,*">
               <TextBlock HorizontalAlignment="Center" Grid.Row="0" Margin="5,5,5,5" Text="{i18n:Localize LicenseLabel}"></TextBlock>
@@ -74,7 +74,7 @@
         <!--Notice-->
         <Border Grid.Row="2" BorderThickness="2" CornerRadius="5" Margin="10,5,10,5" Padding="5">
           <Border.BorderBrush>
-            <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+            <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
           </Border.BorderBrush>
           <Grid RowDefinitions="Auto,*">
             <TextBlock HorizontalAlignment="Center" Grid.Row="0" Margin="5,5,5,5" Text="{i18n:Localize NoticeLabel}"></TextBlock>

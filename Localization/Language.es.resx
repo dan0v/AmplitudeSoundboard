@@ -280,7 +280,7 @@
     <value>Prueba de audio</value>
   </data>
   <data name="ThemeLabel" xml:space="preserve">
-    <value>Tema</value>
+    <value>Tema base</value>
   </data>
   <data name="UpdateLabel" xml:space="preserve">
     <value>Actualizar</value>
@@ -398,5 +398,26 @@
   </data>
   <data name="StopAudioOnRetrigger" xml:space="preserve">
     <value>Alternar audio cuando se activa repetidamente</value>
+  </data>
+  <data name="AccentColorLabel" xml:space="preserve">
+    <value>Acentuar el color</value>
+  </data>
+  <data name="OpenThemeSettingsButton" xml:space="preserve">
+    <value>Configurar tema</value>
+  </data>
+  <data name="ResetThemeBaseTooltip" xml:space="preserve">
+    <value>Restablecer la configuración del tema</value>
+  </data>
+  <data name="SecondaryColorLabel" xml:space="preserve">
+    <value>Color secundario</value>
+  </data>
+  <data name="ThemeSettingsTitle" xml:space="preserve">
+    <value>Ajustes de tema</value>
+  </data>
+  <data name="WindowBackgroundColorLabel" xml:space="preserve">
+    <value>Color de fondo de la ventana</value>
+  </data>
+  <data name="WindowBackgroundOpacityLabel" xml:space="preserve">
+    <value>Opacidad del fondo de la ventana</value>
   </data>
 </root>

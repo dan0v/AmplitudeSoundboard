@@ -20,12 +20,9 @@
 */
 
 using Amplitude.Helpers;
-using Amplitude.Models;
 using AmplitudeSoundboard;
-using Avalonia;
 using Avalonia.Controls;
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 
@@ -35,7 +32,7 @@ namespace Amplitude.Views
     {
         private string projectUrl = "https://amplitude-soundboard.dan0v.com";
 
-        protected ThemeHandler ThemeHandler => App.ThemeHandler;
+        protected ThemeManager ThemeManager => App.ThemeManager;
         public static bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
 
         public About()
