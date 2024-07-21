@@ -52,7 +52,7 @@ namespace Amplitude.Helpers
             {
                 _theme = theme;
             }
-            
+
             RefreshTheme();
         }
 
@@ -186,7 +186,7 @@ namespace Amplitude.Helpers
             OnPropertyChanged(nameof(RemoveItem));
             OnPropertyChanged(nameof(AddToQueue));
             OnPropertyChanged(nameof(Language));
-    }
+        }
 
 
 
@@ -210,7 +210,7 @@ namespace Amplitude.Helpers
             try
             {
                 string json = App.JsonIoManager.RetrieveJSONFromFile(THEME_FILE_LOCATION);
-                if (!string.IsNullOrEmpty(json)) 
+                if (!string.IsNullOrEmpty(json))
                 {
                     return App.JsonIoManager.ConvertObjectsFromJSON<Theme>(json);
                 }

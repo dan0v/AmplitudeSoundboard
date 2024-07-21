@@ -21,7 +21,6 @@
 
 using Amplitude.Helpers;
 using Amplitude.Models;
-using Avalonia.Media;
 using System.Linq;
 
 namespace Amplitude.ViewModels

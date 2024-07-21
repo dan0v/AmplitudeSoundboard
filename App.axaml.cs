@@ -20,7 +20,6 @@
 */
 
 using Amplitude.Helpers;
-using Amplitude.Models;
 using Amplitude.ViewModels;
 using Amplitude.Views;
 using Avalonia;

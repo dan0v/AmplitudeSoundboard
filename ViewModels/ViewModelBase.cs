@@ -20,7 +20,6 @@
 */
 
 using Amplitude.Helpers;
-using Amplitude.Models;
 using AmplitudeSoundboard;
 using ReactiveUI;
 using System;

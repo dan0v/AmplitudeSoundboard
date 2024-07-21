@@ -28,7 +28,7 @@ namespace Amplitude.Views
     public partial class ThemeSettings : Window
     {
         public const string WindowId = "themeSettings";
-        
+
         public ThemeSettings()
         {
             InitializeComponent();

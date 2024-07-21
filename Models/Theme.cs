@@ -20,10 +20,7 @@
 */
 
 using Amplitude.Helpers;
-using Amplitude.Localization;
-using AmplitudeSoundboard;
 using Avalonia.Media;
-using Avalonia.Themes.Fluent;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -32,7 +29,7 @@ namespace Amplitude.Models
 {
     public class Theme : INotifyPropertyChanged
     {
-        
+
         private ThemeBase _selectedThemeBase = ThemeBase.DARK;
         public ThemeBase SelectedThemeBase
         {
