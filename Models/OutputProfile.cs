@@ -32,7 +32,7 @@ namespace Amplitude.Models
     public class OutputProfile : INotifyPropertyChanged
     {
         private string _id = null;
-        
+
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public string Id => _id;
 

@@ -56,10 +56,10 @@ namespace Amplitude.Helpers
 
         private void RefreshPlaybackProgressAndCheckQueue(object? sender, ElapsedEventArgs e)
         {
-            lock(currentlyPlayingLock)
+            lock (currentlyPlayingLock)
             {
                 List<PlayingClip> toRemove = [];
-                foreach(var track in CurrentlyPlaying)
+                foreach (var track in CurrentlyPlaying)
                 {
                     track.CurrentPos += TIMER_MS * 0.001d;
                     if (track.ProgressPct == 1)
@@ -67,8 +67,8 @@ namespace Amplitude.Helpers
                         toRemove.Add(track);
                     }
                 }
-                
-                foreach(var track in toRemove)
+
+                foreach (var track in toRemove)
                 {
                     if (track.LoopClip)
                     {
@@ -156,7 +156,7 @@ namespace Amplitude.Helpers
 
         public void AddToQueue(SoundClip source)
         {
-            lock(queueLock)
+            lock (queueLock)
             {
                 Queued.Add(source.ShallowCopy());
             }
@@ -222,7 +222,7 @@ namespace Amplitude.Helpers
             }
         }
 
-        private void Play(string fileName, int volume, int volumeMultiplier, string playerDeviceName, bool loopClip, string soundClipId, string ? name = null)
+        private void Play(string fileName, int volume, int volumeMultiplier, string playerDeviceName, bool loopClip, string soundClipId, string? name = null)
         {
             double vol = (volume / 100.0) * (volumeMultiplier / 100.0);
 
@@ -257,15 +257,15 @@ namespace Amplitude.Helpers
                         {
                             var len = Bass.ChannelGetLength(stream, PositionFlags.Bytes);
                             double length = Bass.ChannelBytes2Seconds(stream, len);
-                            PlayingClip track = new (string.IsNullOrEmpty(name) ? Path.GetFileNameWithoutExtension(fileName) ?? "" : name, soundClipId, playerDeviceName, stream, length, loopClip);
+                            PlayingClip track = new(string.IsNullOrEmpty(name) ? Path.GetFileNameWithoutExtension(fileName) ?? "" : name, soundClipId, playerDeviceName, stream, length, loopClip);
 
-                            lock(currentlyPlayingLock)
+                            lock (currentlyPlayingLock)
                             {
                                 CurrentlyPlaying.Add(track);
                             }
                             Bass.ChannelPlay(stream, false);
                         }
-                        catch(Exception)
+                        catch (Exception)
                         {
                             App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName));
                         }
@@ -306,11 +306,11 @@ namespace Amplitude.Helpers
 
         public void Reset()
         {
-            lock(queueLock)
+            lock (queueLock)
             {
                 Queued.Clear();
             }
-            lock(currentlyPlayingLock)
+            lock (currentlyPlayingLock)
             {
                 foreach (var stream in CurrentlyPlaying)
                 {
@@ -336,7 +336,7 @@ namespace Amplitude.Helpers
 
         public void RemoveFromQueue(SoundClip clip)
         {
-            lock(queueLock)
+            lock (queueLock)
             {
                 Queued.Remove(clip);
             }

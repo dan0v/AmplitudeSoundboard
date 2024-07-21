@@ -26,7 +26,6 @@ using AmplitudeSoundboard;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 
@@ -121,7 +120,7 @@ namespace Amplitude.Models
             try
             {
                 string json = App.JsonIoManager.RetrieveJSONFromFile(CONFIG_FILE_LOCATION);
-                if (!string.IsNullOrEmpty(json)) 
+                if (!string.IsNullOrEmpty(json))
                 {
                     return App.JsonIoManager.ConvertObjectsFromJSON<Config>(json);
                 }
@@ -154,7 +153,7 @@ namespace Amplitude.Models
                         rowItem.List.Add(new SoundBoardGridItemViewModel(Config.GridSoundClipIds[row][col], row, col));
                     }
                 }
-                
+
                 list.Add(rowItem);
             }
             return list;
@@ -164,7 +163,7 @@ namespace Amplitude.Models
         {
             var rows = Config.GridRows;
             Config.ActualTileHeight = (int)(((App.WindowManager.MainWindow?.GridSize.height - (8 * rows) - 15) / rows) ?? Config.GridTileHeight ?? 100);
-            
+
             var cols = Config.GridColumns;
             Config.ActualTileWidth = (int)(((App.WindowManager.MainWindow?.GridSize.width - (10 * cols) - 10) / cols) ?? Config.GridTileWidth ?? 100);
         }

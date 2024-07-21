@@ -26,7 +26,6 @@ using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
-using Splat;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -291,7 +290,7 @@ namespace Amplitude.Helpers
                 {
                     DataContext = new ErrorListViewModel(),
                 };
-                
+
                 return _errorListWindow;
             }
         }
@@ -478,7 +477,8 @@ namespace Amplitude.Helpers
                     {
                         var json = App.JsonIoManager.ConvertObjectsToJSON(windowSizesAndPositions);
                         App.JsonIoManager.SaveJSONToFile(WINDOW_POSITION_FILE_LOCATION, json);
-                    } catch { }
+                    }
+                    catch { }
                 }
             });
         }
@@ -520,7 +520,8 @@ namespace Amplitude.Helpers
                     {
                         windowSizesAndPositions = processed;
                     }
-                } catch(Exception e)
+                }
+                catch (Exception e)
                 {
                     Debug.WriteLine(e);
                 }

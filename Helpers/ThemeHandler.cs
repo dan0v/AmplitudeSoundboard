@@ -179,7 +179,7 @@ namespace Amplitude.Helpers
                 {
                     _selectedTheme = value;
                     RefreshTheme();
-                    foreach(var p in typeof(ThemeHandler).GetProperties())
+                    foreach (var p in typeof(ThemeHandler).GetProperties())
                     {
                         OnPropertyChanged(p.Name);
                     }

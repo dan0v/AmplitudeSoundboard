@@ -56,7 +56,7 @@ namespace Amplitude.Helpers
             try
             {
                 var obj = JsonSerializer.Deserialize<T>(json, jsonSerializerOptions);
-                return obj == null ? default : (T?) obj;
+                return obj == null ? default : (T?)obj;
             }
             catch (Exception e)
             {
