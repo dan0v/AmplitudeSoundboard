@@ -26,9 +26,11 @@ using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
+using Splat;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -491,8 +493,9 @@ namespace Amplitude.Helpers
             var soundClips = new WindowSizeAndPosition(null, null, null);
             if (EditSoundClipWindows.Any())
             {
-                var maxHeight = EditSoundClipWindows.OrderByDescending(s => s.Value.lastTouchedTime).First().Value.Height;
-                var maxWidth = EditSoundClipWindows.OrderByDescending(s => s.Value.lastTouchedTime).First().Value.Width;
+                var lastTouchedWindow = EditSoundClipWindows.OrderByDescending(s => s.Value.lastTouchedTime).First().Value;
+                var maxHeight = lastTouchedWindow.Height;
+                var maxWidth = lastTouchedWindow.Width;
                 soundClips = new WindowSizeAndPosition(null, maxHeight, maxWidth);
             }
             return new Dictionary<string, WindowSizeAndPosition>()
@@ -515,14 +518,12 @@ namespace Amplitude.Helpers
 
                     if (processed != null)
                     {
-                        processed.Values.Where(w => w.WindowPosition?.X != null && w.WindowPosition?.Y != null).ToList().ForEach(w =>
-                        {
-                            w.WindowPosition.X = w.WindowPosition.X < 0 ? 0 : w.WindowPosition.X;
-                            w.WindowPosition.Y = w.WindowPosition.Y < 0 ? 0 : w.WindowPosition.Y;
-                        });
                         windowSizesAndPositions = processed;
                     }
-                } catch { }
+                } catch(Exception e)
+                {
+                    Debug.WriteLine(e);
+                }
             }
         }
         private void SetAvailableWindowDetails(Window window, WindowSizeAndPosition info)

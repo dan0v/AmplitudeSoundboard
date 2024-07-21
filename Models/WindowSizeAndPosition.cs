@@ -59,8 +59,8 @@ namespace Amplitude.Models
         /// <param name="y"></param>
         public Position(int x, int y)
         {
-            this.X = x < 0 ? 0 : x;
-            this.Y = y < 0 ? 0 : y;
+            this.X = x;
+            this.Y = y;
         }
 
         public PixelPoint ToPixelPoint()
