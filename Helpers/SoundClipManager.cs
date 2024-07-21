@@ -19,6 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Models;
 using AmplitudeSoundboard;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Amplitude.Models
+namespace Amplitude.Helpers
 {
     [JsonSerializable(typeof(Dictionary<string, SoundClip>))]
     public partial class SoundClipManagerContext : JsonSerializerContext { }

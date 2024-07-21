@@ -85,6 +85,15 @@ namespace Amplitude.Helpers
                     { OSPlatform.OSX, true },
                     { OSPlatform.Linux, false },
                 }
+            },
+            {
+                Feature.BACKGROUND_OPACTIY,
+                new()
+                {
+                    { OSPlatform.Windows, true },
+                    { OSPlatform.OSX, true },
+                    { OSPlatform.Linux, false },
+                }
             }
         };
 
@@ -92,6 +101,7 @@ namespace Amplitude.Helpers
         {
             HOTKEYS,
             CUSTOM_TITLEBAR,
+            BACKGROUND_OPACTIY
         }
     }
 }

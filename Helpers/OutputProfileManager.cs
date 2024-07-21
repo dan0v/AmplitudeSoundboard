@@ -19,7 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Amplitude.Helpers;
+using Amplitude.Models;
 using AmplitudeSoundboard;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,7 +28,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 
-namespace Amplitude.Models
+namespace Amplitude.Helpers
 {
     [JsonSerializable(typeof(Dictionary<string, OutputProfile>))]
     public partial class OutputProfileManagerContext : JsonSerializerContext { }

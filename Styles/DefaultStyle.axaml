@@ -4,15 +4,120 @@
       <Setter Property="Opacity" Value="0.5"/>
     </Style>
     <Style Selector="TextBlock">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      <Setter Property="FontFamily" Value="{Binding ThemeManager.BodyFont}"/>
     </Style>
     <Style Selector="Label">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      <Setter Property="FontFamily" Value="{Binding ThemeManager.BodyFont}"/>
     </Style>
     <Style Selector="TextBox">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      <Setter Property="FontFamily" Value="{Binding ThemeManager.BodyFont}"/>
     </Style>
     <Style Selector="Button">
-      <Setter Property="FontFamily" Value="{Binding ThemeHandler.BodyFont}"/>
+      <Setter Property="FontFamily" Value="{Binding ThemeManager.BodyFont}"/>
+      <Setter Property="Background">
+        <Setter.Value>
+          <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style Selector="CheckBox:checked /template/ Border#NormalRectangle">
+      <Setter Property="Background">
+        <Setter.Value>
+          <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+        </Setter.Value>
+      </Setter>
+      <Setter Property="BorderBrush">
+        <Setter.Value>
+          <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="SelectionBrush">
+        <Setter.Value>
+          <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+        </Setter.Value>
+      </Setter>
+      <Style Selector="^:focus /template/ Border">
+      <Setter Property="BorderBrush">
+        <Setter.Value>
+          <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+        </Setter.Value>
+      </Setter>
+      </Style>
+    </Style>
+    <Style Selector="ComboBox">
+      <Style Selector="^:dropdownopen > ComboBoxItem:selected">
+        <Setter Property="Background">
+          <Setter.Value>
+            <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground">
+          <Setter.Value>
+            <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style Selector="^:dropdownopen > ComboBoxItem:selected:focus">
+        <Setter Property="Background">
+          <Setter.Value>
+            <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground">
+          <Setter.Value>
+            <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style Selector="^:dropdownopen > ComboBoxItem:selected:focus-within">
+        <Setter Property="Background">
+          <Setter.Value>
+            <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground">
+          <Setter.Value>
+            <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+    </Style>
+    <Style Selector="Slider">
+      <Setter Property="Background">
+        <Setter.Value>
+          <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}" Opacity="1"/>
+        </Setter.Value>
+      </Setter>
+      <Setter Property="Foreground">
+        <Setter.Value>
+          <SolidColorBrush Color="{Binding ThemeManager.Theme.SecondaryColor}" Opacity="1"/>
+        </Setter.Value>
+      </Setter>
+      <Style Selector="^:horizontal:pointerover">
+        <Setter Property="Background">
+          <Setter.Value>
+            <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}" Opacity="0.7"/>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground">
+          <Setter.Value>
+            <SolidColorBrush Color="{Binding ThemeManager.Theme.SecondaryColor}" Opacity="0.7"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style Selector="^ /template/ #Track#PART_Track Thumb">
+        <Setter Property="Foreground">
+          <Setter.Value>
+            <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="Background">
+          <Setter.Value>
+            <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
     </Style>
 </Styles>

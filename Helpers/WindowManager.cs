@@ -252,6 +252,20 @@ namespace Amplitude.Helpers
             }
         }
 
+        private ThemeSettings? _themeSettingsWindow = null;
+        public ThemeSettings? ThemeSettingsWindow
+        {
+            get => _themeSettingsWindow;
+            set
+            {
+                if (value != _themeSettingsWindow)
+                {
+                    _themeSettingsWindow = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private SoundClipList? _soundClipListWindow = null;
         public SoundClipList? SoundClipListWindow
         {
@@ -404,15 +418,43 @@ namespace Amplitude.Helpers
                 {
                     DataContext = new GlobalSettingsViewModel(),
                 };
-                if (windowSizesAndPositions.TryGetValue(GlobalSettings.WindowId, out var soundClipsInfo))
+                if (windowSizesAndPositions.TryGetValue(GlobalSettings.WindowId, out var info))
                 {
-                    SetAvailableWindowDetails(GlobalSettingsWindow, soundClipsInfo);
+                    SetAvailableWindowDetails(GlobalSettingsWindow, info);
                 }
-                if (fallbackPosition != null && soundClipsInfo?.WindowPosition == null)
+                if (fallbackPosition != null && info?.WindowPosition == null)
                 {
                     GlobalSettingsWindow.Position = (PixelPoint)fallbackPosition;
                 }
                 GlobalSettingsWindow.Show();
+            }
+        }
+
+        public void ShowThemeSettingsWindow(PixelPoint? fallbackPosition = null)
+        {
+            if (ThemeSettingsWindow != null)
+            {
+                if (ThemeSettingsWindow.WindowState == WindowState.Minimized)
+                {
+                    ThemeSettingsWindow.WindowState = WindowState.Normal;
+                }
+                ThemeSettingsWindow.Activate();
+            }
+            else
+            {
+                ThemeSettingsWindow = new ThemeSettings
+                {
+                    DataContext = new ThemeSettingsViewModel(),
+                };
+                if (windowSizesAndPositions.TryGetValue(ThemeSettings.WindowId, out var info))
+                {
+                    SetAvailableWindowDetails(ThemeSettingsWindow, info);
+                }
+                if (fallbackPosition != null && info?.WindowPosition == null)
+                {
+                    ThemeSettingsWindow.Position = (PixelPoint)fallbackPosition;
+                }
+                ThemeSettingsWindow.Show();
             }
         }
 
@@ -570,6 +612,7 @@ namespace Amplitude.Helpers
             SoundClipListWindow?.Close();
             AboutWindow?.Close();
             GlobalSettingsWindow?.Close();
+            ThemeSettingsWindow?.Close();
         }
 
         private (double height, double width) lastMainWindowSize;

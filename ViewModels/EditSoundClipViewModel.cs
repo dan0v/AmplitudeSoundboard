@@ -115,7 +115,7 @@ namespace Amplitude.ViewModels
             }
         }
 
-        public Color HotkeyBackgroundColor => WaitingForHotkey ? ThemeHandler.TextBoxHighlightedColor : ThemeHandler.TextBoxNormalColor;
+        public Color HotkeyBackgroundColor => WaitingForHotkey ? ThemeManager.Theme.TextBoxHighlightedColor : ThemeManager.Theme.TextBoxNormalColor;
 
         public EditSoundClipViewModel()
         {

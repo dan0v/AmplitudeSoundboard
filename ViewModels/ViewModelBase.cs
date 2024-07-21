@@ -20,7 +20,6 @@
 */
 
 using Amplitude.Helpers;
-using Amplitude.Models;
 using AmplitudeSoundboard;
 using ReactiveUI;
 using System;
@@ -31,7 +30,7 @@ namespace Amplitude.ViewModels
 {
     public abstract class ViewModelBase : ReactiveObject, INotifyPropertyChanged, IDisposable
     {
-        protected ThemeHandler ThemeHandler => App.ThemeHandler;
+        protected ThemeManager ThemeManager => App.ThemeManager;
         protected SoundClipManager SoundClipManager => App.SoundClipManager;
         protected ConfigManager ConfigManager => App.ConfigManager;
         protected OutputProfileManager OutputProfileManager => App.OutputProfileManager;
@@ -39,10 +38,12 @@ namespace Amplitude.ViewModels
         protected HotkeysManager HotkeysManager => App.HotkeysManager;
         protected ISoundEngine SoundEngine => App.SoundEngine;
 
-        public bool CanUseHotkeys => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.HOTKEYS);
-        public double HotkeysOpacity => CanUseHotkeys ? 1 : 0.3d;
+        protected bool CanUseHotkeys => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.HOTKEYS);
+        protected double HotkeysOpacity => CanUseHotkeys ? 1 : 0.3d;
 
-        public bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
+        protected bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
+
+        protected bool CanAdjustWindowOpacity => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.BACKGROUND_OPACTIY);
 
         public virtual void Dispose() { }
 

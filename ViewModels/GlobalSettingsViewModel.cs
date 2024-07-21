@@ -64,7 +64,7 @@ namespace Amplitude.ViewModels
             }
         }
 
-        public Color HotkeyBackgroundColor => WaitingForHotkey ? ThemeHandler.TextBoxHighlightedColor : ThemeHandler.TextBoxNormalColor;
+        public Color HotkeyBackgroundColor => WaitingForHotkey ? ThemeManager.Theme.TextBoxHighlightedColor : ThemeManager.Theme.TextBoxNormalColor;
 
         public void RecordHotkey()
         {
@@ -78,6 +78,11 @@ namespace Amplitude.ViewModels
             ConfigManager.SaveAndOverwriteConfig(Model);
             _model = Model.ShallowCopy();
             OnPropertyChanged(nameof(Model));
+        }
+
+        public void OpenThemeSettings()
+        {
+            WindowManager.ShowThemeSettingsWindow();
         }
 
         public void ClearPositions()

@@ -38,7 +38,7 @@
 
   <Border BorderThickness="2" CornerRadius="5" ClipToBounds="True" IsEnabled="{Binding !GlobalSettingsWindowOpen}">
     <Border.BorderBrush>
-      <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+      <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
     </Border.BorderBrush>
     
     <Grid x:Name="grd_Control" Cursor="{Binding Cursor}" ToolTip.Tip="{Binding Model.PlayAudioTooltip}" Background="Transparent">
@@ -55,7 +55,7 @@
 
       <Grid IsVisible="{Binding Model.Id, Converter={x:Static StringConverters.IsNullOrEmpty}}" >
         <Grid.Background>
-          <SolidColorBrush Color="{Binding ThemeHandler.FadedTextBackgroundColor}" Opacity="0.5"/>
+          <SolidColorBrush Color="{Binding ThemeManager.Theme.FadedTextBackgroundColor}" Opacity="0.5"/>
         </Grid.Background>
       </Grid>
         
@@ -72,11 +72,11 @@
         <Panel Grid.Row="1" IsVisible="{Binding Model.ImageFilePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
           <Border Grid.Row="1" IsVisible="{Binding Model.NameVisibleOnGridTile}" BorderThickness="0,1,0,0" >
             <Border.BorderBrush>
-              <SolidColorBrush Color="{Binding ThemeHandler.BorderColor}"/>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
             <Panel>
               <Panel.Background>
-                <SolidColorBrush Color="{Binding ThemeHandler.FadedTextBackgroundColor}" Opacity="0.4"/>
+                <SolidColorBrush Color="{Binding ThemeManager.Theme.FadedTextBackgroundColor}" Opacity="0.4"/>
               </Panel.Background>
               <TextBlock Opacity="{Binding BackgroundOpacity}" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" Text="{Binding Model.Name}" Margin="2"></TextBlock>
             </Panel>
