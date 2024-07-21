@@ -20,12 +20,9 @@
 */
 
 using Amplitude.Helpers;
-using Amplitude.Models;
 using AmplitudeSoundboard;
-using Avalonia;
 using Avalonia.Controls;
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 

@@ -24,8 +24,6 @@ using AmplitudeSoundboard;
 using Avalonia.Controls;
 using Avalonia.Media;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
 namespace Amplitude.ViewModels
 {
@@ -218,7 +216,7 @@ namespace Amplitude.ViewModels
         {
             WindowManager.OpenEditOutputProfileWindow(null);
             OnPropertyChanged(nameof(OutputProfilesList));
-            
+
         }
 
         public void EditOutputProfile()

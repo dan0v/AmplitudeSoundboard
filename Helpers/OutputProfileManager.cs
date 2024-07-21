@@ -32,7 +32,7 @@ namespace Amplitude.Helpers
 {
     [JsonSerializable(typeof(Dictionary<string, OutputProfile>))]
     public partial class OutputProfileManagerContext : JsonSerializerContext { }
-    
+
     public class OutputProfileManager : INotifyPropertyChanged
     {
         private static OutputProfileManager? _instance;
@@ -40,7 +40,7 @@ namespace Amplitude.Helpers
 
         private const string MIGRATED_PROFILES_NAME_BASE = "Migrated_Profile";
         private int migratedProfileCounter = 1;
-        
+
         private const string OUTPUTPROFILES_FILE = "profiles.json";
         public const string DEFAULT_OUTPUTPROFILE = "DEFAULT";
 

@@ -33,7 +33,7 @@ namespace Amplitude.Views
         {
             InitializeComponent();
             App.WindowManager.SoundClipListWindow = this;
-            
+
             PositionChanged += SoundClipList_PositionChanged;
             EffectiveViewportChanged += SoundClipList_EffectiveViewportChanged;
         }

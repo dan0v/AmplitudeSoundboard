@@ -194,7 +194,7 @@ namespace Amplitude.Models
         public void ApplyGridSizing()
         {
             string?[][] newGrid = new string[_gridRows ?? 1][];
-            
+
             for (int row = 0; row < newGrid.Length; row++)
             {
                 newGrid[row] = new string?[_gridColumns ?? 1];
