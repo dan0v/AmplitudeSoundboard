@@ -192,28 +192,30 @@ namespace Amplitude.Models
             OnPropertyChanged(nameof(Acrylic));
         }
 
-        public void ResetDefaultDarkTheme()
+        public void ResetThemeBase()
         {
-            SelectedThemeBase = ThemeBase.DARK;
-            AccentColor = ThemeManager.DefaultDarkAccentColor;
-            SecondaryColor = ThemeManager.DefaultDarkSecondaryColor;
-            TextBoxNormalColor = ThemeManager.DefaultDarkTextBoxNormalColor;
-            FadedTextBackgroundColor = ThemeManager.DefaultDarkFadedTextBackgroundColor;
-            WindowBackgroundColor = ThemeManager.DefaultDarkWindowBackgroundColor;
-            WindowBackgroundOpacity = ThemeManager.DefaultDarkWindowBackgroundOpacity;
+            switch (SelectedThemeBase)
+            {
+                case ThemeBase.DARK:
+                    AccentColor = ThemeManager.DefaultDarkAccentColor;
+                    SecondaryColor = ThemeManager.DefaultDarkSecondaryColor;
+                    TextBoxNormalColor = ThemeManager.DefaultDarkTextBoxNormalColor;
+                    FadedTextBackgroundColor = ThemeManager.DefaultDarkFadedTextBackgroundColor;
+                    WindowBackgroundColor = ThemeManager.DefaultDarkWindowBackgroundColor;
+                    WindowBackgroundOpacity = ThemeManager.DefaultDarkWindowBackgroundOpacity;
+                    break;
+                case ThemeBase.LIGHT:
+                    AccentColor = ThemeManager.DefaultLightAccentColor;
+                    SecondaryColor = ThemeManager.DefaultLightSecondaryColor;
+                    TextBoxNormalColor = ThemeManager.DefaultLightTextBoxNormalColor;
+                    FadedTextBackgroundColor = ThemeManager.DefaultLightFadedTextBackgroundColor;
+                    WindowBackgroundColor = ThemeManager.DefaultLightWindowBackgroundColor;
+                    WindowBackgroundOpacity = ThemeManager.DefaultLightWindowBackgroundOpacity;
+                    break;
+            }
+            OnPropertyChanged(nameof(SelectedThemeBase));
+            OnPropertyChanged(nameof(WindowBackgroundOpacity));
         }
-
-        public void ResetDefaultLightTheme()
-        {
-            SelectedThemeBase = ThemeBase.LIGHT;
-            AccentColor = ThemeManager.DefaultLightAccentColor;
-            SecondaryColor = ThemeManager.DefaultLightSecondaryColor;
-            TextBoxNormalColor = ThemeManager.DefaultLightTextBoxNormalColor;
-            FadedTextBackgroundColor = ThemeManager.DefaultLightFadedTextBackgroundColor;
-            WindowBackgroundColor = ThemeManager.DefaultLightWindowBackgroundColor;
-            WindowBackgroundOpacity = ThemeManager.DefaultLightWindowBackgroundOpacity;
-        }
-
 
         public Theme ShallowCopy()
         {

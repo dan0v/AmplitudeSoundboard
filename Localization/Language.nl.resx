@@ -277,7 +277,7 @@
     <value>Test audio</value>
   </data>
   <data name="ThemeLabel" xml:space="preserve">
-    <value>Thema</value>
+    <value>Basisthema</value>
   </data>
   <data name="UpdateLabel" xml:space="preserve">
     <value>Update</value>
@@ -398,5 +398,26 @@
   </data>
   <data name="StopAudioOnRetrigger" xml:space="preserve">
     <value>Schakel audio in wanneer herhaaldelijk geactiveerd</value>
+  </data>
+  <data name="AccentColorLabel" xml:space="preserve">
+    <value>Accent kleur</value>
+  </data>
+  <data name="OpenThemeSettingsButton" xml:space="preserve">
+    <value>Thema configureren</value>
+  </data>
+  <data name="ResetThemeBaseTooltip" xml:space="preserve">
+    <value>Thema-instellingen opnieuw instellen</value>
+  </data>
+  <data name="SecondaryColorLabel" xml:space="preserve">
+    <value>Secundaire kleur</value>
+  </data>
+  <data name="ThemeSettingsTitle" xml:space="preserve">
+    <value>Thema instellingen</value>
+  </data>
+  <data name="WindowBackgroundColorLabel" xml:space="preserve">
+    <value>Achtergrondkleur van venster</value>
+  </data>
+  <data name="WindowBackgroundOpacityLabel" xml:space="preserve">
+    <value>Dekking van de achtergrond van het venster</value>
   </data>
 </root>

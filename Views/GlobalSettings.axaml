@@ -76,7 +76,7 @@
             <Border.BorderBrush>
               <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
             </Border.BorderBrush>
-            <Button HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" Command="{Binding OpenThemeSettings}" Content="{i18n:Localize OpenThemeSettings}" ToolTip.Tip="{i18n:Localize OpenThemeSettingsTooltip}" Cursor="Hand"/>
+            <Button HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" Command="{Binding OpenThemeSettings}" Content="{i18n:Localize OpenThemeSettingsButton}" ToolTip.Tip="{i18n:Localize OpenThemeSettingsButton}" Cursor="Hand"/>
           </Border>
           
           <!--Grid size-->

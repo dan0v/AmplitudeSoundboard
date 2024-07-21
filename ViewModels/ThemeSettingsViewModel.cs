@@ -21,7 +21,6 @@
 
 using Amplitude.Helpers;
 using Amplitude.Models;
-using System.Linq;
 
 namespace Amplitude.ViewModels
 {
@@ -29,27 +28,10 @@ namespace Amplitude.ViewModels
     {
         private Theme _model;
         public Theme Model => _model;
-        public static string[] Languages => Localization.Localizer.Languages.Keys.ToArray();
 
         public ThemeSettingsViewModel()
         {
             _model = ThemeManager.Theme.ShallowCopy();
-            _windowBackgroundOpacity = Model.WindowBackgroundOpacity.ToString();
-        }
-
-        private string _windowBackgroundOpacity = "";
-        public string WindowBackgroundOpacity
-        {
-            get => _windowBackgroundOpacity;
-            set
-            {
-                _windowBackgroundOpacity = value;
-                if (double.TryParse(value, out double val) && val != Model.WindowBackgroundOpacity)
-                {
-                    Model.WindowBackgroundOpacity = val;
-                    Model.RefreshAcrylic();
-                }
-            }
         }
 
         public int SelectedThemeBase

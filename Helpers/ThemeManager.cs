@@ -124,6 +124,7 @@ namespace Amplitude.Helpers
         public Bitmap RemoveItem => GetBitmap(folder + "/Remove.png");
         public Bitmap AddToQueue => GetBitmap(folder + "/AddToQueue.png");
         public Bitmap Language => GetBitmap(folder + "/Language.png");
+        public Bitmap Reset => GetBitmap(folder + "/Reset.png");
 
         private string folder
         {
@@ -186,6 +187,7 @@ namespace Amplitude.Helpers
             OnPropertyChanged(nameof(RemoveItem));
             OnPropertyChanged(nameof(AddToQueue));
             OnPropertyChanged(nameof(Language));
+            OnPropertyChanged(nameof(Reset));
         }
 
 

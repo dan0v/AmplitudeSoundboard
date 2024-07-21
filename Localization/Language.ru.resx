@@ -280,7 +280,7 @@
     <value>Протестировать аудио</value>
   </data>
   <data name="ThemeLabel" xml:space="preserve">
-    <value>Тема</value>
+    <value>Базовая тема</value>
   </data>
   <data name="UpdateLabel" xml:space="preserve">
     <value>Обновление</value>
@@ -398,5 +398,26 @@
   </data>
   <data name="StopAudioOnRetrigger" xml:space="preserve">
     <value>Переключение звука при неоднократном срабатывании</value>
+  </data>
+  <data name="AccentColorLabel" xml:space="preserve">
+    <value>Акцентный цвет</value>
+  </data>
+  <data name="OpenThemeSettingsButton" xml:space="preserve">
+    <value>Настроить тему</value>
+  </data>
+  <data name="ResetThemeBaseTooltip" xml:space="preserve">
+    <value>Сбросить настройки темы</value>
+  </data>
+  <data name="SecondaryColorLabel" xml:space="preserve">
+    <value>Вторичный цвет</value>
+  </data>
+  <data name="ThemeSettingsTitle" xml:space="preserve">
+    <value>Настройки темы</value>
+  </data>
+  <data name="WindowBackgroundColorLabel" xml:space="preserve">
+    <value>Цвет фона окна</value>
+  </data>
+  <data name="WindowBackgroundOpacityLabel" xml:space="preserve">
+    <value>Непрозрачность фона окна</value>
   </data>
 </root>
