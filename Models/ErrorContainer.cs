@@ -42,7 +42,7 @@ namespace Amplitude.Models
             if (!string.IsNullOrEmpty(clip?.Id))
             {
                 this.LinkedSoundClip = true;
-                this.SoundClipId = clip?.Id;
+                this.SoundClipId = clip.Id;
             }
         }
 
@@ -52,7 +52,7 @@ namespace Amplitude.Models
             if (!string.IsNullOrEmpty(profile?.Id))
             {
                 this.LinkedOutputProfile = true;
-                this.OutputProfileId = profile?.Id;
+                this.OutputProfileId = profile.Id;
             }
         }
 

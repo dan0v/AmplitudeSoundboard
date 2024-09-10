@@ -27,7 +27,7 @@ namespace Amplitude.Helpers
     public class BlankHotkeysManager : IKeyboardHook
     {
         private static BlankHotkeysManager? _instance;
-        public static BlankHotkeysManager Instance => _instance ??= new BlankHotkeysManager();
+        public static IKeyboardHook Instance => _instance ??= new BlankHotkeysManager();
 
         public void Dispose()
         {

@@ -5,11 +5,11 @@ Copyright (c) .NET Foundation and Contributors All Rights Reserved
 https://github.com/AvaloniaUI/Avalonia
 
 BASS, BASS_AAC, BASSALAC, BASSFLAC, BASSmix, BASSOPUS
-Copyright (C) 2003-2021 un4seen developments
+Copyright (c) 2003-2021 un4seen developments
 https://www.un4seen.com/
 
 Josefin Sans
-Copyright (C) 2010 Santiago Orozco (hi@typemade.mx)
+Copyright (c) 2010 Santiago Orozco (hi@typemade.mx)
 https://github.com/googlefonts/josefinsans
 
 ManagedBass
@@ -19,8 +19,9 @@ https://github.com/ManagedBass/ManagedBass
 Material Design Icons
 https://github.com/google/material-design-icons
 
-Noto Sans Display
-https://github.com/googlefonts/noto-fonts
+Open Sans
+Copyright (c) 2020 The Open Sans Project Authors
+https://github.com/googlefonts/opensans
 
 SharpHook
 Copyright (c) 2021 Anatoliy Pylypchuk

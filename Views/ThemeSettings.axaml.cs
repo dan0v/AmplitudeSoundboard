@@ -44,7 +44,7 @@ namespace Amplitude.Views
         {
             App.WindowManager.ThemeSettingsWindow = null;
             EffectiveViewportChanged -= ThemeSettings_EffectiveViewportChanged;
-            ((ThemeSettingsViewModel)DataContext).Dispose();
+            ((ThemeSettingsViewModel?)DataContext)?.Dispose();
             base.OnClosing(e);
         }
     }

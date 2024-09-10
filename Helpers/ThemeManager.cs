@@ -102,7 +102,7 @@ namespace Amplitude.Helpers
         ];
 
         public FontFamily TitleFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/JosefinSans/#Josefin Sans");
-        public FontFamily BodyFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/NotoSansDisplay/#Noto Sans Display");
+        public FontFamily BodyFont => FontFamily.Parse("avares://amplitude_soundboard/Assets/Fonts/OpenSans/#Open Sans");
 
         public Bitmap ArrowLeft => GetBitmap(folder + "/ArrowLeft.png");
         public Bitmap ArrowRight => GetBitmap(folder + "/ArrowRight.png");

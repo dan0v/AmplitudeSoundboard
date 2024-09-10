@@ -38,13 +38,18 @@ namespace Amplitude.Helpers
         private readonly object keySetLock = new();
 
         private static SharpKeyboardHook? _instance;
-        public static SharpKeyboardHook Instance => _instance ??= new SharpKeyboardHook();
+        public static IKeyboardHook Instance => _instance ??= new SharpKeyboardHook();
+
+        static bool disposed = false;
 
         private SharpKeyboardHook()
         {
-            sharpHook.KeyPressed += HandleKeyPressed;
-            sharpHook.KeyReleased += HandleKeyReleased;
-            sharpHook.RunAsync();
+            if (!disposed)
+            {
+                sharpHook.KeyPressed += HandleKeyPressed;
+                sharpHook.KeyReleased += HandleKeyReleased;
+                sharpHook.RunAsync();
+            }
         }
 
         private void HandleKeyReleased(object? sender, KeyboardHookEventArgs e)
@@ -95,7 +100,7 @@ namespace Amplitude.Helpers
                 }
                 soundClipCallbacks.Clear();
             }
-            else if (currentKey != HotkeysManager.UNBIND_HOTKEY && App.HotkeysManager.Hotkeys.TryGetValue(fullKey, out List<string> values))
+            else if (currentKey != HotkeysManager.UNBIND_HOTKEY && App.HotkeysManager.Hotkeys.TryGetValue(fullKey, out List<string>? values))
             {
                 // Go through and call all the Play methods on these id's
                 foreach (string item in values)
@@ -233,6 +238,12 @@ namespace Amplitude.Helpers
 
         public void Dispose()
         {
+            if (disposed)
+            {
+                return;
+            }
+
+            disposed = true;
             _instance = null;
             sharpHook.KeyPressed -= HandleKeyPressed;
             sharpHook.KeyReleased -= HandleKeyReleased;

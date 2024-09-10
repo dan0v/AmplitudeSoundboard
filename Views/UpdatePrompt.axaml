@@ -37,7 +37,7 @@
     <StyleInclude Source="/Styles/DefaultStyle.axaml" />
   </Window.Styles>
 
-  <Panel>
+  <Panel Name="styleroot">
       
       <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding ThemeManager.Theme.Acrylic}">
       </ExperimentalAcrylicBorder>

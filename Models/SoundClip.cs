@@ -149,9 +149,9 @@ namespace Amplitude.Models
         }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public ObservableCollection<OutputSettings> OutputSettingsFromProfile => App.OutputProfileManager.GetOutputProfile(OutputProfileId)?.OutputSettings;
+        public ObservableCollection<OutputSettings> OutputSettingsFromProfile => App.OutputProfileManager.GetOutputProfile(OutputProfileId)?.OutputSettings ?? [];
 
-        private ObservableCollection<OutputSettings> _outputSettings = new ObservableCollection<OutputSettings>();
+        private ObservableCollection<OutputSettings> _outputSettings = [];
         [Obsolete]
         public ObservableCollection<OutputSettings> OutputSettings
         {

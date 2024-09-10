@@ -35,21 +35,21 @@ namespace Amplitude.Helpers
     class MSoundEngine : ISoundEngine
     {
         private static MSoundEngine? _instance;
-        public static MSoundEngine Instance => _instance ??= new MSoundEngine();
+        public static ISoundEngine Instance => _instance ??= new MSoundEngine();
 
-        object currentlyPlayingLock = new object();
+        object currentlyPlayingLock = new();
 
-        private ObservableCollection<PlayingClip> _currentlyPlaying = new ObservableCollection<PlayingClip>();
+        private ObservableCollection<PlayingClip> _currentlyPlaying = [];
         public ObservableCollection<PlayingClip> CurrentlyPlaying => _currentlyPlaying;
 
-        object queueLock = new object();
+        object queueLock = new();
 
-        private ObservableCollection<SoundClip> _queued = new ObservableCollection<SoundClip>();
+        private ObservableCollection<SoundClip> _queued = [];
         public ObservableCollection<SoundClip> Queued => _queued;
 
 
         private const long TIMER_MS = 200;
-        private Timer timer = new Timer(TIMER_MS)
+        private Timer timer = new(TIMER_MS)
         {
             AutoReset = true,
         };

@@ -48,7 +48,7 @@
       
       <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" FontFamily="{Binding ThemeManager.TitleFont}" Classes="TITLE" Text="{i18n:Localize SoundClipListTitle}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
       
-      <Grid Margin="5,30,5,0" RowDefinitions="Auto,*,Auto">
+      <Grid Margin="5,30,5,0" RowDefinitions="Auto,*,Auto" Name="styleroot">
         <TextBox Grid.Row="0" Margin="10,0,10,5" Watermark="{i18n:Localize SoundClipListSearch}" Text="{Binding SoundClipManager.SoundClipListFilter}"></TextBox>
         <ScrollViewer Grid.Row="1">
           <StackPanel>
@@ -68,7 +68,7 @@
                           <MenuItem Header="{i18n:Localize AddClipToQueue}" Command="{Binding AddAudioToQueue}"></MenuItem>
                         </ContextMenu>
                       </Grid.ContextMenu>
-                      <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="{Binding Name}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Name}"></TextBlock>
+                      <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="{Binding Name}" TextTrimming="CharacterEllipsis" FontFamily="{Binding $parent[ItemsControl].DataContext.ThemeManager.BodyFont}" ToolTip.Tip="{Binding Name}"></TextBlock>
                       <Button Grid.Column="1" Cursor="Hand" Command="{Binding PlayAudio}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{Binding PlayAudioTooltip}" Margin="5,0,5,0">
                         <Panel>
                           <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeManager.Play}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />

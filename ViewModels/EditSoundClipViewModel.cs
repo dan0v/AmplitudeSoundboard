@@ -191,9 +191,10 @@ namespace Amplitude.ViewModels
 
         public void OutputProfileSelectionChanged(object? sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems.Count > 0 && ((OutputProfile)e.AddedItems[0]).Id != Model.OutputProfileId)
+            var id = ((OutputProfile?)e.AddedItems[0])?.Id;
+            if (e.AddedItems.Count > 0 && id != null && id != Model.OutputProfileId)
             {
-                Model.OutputProfileId = ((OutputProfile)e.AddedItems[0]).Id;
+                Model.OutputProfileId = id;
             }
         }
 
