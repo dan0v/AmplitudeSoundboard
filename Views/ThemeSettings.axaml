@@ -53,7 +53,7 @@
       
       <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize ThemeSettingsTitle}" Classes="TITLE" FontFamily="{Binding ThemeManager.TitleFont}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
-      <ScrollViewer Margin="0,30,0,0">
+      <ScrollViewer Margin="0,30,0,0" Name="styleroot">
         <StackPanel>
           <!--ThemeBase-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
@@ -62,7 +62,13 @@
             </Border.BorderBrush>
             <Grid ColumnDefinitions="*,*,Auto" >
               <Label Grid.Column="0" Content="{i18n:Localize ThemeLabel}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="5,0,0,0"></Label>
-              <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,0,0,0" SelectedIndex="{Binding Model.SelectedThemeBase}" ItemsSource="{Binding ThemeManager.ThemesBaseList}" HorizontalAlignment="Center"/>
+              <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,0,0,0" SelectedIndex="{Binding Model.SelectedThemeBase}" ItemsSource="{Binding ThemeManager.ThemesBaseList}" HorizontalAlignment="Center">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding .}" FontFamily="{Binding #styleroot.DataContext.ThemeManager.BodyFont}"/>
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
               <!--ToolTip.Tip="{Binding SaveButtonTooltip}">-->
               <Button Grid.Column="2" ToolTip.Tip="{i18n:Localize ResetThemeBaseTooltip}" Cursor="Hand" Command="{Binding Model.ResetThemeBase}" Margin="0,0,5,0" HorizontalAlignment="Center">
                 <Panel>

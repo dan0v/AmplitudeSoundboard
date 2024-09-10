@@ -53,7 +53,7 @@
       
       <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize GlobalSettingsTitle}" Classes="TITLE" FontFamily="{Binding ThemeManager.TitleFont}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
-      <ScrollViewer Margin="0,30,0,0">
+      <ScrollViewer Margin="0,30,0,0" Name="styleroot">
         <StackPanel>
           <!--Language-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
@@ -67,7 +67,13 @@
                   <Image Source="{Binding ThemeManager.Language}" Height="20" VerticalAlignment="Center" />
                 </Panel>
               </StackPanel>
-              <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" Margin="0,5,0,5" SelectedItem="{Binding Model.Language}" ItemsSource="{Binding Languages}" HorizontalAlignment="Center"></ComboBox>
+              <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" Margin="0,5,0,5" SelectedItem="{Binding Model.Language}" ItemsSource="{Binding Languages}" HorizontalAlignment="Center">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding .}" FontFamily="{Binding #styleroot.DataContext.ThemeManager.BodyFont}"/>
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
             </Grid>
           </Border>
           

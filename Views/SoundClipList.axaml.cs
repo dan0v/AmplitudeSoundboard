@@ -53,7 +53,7 @@ namespace Amplitude.Views
             App.WindowManager.SoundClipListWindow = null;
             PositionChanged -= SoundClipList_PositionChanged;
             EffectiveViewportChanged -= SoundClipList_EffectiveViewportChanged;
-            ((SoundClipListViewModel)DataContext).Dispose();
+            ((SoundClipListViewModel?)DataContext)?.Dispose();
             base.OnClosing(e);
         }
     }

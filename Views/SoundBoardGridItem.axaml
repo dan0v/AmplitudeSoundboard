@@ -41,7 +41,7 @@
       <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
     </Border.BorderBrush>
     
-    <Grid x:Name="grd_Control" Cursor="{Binding Cursor}" ToolTip.Tip="{Binding Model.PlayAudioTooltip}" Background="Transparent">
+    <Grid x:Name="grd_Control" Cursor="{Binding Cursor}" ToolTip.Tip="{Binding Model.PlayAudioTooltip}" Background="Transparent" Name="styleroot">
       <Grid.ContextMenu>
         <ContextMenu>
           <MenuItem Command="{Binding CreateClipInPlace}" Header="{i18n:Localize CreateClipInPlace}"></MenuItem>

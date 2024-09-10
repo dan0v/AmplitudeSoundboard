@@ -68,7 +68,11 @@ namespace Amplitude.Views
         private void MainWindow_PositionChanged(object? sender, PixelPointEventArgs e)
         {
             WindowPosition = (e.Point.X, e.Point.Y);
-            ((MainWindowViewModel)DataContext).WindowPosition = WindowPosition;
+            var context = ((MainWindowViewModel?)DataContext);
+            if (context != null)
+            {
+                context.WindowPosition = WindowPosition;
+            }
             App.WindowManager.WindowSizesOrPositionsChanged();
         }
 
@@ -78,12 +82,12 @@ namespace Amplitude.Views
             EffectiveViewportChanged -= MainWindow_EffectiveViewportChanged;
             App.SoundEngine.Dispose();
             App.KeyboardHook.Dispose();
-            ((MainWindowViewModel)DataContext).Dispose();
+            ((MainWindowViewModel?)DataContext)?.Dispose();
             base.OnClosing(e);
         }
 
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public new event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

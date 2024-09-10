@@ -159,7 +159,10 @@ namespace Amplitude.Helpers
             }
 
             App.OutputProfileManager.ValidateOutputProfile(profile);
-            App.SoundEngine.CheckDeviceExistsAndGenerateErrors(profile);
+            if (profile != null)
+            {
+                App.SoundEngine.CheckDeviceExistsAndGenerateErrors(profile);
+            }
         }
 
         /// <summary>
@@ -184,10 +187,10 @@ namespace Amplitude.Helpers
                     }
                 }
             }
-            else if (SoundClips.TryGetValue(clip.Id, out SoundClip oldClip))
+            else if (SoundClips.TryGetValue(clip.Id, out SoundClip? oldClip))
             {
                 // Overwrite existing clip
-                App.HotkeysManager.RemoveHotkey(clip.Id, oldClip.Hotkey);
+                App.HotkeysManager.RemoveHotkey(clip.Id, oldClip?.Hotkey);
                 if (!string.IsNullOrEmpty(clip.Hotkey))
                 {
                     App.HotkeysManager.RegisterHotkeyAtStartup(clip.Id, clip.Hotkey);
@@ -211,9 +214,9 @@ namespace Amplitude.Helpers
                 return;
             }
 
-            if (SoundClips.TryGetValue(id, out SoundClip clip))
+            if (SoundClips.TryGetValue(id, out SoundClip? clip))
             {
-                App.HotkeysManager.RemoveHotkey(id, clip.Hotkey);
+                App.HotkeysManager.RemoveHotkey(id, clip?.Hotkey);
 
                 SoundClips.Remove(id);
 

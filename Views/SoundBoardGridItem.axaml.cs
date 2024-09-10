@@ -37,7 +37,7 @@ namespace Amplitude.Views
         {
             if (!e.Handled && e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             {
-                SoundClip? Model = ((SoundBoardGridItemViewModel)DataContext)?.Model;
+                SoundClip? Model = ((SoundBoardGridItemViewModel?)DataContext)?.Model;
                 if (Model != null && !string.IsNullOrEmpty(Model.Id))
                 {
                     Model.PlayAudio();
@@ -45,7 +45,7 @@ namespace Amplitude.Views
             }
             else if (!e.Handled && e.GetCurrentPoint(this).Properties.IsMiddleButtonPressed)
             {
-                SoundClip? Model = ((SoundBoardGridItemViewModel)DataContext)?.Model;
+                SoundClip? Model = ((SoundBoardGridItemViewModel?)DataContext)?.Model;
                 if (Model != null && !string.IsNullOrEmpty(Model.Id))
                 {
                     Model.AddAudioToQueue();

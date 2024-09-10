@@ -49,7 +49,7 @@ namespace Amplitude.Views
 
         private void Cb_OutputProfileSelectionChanged(object? sender, SelectionChangedEventArgs e)
         {
-            ((EditSoundClipViewModel)DataContext).OutputProfileSelectionChanged(sender, e);
+            ((EditSoundClipViewModel?)DataContext)?.OutputProfileSelectionChanged(sender, e);
         }
 
         private void EditSoundClip_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
@@ -62,9 +62,9 @@ namespace Amplitude.Views
         {
             if (e.Property == TextBlock.TextProperty)
             {
-                if (!string.IsNullOrEmpty((string)e.NewValue) && e.NewValue != e.OldValue)
+                if (!string.IsNullOrEmpty((string?)e.NewValue) && e.NewValue != e.OldValue)
                 {
-                    App.WindowManager.OpenedEditSoundClipWindow(((EditSoundClipViewModel)this.DataContext).Model.Id, this);
+                    App.WindowManager.OpenedEditSoundClipWindow(((EditSoundClipViewModel?)this.DataContext)?.Model.Id, this);
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace Amplitude.Views
             try
             {
                 string[]? url = await BrowseIO.OpenFileBrowser(GetWindow(), BrowseIO.FileBrowserType.AUDIO);
-                ((EditSoundClipViewModel)DataContext).SetClipAudioFilePath(url);
+                ((EditSoundClipViewModel?)DataContext)?.SetClipAudioFilePath(url);
             }
             catch (Exception e)
             {
@@ -87,7 +87,7 @@ namespace Amplitude.Views
             try
             {
                 string[]? url = await BrowseIO.OpenFileBrowser(GetWindow(), BrowseIO.FileBrowserType.IMAGE);
-                ((EditSoundClipViewModel)DataContext).SetClipImageFilePath(url);
+                ((EditSoundClipViewModel?)DataContext)?.SetClipImageFilePath(url);
             }
             catch (Exception e)
             {
@@ -97,18 +97,18 @@ namespace Amplitude.Views
 
         protected void DeleteSoundClip(object? sender, RoutedEventArgs args)
         {
-            ((EditSoundClipViewModel)this.DataContext).DeleteSoundClip();
+            ((EditSoundClipViewModel?)this.DataContext)?.DeleteSoundClip();
             this.Close();
         }
 
         protected override void OnClosing(WindowClosingEventArgs e)
         {
             EffectiveViewportChanged -= EditSoundClip_EffectiveViewportChanged;
-            App.WindowManager.ClosedEditSoundClipWindow(((EditSoundClipViewModel)this.DataContext).Model.Id);
-            ((EditSoundClipViewModel)DataContext).Dispose();
+            App.WindowManager.ClosedEditSoundClipWindow(((EditSoundClipViewModel?)this.DataContext)?.Model.Id);
+            ((EditSoundClipViewModel?)DataContext)?.Dispose();
             base.OnClosing(e);
         }
 
-        Window GetWindow() => (Window)this.VisualRoot;
+        Window GetWindow() => (Window?)this.VisualRoot ?? throw new NullReferenceException("Window should exist");
     }
 }

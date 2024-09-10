@@ -99,13 +99,13 @@ namespace Amplitude.Helpers
 
         public void OpenEditOutputProfileWindow(string? Id = null)
         {
-            if (Id != null && EditOutputProfileWindows.TryGetValue(Id, out EditOutputProfile window))
+            if (Id != null && EditOutputProfileWindows.TryGetValue(Id, out EditOutputProfile? window))
             {
-                if (window.WindowState == WindowState.Minimized)
+                if (window?.WindowState == WindowState.Minimized)
                 {
                     window.WindowState = WindowState.Normal;
                 }
-                window.Activate();
+                window?.Activate();
             }
             else
             {
@@ -149,13 +149,13 @@ namespace Amplitude.Helpers
 
         public void OpenEditSoundClipWindow(string? id = null)
         {
-            if (id != null && EditSoundClipWindows.TryGetValue(id, out EditSoundClip window))
+            if (id != null && EditSoundClipWindows.TryGetValue(id, out EditSoundClip? window))
             {
-                if (window.WindowState == WindowState.Minimized)
+                if (window?.WindowState == WindowState.Minimized)
                 {
                     window.WindowState = WindowState.Normal;
                 }
-                window.Activate();
+                window?.Activate();
             }
             else
             {
@@ -193,7 +193,7 @@ namespace Amplitude.Helpers
             sound.Show();
         }
 
-        public void OpenedEditSoundClipWindow(string id, EditSoundClip editSoundClip)
+        public void OpenedEditSoundClipWindow(string? id, EditSoundClip editSoundClip)
         {
             if (!string.IsNullOrEmpty(id) && !EditSoundClipWindows.ContainsKey(id))
             {
@@ -202,7 +202,7 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void ClosedEditSoundClipWindow(string id)
+        public void ClosedEditSoundClipWindow(string? id)
         {
             if (!string.IsNullOrEmpty(id) && EditSoundClipWindows.ContainsKey(id))
             {

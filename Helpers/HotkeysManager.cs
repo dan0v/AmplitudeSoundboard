@@ -52,9 +52,9 @@ namespace Amplitude.Helpers
             }
 
             // Add hotkey to dict
-            if (Hotkeys.TryGetValue(hotkeyString, out List<string> val))
+            if (Hotkeys.TryGetValue(hotkeyString, out List<string>? val))
             {
-                val.Add(id);
+                val?.Add(id);
             }
             else
             {
@@ -119,15 +119,15 @@ namespace Amplitude.Helpers
                 return;
             }
 
-            if (Hotkeys.TryGetValue(hotkeyString, out List<string> val))
+            if (Hotkeys.TryGetValue(hotkeyString, out List<string>? val))
             {
-                if (val.Count <= 1)
+                if (val?.Count <= 1)
                 {
                     Hotkeys.Remove(hotkeyString);
                 }
                 else
                 {
-                    val.Remove(id);
+                    val?.Remove(id);
                 }
             }
 

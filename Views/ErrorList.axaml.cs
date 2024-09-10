@@ -33,7 +33,7 @@ namespace Amplitude.Views
 
         protected override void OnClosing(WindowClosingEventArgs e)
         {
-            ((ErrorListViewModel)this.DataContext).Dismiss();
+            ((ErrorListViewModel?)this.DataContext)?.Dismiss();
 
             e.Cancel = true;
             base.OnClosing(e);

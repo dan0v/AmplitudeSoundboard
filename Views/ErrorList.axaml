@@ -47,7 +47,7 @@
 
     <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize ErrorListTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeManager.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
-    <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
+    <Grid RowDefinitions="*,Auto" Margin="0,30,0,0" Name="styleroot">
       <ScrollViewer>
         <StackPanel x:Name="sp_Errors">
 
@@ -59,7 +59,7 @@
                     <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeManager.Theme.BorderColor}"/>
                   </Border.BorderBrush>
                   <Grid ColumnDefinitions="*,Auto" Background="Transparent">
-                    <TextBlock Grid.Column="0" TextWrapping="Wrap" Margin="5" Text="{Binding ErrorMessage}"/>
+                    <TextBlock Grid.Column="0" TextWrapping="Wrap" Margin="5" Text="{Binding ErrorMessage}" FontFamily="{Binding #styleroot.DataContext.ThemeManager.BodyFont}"/>
                     <Button Margin="0,0,5,0" Grid.Column="1" Cursor="Hand" Command="{Binding OpenEditSoundClipWindow}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize EditSoundClipTooltip}" IsVisible="{Binding LinkedSoundClip}">
                       <Panel>
                         <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeManager.LaunchItem}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />

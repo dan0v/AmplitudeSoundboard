@@ -28,7 +28,7 @@ namespace Amplitude.Helpers
 {
     public interface ISoundEngine : IDisposable
     {
-        public static ISoundEngine Instance { get; }
+        public static abstract ISoundEngine Instance { get; }
 
         public ObservableCollection<PlayingClip> CurrentlyPlaying { get; }
         public ObservableCollection<SoundClip> Queued { get; }

@@ -44,7 +44,7 @@
 
     <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize AboutTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeManager.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
-    <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
+    <Grid RowDefinitions="*,Auto" Margin="0,30,0,0" Name="styleroot">
       <DockPanel Grid.Row="0">
         <Grid RowDefinitions="Auto,*,*">
           <!--Copyright-->

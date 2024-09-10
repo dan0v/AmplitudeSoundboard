@@ -49,7 +49,7 @@
       
       <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" FontFamily="{Binding ThemeManager.TitleFont}" Classes="TITLE" Text="Amplitude Soundboard" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
 
-      <Grid RowDefinitions="*,Auto,Auto" Margin="5,30,5,0" >
+      <Grid RowDefinitions="*,Auto,Auto" Margin="5,30,5,0" Name="styleroot">
         <Grid Grid.Row="0" ColumnDefinitions="Auto,*">
           <Grid RowDefinitions="Auto,*">
             <StackPanel Grid.Column="0" VerticalAlignment="Top" Margin="0,8,0,0">

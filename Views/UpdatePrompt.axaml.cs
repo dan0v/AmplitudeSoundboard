@@ -131,10 +131,7 @@ namespace Amplitude.Views
                     // Start new version and quit current
                     Process.Start(currentFileName);
 
-                    using (var lifetime = (ClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime)
-                    {
-                        lifetime.Shutdown(0);
-                    }
+                    ((ClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)?.Shutdown(0);
                 }
 #else
                 ProcessStartInfo url = new ProcessStartInfo
@@ -171,7 +168,7 @@ namespace Amplitude.Views
             base.OnClosing(e);
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public new event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
