@@ -130,8 +130,10 @@ namespace Amplitude.Views
 
                     // Start new version and quit current
                     Process.Start(currentFileName);
-
-                    ((ClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)?.Shutdown(0);
+                    using (var lifetime = (ClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime)
+                    {
+                        lifetime.Shutdown(0);
+                    }
                 }
 #else
                 ProcessStartInfo url = new ProcessStartInfo

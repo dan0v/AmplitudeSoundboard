@@ -87,23 +87,23 @@
     <Style Selector="Slider">
       <Setter Property="Background">
         <Setter.Value>
-          <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}" Opacity="1"/>
+          <SolidColorBrush Color="{Binding ThemeManager.Theme.SecondaryColor}" Opacity="1"/>
         </Setter.Value>
       </Setter>
       <Setter Property="Foreground">
         <Setter.Value>
-          <SolidColorBrush Color="{Binding ThemeManager.Theme.SecondaryColor}" Opacity="1"/>
+          <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}" Opacity="1"/>
         </Setter.Value>
       </Setter>
       <Style Selector="^:horizontal:pointerover">
         <Setter Property="Background">
           <Setter.Value>
-            <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}" Opacity="0.7"/>
+            <SolidColorBrush Color="{Binding ThemeManager.Theme.SecondaryColor}" Opacity="0.7"/>
           </Setter.Value>
         </Setter>
         <Setter Property="Foreground">
           <Setter.Value>
-            <SolidColorBrush Color="{Binding ThemeManager.Theme.SecondaryColor}" Opacity="0.7"/>
+            <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}" Opacity="0.7"/>
           </Setter.Value>
         </Setter>
       </Style>
@@ -119,5 +119,12 @@
           </Setter.Value>
         </Setter>
       </Style>
+    </Style>
+    <Style Selector="ProgressBar">
+      <Setter Property="Foreground">
+        <Setter.Value>
+          <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+        </Setter.Value>
+      </Setter>
     </Style>
 </Styles>
