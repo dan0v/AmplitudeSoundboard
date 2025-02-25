@@ -1,6 +1,6 @@
 <!--
     AmplitudeSoundboard
-    Copyright (C) 2021-2024 dan0v
+    Copyright (C) 2021-2025 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -26,7 +26,8 @@
              xmlns:vm="using:Amplitude.ViewModels"
              mc:Ignorable="d" d:DesignWidth="150" d:DesignHeight="150"
              Height="{Binding Height}" Width="{Binding Width}"
-             x:Class="Amplitude.Views.SoundBoardGridItem">
+             x:Class="Amplitude.Views.SoundBoardGridItem"
+             x:DataType="vm:SoundBoardGridItemViewModel">
   
   <UserControl.Styles>
     <StyleInclude Source="/Styles/DefaultStyle.axaml" />
@@ -66,7 +67,7 @@
 
         <!--Conditional XAML is kind of terrible when having to use IsVisible... Center Model.Name if no background image set, otherwise push to bottom with semi-transparent background-->
         <Panel Grid.Row="0" IsVisible="{Binding Model.ImageFilePath, Converter={x:Static StringConverters.IsNullOrEmpty}}">
-          <TextBlock IsVisible="{Binding Model.NameVisibleOnGridTile}" Opacity="{Binding BackgroundOpacity}" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" Text="{Binding Model.Name}" Margin="2"></TextBlock>
+          <TextBlock IsVisible="{Binding Model.NameVisibleOnGridTile}" Opacity="{Binding BackgroundOpacity}" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" Text="{Binding Model.Name}" Margin="2"/>
         </Panel>
 
         <Panel Grid.Row="1" IsVisible="{Binding Model.ImageFilePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
@@ -78,7 +79,7 @@
               <Panel.Background>
                 <SolidColorBrush Color="{Binding ThemeManager.Theme.FadedTextBackgroundColor}" Opacity="0.4"/>
               </Panel.Background>
-              <TextBlock Opacity="{Binding BackgroundOpacity}" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" Text="{Binding Model.Name}" Margin="2"></TextBlock>
+              <TextBlock Opacity="{Binding BackgroundOpacity}" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" Text="{Binding Model.Name}" Margin="2"/>
             </Panel>
           </Border>
         </Panel>

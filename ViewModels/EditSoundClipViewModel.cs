@@ -1,6 +1,6 @@
 /*
     AmplitudeSoundboard
-    Copyright (C) 2021-2024 dan0v
+    Copyright (C) 2021-2025 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -29,7 +29,7 @@ namespace Amplitude.ViewModels
 {
     public sealed class EditSoundClipViewModel : ViewModelBase
     {
-        private string StopAudioHotkey => string.IsNullOrEmpty(ConfigManager.Config.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + ConfigManager.Config.GlobalKillAudioHotkey;
+        public string StopAudioHotkey => string.IsNullOrEmpty(ConfigManager.Config.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + ConfigManager.Config.GlobalKillAudioHotkey;
 
         private SoundClip _model;
         public SoundClip Model => _model;
@@ -191,10 +191,14 @@ namespace Amplitude.ViewModels
 
         public void OutputProfileSelectionChanged(object? sender, SelectionChangedEventArgs e)
         {
-            var id = ((OutputProfile?)e.AddedItems[0])?.Id;
-            if (e.AddedItems.Count > 0 && id != null && id != Model.OutputProfileId)
+            if (e.AddedItems.Count > 0)
             {
-                Model.OutputProfileId = id;
+                var id = ((OutputProfile?)e.AddedItems[0])?.Id;
+                
+                if (id != null && id != Model.OutputProfileId)
+                {
+                    Model.OutputProfileId = id;
+                }
             }
         }
 

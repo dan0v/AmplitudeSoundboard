@@ -1,6 +1,6 @@
 <!--
     AmplitudeSoundboard
-    Copyright (C) 2021-2024 dan0v
+    Copyright (C) 2021-2025 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -31,12 +31,13 @@
         Width="400" Height="400" MinWidth="360" MinHeight="200"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
-        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
-
+        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}"
+        x:DataType="vm:ErrorListViewModel">
+  
   <Window.Styles>
     <StyleInclude Source="/Styles/DefaultStyle.axaml" />
   </Window.Styles>
-
+  
   <Design.DataContext>
     <vm:ErrorListViewModel/>
   </Design.DataContext>
@@ -56,18 +57,18 @@
               <DataTemplate>
                 <Border BorderThickness="2" CornerRadius="5" Margin="10,2,10,2" Padding="5">
                   <Border.BorderBrush>
-                    <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeManager.Theme.BorderColor}"/>
+                    <SolidColorBrush Color="{Binding $parent[ItemsControl].((vm:ErrorListViewModel)DataContext).ThemeManager.Theme.BorderColor}"/>
                   </Border.BorderBrush>
                   <Grid ColumnDefinitions="*,Auto" Background="Transparent">
-                    <TextBlock Grid.Column="0" TextWrapping="Wrap" Margin="5" Text="{Binding ErrorMessage}" FontFamily="{Binding #styleroot.DataContext.ThemeManager.BodyFont}"/>
-                    <Button Margin="0,0,5,0" Grid.Column="1" Cursor="Hand" Command="{Binding OpenEditSoundClipWindow}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize EditSoundClipTooltip}" IsVisible="{Binding LinkedSoundClip}">
+                    <TextBlock Grid.Column="0" TextWrapping="Wrap" Margin="5" Text="{Binding ErrorMessage}" FontFamily="{Binding #styleroot.((vm:ErrorListViewModel)DataContext).ThemeManager.BodyFont}"/>
+                    <Button Margin="0,0,5,0" Grid.Column="1" Cursor="Hand" Command="{Binding OpenEditSoundClipWindow}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize EditSoundClipTooltip}" IsVisible="{Binding LinkedSoundClip}" FontFamily="{Binding #styleroot.((vm:ErrorListViewModel)DataContext).ThemeManager.BodyFont}">
                       <Panel>
-                        <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeManager.LaunchItem}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Image Source="{Binding $parent[ItemsControl].((vm:ErrorListViewModel)DataContext).ThemeManager.LaunchItem}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                       </Panel>
                     </Button>
-                    <Button Margin="0,0,5,0" Grid.Column="1" Cursor="Hand" Command="{Binding OpenEditOutputProfileWindow}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize EditOutputProfileTooltip}" IsVisible="{Binding LinkedOutputProfile}">
+                    <Button Margin="0,0,5,0" Grid.Column="1" Cursor="Hand" Command="{Binding OpenEditOutputProfileWindow}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize EditOutputProfileTooltip}" IsVisible="{Binding LinkedOutputProfile}" FontFamily="{Binding #styleroot.((vm:ErrorListViewModel)DataContext).ThemeManager.BodyFont}">
                       <Panel>
-                        <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeManager.LaunchItem}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Image Source="{Binding $parent[ItemsControl].((vm:ErrorListViewModel)DataContext).ThemeManager.LaunchItem}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                       </Panel>
                     </Button>
                   </Grid>
@@ -79,7 +80,7 @@
         </StackPanel>
       </ScrollViewer>
 
-      <Button Grid.Row="1" Command="{Binding Dismiss}" Cursor="Hand" Content="{i18n:Localize DismissWindow}" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Button>
+      <Button Grid.Row="1" Command="{Binding Dismiss}" Cursor="Hand" Content="{i18n:Localize DismissWindow}" Margin="10,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Button>
     </Grid>
   </Panel>
   

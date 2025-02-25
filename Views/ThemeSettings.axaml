@@ -1,6 +1,6 @@
 <!--
     AmplitudeSoundboard
-    Copyright (C) 2021-2024 dan0v
+    Copyright (C) 2021-2025 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -32,7 +32,8 @@
         Width="420" Height="380" MinWidth="400" MinHeight="320"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
-        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
+        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}"
+        x:DataType="vm:ThemeSettingsViewModel">
 
     <Window.Styles>
       <StyleInclude Source="/Styles/DefaultStyle.axaml" />
@@ -65,7 +66,7 @@
               <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" x:Name="cmb_ThemeSelector" Margin="0,0,0,0" SelectedIndex="{Binding Model.SelectedThemeBase}" ItemsSource="{Binding ThemeManager.ThemesBaseList}" HorizontalAlignment="Center">
                 <ComboBox.ItemTemplate>
                   <DataTemplate>
-                    <TextBlock Text="{Binding .}" FontFamily="{Binding #styleroot.DataContext.ThemeManager.BodyFont}"/>
+                    <TextBlock Text="{Binding .}" FontFamily="{Binding #styleroot.((vm:ThemeSettingsViewModel)DataContext).ThemeManager.BodyFont}"/>
                   </DataTemplate>
                 </ComboBox.ItemTemplate>
               </ComboBox>

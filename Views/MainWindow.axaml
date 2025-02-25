@@ -1,6 +1,6 @@
 <!--
     AmplitudeSoundboard
-    Copyright (C) 2021-2024 dan0v
+    Copyright (C) 2021-2025 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -33,14 +33,15 @@
         Width="725" Height="625"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
-        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
+        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}"
+        x:DataType="vm:MainWindowViewModel">
 
     <Window.Styles>
       <StyleInclude Source="/Styles/DefaultStyle.axaml" />
     </Window.Styles>
   
     <Design.DataContext>
-        <vm:MainWindowViewModel/>
+      <vm:MainWindowViewModel/>
     </Design.DataContext>
   
   <Panel>
@@ -104,7 +105,7 @@
                         </Grid>
                         <Button Grid.Column="1" ToolTip.Tip="{i18n:Localize Remove}" Command="{Binding StopPlayback}" Cursor="Hand" Margin="2">
                           <Panel>
-                            <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeManager.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <Image Source="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ThemeManager.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
                           </Panel>
                         </Button>
                       </Grid>
@@ -128,9 +129,9 @@
                     <DataTemplate>
                       <Grid ColumnDefinitions="*,Auto" >
                         <TextBlock Grid.Column="0" Text="{Binding Name}" ToolTip.Tip="{Binding Name}" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <Button Grid.Column="1" ToolTip.Tip="{i18n:Localize Remove}" Command="{Binding $parent[ItemsControl].DataContext.RemoveFromQueue}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}" Cursor="Hand" Margin="2">
+                        <Button Grid.Column="1" ToolTip.Tip="{i18n:Localize Remove}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).RemoveFromQueue}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}" Cursor="Hand" Margin="2">
                           <Panel>
-                            <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeManager.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <Image Source="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ThemeManager.RemoveItem}" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center" />
                           </Panel>
                         </Button>
                       </Grid>

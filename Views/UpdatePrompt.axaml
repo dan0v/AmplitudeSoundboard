@@ -1,6 +1,6 @@
 <!--
     AmplitudeSoundboard
-    Copyright (C) 2021-2024 dan0v
+    Copyright (C) 2021-2025 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -25,16 +25,26 @@
         mc:Ignorable="d" d:DesignWidth="420" d:DesignHeight="200"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
         x:Class="Amplitude.Views.UpdatePrompt"
+        xmlns:vm="using:Amplitude.Views"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize UpdatePromptTitle}"
         Width="420" Height="200" MinWidth="420" MinHeight="170" MaxHeight="200" MaxWidth="420"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
-        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
+        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}"
+        x:DataType="vm:UpdatePrompt">
 
   <Window.Styles>
     <StyleInclude Source="/Styles/DefaultStyle.axaml" />
+    <Style Selector="Button">
+      <Setter Property="FontFamily" Value="{Binding ThemeManager.BodyFont}"/>
+      <Setter Property="Background">
+        <Setter.Value>
+          <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+        </Setter.Value>
+      </Setter>
+    </Style>
   </Window.Styles>
 
   <Panel Name="styleroot">

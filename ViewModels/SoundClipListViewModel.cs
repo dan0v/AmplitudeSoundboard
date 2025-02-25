@@ -1,6 +1,6 @@
 /*
     AmplitudeSoundboard
-    Copyright (C) 2021-2024 dan0v
+    Copyright (C) 2021-2025 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -23,7 +23,7 @@ using Amplitude.Helpers;
 
 namespace Amplitude.ViewModels
 {
-    public sealed class SoundClipListViewModel : ViewModelBase
+    public class SoundClipListViewModel : ViewModelBase
     {
         public SoundClipListViewModel() { }
 

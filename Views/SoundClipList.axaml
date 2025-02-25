@@ -1,6 +1,6 @@
 <!--
     AmplitudeSoundboard
-    Copyright (C) 2021-2024 dan0v
+    Copyright (C) 2021-2025 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -32,7 +32,8 @@
         Width="550" Height="375"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
-        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
+        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}"
+        x:DataType="vm:SoundClipListViewModel">
 
     <Window.Styles>
       <StyleInclude Source="/Styles/DefaultStyle.axaml" />
@@ -57,7 +58,7 @@
                 <DataTemplate>
                   <Border BorderThickness="2" CornerRadius="5" Margin="10,2,10,2" Padding="5">
                     <Border.BorderBrush>
-                      <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.ThemeManager.Theme.BorderColor}"/>
+                      <SolidColorBrush Color="{Binding #styleroot.((vm:SoundClipListViewModel)DataContext).ThemeManager.Theme.BorderColor}"/>
                     </Border.BorderBrush>
                     <Grid ColumnDefinitions="*,Auto,Auto,Auto,Auto" Background="Transparent">
                       <Grid.ContextMenu>
@@ -68,25 +69,25 @@
                           <MenuItem Header="{i18n:Localize AddClipToQueue}" Command="{Binding AddAudioToQueue}"></MenuItem>
                         </ContextMenu>
                       </Grid.ContextMenu>
-                      <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="{Binding Name}" TextTrimming="CharacterEllipsis" FontFamily="{Binding $parent[ItemsControl].DataContext.ThemeManager.BodyFont}" ToolTip.Tip="{Binding Name}"></TextBlock>
-                      <Button Grid.Column="1" Cursor="Hand" Command="{Binding PlayAudio}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{Binding PlayAudioTooltip}" Margin="5,0,5,0">
+                      <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="{Binding Name}" TextTrimming="CharacterEllipsis" FontFamily="{Binding #styleroot.((vm:SoundClipListViewModel)DataContext).ThemeManager.BodyFont}" ToolTip.Tip="{Binding Name}"></TextBlock>
+                      <Button Grid.Column="1" Cursor="Hand" Command="{Binding PlayAudio}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{Binding PlayAudioTooltip}" Margin="5,0,5,0" FontFamily="{Binding #styleroot.((vm:SoundClipListViewModel)DataContext).ThemeManager.BodyFont}">
                         <Panel>
-                          <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeManager.Play}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          <Image Source="{Binding $parent[ItemsControl].((vm:SoundClipListViewModel)DataContext).ThemeManager.Play}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Panel>
                       </Button>
-                      <Button Grid.Column="2" Cursor="Hand" Command="{Binding OpenEditSoundClipWindow}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize EditSoundClipTooltip}">
+                      <Button Grid.Column="2" Cursor="Hand" Command="{Binding OpenEditSoundClipWindow}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize EditSoundClipTooltip}" FontFamily="{Binding #styleroot.((vm:SoundClipListViewModel)DataContext).ThemeManager.BodyFont}">
                         <Panel>
-                          <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeManager.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          <Image Source="{Binding $parent[ItemsControl].((vm:SoundClipListViewModel)DataContext).ThemeManager.Settings}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Panel>
                       </Button>
-                      <Button Grid.Column="3" Cursor="Hand" Command="{Binding CopySoundClipId}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize CopyToClipboard}" Margin="5,0,5,0">
+                      <Button Grid.Column="3" Cursor="Hand" Command="{Binding CopySoundClipId}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize CopyToClipboard}" Margin="5,0,5,0" FontFamily="{Binding #styleroot.((vm:SoundClipListViewModel)DataContext).ThemeManager.BodyFont}">
                         <Panel>
-                          <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeManager.Clipboard}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          <Image Source="{Binding $parent[ItemsControl].((vm:SoundClipListViewModel)DataContext).ThemeManager.Clipboard}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Panel>
                       </Button>
-                      <Button Grid.Column="4" Cursor="Hand" Command="{Binding AddAudioToQueue}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize AddClipToQueue}" Margin="0,0,5,0">
+                      <Button Grid.Column="4" Cursor="Hand" Command="{Binding AddAudioToQueue}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip.Tip="{i18n:Localize AddClipToQueue}" Margin="0,0,5,0" FontFamily="{Binding #styleroot.((vm:SoundClipListViewModel)DataContext).ThemeManager.BodyFont}">
                         <Panel>
-                          <Image Source="{Binding $parent[ItemsControl].DataContext.ThemeManager.AddToQueue}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                          <Image Source="{Binding $parent[ItemsControl].((vm:SoundClipListViewModel)DataContext).ThemeManager.AddToQueue}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Panel>
                       </Button>
                     </Grid>

@@ -1,6 +1,6 @@
 /*
     AmplitudeSoundboard
-    Copyright (C) 2021-2024 dan0v
+    Copyright (C) 2021-2025 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -82,7 +82,7 @@ namespace Amplitude.Views
             OnPropertyChanged(nameof(UpdatePromptText));
         }
 
-        protected async void Update()
+        public async void Update()
         {
             await Task.Run(RunUpdateAsync);
         }
@@ -150,7 +150,7 @@ namespace Amplitude.Views
             }
         }
 
-        protected void Dismiss()
+        public void Dismiss()
         {
             this.Close();
         }
