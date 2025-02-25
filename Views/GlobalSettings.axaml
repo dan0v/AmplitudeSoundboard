@@ -32,7 +32,8 @@
         Width="400" Height="730" MinWidth="400" MinHeight="320"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
-        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}">
+        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}"
+        x:DataType="vm:GlobalSettingsViewModel">
 
     <Window.Styles>
       <StyleInclude Source="/Styles/DefaultStyle.axaml" />
@@ -70,7 +71,7 @@
               <ComboBox Grid.Column="1" AutoScrollToSelectedItem="True" Margin="0,5,0,5" SelectedItem="{Binding Model.Language}" ItemsSource="{Binding Languages}" HorizontalAlignment="Center">
                 <ComboBox.ItemTemplate>
                   <DataTemplate>
-                    <TextBlock Text="{Binding .}" FontFamily="{Binding #styleroot.DataContext.ThemeManager.BodyFont}"/>
+                    <TextBlock Text="{Binding .}" FontFamily="{Binding #styleroot.((vm:GlobalSettingsViewModel)DataContext).ThemeManager.BodyFont}"/>
                   </DataTemplate>
                 </ComboBox.ItemTemplate>
               </ComboBox>

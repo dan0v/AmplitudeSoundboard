@@ -29,7 +29,7 @@ namespace Amplitude.ViewModels
 {
     public sealed class EditSoundClipViewModel : ViewModelBase
     {
-        private string StopAudioHotkey => string.IsNullOrEmpty(ConfigManager.Config.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + ConfigManager.Config.GlobalKillAudioHotkey;
+        public string StopAudioHotkey => string.IsNullOrEmpty(ConfigManager.Config.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + ConfigManager.Config.GlobalKillAudioHotkey;
 
         private SoundClip _model;
         public SoundClip Model => _model;

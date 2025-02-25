@@ -23,7 +23,7 @@ using Amplitude.Helpers;
 
 namespace Amplitude.ViewModels
 {
-    public sealed class SoundClipListViewModel : ViewModelBase
+    public class SoundClipListViewModel : ViewModelBase
     {
         public SoundClipListViewModel() { }
 

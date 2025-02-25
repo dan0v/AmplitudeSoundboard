@@ -30,7 +30,7 @@ namespace Amplitude.ViewModels
     {
         private string? soundClipId = null;
 
-        private double Height
+        public double Height
         {
             get
             {
@@ -43,7 +43,7 @@ namespace Amplitude.ViewModels
             }
         }
 
-        private double Width
+        public double Width
         {
             get
             {
@@ -59,10 +59,10 @@ namespace Amplitude.ViewModels
         private readonly int row = 0;
         private readonly int col = 0;
 
-        private Cursor Cursor => SoundClipExists ? new Cursor(StandardCursorType.Hand) : new Cursor(StandardCursorType.Arrow);
+        public Cursor Cursor => SoundClipExists ? new Cursor(StandardCursorType.Hand) : new Cursor(StandardCursorType.Arrow);
 
         private bool _soundClipExists = false;
-        private bool SoundClipExists
+        public bool SoundClipExists
         {
             get => _soundClipExists;
             set
@@ -76,7 +76,7 @@ namespace Amplitude.ViewModels
             }
         }
 
-        private SoundClip _model = new SoundClip();
+        private SoundClip _model = new();
         public SoundClip Model
         {
             get

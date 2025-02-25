@@ -32,7 +32,7 @@ namespace Amplitude.ViewModels
 
         public (int x, int y) WindowPosition = (0, 0);
 
-        private string StopAudioHotkey => string.IsNullOrEmpty(ConfigManager.Config.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + ConfigManager.Config.GlobalKillAudioHotkey;
+        public string StopAudioHotkey => string.IsNullOrEmpty(ConfigManager.Config.GlobalKillAudioHotkey) ? Localization.Localizer.Instance["StopAllAudio"] : Localization.Localizer.Instance["StopAllAudio"] + ": " + ConfigManager.Config.GlobalKillAudioHotkey;
 
         private bool _queueSeperatorVisible = false;
         public bool QueueSeperatorVisible
@@ -85,7 +85,7 @@ namespace Amplitude.ViewModels
         }
 
         private ObservableCollection<GridItemRow> _gridItemsRows = new();
-        private ObservableCollection<GridItemRow> GridItemsRows => _gridItemsRows;
+        public ObservableCollection<GridItemRow> GridItemsRows => _gridItemsRows;
 
         public void ShowList()
         {

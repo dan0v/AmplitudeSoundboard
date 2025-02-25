@@ -21,7 +21,9 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:Amplitude"
-             x:Class="AmplitudeSoundboard.App">
+             x:Class="AmplitudeSoundboard.App"
+             xmlns:vm="using:AmplitudeSoundboard"
+             x:DataType="vm:App">
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>

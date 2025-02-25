@@ -30,20 +30,20 @@ namespace Amplitude.ViewModels
 {
     public abstract class ViewModelBase : ReactiveObject, INotifyPropertyChanged, IDisposable
     {
-        protected ThemeManager ThemeManager => App.ThemeManager;
-        protected SoundClipManager SoundClipManager => App.SoundClipManager;
-        protected ConfigManager ConfigManager => App.ConfigManager;
-        protected OutputProfileManager OutputProfileManager => App.OutputProfileManager;
-        protected WindowManager WindowManager => App.WindowManager;
-        protected HotkeysManager HotkeysManager => App.HotkeysManager;
-        protected ISoundEngine SoundEngine => App.SoundEngine;
+        public ThemeManager ThemeManager => App.ThemeManager;
+        public SoundClipManager SoundClipManager => App.SoundClipManager;
+        public ConfigManager ConfigManager => App.ConfigManager;
+        public OutputProfileManager OutputProfileManager => App.OutputProfileManager;
+        public WindowManager WindowManager => App.WindowManager;
+        public HotkeysManager HotkeysManager => App.HotkeysManager;
+        public ISoundEngine SoundEngine => App.SoundEngine;
 
-        protected bool CanUseHotkeys => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.HOTKEYS);
-        protected double HotkeysOpacity => CanUseHotkeys ? 1 : 0.3d;
+        public bool CanUseHotkeys => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.HOTKEYS);
+        public double HotkeysOpacity => CanUseHotkeys ? 1 : 0.3d;
 
-        protected bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
+        public bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
 
-        protected bool CanAdjustWindowOpacity => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.BACKGROUND_OPACTIY);
+        public bool CanAdjustWindowOpacity => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.BACKGROUND_OPACTIY);
 
         public virtual void Dispose() { }
 

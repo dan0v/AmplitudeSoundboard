@@ -29,6 +29,7 @@
     <RepositoryUrl>https://git.dan0v.com/AmplitudeSoundboard</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <LangVersion>preview</LangVersion>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />

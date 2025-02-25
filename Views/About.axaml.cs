@@ -30,9 +30,9 @@ namespace Amplitude.Views
 {
     public partial class About : Window
     {
-        private string projectUrl = "https://amplitude-soundboard.dan0v.com";
+        private readonly string projectUrl = "https://amplitude-soundboard.dan0v.com";
 
-        protected ThemeManager ThemeManager => App.ThemeManager;
+        public ThemeManager ThemeManager => App.ThemeManager;
         public static bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
 
         public About()
@@ -64,7 +64,7 @@ Copyright (C) 2021-2025 dan0v";
             }
         }
 
-        protected void Dismiss()
+        public void Dismiss()
         {
             this.Close();
         }
