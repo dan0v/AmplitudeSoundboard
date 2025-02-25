@@ -1,6 +1,6 @@
 /*
     AmplitudeSoundboard
-    Copyright (C) 2021-2024 dan0v
+    Copyright (C) 2021-2025 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -130,10 +130,8 @@ namespace Amplitude.Views
 
                     // Start new version and quit current
                     Process.Start(currentFileName);
-                    using (var lifetime = (ClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime)
-                    {
-                        lifetime.Shutdown(0);
-                    }
+
+                    ((ClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)?.Shutdown(0);
                 }
 #else
                 ProcessStartInfo url = new ProcessStartInfo

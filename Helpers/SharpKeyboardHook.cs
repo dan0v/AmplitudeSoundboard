@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2024 dan0v
+    Copyright (C) 2021-2025 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -40,16 +40,11 @@ namespace Amplitude.Helpers
         private static SharpKeyboardHook? _instance;
         public static IKeyboardHook Instance => _instance ??= new SharpKeyboardHook();
 
-        static bool disposed = false;
-
         private SharpKeyboardHook()
         {
-            if (!disposed)
-            {
-                sharpHook.KeyPressed += HandleKeyPressed;
-                sharpHook.KeyReleased += HandleKeyReleased;
-                sharpHook.RunAsync();
-            }
+            sharpHook.KeyPressed += HandleKeyPressed;
+            sharpHook.KeyReleased += HandleKeyReleased;
+            sharpHook.RunAsync();
         }
 
         private void HandleKeyReleased(object? sender, KeyboardHookEventArgs e)
@@ -238,13 +233,6 @@ namespace Amplitude.Helpers
 
         public void Dispose()
         {
-            if (disposed)
-            {
-                return;
-            }
-
-            disposed = true;
-            _instance = null;
             sharpHook.KeyPressed -= HandleKeyPressed;
             sharpHook.KeyReleased -= HandleKeyReleased;
             sharpHook.Dispose();

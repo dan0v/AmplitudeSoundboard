@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2024 dan0v
+    Copyright (C) 2021-2025 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -37,12 +37,12 @@ namespace Amplitude.Helpers
         private static MSoundEngine? _instance;
         public static ISoundEngine Instance => _instance ??= new MSoundEngine();
 
-        object currentlyPlayingLock = new();
+        private readonly object currentlyPlayingLock = new();
 
         private ObservableCollection<PlayingClip> _currentlyPlaying = [];
         public ObservableCollection<PlayingClip> CurrentlyPlaying => _currentlyPlaying;
 
-        object queueLock = new();
+        private readonly object queueLock = new();
 
         private ObservableCollection<SoundClip> _queued = [];
         public ObservableCollection<SoundClip> Queued => _queued;
