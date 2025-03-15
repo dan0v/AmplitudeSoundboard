@@ -181,6 +181,20 @@ namespace Amplitude.Models
             }
         }
 
+        private bool _stopPreviousAudioOnTrigger = false;
+        public bool StopPreviousAudioOnTrigger
+        {
+            get => _stopPreviousAudioOnTrigger;
+            set
+            {
+                if(value != _stopPreviousAudioOnTrigger)
+                {
+                    _stopPreviousAudioOnTrigger = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public Config()
         {
             Language = Localizer.Instance.TryUseSystemLanguageFallbackEnglish();
