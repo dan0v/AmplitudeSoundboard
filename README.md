@@ -44,7 +44,7 @@
 3. If you would like to play sound through an input device like a microphone, set up a program like [BlackHole](https://github.com/ExistentialAudio/BlackHole) and set the newly created virtual cable as your clip output device.
 
 ### Linux *(x64)*
-1. Download and unzip [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_linux_AppImage_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/).
+1. Download and unzip [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard-x86_64.AppImage) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/).
 2. Run executable (`Amplitude_Soundboard-x86_64.AppImage`).
  - Hotkeys will currently only work under x11, not Wayland, as supported by [SharpHook](https://github.com/TolikPylypchuk/SharpHook).
 3. If you would like to play sound through an input device like a microphone, [set up a sink in PulseAudio](https://www.onetransistor.eu/2017/10/virtual-audio-cable-in-linux-ubuntu.html) and set the monitor output of it to your desired input device.
@@ -57,7 +57,7 @@ A dialog automatically notifies users of available updates at application startu
 A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest MacOS build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude Soundboard.app` with the new version.
 
 ### Linux
-A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_linux_AppImage_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude_Soundboard-x86_64.AppImage` with the new version.
+A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard-x86_64.AppImage) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude_Soundboard-x86_64.AppImage` with the new version.
 
 ## Screenshots
 Main grid|Soundclip list

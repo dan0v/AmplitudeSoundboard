@@ -85,7 +85,7 @@ namespace AmplitudeSoundboard
         public const string VERSION_CHECK_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/version.txt";
         public const string DOWNLOAD_WIN_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip";
         public const string DOWNLOAD_MACOS_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz";
-        public const string DOWNLOAD_LINUX_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_linux_AppImage_x86_64.tar.gz";
+        public const string DOWNLOAD_LINUX_URL = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard-x86_64.AppImage";
         public const string RELEASES_PAGE = "https://github.com/dan0v/AmplitudeSoundboard/releases/latest/";
 
         public override void Initialize()

@@ -45,7 +45,7 @@ jobs:
         prerelease: true
         tag_name: "${{env.VERSION}}"
         files: |
-          Publish/Amplitude_Soundboard_linux_AppImage_x86_64.tar.gz
+          Publish/Amplitude_Soundboard-x86_64.AppImage
           Publish/Amplitude_Soundboard_macOS_x86_64.tar.gz
           Publish/Amplitude_Soundboard_win_x86_64.zip
           Publish/version.txt

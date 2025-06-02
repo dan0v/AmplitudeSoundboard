@@ -52,15 +52,9 @@ cp -a "Sources/icn.png" "$APP_OUTPUT_PATH/$APP_NAME/icn.png"
 
 chmod 755 "$APP_OUTPUT_PATH/$APP_NAME/AppRun"
 
-cp "../../NOTICE.txt" "$APP_OUTPUT_PATH/NOTICE.txt"
-cp "../../LICENSE.txt" "$APP_OUTPUT_PATH/LICENSE.txt"
-
-#VERSION=$(cat ../version.txt | sed 's/ *$//g' | sed 's/\r//' | sed ':a;N;$!ba;s/\n//g')
-VERSION=""
-
 cd "$APP_OUTPUT_PATH"
 
 ARCH=x86_64 ../Sources/appimagetool-x86_64.AppImage -n "$APP_NAME"
 
-tar -czvf "$APP_TAR_NAME1$VERSION$APP_TAR_NAME2.tar.gz" "Amplitude_Soundboard-x86_64.AppImage" "LICENSE.txt" "NOTICE.txt"
-mv "$APP_TAR_NAME1$VERSION$APP_TAR_NAME2.tar.gz" ../../"$APP_TAR_NAME1$VERSION$APP_TAR_NAME2.tar.gz"
+mv "Amplitude_Soundboard-x86_64.AppImage" ../../"Amplitude_Soundboard-x86_64.AppImage"
+chmod 755 ../../"Amplitude_Soundboard-x86_64.AppImage"
