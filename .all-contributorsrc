@@ -106,7 +106,16 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/2474259?v=4",
       "profile": "https://github.com/teacup775",
       "contributions": [
-        "userTesting"
+        "bug"
+      ]
+    },
+    {
+      "login": "Chapien",
+      "name": "Chapien",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2068976?v=4",
+      "profile": "https://chapien.net/",
+      "contributions": [
+        "bug"
       ]
     }
   ],

@@ -2,7 +2,7 @@
 ![GitHub Logo](Branding/Banner.png)
 [![Release .NET Cross Platform App](https://github.com/dan0v/AmplitudeSoundboard/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/dan0v/AmplitudeSoundboard/actions/workflows/dotnet-desktop.yml)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # [Website](https://amplitude-soundboard.dan0v.com/index.html)
@@ -44,7 +44,7 @@
 3. If you would like to play sound through an input device like a microphone, set up a program like [BlackHole](https://github.com/ExistentialAudio/BlackHole) and set the newly created virtual cable as your clip output device.
 
 ### Linux *(x64)*
-1. Download and unzip [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_linux_AppImage_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/).
+1. Download and unzip [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard-x86_64.AppImage) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/).
 2. Run executable (`Amplitude_Soundboard-x86_64.AppImage`).
  - Hotkeys will currently only work under x11, not Wayland, as supported by [SharpHook](https://github.com/TolikPylypchuk/SharpHook).
 3. If you would like to play sound through an input device like a microphone, [set up a sink in PulseAudio](https://www.onetransistor.eu/2017/10/virtual-audio-cable-in-linux-ubuntu.html) and set the monitor output of it to your desired input device.
@@ -57,7 +57,7 @@ A dialog automatically notifies users of available updates at application startu
 A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest MacOS build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude Soundboard.app` with the new version.
 
 ### Linux
-A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_linux_AppImage_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude_Soundboard-x86_64.AppImage` with the new version.
+A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard-x86_64.AppImage) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude_Soundboard-x86_64.AppImage` with the new version.
 
 ## Screenshots
 Main grid|Soundclip list
@@ -89,7 +89,8 @@ Many thanks to all these people! ([emoji key](https://allcontributors.org/docs/e
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://ktos.info"><img src="https://avatars.githubusercontent.com/u/1633261?v=4?s=100" width="100px;" alt="Marcin Badurowicz"/><br /><sub><b>Marcin Badurowicz</b></sub></a><br /><a href="#translation-ktos" title="Translation">🌍</a> <a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=ktos" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Swell61"><img src="https://avatars.githubusercontent.com/u/32226560?v=4?s=100" width="100px;" alt="Samuel"/><br /><sub><b>Samuel</b></sub></a><br /><a href="#userTesting-swell61" title="User Testing">📓</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/teacup775"><img src="https://avatars.githubusercontent.com/u/2474259?v=4?s=100" width="100px;" alt="teacup775"/><br /><sub><b>teacup775</b></sub></a><br /><a href="#userTesting-teacup775" title="User Testing">📓</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/teacup775"><img src="https://avatars.githubusercontent.com/u/2474259?v=4?s=100" width="100px;" alt="teacup775"/><br /><sub><b>teacup775</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/issues?q=author%3Ateacup775" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://chapien.net/"><img src="https://avatars.githubusercontent.com/u/2068976?v=4?s=100" width="100px;" alt="Chapien"/><br /><sub><b>Chapien</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/issues?q=author%3AChapien" title="Bug reports">🐛</a></td>
     </tr>
   </tbody>
 </table>
