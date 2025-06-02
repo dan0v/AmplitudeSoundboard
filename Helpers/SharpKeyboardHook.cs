@@ -22,7 +22,7 @@
 using Amplitude.Models;
 using AmplitudeSoundboard;
 using SharpHook;
-using SharpHook.Native;
+using SharpHook.Data;
 using System;
 using System.Collections.Generic;
 
