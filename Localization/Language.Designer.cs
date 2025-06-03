@@ -880,6 +880,15 @@ namespace Amplitude.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stop previous audio from playing.
+        /// </summary>
+        internal static string StopPreviousAudioTrack {
+            get {
+                return ResourceManager.GetString("StopPreviousAudioTrack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test audio.
         /// </summary>
         internal static string TestSound {

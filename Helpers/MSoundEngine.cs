@@ -205,6 +205,12 @@ namespace Amplitude.Helpers
         public void Play(SoundClip source, bool fromQueue = false)
         {
             var tempId = source.Id ?? source.AudioFilePath;
+
+            if (App.ConfigManager.Config.StopPreviousAudioOnTrigger)
+            {
+                Reset();
+            }
+
             if (!fromQueue && App.ConfigManager.Config.StopAudioOnRepeatTrigger && ClipPlayingOrQueued(tempId))
             {
                 StopAndRemoveFromQueue(tempId);

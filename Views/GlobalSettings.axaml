@@ -156,6 +156,17 @@
             </Grid>
           </Border>
 
+		      <!--Stop multiple tracks from playing-->
+		      <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
+			      <Border.BorderBrush>
+		            <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
+			      </Border.BorderBrush>
+			      <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Center">
+				      <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"  Text="{i18n:Localize StopPreviousAudioTrack}" ></TextBlock>
+				      <CheckBox Grid.Column="1" HorizontalAlignment="Center" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Model.StopPreviousAudioOnTrigger}" Cursor="Hand"/>
+			      </Grid>
+		      </Border>
+
           <!--Check for updates-->
           <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5">
             <Border.BorderBrush>

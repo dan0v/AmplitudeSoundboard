@@ -399,6 +399,9 @@
   <data name="StopAudioOnRetrigger" xml:space="preserve">
     <value>Toggle audio when triggered repeatedly</value>
   </data>
+  <data name="StopPreviousAudioTrack" xml:space="preserve">
+	<value>Stop previous audio from playing</value>	
+  </data>
   <data name="AccentColorLabel" xml:space="preserve">
     <value>Accent color</value>
   </data>
