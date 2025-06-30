@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace Amplitude.Helpers
@@ -177,8 +178,14 @@ namespace Amplitude.Helpers
                 var toRemove = CurrentlyPlaying.Where(clip => clip.SoundClipId == id).ToList();
                 foreach (var clip in toRemove)
                 {
-                    Bass.StreamFree(clip.BassStreamId);
-                    CurrentlyPlaying.Remove(clip);
+                    Bass.ChannelSlideAttribute(clip.BassStreamId, ChannelAttribute.Volume, 0, 1000);
+                    var t = Task.Run(async delegate
+                    {
+                        await Task.Delay(1000);
+                        Bass.StreamFree(clip.BassStreamId);
+                        CurrentlyPlaying.Remove(clip);
+                    });
+                    t.Wait();
                 }
             }
         }
@@ -330,7 +337,14 @@ namespace Amplitude.Helpers
                 {
                     CurrentlyPlaying.Remove(track);
                 }
-                Bass.StreamFree(bassId);
+                
+                Bass.ChannelSlideAttribute(bassId, ChannelAttribute.Volume, 0, 1000);
+                var t = Task.Run(async delegate
+                {
+                    await Task.Delay(1000);
+                    Bass.StreamFree(bassId);
+                });
+                t.Wait();
             }
         }
 
