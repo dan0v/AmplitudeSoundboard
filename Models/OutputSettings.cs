@@ -58,6 +58,20 @@ namespace Amplitude.Models
             }
         }
 
+        private int _fadeOutMilis = 0;
+        public int FadeOutMilis
+        {
+            get => _fadeOutMilis;
+            set
+            {
+                if (value != _fadeOutMilis)
+                {
+                    _fadeOutMilis = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public void IncreaseVolumeSmall()
         {
             if (Volume < 100)
