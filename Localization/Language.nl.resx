@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+    <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,365 +59,371 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="AboutTitle" xml:space="preserve">
-    <value>Over</value>
-  </data>
-  <data name="AcceptButton" xml:space="preserve">
-    <value>Accepteer</value>
-  </data>
-  <data name="CancelButton" xml:space="preserve">
-    <value>Annuleer</value>
-  </data>
-  <data name="ClearTile" xml:space="preserve">
-    <value>Tegel legen</value>
-  </data>
-  <data name="ClipFilePathPlaceholder" xml:space="preserve">
-    <value>Selecteer een bestandspad...</value>
-  </data>
-  <data name="ClipHotkeyLabel" xml:space="preserve">
-    <value>Sneltoets</value>
-  </data>
-  <data name="ClipImageFilePathLabel" xml:space="preserve">
-    <value>Achtergrond afbeelding bestandspad</value>
-  </data>
-  <data name="ClipNameLabel" xml:space="preserve">
-    <value>Fragment naam</value>
-  </data>
-  <data name="ClipNamePlaceholder" xml:space="preserve">
-    <value>Voer een naam in...</value>
-  </data>
-  <data name="OutputVolumeLabel" xml:space="preserve">
-    <value>Uitvoer volume</value>
-  </data>
-  <data name="ColumnsPlaceholder" xml:space="preserve">
-    <value>Kolommen</value>
-  </data>
-  <data name="CopyToClipboard" xml:space="preserve">
-    <value>Kopieër naar klipbord</value>
-  </data>
-  <data name="DeleteSoundClipButton" xml:space="preserve">
-    <value>Verwijder</value>
-  </data>
-  <data name="DeleteSoundClipConfirmationPrompt" xml:space="preserve">
-    <value>Weet je zeker dat je geluidsfragment "{0}" wilt verwijderen?</value>
-  </data>
-  <data name="DeleteSoundClipConfirmationTitle" xml:space="preserve">
-    <value>Bevestig verwijdering</value>
-  </data>
-  <data name="DismissWindow" xml:space="preserve">
-    <value>Afwijzen</value>
-  </data>
-  <data name="EditSoundClipTitle" xml:space="preserve">
-    <value>Geluidsfragment wijzigen</value>
-  </data>
-  <data name="EditSoundClipTooltip" xml:space="preserve">
-    <value>Geluidsfragment wijzigen</value>
-  </data>
-  <data name="EmptyTilePrompt" xml:space="preserve">
-    <value>Sleep hier een geluidsfragment heen om te binden! </value>
-  </data>
-  <data name="ErrorListTitle" xml:space="preserve">
-    <value>Error lijst</value>
-  </data>
-  <data name="FileBadFormatString" xml:space="preserve">
-    <value>Het volgende bestand heeft een onherkenbaar formaat: "{0}"</value>
-  </data>
-  <data name="FileBrowseAudio" xml:space="preserve">
-    <value>Selecteer een audio bestand...</value>
-  </data>
-  <data name="FileBrowseImage" xml:space="preserve">
-    <value>Selecteer een afbeelding...</value>
-  </data>
-  <data name="FileMissingString" xml:space="preserve">
-    <value>Het volgende bestand kan niet worden gevonden: "{0}"</value>
-  </data>
-  <data name="FilePathPlaceholder" xml:space="preserve">
-    <value>Bestandspad...</value>
-  </data>
-  <data name="GlobalSettingsTitle" xml:space="preserve">
-    <value>Voorkeuren</value>
-  </data>
-  <data name="GridSizeLabel" xml:space="preserve">
-    <value>Raster grootte</value>
-  </data>
-  <data name="GridTileSizeLabel" xml:space="preserve">
-    <value>Raster tegels grootte</value>
-  </data>
-  <data name="GridTutorial" xml:space="preserve">
-    <value>Kopieër een geluidsfragment van de geluidsfragmenten lijst en plak deze in een raster tegel met de rechter klik!</value>
-  </data>
-  <data name="HeightPlaceholder" xml:space="preserve">
-    <value>Hoogte</value>
-  </data>
-  <data name="HideTutorial" xml:space="preserve">
-    <value>Handleiding verbergen</value>
-  </data>
-  <data name="HotkeyPlaceholder" xml:space="preserve">
-    <value>Een toetscombinatie opnemen...</value>
-  </data>
-  <data name="LicenseLabel" xml:space="preserve">
-    <value>Licentie</value>
-  </data>
-  <data name="MasterVolumeLabel" xml:space="preserve">
-    <value>Master volume</value>
-  </data>
-  <data name="MissingDeviceString" xml:space="preserve">
-    <value>Het uitvoerapparaat "{0}" ontbreekt en kan niet worden gebruikt voor het afspelen!</value>
-  </data>
-  <data name="NewSoundClip" xml:space="preserve">
-    <value>Nieuw geluidsfragment</value>
-  </data>
-  <data name="NewVersionAvailable" xml:space="preserve">
-    <value>Er is een nieuwe versie beschikbaar</value>
-  </data>
-  <data name="NewVersionCanBeDownloaded" xml:space="preserve">
-    <value>Versie {0} kan worden gedownload vanaf de uitgave pagina op GitHub </value>
-  </data>
-  <data name="NewVersionCanBeInstalled" xml:space="preserve">
-    <value>Versie {0} kan nu worden geïnstalleerd</value>
-  </data>
-  <data name="NoticeLabel" xml:space="preserve">
-    <value>Bericht</value>
-  </data>
-  <data name="OutputDeviceLabel" xml:space="preserve">
-    <value>Uitvoer apparaat</value>
-  </data>
-  <data name="PasteClip" xml:space="preserve">
-    <value>Plak fragment naar tegel</value>
-  </data>
-  <data name="PlaySound" xml:space="preserve">
-    <value>Play audio</value>
-  </data>
-  <data name="RowsPlaceholder" xml:space="preserve">
-    <value>Rijen</value>
-  </data>
-  <data name="SaveButton" xml:space="preserve">
-    <value>Opslaan</value>
-  </data>
-  <data name="SaveButtonDisabledTooltip" xml:space="preserve">
-    <value>Voer a.u.b. een geluidsfragment naam in</value>
-  </data>
-  <data name="ShowNameOnGridTile" xml:space="preserve">
-    <value>Toon namen in een raster tegelweergave</value>
-  </data>
-  <data name="SoundClipError" xml:space="preserve">
-    <value>Het geluidsfragment "{0}" heeft errors:\\n{1}</value>
-  </data>
-  <data name="SoundClipListSearch" xml:space="preserve">
-    <value>Zoeken...</value>
-  </data>
-  <data name="SoundClipListTitle" xml:space="preserve">
-    <value>Geluidsfragmenten lijst</value>
-  </data>
-  <data name="StopAllAudio" xml:space="preserve">
-    <value>Stop audio</value>
-  </data>
-  <data name="StopAllAudioHotkeyLabel" xml:space="preserve">
-    <value>Stop alle audio sneltoetsen</value>
-  </data>
-  <data name="TestSound" xml:space="preserve">
-    <value>Test audio</value>
-  </data>
-  <data name="ThemeLabel" xml:space="preserve">
-    <value>Basisthema</value>
-  </data>
-  <data name="UpdateLabel" xml:space="preserve">
-    <value>Update</value>
-  </data>
-  <data name="UpdatePromptTitle" xml:space="preserve">
-    <value>Update beschikbaar</value>
-  </data>
-  <data name="ViewReleases" xml:space="preserve">
-    <value>Toon uitgaven</value>
-  </data>
-  <data name="WidthPlaceholder" xml:space="preserve">
-    <value>Breedte</value>
-  </data>
-  <data name="AddSoundClipOutput" xml:space="preserve">
-    <value>Voeg uitvoerapparaat toe</value>
-  </data>
-  <data name="RemoveSoundClipOutput" xml:space="preserve">
-    <value>Verwijder uitvoer apparaat</value>
-  </data>
-  <data name="VolumeLabel" xml:space="preserve">
-    <value>Volume</value>
-  </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Taal</value>
-  </data>
-  <data name="ClipAudioFilePathLabel" xml:space="preserve">
-    <value>Geluidsfragment bestandspad</value>
-  </data>
-  <data name="GlobalOutputDefaults" xml:space="preserve">
-    <value>Algemene uitvoerinstellingen</value>
-  </data>
-  <data name="CreateClipInPlace" xml:space="preserve">
-    <value>Maak hier een nieuwe fragment</value>
-  </data>
-  <data name="CacheAudioExplanation" xml:space="preserve">
-    <value>Cache-audio waarvoor resampling vereist is om het afspelen te versnellen ten koste van RAM</value>
-  </data>
-  <data name="CacheAudioLabel" xml:space="preserve">
-    <value>Cache geresamplede audio</value>
-  </data>
-  <data name="PreCacheAudioExplanation" xml:space="preserve">
-    <value>Cache alle audiobestanden die mogelijk opnieuw moeten worden gesampled bij het opstarten van de toepassing</value>
-  </data>
-  <data name="PreCacheAudioLabel" xml:space="preserve">
-    <value>Precache audio bij opstarten</value>
-  </data>
-  <data name="ResamplingAudioTooltip" xml:space="preserve">
-    <value>Audio resamplen</value>
-  </data>
-  <data name="ClearCache" xml:space="preserve">
-    <value>Wis de audiocache om RAM vrij te maken</value>
-  </data>
-  <data name="AutoScaleTilesToWindowLabel" xml:space="preserve">
-    <value>Tegels automatisch schalen om in het venster te passen</value>
-  </data>
-  <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
-    <value>Sta toe dat tegels worden uitgerekt om de beschikbare vensterruimte te vullen, of stel een aangepaste tegelgrootte in</value>
-  </data>
-  <data name="CustomTheme" xml:space="preserve">
-    <value>Aangepast</value>
-  </data>
-  <data name="DarkTheme" xml:space="preserve">
-    <value>Donker</value>
-  </data>
-  <data name="InvalidThemeError" xml:space="preserve">
-    <value>Geselecteerd thema valt buiten bereik: {0}</value>
-  </data>
-  <data name="LightTheme" xml:space="preserve">
-    <value>Helder</value>
-  </data>
-  <data name="HotkeyCancelPlaceholder" xml:space="preserve">
-    <value>Gebruik ESC om deze binding te wissen...</value>
-  </data>
-  <data name="FeatureUnavailable" xml:space="preserve">
-    <value>Deze functie is nog niet beschikbaar op uw platform</value>
-  </data>
-  <data name="AddClipToQueue" xml:space="preserve">
-    <value>Toevoegen aan wachtrij</value>
-  </data>
-  <data name="Remove" xml:space="preserve">
-    <value>Verwijderen</value>
-  </data>
-  <data name="ClearPositions" xml:space="preserve">
-    <value>Vensterformaten en posities resetten</value>
-  </data>
-  <data name="ClearPositionsTooltip" xml:space="preserve">
-    <value>Als een raam buiten bereik is, stel dan de venstergrootte en positie opnieuw in</value>
-  </data>
-  <data name="MissingOutputProfileString" xml:space="preserve">
-    <value>Het uitvoerprofiel "{0}" ontbreekt en kan niet worden gebruikt om af te spelen!</value>
-  </data>
-  <data name="OutputProfileError" xml:space="preserve">
-    <value>.</value>
-  </data>
-  <data name="EditOutputProfileTitle" xml:space="preserve">
-    <value>Bewerk uitvoerprofiel</value>
-  </data>
-  <data name="OutputProfileNameLabel" xml:space="preserve">
-    <value>Naam uitvoerprofiel</value>
-  </data>
-  <data name="OutputProfileLabel" xml:space="preserve">
-    <value>Uitvoerprofiel</value>
-  </data>
-  <data name="EditOutputProfileTooltip" xml:space="preserve">
-    <value>Bewerk uitvoerprofiel</value>
-  </data>
-  <data name="NewOutputProfileTooltip" xml:space="preserve">
-    <value>Nieuw uitvoerprofiel aanmaken</value>
-  </data>
-  <data name="LoopClipLabel" xml:space="preserve">
-    <value>Herhaal clip</value>
-  </data>
-  <data name="LoopClipTooltip" xml:space="preserve">
-    <value>Herhaal clip voor altijd</value>
-  </data>
-  <data name="CheckForUpdates" xml:space="preserve">
-    <value>Controleer op updates</value>
-  </data>
-  <data name="StopAudioOnRetrigger" xml:space="preserve">
-    <value>Schakel audio in wanneer herhaaldelijk geactiveerd</value>
-  </data>
-  <data name="AccentColorLabel" xml:space="preserve">
-    <value>Accent kleur</value>
-  </data>
-  <data name="OpenThemeSettingsButton" xml:space="preserve">
-    <value>Thema configureren</value>
-  </data>
-  <data name="ResetThemeBaseTooltip" xml:space="preserve">
-    <value>Thema-instellingen opnieuw instellen</value>
-  </data>
-  <data name="SecondaryColorLabel" xml:space="preserve">
-    <value>Secundaire kleur</value>
-  </data>
-  <data name="ThemeSettingsTitle" xml:space="preserve">
-    <value>Thema instellingen</value>
-  </data>
-  <data name="WindowBackgroundColorLabel" xml:space="preserve">
-    <value>Achtergrondkleur van venster</value>
-  </data>
-  <data name="WindowBackgroundOpacityLabel" xml:space="preserve">
-    <value>Dekking van de achtergrond van het venster</value>
-  </data>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="AboutTitle" xml:space="preserve">
+        <value>Over</value>
+    </data>
+    <data name="AcceptButton" xml:space="preserve">
+        <value>Accepteer</value>
+    </data>
+    <data name="CancelButton" xml:space="preserve">
+        <value>Annuleer</value>
+    </data>
+    <data name="ClearTile" xml:space="preserve">
+        <value>Tegel legen</value>
+    </data>
+    <data name="ClipFilePathPlaceholder" xml:space="preserve">
+        <value>Selecteer een bestandspad...</value>
+    </data>
+    <data name="ClipHotkeyLabel" xml:space="preserve">
+        <value>Sneltoets</value>
+    </data>
+    <data name="ClipImageFilePathLabel" xml:space="preserve">
+        <value>Achtergrond afbeelding bestandspad</value>
+    </data>
+    <data name="ClipNameLabel" xml:space="preserve">
+        <value>Fragment naam</value>
+    </data>
+    <data name="ClipNamePlaceholder" xml:space="preserve">
+        <value>Voer een naam in...</value>
+    </data>
+    <data name="OutputVolumeLabel" xml:space="preserve">
+        <value>Uitvoer volume</value>
+    </data>
+    <data name="ColumnsPlaceholder" xml:space="preserve">
+        <value>Kolommen</value>
+    </data>
+    <data name="CopyToClipboard" xml:space="preserve">
+        <value>Kopieër naar klipbord</value>
+    </data>
+    <data name="DeleteSoundClipButton" xml:space="preserve">
+        <value>Verwijder</value>
+    </data>
+    <data name="DeleteSoundClipConfirmationPrompt" xml:space="preserve">
+        <value>Weet je zeker dat je geluidsfragment "{0}" wilt verwijderen?</value>
+    </data>
+    <data name="DeleteSoundClipConfirmationTitle" xml:space="preserve">
+        <value>Bevestig verwijdering</value>
+    </data>
+    <data name="DismissWindow" xml:space="preserve">
+        <value>Afwijzen</value>
+    </data>
+    <data name="EditSoundClipTitle" xml:space="preserve">
+        <value>Geluidsfragment wijzigen</value>
+    </data>
+    <data name="EditSoundClipTooltip" xml:space="preserve">
+        <value>Geluidsfragment wijzigen</value>
+    </data>
+    <data name="EmptyTilePrompt" xml:space="preserve">
+        <value>Sleep hier een geluidsfragment heen om te binden! </value>
+    </data>
+    <data name="ErrorListTitle" xml:space="preserve">
+        <value>Error lijst</value>
+    </data>
+    <data name="FileBadFormatString" xml:space="preserve">
+        <value>Het volgende bestand heeft een onherkenbaar formaat: "{0}"</value>
+    </data>
+    <data name="FileBrowseAudio" xml:space="preserve">
+        <value>Selecteer een audio bestand...</value>
+    </data>
+    <data name="FileBrowseImage" xml:space="preserve">
+        <value>Selecteer een afbeelding...</value>
+    </data>
+    <data name="FileMissingString" xml:space="preserve">
+        <value>Het volgende bestand kan niet worden gevonden: "{0}"</value>
+    </data>
+    <data name="FilePathPlaceholder" xml:space="preserve">
+        <value>Bestandspad...</value>
+    </data>
+    <data name="GlobalSettingsTitle" xml:space="preserve">
+        <value>Voorkeuren</value>
+    </data>
+    <data name="GridSizeLabel" xml:space="preserve">
+        <value>Raster grootte</value>
+    </data>
+    <data name="GridTileSizeLabel" xml:space="preserve">
+        <value>Raster tegels grootte</value>
+    </data>
+    <data name="GridTutorial" xml:space="preserve">
+        <value>Kopieër een geluidsfragment van de geluidsfragmenten lijst en plak deze in een raster tegel met de rechter klik!</value>
+    </data>
+    <data name="HeightPlaceholder" xml:space="preserve">
+        <value>Hoogte</value>
+    </data>
+    <data name="HideTutorial" xml:space="preserve">
+        <value>Handleiding verbergen</value>
+    </data>
+    <data name="HotkeyPlaceholder" xml:space="preserve">
+        <value>Een toetscombinatie opnemen...</value>
+    </data>
+    <data name="LicenseLabel" xml:space="preserve">
+        <value>Licentie</value>
+    </data>
+    <data name="MasterVolumeLabel" xml:space="preserve">
+        <value>Master volume</value>
+    </data>
+    <data name="MissingDeviceString" xml:space="preserve">
+        <value>Het uitvoerapparaat "{0}" ontbreekt en kan niet worden gebruikt voor het afspelen!</value>
+    </data>
+    <data name="NewSoundClip" xml:space="preserve">
+        <value>Nieuw geluidsfragment</value>
+    </data>
+    <data name="NewVersionAvailable" xml:space="preserve">
+        <value>Er is een nieuwe versie beschikbaar</value>
+    </data>
+    <data name="NewVersionCanBeDownloaded" xml:space="preserve">
+        <value>Versie {0} kan worden gedownload vanaf de uitgave pagina op GitHub </value>
+    </data>
+    <data name="NewVersionCanBeInstalled" xml:space="preserve">
+        <value>Versie {0} kan nu worden geïnstalleerd</value>
+    </data>
+    <data name="NoticeLabel" xml:space="preserve">
+        <value>Bericht</value>
+    </data>
+    <data name="OutputDeviceLabel" xml:space="preserve">
+        <value>Uitvoer apparaat</value>
+    </data>
+    <data name="PasteClip" xml:space="preserve">
+        <value>Plak fragment naar tegel</value>
+    </data>
+    <data name="PlaySound" xml:space="preserve">
+        <value>Play audio</value>
+    </data>
+    <data name="RowsPlaceholder" xml:space="preserve">
+        <value>Rijen</value>
+    </data>
+    <data name="SaveButton" xml:space="preserve">
+        <value>Opslaan</value>
+    </data>
+    <data name="SaveButtonDisabledTooltip" xml:space="preserve">
+        <value>Voer a.u.b. een geluidsfragment naam in</value>
+    </data>
+    <data name="ShowNameOnGridTile" xml:space="preserve">
+        <value>Toon namen in een raster tegelweergave</value>
+    </data>
+    <data name="SoundClipError" xml:space="preserve">
+        <value>Het geluidsfragment "{0}" heeft errors:\\n{1}</value>
+    </data>
+    <data name="SoundClipListSearch" xml:space="preserve">
+        <value>Zoeken...</value>
+    </data>
+    <data name="SoundClipListTitle" xml:space="preserve">
+        <value>Geluidsfragmenten lijst</value>
+    </data>
+    <data name="StopAllAudio" xml:space="preserve">
+        <value>Stop audio</value>
+    </data>
+    <data name="StopAllAudioHotkeyLabel" xml:space="preserve">
+        <value>Stop alle audio sneltoetsen</value>
+    </data>
+    <data name="TestSound" xml:space="preserve">
+        <value>Test audio</value>
+    </data>
+    <data name="ThemeLabel" xml:space="preserve">
+        <value>Basisthema</value>
+    </data>
+    <data name="UpdateLabel" xml:space="preserve">
+        <value>Update</value>
+    </data>
+    <data name="UpdatePromptTitle" xml:space="preserve">
+        <value>Update beschikbaar</value>
+    </data>
+    <data name="ViewReleases" xml:space="preserve">
+        <value>Toon uitgaven</value>
+    </data>
+    <data name="WidthPlaceholder" xml:space="preserve">
+        <value>Breedte</value>
+    </data>
+    <data name="AddSoundClipOutput" xml:space="preserve">
+        <value>Voeg uitvoerapparaat toe</value>
+    </data>
+    <data name="RemoveSoundClipOutput" xml:space="preserve">
+        <value>Verwijder uitvoer apparaat</value>
+    </data>
+    <data name="VolumeLabel" xml:space="preserve">
+        <value>Volume</value>
+    </data>
+    <data name="LanguageLabel" xml:space="preserve">
+        <value>Taal</value>
+    </data>
+    <data name="ClipAudioFilePathLabel" xml:space="preserve">
+        <value>Geluidsfragment bestandspad</value>
+    </data>
+    <data name="GlobalOutputDefaults" xml:space="preserve">
+        <value>Algemene uitvoerinstellingen</value>
+    </data>
+    <data name="CreateClipInPlace" xml:space="preserve">
+        <value>Maak hier een nieuwe fragment</value>
+    </data>
+    <data name="CacheAudioExplanation" xml:space="preserve">
+        <value>Cache-audio waarvoor resampling vereist is om het afspelen te versnellen ten koste van RAM</value>
+    </data>
+    <data name="CacheAudioLabel" xml:space="preserve">
+        <value>Cache geresamplede audio</value>
+    </data>
+    <data name="PreCacheAudioExplanation" xml:space="preserve">
+        <value>Cache alle audiobestanden die mogelijk opnieuw moeten worden gesampled bij het opstarten van de toepassing</value>
+    </data>
+    <data name="PreCacheAudioLabel" xml:space="preserve">
+        <value>Precache audio bij opstarten</value>
+    </data>
+    <data name="ResamplingAudioTooltip" xml:space="preserve">
+        <value>Audio resamplen</value>
+    </data>
+    <data name="ClearCache" xml:space="preserve">
+        <value>Wis de audiocache om RAM vrij te maken</value>
+    </data>
+    <data name="AutoScaleTilesToWindowLabel" xml:space="preserve">
+        <value>Tegels automatisch schalen om in het venster te passen</value>
+    </data>
+    <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
+        <value>Sta toe dat tegels worden uitgerekt om de beschikbare vensterruimte te vullen, of stel een aangepaste tegelgrootte in</value>
+    </data>
+    <data name="CustomTheme" xml:space="preserve">
+        <value>Aangepast</value>
+    </data>
+    <data name="DarkTheme" xml:space="preserve">
+        <value>Donker</value>
+    </data>
+    <data name="InvalidThemeError" xml:space="preserve">
+        <value>Geselecteerd thema valt buiten bereik: {0}</value>
+    </data>
+    <data name="LightTheme" xml:space="preserve">
+        <value>Helder</value>
+    </data>
+    <data name="HotkeyCancelPlaceholder" xml:space="preserve">
+        <value>Gebruik ESC om deze binding te wissen...</value>
+    </data>
+    <data name="FeatureUnavailable" xml:space="preserve">
+        <value>Deze functie is nog niet beschikbaar op uw platform</value>
+    </data>
+    <data name="AddClipToQueue" xml:space="preserve">
+        <value>Toevoegen aan wachtrij</value>
+    </data>
+    <data name="Remove" xml:space="preserve">
+        <value>Verwijderen</value>
+    </data>
+    <data name="ClearPositions" xml:space="preserve">
+        <value>Vensterformaten en posities resetten</value>
+    </data>
+    <data name="ClearPositionsTooltip" xml:space="preserve">
+        <value>Als een raam buiten bereik is, stel dan de venstergrootte en positie opnieuw in</value>
+    </data>
+    <data name="MissingOutputProfileString" xml:space="preserve">
+        <value>Het uitvoerprofiel "{0}" ontbreekt en kan niet worden gebruikt om af te spelen!</value>
+    </data>
+    <data name="OutputProfileError" xml:space="preserve">
+        <value>.</value>
+    </data>
+    <data name="EditOutputProfileTitle" xml:space="preserve">
+        <value>Bewerk uitvoerprofiel</value>
+    </data>
+    <data name="OutputProfileNameLabel" xml:space="preserve">
+        <value>Naam uitvoerprofiel</value>
+    </data>
+    <data name="OutputProfileLabel" xml:space="preserve">
+        <value>Uitvoerprofiel</value>
+    </data>
+    <data name="EditOutputProfileTooltip" xml:space="preserve">
+        <value>Bewerk uitvoerprofiel</value>
+    </data>
+    <data name="NewOutputProfileTooltip" xml:space="preserve">
+        <value>Nieuw uitvoerprofiel aanmaken</value>
+    </data>
+    <data name="LoopClipLabel" xml:space="preserve">
+        <value>Herhaal clip</value>
+    </data>
+    <data name="LoopClipTooltip" xml:space="preserve">
+        <value>Herhaal clip voor altijd</value>
+    </data>
+    <data name="CheckForUpdates" xml:space="preserve">
+        <value>Controleer op updates</value>
+    </data>
+    <data name="StopAudioOnRetrigger" xml:space="preserve">
+        <value>Schakel audio in wanneer herhaaldelijk geactiveerd</value>
+    </data>
+    <data name="AccentColorLabel" xml:space="preserve">
+        <value>Accent kleur</value>
+    </data>
+    <data name="OpenThemeSettingsButton" xml:space="preserve">
+        <value>Thema configureren</value>
+    </data>
+    <data name="ResetThemeBaseTooltip" xml:space="preserve">
+        <value>Thema-instellingen opnieuw instellen</value>
+    </data>
+    <data name="SecondaryColorLabel" xml:space="preserve">
+        <value>Secundaire kleur</value>
+    </data>
+    <data name="ThemeSettingsTitle" xml:space="preserve">
+        <value>Thema instellingen</value>
+    </data>
+    <data name="WindowBackgroundColorLabel" xml:space="preserve">
+        <value>Achtergrondkleur van venster</value>
+    </data>
+    <data name="WindowBackgroundOpacityLabel" xml:space="preserve">
+        <value>Dekking van de achtergrond van het venster</value>
+    </data>
+    <data name="OutputSettingsFadeOutLabel" xml:space="preserve">
+        <value>Uitfaden van geluidsweergave (ms)</value>
+    </data>
+    <data name="OutputSettingsDeviceLabel" xml:space="preserve">
+        <value>Uitvoerapparaat</value>
+    </data>
 </root>
