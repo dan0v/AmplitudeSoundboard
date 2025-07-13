@@ -117,6 +117,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "deadnamedimmer",
+      "name": "Dimmer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43499958?v=4",
+      "profile": "https://github.com/deadnamedimmer",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
