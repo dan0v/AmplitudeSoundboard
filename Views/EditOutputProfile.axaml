@@ -25,6 +25,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="635"
         xmlns:i18n="clr-namespace:Amplitude.Localization"
+        xmlns:converters="clr-namespace:Amplitude.Converters"
         x:Class="Amplitude.Views.EditOutputProfile"
         Icon="/Assets/Icon.ico"
         Title="{i18n:Localize EditOutputProfileTitle}"
@@ -37,6 +38,10 @@
     <Window.Styles>
       <StyleInclude Source="/Styles/DefaultStyle.axaml" />
     </Window.Styles>
+
+    <Window.Resources>
+      <converters:IntConverter x:Key="IntConverter"/>
+    </Window.Resources>
   
     <Design.DataContext>
         <vm:EditSoundClipViewModel/>
@@ -79,18 +84,16 @@
                     <ItemsControl ItemsSource="{Binding Model.OutputSettings}">
                       <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                          <Border BorderThickness="2" CornerRadius="5" Margin="5,5,5,0" Padding="5" Height="60">
+                          <Border BorderThickness="2" CornerRadius="5" Margin="5,5,5,0" Padding="5" Height="180">
                             <Border.BorderBrush>
                               <SolidColorBrush Color="{Binding #styleroot.((vm:EditOutputProfileViewModel)DataContext).ThemeManager.Theme.BorderColor}"/>
                             </Border.BorderBrush>
-                            <Grid RowDefinitions="Auto,20,20">
-
+                            <Grid RowDefinitions="Auto,20,20,Auto,Auto">
                               <Grid Grid.Row="2" Margin="0,-20,0,0">
                                 <Grid.ColumnDefinitions>
                                   <ColumnDefinition Width="Auto"/>
                                   <ColumnDefinition Width="*"/>
                                   <ColumnDefinition Width="Auto"/>
-                                  <ColumnDefinition Width="150"/>
                                 </Grid.ColumnDefinitions>
                                 <Button Grid.Column="0" Margin="5,0,5,0" Cursor="Hand" Command="{Binding DecreaseVolumeSmall}" HorizontalAlignment="Center" VerticalAlignment="Center">
                                   <Panel>
@@ -109,14 +112,21 @@
                                     <Image Source="{Binding #styleroot.((vm:EditOutputProfileViewModel)DataContext).ThemeManager.ArrowRight}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                   </Panel>
                                 </Button>
-                                <ComboBox Width="150" Grid.Column="3" AutoScrollToSelectedItem="True" Margin="0,5,0,5" SelectedItem="{Binding DeviceName}" ItemsSource="{Binding DeviceList}" HorizontalAlignment="Center" ToolTip.Tip="{i18n:Localize OutputDeviceLabel}">
+                              </Grid>
+                              <StackPanel Grid.Row="3">
+                                <Label Content="{i18n:Localize OutputSettingsDeviceLabel}" HorizontalAlignment="Center" Height="30"></Label>
+                                <ComboBox MinWidth="150" AutoScrollToSelectedItem="True" Margin="0,0,0,0" SelectedItem="{Binding DeviceName}" ItemsSource="{Binding DeviceList}" HorizontalAlignment="Stretch" ToolTip.Tip="{i18n:Localize OutputDeviceLabel}">
                                   <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                       <TextBlock Text="{Binding .}" FontFamily="{Binding #styleroot.((vm:EditOutputProfileViewModel)DataContext).ThemeManager.BodyFont}"/>
                                     </DataTemplate>
                                   </ComboBox.ItemTemplate>
                                 </ComboBox>
-                              </Grid>
+                              </StackPanel>
+                              <StackPanel Grid.Row="4">
+                                <Label Content="{i18n:Localize OutputSettingsFadeOutLabel}" HorizontalAlignment="Center" Height="30"></Label>
+                                <TextBox Margin="5,-5,5,0" TextAlignment="Center" Grid.Column="1" Text="{Binding FadeOutMilis, Converter={StaticResource IntConverter}}" ToolTip.Tip="{i18n:Localize OutputSettingsFadeOutLabel}" Watermark="{i18n:Localize OutputSettingsFadeOutLabel}" ></TextBox>
+                              </StackPanel>
                             </Grid>
                           </Border>
                         </DataTemplate>

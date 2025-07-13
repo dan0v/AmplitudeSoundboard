@@ -34,6 +34,7 @@ namespace Amplitude.Models
         public double Length { get; init; }
         public int BassStreamId { get; init; }
         public bool LoopClip { get; init; }
+        public int FadeOutMilis { get; init; }
 
         public string ToolTip => $"{Name} - {OutputDevice}";
 
@@ -63,23 +64,33 @@ namespace Amplitude.Models
             }
         }
 
-        public void StopPlayback()
+        public double RemainingMilis
         {
-            App.SoundEngine.StopPlaying(BassStreamId);
+            get
+            {
+                if (CurrentPos > Length)
+                {
+                    return 0;
+                }
+                return (Length - CurrentPos) * 1000;
+            }
         }
 
-        public PlayingClip(string name, string soundClipId, string outputDevice, int bassStreamId, double length, bool loopClip)
+        public void StopPlayback()
         {
-            if (length == 0)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
+            App.SoundEngine.StopPlaying(BassStreamId, RemainingMilis, FadeOutMilis);
+        }
+
+        public PlayingClip(string name, string soundClipId, string outputDevice, int bassStreamId, double length, bool loopClip, int fadeOutMilis)
+        {
+            ArgumentOutOfRangeException.ThrowIfZero(length);
             Name = name;
             SoundClipId = soundClipId;
             OutputDevice = outputDevice;
             BassStreamId = bassStreamId;
             Length = length;
             LoopClip = loopClip;
+            FadeOutMilis = fadeOutMilis;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
