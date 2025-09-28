@@ -57,7 +57,7 @@ A dialog automatically notifies users of available updates at application startu
 A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest MacOS build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude Soundboard.app` with the new version.
 
 ### Linux
-A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard-x86_64.AppImage) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude_Soundboard-x86_64.AppImage` with the new version.
+A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard-x86_64.AppImage) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude_Soundboard-x86_64.AppImage` with the new version. On Arch Linux, you can use the [`amplitude-soundboard-appimage`](https://aur.archlinux.org/packages/amplitude-soundboard-appimage) package in the AUR.
 
 ## Screenshots
 Main grid|Soundclip list
