@@ -1,6 +1,6 @@
 /*
     AmplitudeSoundboard
-    Copyright (C) 2021-2025 dan0v
+    Copyright (C) 2021-2026 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -30,6 +30,8 @@ namespace Amplitude.Views
     {
         public const string WindowId = "editOutputProfile";
 
+        private string? modelId => ((EditOutputProfileViewModel?)this.DataContext)?.Model.Id;
+
         public EditOutputProfile()
         {
             InitializeComponent();
@@ -46,17 +48,20 @@ namespace Amplitude.Views
         {
             if (e.Property == TextBlock.TextProperty)
             {
-                if (!string.IsNullOrEmpty((string)e.NewValue) && e.NewValue != e.OldValue)
+                if (!string.IsNullOrEmpty((string?)e.NewValue) && e.NewValue != e.OldValue && modelId != null)
                 {
-                    App.WindowManager.OpenedEditOutputProfileWindow(((EditOutputProfileViewModel)this.DataContext).Model.Id, this);
+                    App.WindowManager.OpenedEditOutputProfileWindow(modelId, this);
                 }
             }
         }
 
         protected override void OnClosing(WindowClosingEventArgs e)
         {
-            App.WindowManager.ClosedEditOutputProfileWindow(((EditOutputProfileViewModel)this.DataContext).Model.Id);
-            ((EditOutputProfileViewModel)DataContext).Dispose();
+            if (modelId != null)
+            {
+                App.WindowManager.ClosedEditOutputProfileWindow(modelId);
+            }
+            ((EditOutputProfileViewModel?)DataContext)?.Dispose();
             base.OnClosing(e);
         }
     }

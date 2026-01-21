@@ -1,12 +1,16 @@
 AmplitudeSoundboard relies on
 
 Avalonia
-Copyright (c) .NET Foundation and Contributors All Rights Reserved
+Copyright (c) .NET Foundation and Contributors. All Rights Reserved.
 https://github.com/AvaloniaUI/Avalonia
 
-BASS, BASS_AAC, BASSALAC, BASSFLAC, BASSmix, BASSOPUS
-Copyright (c) 2003-2021 un4seen developments
+BASS, BASSALAC, BASSFLAC, BASSmix, BASSOPUS
+Copyright (c) 1999-2025 Un4seen Developments Ltd. All Rights Reserved.
 https://www.un4seen.com/
+
+BASS_AAC
+Copyright (c) 2002-2012, Sebastian Andersson (sebastian.andersson@gmail.com).  All Rights Reserved.
+Portions © 2006, M. Bakker, Nero AG. All rights reserved.
 
 Josefin Sans
 Copyright (c) 2010 Santiago Orozco (hi@typemade.mx)
@@ -22,6 +26,10 @@ https://github.com/google/material-design-icons
 Open Sans
 Copyright (c) 2020 The Open Sans Project Authors
 https://github.com/googlefonts/opensans
+
+ReactiveUI.Avalonia
+Copyright (c) 2025 ReactiveUI
+https://github.com/reactiveui/ReactiveUI.Avalonia
 
 SharpHook
 Copyright (c) 2021 Anatoliy Pylypchuk

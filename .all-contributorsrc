@@ -117,6 +117,24 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "deadnamedimmer",
+      "name": "Dimmer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43499958?v=4",
+      "profile": "https://github.com/deadnamedimmer",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "dtcooper",
+      "name": "David Cooper",
+      "avatar_url": "https://avatars.githubusercontent.com/u/873944?v=4",
+      "profile": "https://jew.pizza/",
+      "contributions": [
+        "platform"
+      ]
     }
   ],
   "contributorsPerLine": 7,

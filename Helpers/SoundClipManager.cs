@@ -1,6 +1,6 @@
 ﻿/*
     AmplitudeSoundboard
-    Copyright (C) 2021-2025 dan0v
+    Copyright (C) 2021-2026 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
 
     This file is part of AmplitudeSoundboard.
@@ -33,7 +33,7 @@ using System.Threading.Tasks;
 
 namespace Amplitude.Helpers
 {
-    [JsonSerializable(typeof(Dictionary<string, SoundClip>))]
+	[JsonSerializable(typeof(Dictionary<string, SoundClip>))]
     public partial class SoundClipManagerContext : JsonSerializerContext { }
 
     public class SoundClipManager : INotifyPropertyChanged

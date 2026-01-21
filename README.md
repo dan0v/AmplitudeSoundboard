@@ -2,7 +2,7 @@
 ![GitHub Logo](Branding/Banner.png)
 [![Release .NET Cross Platform App](https://github.com/dan0v/AmplitudeSoundboard/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/dan0v/AmplitudeSoundboard/actions/workflows/dotnet-desktop.yml)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # [Website](https://amplitude-soundboard.dan0v.com/index.html)
@@ -57,7 +57,7 @@ A dialog automatically notifies users of available updates at application startu
 A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest MacOS build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude Soundboard.app` with the new version.
 
 ### Linux
-A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard-x86_64.AppImage) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude_Soundboard-x86_64.AppImage` with the new version.
+A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard-x86_64.AppImage) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude_Soundboard-x86_64.AppImage` with the new version. On Arch Linux, you can use the [`amplitude-soundboard-appimage`](https://aur.archlinux.org/packages/amplitude-soundboard-appimage) package in the AUR.
 
 ## Screenshots
 Main grid|Soundclip list
@@ -91,6 +91,8 @@ Many thanks to all these people! ([emoji key](https://allcontributors.org/docs/e
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Swell61"><img src="https://avatars.githubusercontent.com/u/32226560?v=4?s=100" width="100px;" alt="Samuel"/><br /><sub><b>Samuel</b></sub></a><br /><a href="#userTesting-swell61" title="User Testing">📓</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/teacup775"><img src="https://avatars.githubusercontent.com/u/2474259?v=4?s=100" width="100px;" alt="teacup775"/><br /><sub><b>teacup775</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/issues?q=author%3Ateacup775" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://chapien.net/"><img src="https://avatars.githubusercontent.com/u/2068976?v=4?s=100" width="100px;" alt="Chapien"/><br /><sub><b>Chapien</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/issues?q=author%3AChapien" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/deadnamedimmer"><img src="https://avatars.githubusercontent.com/u/43499958?v=4?s=100" width="100px;" alt="Dimmer"/><br /><sub><b>Dimmer</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=deadnamedimmer" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://jew.pizza/"><img src="https://avatars.githubusercontent.com/u/873944?v=4?s=100" width="100px;" alt="David Cooper"/><br /><sub><b>David Cooper</b></sub></a><br /><a href="#platform-dtcooper" title="Packaging/porting to new platform">📦</a></td>
     </tr>
   </tbody>
 </table>
