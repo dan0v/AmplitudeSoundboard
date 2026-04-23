@@ -50,8 +50,9 @@ namespace Amplitude.Helpers
         private Collection<StreamToFree> _streamsToFree = [];
 
 
-        private const long TIMER_MS = 200;
-        private Timer timer = new(TIMER_MS)
+        private const long TIMER_MS = 100;
+        private const long TIMER_SLACK = 50;
+        private readonly Timer timer = new(TIMER_MS)
         {
             AutoReset = true,
         };
@@ -70,10 +71,10 @@ namespace Amplitude.Helpers
                         Bass.ChannelPlay(track.BassStreamId, true);
                     }
                 }
-                // might be off by 100ms, but oh well
-                else if (track.CurrentPos + 0.1d >= track.Length - (track.FadeOutMilis * 0.001d))
+                // might be off by 50ms, but oh well
+                else if (track.CurrentPos + (TIMER_SLACK * 0.001d) >= track.Length - (track.FadeOutMilis * 0.001d))
                 {
-                    var timeRemainingMilis = 1000 * (track.Length - track.CurrentPos - 0.1d);
+                    var timeRemainingMilis = 1000 * (track.Length - track.CurrentPos - (TIMER_SLACK * 0.001d));
                     var fadeOutDuration = timeRemainingMilis < track.FadeOutMilis ? timeRemainingMilis : track.FadeOutMilis;
                     StopPlaying(track.BassStreamId, track.RemainingMilis, track.FadeOutMilis);
                 }
@@ -179,7 +180,7 @@ namespace Amplitude.Helpers
             }
             foreach (var clip in CurrentlyPlaying.Where(clip => clip.SoundClipId == id).ToArray())
             {
-                StopPlaying(clip.BassStreamId, clip.RemainingMilis ,clip.FadeOutMilis);
+                StopPlaying(clip.BassStreamId, clip.RemainingMilis, clip.FadeOutMilis);
             }
         }
 
@@ -326,9 +327,9 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void StopPlaying(int handle, double remainingMilis, int fadeOutMilis)
+        public void StopPlaying(int handle, double remainingMilis, int fadeOutMilis, bool stopped = false)
         {
-            if (fadeOutMilis == 0)
+            if (fadeOutMilis == 0 || stopped)
             {
                 Bass.StreamFree(handle);
                 lock (currentlyPlayingLock)
