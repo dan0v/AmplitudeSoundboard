@@ -20,6 +20,7 @@
 */
 
 using Amplitude.Models;
+using Amplitude.Helpers;
 
 namespace Amplitude.ViewModels
 {
@@ -55,6 +56,8 @@ namespace Amplitude.ViewModels
                 }
             }
         }
+
+        public bool IsDefaultProfile => _model.Id == OutputProfileManager.DEFAULT_OUTPUTPROFILE;
 
         public EditOutputProfileViewModel()
         {
@@ -93,14 +96,27 @@ namespace Amplitude.ViewModels
         /// <param name="e"></param>
         private void Model_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(Model.Name))
+            switch (e.PropertyName)
             {
-                HasNameField = !string.IsNullOrEmpty(Model.Name);
+                case nameof(Model.Name):
+                    HasNameField = !string.IsNullOrEmpty(Model.Name);
+                    break;
+                case nameof(Model.Id):
+                    OnPropertyChanged(nameof(CanDeleteProfile));
+                    break;
             }
         }
 
+        public bool CanDeleteProfile => !IsDefaultProfile && !string.IsNullOrEmpty(Model.Id);
+
         public void DeleteOutputProfile()
         {
+            if (!CanDeleteProfile)
+            {
+                WindowManager.ShowErrorString(Localization.Localizer.Instance["DefaultProfileCannotBeDeleted"]);
+                return;
+            }
+
             OutputProfileManager.RemoveOutputProfile(Model.Id);
         }
 
@@ -111,6 +127,7 @@ namespace Amplitude.ViewModels
             // Copy back and forth to incorporate validations done during saving
             _model = toSave.ShallowCopy();
             OnPropertyChanged(nameof(Model));
+            OnPropertyChanged(nameof(CanDeleteProfile));
         }
 
         public void RemoveOutputDevice()
