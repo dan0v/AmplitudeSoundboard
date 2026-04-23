@@ -62,9 +62,9 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void RecordGlobalStopSoundHotkey(Config config)
+        public bool RecordGlobalStopSoundHotkey(Config config)
         {
-            App.KeyboardHook.SetGlobalStopHotkey(config, RecordGlobalStopSoundHotkeyCallback);
+            return App.KeyboardHook.SetGlobalStopHotkey(config, RecordGlobalStopSoundHotkeyCallback);
         }
 
         public void RecordGlobalStopSoundHotkeyCallback(Config config, string hotkeyString)
@@ -87,9 +87,9 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void RecordSoundClipHotkey(SoundClip clip)
+        public bool RecordSoundClipHotkey(SoundClip clip)
         {
-            App.KeyboardHook.SetSoundClipHotkey(clip, RecordSoundClipHotkeyCallback);
+            return App.KeyboardHook.SetSoundClipHotkey(clip, RecordSoundClipHotkeyCallback);
         }
 
         public void RecordSoundClipHotkeyCallback(SoundClip clip, string hotkeyString)

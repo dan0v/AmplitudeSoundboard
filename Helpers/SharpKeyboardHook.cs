@@ -23,14 +23,25 @@ using Amplitude.Models;
 using AmplitudeSoundboard;
 using SharpHook;
 using SharpHook.Data;
+using SharpHook.Providers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Amplitude.Helpers
 {
     public class SharpKeyboardHook : IKeyboardHook
     {
-        private static IGlobalHook sharpHook = new TaskPoolGlobalHook();
+        private const string MacOSAccessibilityMessage =
+            "Hotkeys need macOS Accessibility permission before Amplitude Soundboard can record or trigger keybinds. " +
+            "Open System Settings > Privacy & Security > Accessibility, enable Amplitude Soundboard, then restart the app.";
+
+        private IGlobalHook? sharpHook;
+        private Task? hookTask;
+        private bool hookAvailable;
+        private bool disposed;
+
         private static List<(SoundClip clip, Action<SoundClip, string> callback)> soundClipCallbacks = new();
         private static (Config? config, Action<Config, string> callback) globalStopCallback;
 
@@ -42,9 +53,145 @@ namespace Amplitude.Helpers
 
         private SharpKeyboardHook()
         {
-            sharpHook.KeyPressed += HandleKeyPressed;
-            sharpHook.KeyReleased += HandleKeyReleased;
-            sharpHook.RunAsync();
+            UioHookProvider.Instance.KeyTypedEnabled = false;
+            StartHook(promptForMacOSAccessibility: true, showErrors: false);
+        }
+
+        private bool StartHook(bool promptForMacOSAccessibility, bool showErrors)
+        {
+            if (disposed)
+            {
+                return false;
+            }
+
+            if (hookTask != null && !hookTask.IsCompleted)
+            {
+                return true;
+            }
+
+#if MacOS
+            if (!UioHookProvider.Instance.IsAxApiEnabled(promptForMacOSAccessibility))
+            {
+                hookAvailable = false;
+                if (showErrors)
+                {
+                    ShowAccessibilityError();
+                    OpenAccessibilitySettings();
+                }
+                return false;
+            }
+#endif
+
+            try
+            {
+                sharpHook?.Dispose();
+                sharpHook = new EventLoopGlobalHook(GlobalHookType.Keyboard);
+                sharpHook.HookEnabled += HandleHookEnabled;
+                sharpHook.HookDisabled += HandleHookDisabled;
+                sharpHook.KeyPressed += HandleKeyPressed;
+                sharpHook.KeyReleased += HandleKeyReleased;
+
+                hookTask = sharpHook.RunAsync();
+                hookTask.ContinueWith(HandleHookFailure, TaskContinuationOptions.OnlyOnFaulted);
+                hookAvailable = true;
+                return true;
+            }
+            catch (HookException ex)
+            {
+                HandleHookException(ex, showErrors);
+            }
+            catch (Exception ex)
+            {
+                hookAvailable = false;
+                Debug.WriteLine(ex);
+                if (showErrors)
+                {
+                    App.WindowManager.ShowErrorString($"Hotkeys could not be started: {ex.Message}");
+                }
+            }
+            return false;
+        }
+
+        private void HandleHookEnabled(object? sender, HookEventArgs e)
+        {
+            hookAvailable = true;
+        }
+
+        private void HandleHookDisabled(object? sender, HookEventArgs e)
+        {
+            hookAvailable = false;
+        }
+
+        private void HandleHookFailure(Task task)
+        {
+            hookAvailable = false;
+            if (task.Exception == null)
+            {
+                return;
+            }
+
+            foreach (var exception in task.Exception.Flatten().InnerExceptions)
+            {
+                Debug.WriteLine(exception);
+                if (exception is HookException hookException)
+                {
+                    HandleHookException(hookException, showErrors: false);
+                }
+            }
+        }
+
+        private void HandleHookException(HookException ex, bool showErrors)
+        {
+            hookAvailable = false;
+            Debug.WriteLine(ex);
+#if MacOS
+            if (ex.Result == UioHookResult.ErrorAxApiDisabled)
+            {
+                if (showErrors)
+                {
+                    ShowAccessibilityError();
+                    OpenAccessibilitySettings();
+                }
+                return;
+            }
+#endif
+            if (showErrors)
+            {
+                App.WindowManager.ShowErrorString($"Hotkeys could not be started: {ex.Message}");
+            }
+        }
+
+        private bool EnsureHookAvailable()
+        {
+            if (hookAvailable && hookTask != null && !hookTask.IsCompleted)
+            {
+                return true;
+            }
+
+            return StartHook(promptForMacOSAccessibility: true, showErrors: true);
+        }
+
+        private static void ShowAccessibilityError()
+        {
+            App.WindowManager.ShowErrorString(MacOSAccessibilityMessage);
+        }
+
+        private static void OpenAccessibilitySettings()
+        {
+#if MacOS
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+#endif
         }
 
         private void HandleKeyReleased(object? sender, KeyboardHookEventArgs e)
@@ -221,21 +368,39 @@ namespace Amplitude.Helpers
             return keycode.ToString()[2..];
         }
 
-        public void SetSoundClipHotkey(SoundClip clip, Action<SoundClip, string> callback)
+        public bool SetSoundClipHotkey(SoundClip clip, Action<SoundClip, string> callback)
         {
+            if (!EnsureHookAvailable())
+            {
+                return false;
+            }
+
             soundClipCallbacks.Add((clip, callback));
+            return true;
         }
 
-        public void SetGlobalStopHotkey(Config config, Action<Config, string> callback)
+        public bool SetGlobalStopHotkey(Config config, Action<Config, string> callback)
         {
+            if (!EnsureHookAvailable())
+            {
+                return false;
+            }
+
             globalStopCallback = (config, callback);
+            return true;
         }
 
         public void Dispose()
         {
-            sharpHook.KeyPressed -= HandleKeyPressed;
-            sharpHook.KeyReleased -= HandleKeyReleased;
-            sharpHook.Dispose();
+            disposed = true;
+            if (sharpHook != null)
+            {
+                sharpHook.HookEnabled -= HandleHookEnabled;
+                sharpHook.HookDisabled -= HandleHookDisabled;
+                sharpHook.KeyPressed -= HandleKeyPressed;
+                sharpHook.KeyReleased -= HandleKeyReleased;
+                sharpHook.Dispose();
+            }
         }
     }
 }

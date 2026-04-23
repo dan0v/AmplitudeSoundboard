@@ -68,9 +68,14 @@ namespace Amplitude.ViewModels
 
         public void RecordHotkey()
         {
+            var previousHotkey = Model.GlobalKillAudioHotkey;
             Model.GlobalKillAudioHotkey = Localization.Localizer.Instance["HotkeyCancelPlaceholder"];
             WaitingForHotkey = true;
-            HotkeysManager.RecordGlobalStopSoundHotkey(Model);
+            if (!HotkeysManager.RecordGlobalStopSoundHotkey(Model))
+            {
+                Model.GlobalKillAudioHotkey = previousHotkey;
+                WaitingForHotkey = false;
+            }
         }
 
         public void SaveConfig()

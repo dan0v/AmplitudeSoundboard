@@ -4,7 +4,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x64'">$(DefineConstants);Windows</DefineConstants>
-    <DefineConstants Condition="'$(RuntimeIdentifier)' == 'osx-x64'">$(DefineConstants);MacOS</DefineConstants>
+    <DefineConstants Condition="'$(RuntimeIdentifier)' == 'osx-x64' Or '$(RuntimeIdentifier)' == 'osx-arm64'">$(DefineConstants);MacOS</DefineConstants>
     <DefineConstants Condition="'$(RuntimeIdentifier)' == 'linux-x64'">$(DefineConstants);Linux</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
@@ -16,7 +16,7 @@
     <AssemblyName>amplitude_soundboard</AssemblyName>
     <RootNamespace>Amplitude</RootNamespace>
     <NeutralLanguage>en</NeutralLanguage>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>AnyCPU;x64;ARM64</Platforms>
     <Version>2.12.0</Version>
     <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
     <PublishTrimmed>true</PublishTrimmed>
@@ -137,7 +137,7 @@
     </Content>
   </ItemGroup>
   <!--MacOS-->
-  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'osx-x64'">
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'osx-x64' Or '$(RuntimeIdentifier)' == 'osx-arm64'">
     <Content Include="$(ProjectDir)Libraries\BASS\MacOS\libbass.dylib">
       <Link>libbass.dylib</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
