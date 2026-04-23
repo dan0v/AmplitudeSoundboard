@@ -27,20 +27,17 @@ using SharpHook.Providers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Amplitude.Helpers
 {
     public class SharpKeyboardHook : IKeyboardHook
     {
-        private const string MacOSAccessibilityMessage =
-            "Hotkeys need macOS Accessibility permission before Amplitude Soundboard can record or trigger keybinds. " +
-            "Open System Settings > Privacy & Security > Accessibility, enable Amplitude Soundboard, then restart the app.";
-
         private IGlobalHook? sharpHook;
         private Task? hookTask;
-        private bool hookAvailable;
-        private bool disposed;
+        private volatile bool hookAvailable;
+        private volatile bool disposed;
 
         private static List<(SoundClip clip, Action<SoundClip, string> callback)> soundClipCallbacks = new();
         private static (Config? config, Action<Config, string> callback) globalStopCallback;
@@ -54,10 +51,10 @@ namespace Amplitude.Helpers
         private SharpKeyboardHook()
         {
             UioHookProvider.Instance.KeyTypedEnabled = false;
-            StartHook(promptForMacOSAccessibility: true, showErrors: false);
+            StartHook();
         }
 
-        private bool StartHook(bool promptForMacOSAccessibility, bool showErrors)
+        private bool StartHook()
         {
             if (disposed)
             {
@@ -70,14 +67,10 @@ namespace Amplitude.Helpers
             }
 
 #if MacOS
-            if (!UioHookProvider.Instance.IsAxApiEnabled(promptForMacOSAccessibility))
+            if (!UioHookProvider.Instance.IsAxApiEnabled(true))
             {
-                hookAvailable = false;
-                if (showErrors)
-                {
-                    ShowAccessibilityError();
-                    OpenAccessibilitySettings();
-                }
+                ShowMacOSAccessibilityError();
+                OpenAccessibilitySettings();
                 return false;
             }
 #endif
@@ -93,21 +86,15 @@ namespace Amplitude.Helpers
 
                 hookTask = sharpHook.RunAsync();
                 hookTask.ContinueWith(HandleHookFailure, TaskContinuationOptions.OnlyOnFaulted);
-                hookAvailable = true;
                 return true;
             }
             catch (HookException ex)
             {
-                HandleHookException(ex, showErrors);
+                HandleHookException(ex);
             }
             catch (Exception ex)
             {
-                hookAvailable = false;
-                Debug.WriteLine(ex);
-                if (showErrors)
-                {
-                    App.WindowManager.ShowErrorString($"Hotkeys could not be started: {ex.Message}");
-                }
+                App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["HotkeysStartError"], ex.Message));
             }
             return false;
         }
@@ -132,48 +119,45 @@ namespace Amplitude.Helpers
 
             foreach (var exception in task.Exception.Flatten().InnerExceptions)
             {
-                Debug.WriteLine(exception);
                 if (exception is HookException hookException)
                 {
-                    HandleHookException(hookException, showErrors: false);
+                    HandleHookException(hookException);
                 }
             }
         }
 
-        private void HandleHookException(HookException ex, bool showErrors)
+        private void HandleHookException(HookException ex)
         {
             hookAvailable = false;
-            Debug.WriteLine(ex);
 #if MacOS
             if (ex.Result == UioHookResult.ErrorAxApiDisabled)
             {
-                if (showErrors)
-                {
-                    ShowAccessibilityError();
-                    OpenAccessibilitySettings();
-                }
+                ShowMacOSAccessibilityError();
+                OpenAccessibilitySettings();
                 return;
             }
 #endif
-            if (showErrors)
-            {
-                App.WindowManager.ShowErrorString($"Hotkeys could not be started: {ex.Message}");
-            }
+            App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["HotkeysStartError"], ex.Message));
         }
 
         private bool EnsureHookAvailable()
         {
-            if (hookAvailable && hookTask != null && !hookTask.IsCompleted)
+            if (disposed)
+            {
+                return false;
+            }
+
+            if (hookAvailable)
             {
                 return true;
             }
 
-            return StartHook(promptForMacOSAccessibility: true, showErrors: true);
+            return StartHook();
         }
 
-        private static void ShowAccessibilityError()
+        private static void ShowMacOSAccessibilityError()
         {
-            App.WindowManager.ShowErrorString(MacOSAccessibilityMessage);
+            App.WindowManager.ShowErrorString(Localization.Localizer.Instance["MacOSAccessibilityError"]);
         }
 
         private static void OpenAccessibilitySettings()
@@ -189,7 +173,7 @@ namespace Amplitude.Helpers
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                App.WindowManager.ShowErrorString(ex.Message);
             }
 #endif
         }
@@ -262,19 +246,15 @@ namespace Amplitude.Helpers
 
         private string FullKey(string currentKey)
         {
+            SortedSet<KeyCode> keySetCopy;
             lock (keySetLock)
             {
-                var keySetCopy = new SortedSet<KeyCode>(keySet);
+                keySetCopy = [.. keySet];
             }
 
-            if (keySet.Count > 0)
+            if (keySetCopy.Count > 0)
             {
-                string full = "";
-                foreach (KeyCode keyCode in keySet)
-                {
-                    full += GetFriendlyKeyName(keyCode) + "|";
-                }
-                return full + currentKey;
+                return string.Join("|", keySetCopy.Select(k => GetFriendlyKeyName(k))) + "|" + currentKey;
             }
             else
             {

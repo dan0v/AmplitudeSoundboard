@@ -426,4 +426,10 @@
     <data name="OutputSettingsDeviceLabel" xml:space="preserve">
         <value>Uitvoerapparaat</value>
     </data>
+    <data name="MacOSAccessibilityError" xml:space="preserve">
+        <value>Sneltoetsen hebben macOS Toegankelijkheidsmachtiging nodig voordat Amplitude Soundboard toetscombinaties kan opnemen of activeren. Open Systeeminstellingen > Privacy en beveiliging > Toegankelijkheid, schakel Amplitude Soundboard in en start de app opnieuw.</value>
+    </data>
+    <data name="HotkeysStartError" xml:space="preserve">
+        <value>Sneltoetsen konden niet worden gestart: {0}</value>
+    </data>
 </root>

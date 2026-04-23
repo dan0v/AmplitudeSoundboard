@@ -426,4 +426,10 @@
     <data name="OutputSettingsDeviceLabel" xml:space="preserve">
         <value>Dispositivo di output</value>
     </data>
+    <data name="MacOSAccessibilityError" xml:space="preserve">
+        <value>I tasti rapidi richiedono l'autorizzazione Accessibilità di macOS prima che Amplitude Soundboard possa registrare o attivare combinazioni di tasti. Apri Impostazioni di Sistema > Privacy e Sicurezza > Accessibilità, abilita Amplitude Soundboard, quindi riavvia l'app.</value>
+    </data>
+    <data name="HotkeysStartError" xml:space="preserve">
+        <value>Impossibile avviare i tasti rapidi: {0}</value>
+    </data>
 </root>

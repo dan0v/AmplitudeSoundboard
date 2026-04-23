@@ -426,4 +426,10 @@
     <data name="OutputSettingsDeviceLabel" xml:space="preserve">
         <value>Устройство вывода</value>
     </data>
+    <data name="MacOSAccessibilityError" xml:space="preserve">
+        <value>Горячие клавиши требуют разрешения Универсального доступа macOS, прежде чем Amplitude Soundboard сможет записывать или активировать сочетания клавиш. Откройте Системные настройки > Конфиденциальность и безопасность > Универсальный доступ, включите Amplitude Soundboard и перезапустите приложение.</value>
+    </data>
+    <data name="HotkeysStartError" xml:space="preserve">
+        <value>Не удалось запустить горячие клавиши: {0}</value>
+    </data>
 </root>

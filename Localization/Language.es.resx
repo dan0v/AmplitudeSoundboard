@@ -426,4 +426,10 @@
     <data name="OutputSettingsDeviceLabel" xml:space="preserve">
         <value>Dispositivo de salida</value>
     </data>
+    <data name="MacOSAccessibilityError" xml:space="preserve">
+        <value>Los atajos de teclado necesitan permiso de Accesibilidad de macOS antes de que Amplitude Soundboard pueda grabar o activar combinaciones de teclas. Abra Configuración del Sistema > Privacidad y Seguridad > Accesibilidad, habilite Amplitude Soundboard y luego reinicie la aplicación.</value>
+    </data>
+    <data name="HotkeysStartError" xml:space="preserve">
+        <value>No se pudieron iniciar los atajos de teclado: {0}</value>
+    </data>
 </root>
