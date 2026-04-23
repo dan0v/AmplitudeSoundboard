@@ -150,7 +150,7 @@
 
           <Grid Grid.Row="2"  ColumnDefinitions="*,Auto">
             <StackPanel Orientation="Horizontal" Grid.Column="1">
-              <Button x:Name="btn_RemoveOutputProfile" Command="{Binding DeleteOutputProfile}" ToolTip.Tip="{i18n:Localize DeleteSoundClipButton}" Cursor="Hand" IsEnabled="{Binding Model.Id, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Margin="5,5,10,5" HorizontalAlignment="Left">
+              <Button x:Name="btn_RemoveOutputProfile" Command="{Binding DeleteOutputProfile}" ToolTip.Tip="{i18n:Localize DeleteSoundClipButton}" Cursor="Hand" IsEnabled="{Binding CanDeleteProfile}" Margin="5,5,10,5" HorizontalAlignment="Left">
                 <Panel>
                   <Image Source="{Binding ThemeManager.Delete}" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Panel>
@@ -161,6 +161,7 @@
                 </Panel>
               </Button>
             </StackPanel>
+            <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5,5,10,5" Foreground="Orange" IsVisible="{Binding IsDefaultProfile}" Text="{i18n:Localize DefaultProfileCannotBeDeleted}" TextWrapping="Wrap" />
           </Grid>
 
         </Grid>

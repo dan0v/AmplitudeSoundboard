@@ -431,5 +431,7 @@
     </data>
     <data name="HotkeysStartError" xml:space="preserve">
         <value>No se pudieron iniciar los atajos de teclado: {0}</value>
+    <data name="DefaultProfileCannotBeDeleted" xml:space="preserve">
+        <value>El perfil predeterminado no se puede eliminar</value>
     </data>
 </root>

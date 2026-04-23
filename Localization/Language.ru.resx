@@ -431,5 +431,7 @@
     </data>
     <data name="HotkeysStartError" xml:space="preserve">
         <value>Не удалось запустить горячие клавиши: {0}</value>
+    <data name="DefaultProfileCannotBeDeleted" xml:space="preserve">
+        <value>Профиль по умолчанию не может быть удален</value>
     </data>
 </root>
