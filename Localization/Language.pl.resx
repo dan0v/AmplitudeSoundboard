@@ -426,4 +426,7 @@
     <data name="OutputSettingsDeviceLabel" xml:space="preserve">
         <value>Urządzenie wyjściowe</value>
     </data>
+    <data name="DefaultProfileCannotBeDeleted" xml:space="preserve">
+        <value>Domyślny profil nie może zostać usunięty</value>
+    </data>
 </root>
