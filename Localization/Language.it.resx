@@ -431,6 +431,7 @@
     </data>
     <data name="HotkeysStartError" xml:space="preserve">
         <value>Impossibile avviare i tasti rapidi: {0}</value>
+    </data>
     <data name="DefaultProfileCannotBeDeleted" xml:space="preserve">
         <value>Il profilo predefinito non può essere eliminato</value>
     </data>
