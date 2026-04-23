@@ -47,7 +47,7 @@ namespace Amplitude.Helpers
 
         public List<string> OutputDeviceListWithGlobal { get; }
 
-        public void StopPlaying(int handle, double remainingMilis, int fadeOutMilis = 0);
+        public void StopPlaying(int handle, double remainingMilis, int fadeOutMilis = 0, bool stopped = false);
 
         public void RemoveFromQueue(SoundClip clip);
 
