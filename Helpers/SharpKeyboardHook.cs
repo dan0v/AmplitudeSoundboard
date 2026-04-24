@@ -20,7 +20,6 @@
 */
 
 using Amplitude.Models;
-using AmplitudeSoundboard;
 using SharpHook;
 using SharpHook.Data;
 using System;
@@ -30,6 +29,12 @@ namespace Amplitude.Helpers
 {
     public class SharpKeyboardHook : IKeyboardHook
     {
+        private readonly Lazy<HotkeysManager> _hotkeysManager;
+        private readonly Lazy<SoundClipManager> _soundClipManager;
+
+        private HotkeysManager HotkeysManager => _hotkeysManager.Value;
+        private SoundClipManager SoundClipManager => _soundClipManager.Value;
+
         private static IGlobalHook sharpHook = new TaskPoolGlobalHook();
         private static List<(SoundClip clip, Action<SoundClip, string> callback)> soundClipCallbacks = new();
         private static (Config? config, Action<Config, string> callback) globalStopCallback;
@@ -37,11 +42,10 @@ namespace Amplitude.Helpers
         private static readonly SortedSet<KeyCode> keySet = new();
         private readonly object keySetLock = new();
 
-        private static SharpKeyboardHook? _instance;
-        public static IKeyboardHook Instance => _instance ??= new SharpKeyboardHook();
-
-        private SharpKeyboardHook()
+        public SharpKeyboardHook(Lazy<HotkeysManager> hotkeysManager, Lazy<SoundClipManager> soundClipManager)
         {
+            _hotkeysManager = hotkeysManager;
+            _soundClipManager = soundClipManager;
             sharpHook.KeyPressed += HandleKeyPressed;
             sharpHook.KeyReleased += HandleKeyReleased;
             sharpHook.RunAsync();
@@ -95,7 +99,7 @@ namespace Amplitude.Helpers
                 }
                 soundClipCallbacks.Clear();
             }
-            else if (currentKey != HotkeysManager.UNBIND_HOTKEY && App.HotkeysManager.Hotkeys.TryGetValue(fullKey, out List<string>? values))
+            else if (currentKey != HotkeysManager.UNBIND_HOTKEY && HotkeysManager.Hotkeys.TryGetValue(fullKey, out List<string>? values))
             {
                 // Go through and call all the Play methods on these id's
                 foreach (string item in values)
@@ -106,7 +110,7 @@ namespace Amplitude.Helpers
                     }
                     else
                     {
-                        var clip = App.SoundClipManager.GetClip(item);
+                        var clip = SoundClipManager.GetClip(item);
                         clip?.PlayAudio();
                     }
                 }

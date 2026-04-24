@@ -19,9 +19,10 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
 using Amplitude.ViewModels;
-using AmplitudeSoundboard;
 using Avalonia.Controls;
+using Splat;
 
 namespace Amplitude.Views
 {
@@ -37,12 +38,12 @@ namespace Amplitude.Views
 
         private void GlobalSettings_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
         {
-            App.WindowManager.WindowSizesOrPositionsChanged();
+            Locator.Current.GetService<WindowManager>()!.WindowSizesOrPositionsChanged();
         }
 
         protected override void OnClosing(WindowClosingEventArgs e)
         {
-            App.WindowManager.GlobalSettingsWindow = null;
+            Locator.Current.GetService<WindowManager>()!.GlobalSettingsWindow = null;
             EffectiveViewportChanged -= GlobalSettings_EffectiveViewportChanged;
             ((GlobalSettingsViewModel?)DataContext)?.Dispose();
             base.OnClosing(e);

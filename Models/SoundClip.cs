@@ -20,10 +20,10 @@
 */
 
 using Amplitude.Helpers;
-using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
+using Splat;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -149,7 +149,7 @@ namespace Amplitude.Models
         }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public ObservableCollection<OutputSettings> OutputSettingsFromProfile => App.OutputProfileManager.GetOutputProfile(OutputProfileId)?.OutputSettings ?? [];
+        public ObservableCollection<OutputSettings> OutputSettingsFromProfile => Locator.Current.GetService<OutputProfileManager>()!.GetOutputProfile(OutputProfileId)?.OutputSettings ?? [];
 
         private ObservableCollection<OutputSettings> _outputSettings = [];
         [Obsolete]
@@ -212,30 +212,30 @@ namespace Amplitude.Models
 
         public void PlayAudio()
         {
-            App.SoundEngine.Play(this);
+            Locator.Current.GetService<ISoundEngine>()!.Play(this);
         }
 
         public void AddAudioToQueue()
         {
-            App.SoundEngine.AddToQueue(this);
+            Locator.Current.GetService<ISoundEngine>()!.AddToQueue(this);
         }
 
         public void CopySoundClipId()
         {
-            App.SoundClipManager.CopiedClipId = Id;
+            Locator.Current.GetService<SoundClipManager>()!.CopiedClipId = Id;
         }
 
         public void OpenEditSoundClipWindow()
         {
-            App.WindowManager.OpenEditSoundClipWindow(Id);
+            Locator.Current.GetService<WindowManager>()!.OpenEditSoundClipWindow(Id);
         }
 
         public async Task SetAndRescaleBackgroundImage(bool forceUpdate = false)
         {
             if (LoadBackgroundImage && BrowseIO.ValidImage(_imageFilePath, false))
             {
-                double intendedHeight = App.ConfigManager.Config.DesiredImageHeight;
-                double intendedWidth = App.ConfigManager.Config.DesiredImageWidth;
+                double intendedHeight = Locator.Current.GetService<ConfigManager>()!.Config.DesiredImageHeight;
+                double intendedWidth = Locator.Current.GetService<ConfigManager>()!.Config.DesiredImageWidth;
 
                 if (!forceUpdate && _backgroundImage != null)
                 {
@@ -253,7 +253,7 @@ namespace Amplitude.Models
                 double imageHeight = newImage.PixelSize.Height;
 
                 double scaleFactor = intendedWidth > intendedHeight ? imageWidth / intendedWidth : imageHeight / intendedHeight;
-                scaleFactor /= App.WindowManager.DesktopScaling;
+                scaleFactor /= Locator.Current.GetService<WindowManager>()!.DesktopScaling;
                 try
                 {
                     _backgroundImage = newImage.CreateScaledBitmap(new PixelSize((int)(imageWidth / scaleFactor), (int)(imageHeight / scaleFactor)), BitmapInterpolationMode.HighQuality);
@@ -262,7 +262,7 @@ namespace Amplitude.Models
                 catch (Exception e)
                 {
                     _backgroundImage = null;
-                    App.WindowManager.ShowErrorString(e.Message);
+                    Locator.Current.GetService<WindowManager>()!.ShowErrorString(e.Message);
                 }
             }
             else

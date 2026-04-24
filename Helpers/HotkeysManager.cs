@@ -24,22 +24,28 @@
 */
 
 using Amplitude.Models;
-using AmplitudeSoundboard;
+using Splat;
+using System;
 using System.Collections.Generic;
 
 namespace Amplitude.Helpers
 {
     public class HotkeysManager
     {
-        private static HotkeysManager? _instance;
-        public static HotkeysManager Instance => _instance ??= new HotkeysManager();
+        private readonly IKeyboardHook _keyboardHook;
+        private readonly Lazy<SoundClipManager> _soundClipManager;
+        private readonly ISoundEngine _soundEngine;
+
+        private SoundClipManager SoundClipManager => _soundClipManager.Value;
 
         public const string UNBIND_HOTKEY = "UNBIND_HOTKEY";
         public const string MASTER_STOP_SOUND_HOTKEY = "MASTER_STOP_SOUND_HOTKEY";
 
-        private HotkeysManager()
+        public HotkeysManager(IKeyboardHook keyboardHook, Lazy<SoundClipManager> soundClipManager, ISoundEngine soundEngine)
         {
-
+            _keyboardHook = keyboardHook;
+            _soundClipManager = soundClipManager;
+            _soundEngine = soundEngine;
         }
 
         public Dictionary<string, List<string>> Hotkeys = [];
@@ -64,7 +70,7 @@ namespace Amplitude.Helpers
 
         public void RecordGlobalStopSoundHotkey(Config config)
         {
-            App.KeyboardHook.SetGlobalStopHotkey(config, RecordGlobalStopSoundHotkeyCallback);
+            _keyboardHook.SetGlobalStopHotkey(config, RecordGlobalStopSoundHotkeyCallback);
         }
 
         public void RecordGlobalStopSoundHotkeyCallback(Config config, string hotkeyString)
@@ -89,7 +95,7 @@ namespace Amplitude.Helpers
 
         public void RecordSoundClipHotkey(SoundClip clip)
         {
-            App.KeyboardHook.SetSoundClipHotkey(clip, RecordSoundClipHotkeyCallback);
+            _keyboardHook.SetSoundClipHotkey(clip, RecordSoundClipHotkeyCallback);
         }
 
         public void RecordSoundClipHotkeyCallback(SoundClip clip, string hotkeyString)
@@ -133,7 +139,7 @@ namespace Amplitude.Helpers
 
             if (id != MASTER_STOP_SOUND_HOTKEY)
             {
-                var clip = App.SoundClipManager.GetClip(id);
+                var clip = SoundClipManager.GetClip(id);
 
                 if (clip != null)
                 {
@@ -144,7 +150,7 @@ namespace Amplitude.Helpers
 
         public static void StopAllSound()
         {
-            App.SoundEngine.Reset();
+            Locator.Current.GetService<ISoundEngine>()!.Reset();
         }
     }
 }

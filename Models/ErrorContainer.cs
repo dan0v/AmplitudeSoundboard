@@ -19,7 +19,8 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using AmplitudeSoundboard;
+using Amplitude.Helpers;
+using Splat;
 
 namespace Amplitude.Models
 {
@@ -58,16 +59,16 @@ namespace Amplitude.Models
 
         public void OpenEditSoundClipWindow()
         {
-            if (App.SoundClipManager.GetClip(SoundClipId) != null)
+            if (Locator.Current.GetService<SoundClipManager>()!.GetClip(SoundClipId) != null)
             {
-                App.WindowManager.OpenEditSoundClipWindow(SoundClipId);
+                Locator.Current.GetService<WindowManager>()!.OpenEditSoundClipWindow(SoundClipId);
             }
         }
         public void OpenEditOutputProfileWindow()
         {
-            if (App.OutputProfileManager.GetOutputProfile(OutputProfileId) != null)
+            if (Locator.Current.GetService<OutputProfileManager>()!.GetOutputProfile(OutputProfileId) != null)
             {
-                App.WindowManager.OpenEditOutputProfileWindow(OutputProfileId);
+                Locator.Current.GetService<WindowManager>()!.OpenEditOutputProfileWindow(OutputProfileId);
             }
         }
     }

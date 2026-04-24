@@ -35,16 +35,17 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.3.11" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.3.11" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.11" />
-    <PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.3.11" />
+    <PackageReference Include="Avalonia" Version="12.0.1" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.0.1" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.1" />
+    <PackageReference Include="Avalonia.Controls.ColorPicker" Version="12.0.1" />
     <PackageReference Include="ManagedBass" Version="4.0.2" />
     <PackageReference Include="ManagedBass.Flac" Version="4.0.2" />
     <PackageReference Include="ManagedBass.Mix" Version="4.0.2" />
     <PackageReference Include="ManagedBass.Opus" Version="4.0.2" />
+    <PackageReference Include="ReactiveUI.Avalonia" Version="12.0.1" />
+    <PackageReference Include="ReactiveUI.Avalonia.Microsoft.Extensions.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="SharpHook" Version="7.1.1" />
-    <PackageReference Include="ReactiveUI.Avalonia" Version="11.3.8" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Localization\Language.Designer.cs">

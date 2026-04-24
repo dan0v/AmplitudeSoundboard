@@ -25,6 +25,7 @@ using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Splat;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -38,7 +39,7 @@ namespace Amplitude.Views
 {
     public partial class UpdatePrompt : Window, INotifyPropertyChanged
     {
-        public static ThemeManager ThemeManager => App.ThemeManager;
+        public static ThemeManager ThemeManager => Locator.Current.GetService<ThemeManager>()!;
         public bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
 
         private string newVersion = "";
@@ -146,7 +147,7 @@ namespace Amplitude.Views
             {
                 Updating = false;
                 Debug.WriteLine(ex);
-                App.WindowManager.ShowErrorString(ex.Message);
+                Locator.Current.GetService<WindowManager>()!.ShowErrorString(ex.Message);
             }
         }
 

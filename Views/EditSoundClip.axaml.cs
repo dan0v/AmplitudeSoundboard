@@ -21,10 +21,10 @@
 
 using Amplitude.Helpers;
 using Amplitude.ViewModels;
-using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Splat;
 using System;
 using System.Diagnostics;
 
@@ -55,7 +55,7 @@ namespace Amplitude.Views
         private void EditSoundClip_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
         {
             lastTouchedTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-            App.WindowManager.WindowSizesOrPositionsChanged();
+            Locator.Current.GetService<WindowManager>()!.WindowSizesOrPositionsChanged();
         }
 
         private void Txt_blk_SoundClipId_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
@@ -64,7 +64,7 @@ namespace Amplitude.Views
             {
                 if (!string.IsNullOrEmpty((string?)e.NewValue) && e.NewValue != e.OldValue)
                 {
-                    App.WindowManager.OpenedEditSoundClipWindow(((EditSoundClipViewModel?)this.DataContext)?.Model.Id, this);
+                    Locator.Current.GetService<WindowManager>()!.OpenedEditSoundClipWindow(((EditSoundClipViewModel?)this.DataContext)?.Model.Id, this);
                 }
             }
         }
@@ -104,7 +104,7 @@ namespace Amplitude.Views
         protected override void OnClosing(WindowClosingEventArgs e)
         {
             EffectiveViewportChanged -= EditSoundClip_EffectiveViewportChanged;
-            App.WindowManager.ClosedEditSoundClipWindow(((EditSoundClipViewModel?)this.DataContext)?.Model.Id);
+            Locator.Current.GetService<WindowManager>()!.ClosedEditSoundClipWindow(((EditSoundClipViewModel?)this.DataContext)?.Model.Id);
             ((EditSoundClipViewModel?)DataContext)?.Dispose();
             base.OnClosing(e);
         }

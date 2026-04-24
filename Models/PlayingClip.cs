@@ -19,7 +19,8 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using AmplitudeSoundboard;
+using Amplitude.Helpers;
+using Splat;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -79,7 +80,7 @@ namespace Amplitude.Models
 
         public void StopPlayback()
         {
-            App.SoundEngine.StopPlaying(BassStreamId, RemainingMilis, FadeOutMilis, stopped);
+            Locator.Current.GetService<ISoundEngine>()!.StopPlaying(BassStreamId, RemainingMilis, FadeOutMilis, stopped);
             stopped = true;
         }
 
