@@ -35,10 +35,10 @@ namespace Amplitude.Helpers
 {
     class MSoundEngine : ISoundEngine
     {
-        private readonly ConfigManager _configManager;
+        private readonly Lazy<ConfigManager> _configManager;
         private readonly Lazy<WindowManager> _windowManager;
 
-        private ConfigManager ConfigManager => _configManager;
+        private ConfigManager ConfigManager => _configManager.Value;
         private WindowManager WindowManager => _windowManager.Value;
 
         private readonly object currentlyPlayingLock = new();
@@ -158,7 +158,7 @@ namespace Amplitude.Helpers
             return null;
         }
 
-        public MSoundEngine(ConfigManager configManager, Lazy<WindowManager> windowManager)
+        public MSoundEngine(Lazy<ConfigManager> configManager, Lazy<WindowManager> windowManager)
         {
             _configManager = configManager;
             _windowManager = windowManager;
