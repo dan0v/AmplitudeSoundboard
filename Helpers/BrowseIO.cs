@@ -20,8 +20,9 @@
 */
 
 using Amplitude.Models;
-using AmplitudeSoundboard;
 using Avalonia.Controls;
+using Avalonia.Platform.Storage;
+using Splat;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,25 +37,23 @@ namespace Amplitude.Helpers
             IMAGE
         }
 
-        private static FileDialogFilter _audioFileTypesFilter = new FileDialogFilter
-        {
-            Name = "Audio file",
-            Extensions = { "aac", "aiff", "alac", "flac", "m4a", "mp3", "mp4", "ogg", "opus", "wav" }
-        };
-        public static FileDialogFilter AudioFileTypesFilter => _audioFileTypesFilter;
+        private static readonly string[] AudioFileExtensions = ["aac", "aiff", "alac", "flac", "m4a", "mp3", "mp4", "ogg", "opus", "wav"];
+        private static readonly string[] ImageFileExtensions = ["png", "jpg", "jpeg", "gif", "bmp"];
 
-        private static FileDialogFilter _imageFileTypesFilter = new FileDialogFilter
+        private static FilePickerFileType AudioFileTypesFilter => new("Audio file")
         {
-            Name = "Image file",
-            Extensions = { "png", "jpg", "jpeg", "gif", "bmp" }
+            Patterns = AudioFileExtensions.Select(e => $"*.{e}").ToList()
         };
-        public static FileDialogFilter ImageFileTypesFilter => _imageFileTypesFilter;
+
+        private static FilePickerFileType ImageFileTypesFilter => new("Image file")
+        {
+            Patterns = ImageFileExtensions.Select(e => $"*.{e}").ToList()
+        };
 
         public static async Task<string[]?> OpenFileBrowser(Window parent, FileBrowserType type, bool allowMultiple = false)
         {
             string title = "";
-
-            FileDialogFilter filter = AudioFileTypesFilter;
+            FilePickerFileType filter = AudioFileTypesFilter;
 
             switch (type)
             {
@@ -68,13 +67,22 @@ namespace Amplitude.Helpers
                     break;
             }
 
-            var dialog = new OpenFileDialog()
+            var storageProvider = parent.StorageProvider;
+            var options = new FilePickerOpenOptions
             {
                 Title = title,
                 AllowMultiple = allowMultiple,
-                Filters = { filter }
+                FileTypeFilter = [filter]
             };
-            return await dialog.ShowAsync(parent);
+
+            var result = await storageProvider.OpenFilePickerAsync(options);
+
+            if (result == null || result.Count == 0)
+            {
+                return null;
+            }
+
+            return result.Select(f => f.TryGetLocalPath()).Where(p => p != null).ToArray()!;
         }
 
         public static bool ValidImage(string fileName, bool generateErrors = true)
@@ -84,7 +92,7 @@ namespace Amplitude.Helpers
                 if (generateErrors)
                 {
                     string errorMessage = string.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
-                    App.WindowManager.ShowErrorString(errorMessage);
+                    Locator.Current.GetService<WindowManager>()!.ShowErrorString(errorMessage);
                 }
                 return false;
             }
@@ -94,12 +102,12 @@ namespace Amplitude.Helpers
             {
                 fileType = fileType.Substring(1);
             }
-            if (ImageFileTypesFilter.Extensions.Where(i => i.ToLower() == fileType).Count() < 1)
+            if (!ImageFileExtensions.Any(i => i.ToLower() == fileType))
             {
                 if (generateErrors)
                 {
                     string errorMessage = string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
-                    App.WindowManager.ShowErrorString(errorMessage);
+                    Locator.Current.GetService<WindowManager>()!.ShowErrorString(errorMessage);
                 }
                 return false;
             }
@@ -114,12 +122,12 @@ namespace Amplitude.Helpers
                 {
                     if (clip != null)
                     {
-                        App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.SoundClipErrorType.MISSING_AUDIO_FILE);
+                        Locator.Current.GetService<WindowManager>()!.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.SoundClipErrorType.MISSING_AUDIO_FILE);
                     }
                     else
                     {
                         string errorMessage = string.Format(Localization.Localizer.Instance["FileMissingString"], fileName);
-                        App.WindowManager.ShowErrorString(errorMessage);
+                        Locator.Current.GetService<WindowManager>()!.ShowErrorString(errorMessage);
                     }
                 }
                 return false;
@@ -130,18 +138,18 @@ namespace Amplitude.Helpers
             {
                 fileType = fileType.Substring(1);
             }
-            if (!AudioFileTypesFilter.Extensions.Where(a => a.ToLower() == fileType).Any())
+            if (!AudioFileExtensions.Any(a => a.ToLower() == fileType))
             {
                 if (generateErrors)
                 {
                     if (clip != null)
                     {
-                        App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.SoundClipErrorType.BAD_AUDIO_FORMAT);
+                        Locator.Current.GetService<WindowManager>()!.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.SoundClipErrorType.BAD_AUDIO_FORMAT);
                     }
                     else
                     {
                         string errorMessage = string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName);
-                        App.WindowManager.ShowErrorString(errorMessage);
+                        Locator.Current.GetService<WindowManager>()!.ShowErrorString(errorMessage);
                     }
                 }
                 return false;

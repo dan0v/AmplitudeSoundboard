@@ -19,7 +19,7 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using AmplitudeSoundboard;
+using Splat;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -59,7 +59,7 @@ namespace Amplitude.Helpers
             if (!os.HasValue)
             {
                 string osName = RuntimeInformation.OSDescription;
-                App.WindowManager.ShowErrorString(osName);
+                Locator.Current.GetService<WindowManager>()!.ShowErrorString(osName);
                 return OSPlatform.Create(osName);
             }
 

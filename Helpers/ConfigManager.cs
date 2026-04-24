@@ -22,7 +22,6 @@
 using Amplitude.Localization;
 using Amplitude.Models;
 using Amplitude.ViewModels;
-using AmplitudeSoundboard;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,16 +35,27 @@ namespace Amplitude.Helpers
 
     public class ConfigManager : INotifyPropertyChanged
     {
-        private static ConfigManager? _instance;
-        public static ConfigManager Instance => _instance ??= new ConfigManager();
+        private readonly HotkeysManager _hotkeysManager;
+        private readonly JsonIoManager _jsonIoManager;
+        private readonly Lazy<WindowManager> _windowManager;
+        private readonly Lazy<SoundClipManager> _soundClipManager;
+
+        private HotkeysManager HotkeysManager => _hotkeysManager;
+        private JsonIoManager JsonIoManager => _jsonIoManager;
+        private WindowManager WindowManager => _windowManager.Value;
+        private SoundClipManager SoundClipManager => _soundClipManager.Value;
 
         private Config _config;
         public Config Config => _config;
 
         private const string CONFIG_FILE_LOCATION = "options.json";
 
-        private ConfigManager()
+        public ConfigManager(HotkeysManager hotkeysManager, JsonIoManager jsonIoManager, Lazy<WindowManager> windowManager, Lazy<SoundClipManager> soundClipManager)
         {
+            _hotkeysManager = hotkeysManager;
+            _jsonIoManager = jsonIoManager;
+            _windowManager = windowManager;
+            _soundClipManager = soundClipManager;
             var retrievedConfig = RetrieveConfigFromFile();
 
             if (retrievedConfig != null)
@@ -73,7 +83,7 @@ namespace Amplitude.Helpers
 
         private void RegisterConfigHotkeys(Config value)
         {
-            App.HotkeysManager.RegisterHotkeyAtStartup(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, value.GlobalKillAudioHotkey);
+            HotkeysManager.RegisterHotkeyAtStartup(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, value.GlobalKillAudioHotkey);
         }
 
         public void SaveAndOverwriteConfig(Config config)
@@ -91,39 +101,39 @@ namespace Amplitude.Helpers
                 }
                 if (_config.GlobalKillAudioHotkey != config.GlobalKillAudioHotkey)
                 {
-                    App.HotkeysManager.RemoveHotkey(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, Config.GlobalKillAudioHotkey);
-                    App.HotkeysManager.RegisterHotkeyAtStartup(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, config.GlobalKillAudioHotkey);
+                    HotkeysManager.RemoveHotkey(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, Config.GlobalKillAudioHotkey);
+                    HotkeysManager.RegisterHotkeyAtStartup(HotkeysManager.MASTER_STOP_SOUND_HOTKEY, config.GlobalKillAudioHotkey);
                 }
                 if (_config.Language != config.Language)
                 {
                     Localizer.Instance.ChangeLanguage(config.Language);
                 }
 
-                var json = App.JsonIoManager.ConvertObjectsToJSON(config);
-                App.JsonIoManager.SaveJSONToFile(CONFIG_FILE_LOCATION, json);
+                var json = JsonIoManager.ConvertObjectsToJSON(config);
+                JsonIoManager.SaveJSONToFile(CONFIG_FILE_LOCATION, json);
                 _config = config;
             }
             catch (Exception e)
             {
-                App.WindowManager.ShowErrorString(e.Message);
+                WindowManager.ShowErrorString(e.Message);
             }
             OnPropertyChanged(nameof(Config));
-            App.SoundClipManager.RescaleAllBackgroundImages();
+            SoundClipManager.RescaleAllBackgroundImages();
         }
 
         public Config? RetrieveConfigFromFile()
         {
             try
             {
-                string json = App.JsonIoManager.RetrieveJSONFromFile(CONFIG_FILE_LOCATION);
+                string json = JsonIoManager.RetrieveJSONFromFile(CONFIG_FILE_LOCATION);
                 if (!string.IsNullOrEmpty(json))
                 {
-                    return App.JsonIoManager.ConvertObjectsFromJSON<Config>(json);
+                    return JsonIoManager.ConvertObjectsFromJSON<Config>(json);
                 }
             }
             catch (Exception e)
             {
-                App.WindowManager.ShowErrorString(e.Message);
+                WindowManager.ShowErrorString(e.Message);
             }
             return null;
         }
@@ -158,10 +168,10 @@ namespace Amplitude.Helpers
         public void ComputeGridTileSizes()
         {
             var rows = Config.GridRows;
-            Config.ActualTileHeight = (int)(((App.WindowManager.MainWindow?.GridSize.height - (8 * rows) - 15) / rows) ?? Config.GridTileHeight ?? 100);
+            Config.ActualTileHeight = (int)(((WindowManager.MainWindow?.GridSize.height - (8 * rows) - 15) / rows) ?? Config.GridTileHeight ?? 100);
 
             var cols = Config.GridColumns;
-            Config.ActualTileWidth = (int)(((App.WindowManager.MainWindow?.GridSize.width - (10 * cols) - 10) / cols) ?? Config.GridTileWidth ?? 100);
+            Config.ActualTileWidth = (int)(((WindowManager.MainWindow?.GridSize.width - (10 * cols) - 10) / cols) ?? Config.GridTileWidth ?? 100);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
