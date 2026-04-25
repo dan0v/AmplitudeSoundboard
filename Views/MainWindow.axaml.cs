@@ -19,9 +19,10 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
 using Amplitude.ViewModels;
-using AmplitudeSoundboard;
 using Avalonia.Controls;
+using Splat;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -62,7 +63,7 @@ namespace Amplitude.Views
         {
             GridSize = (scrl_GridScroll.Bounds.Width, scrl_GridScroll.Bounds.Height);
             WindowSize = (Height, Width);
-            App.WindowManager.WindowSizesOrPositionsChanged();
+            Locator.Current.GetService<WindowManager>()!.WindowSizesOrPositionsChanged();
         }
 
         private void MainWindow_PositionChanged(object? sender, PixelPointEventArgs e)
@@ -73,15 +74,15 @@ namespace Amplitude.Views
             {
                 context.WindowPosition = WindowPosition;
             }
-            App.WindowManager.WindowSizesOrPositionsChanged();
+            Locator.Current.GetService<WindowManager>()!.WindowSizesOrPositionsChanged();
         }
 
         protected override void OnClosing(WindowClosingEventArgs e)
         {
             PositionChanged -= MainWindow_PositionChanged;
             EffectiveViewportChanged -= MainWindow_EffectiveViewportChanged;
-            App.SoundEngine.Dispose();
-            App.KeyboardHook.Dispose();
+            Locator.Current.GetService<ISoundEngine>()!.Dispose();
+            Locator.Current.GetService<IKeyboardHook>()!.Dispose();
             ((MainWindowViewModel?)DataContext)?.Dispose();
             base.OnClosing(e);
         }

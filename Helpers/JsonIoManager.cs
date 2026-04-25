@@ -21,6 +21,7 @@
 
 using AmplitudeSoundboard;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
@@ -30,8 +31,8 @@ namespace Amplitude.Helpers
 
     public class JsonIoManager
     {
-        private static JsonIoManager? _instance;
-        public static JsonIoManager Instance => _instance ??= new JsonIoManager();
+        private readonly Lazy<WindowManager> _windowManager;
+        private WindowManager WindowManager => _windowManager.Value;
 
         private readonly JsonSerializerOptions jsonSerializerOptions = new()
         {
@@ -46,6 +47,15 @@ namespace Amplitude.Helpers
                 )
         };
 
+        public JsonIoManager(Lazy<WindowManager> windowManager)
+        {
+            _windowManager = windowManager;
+        }
+
+        [UnconditionalSuppressMessage("Trimming", "IL2026:RequiresUnreferencedCode",
+            Justification = "All types are registered in the JsonSerializerOptions TypeInfoResolver via source-generated contexts.")]
+        [UnconditionalSuppressMessage("AOT", "IL3050:RequiresDynamicCode",
+            Justification = "All types are registered in the JsonSerializerOptions TypeInfoResolver via source-generated contexts.")]
         public T? ConvertObjectsFromJSON<T>(string? json)
         {
             if (string.IsNullOrEmpty(json))
@@ -55,12 +65,13 @@ namespace Amplitude.Helpers
 
             try
             {
-                var obj = JsonSerializer.Deserialize<T>(json, jsonSerializerOptions);
+                var typeInfo = jsonSerializerOptions.GetTypeInfo(typeof(T));
+                var obj = JsonSerializer.Deserialize(json, typeInfo);
                 return obj == null ? default : (T?)obj;
             }
             catch (Exception e)
             {
-                App.WindowManager.ShowErrorString(e.Message);
+                WindowManager.ShowErrorString(e.Message);
             }
             return default(T);
         }
@@ -77,11 +88,15 @@ namespace Amplitude.Helpers
             }
             catch (Exception e)
             {
-                App.WindowManager.ShowErrorString(e.Message);
+                WindowManager.ShowErrorString(e.Message);
             }
             return "";
         }
 
+        [UnconditionalSuppressMessage("Trimming", "IL2026:RequiresUnreferencedCode",
+            Justification = "All types are registered in the JsonSerializerOptions TypeInfoResolver via source-generated contexts.")]
+        [UnconditionalSuppressMessage("AOT", "IL3050:RequiresDynamicCode",
+            Justification = "All types are registered in the JsonSerializerOptions TypeInfoResolver via source-generated contexts.")]
         public string ConvertObjectsToJSON<T>(T? obj)
         {
             if (obj == null)
@@ -91,11 +106,12 @@ namespace Amplitude.Helpers
 
             try
             {
-                return JsonSerializer.Serialize(obj, jsonSerializerOptions);
+                var typeInfo = jsonSerializerOptions.GetTypeInfo(typeof(T));
+                return JsonSerializer.Serialize(obj, typeInfo);
             }
             catch (Exception e)
             {
-                App.WindowManager.ShowErrorString(e.Message);
+                WindowManager.ShowErrorString(e.Message);
             }
             return "";
         }
@@ -108,7 +124,7 @@ namespace Amplitude.Helpers
             }
             catch (Exception e)
             {
-                App.WindowManager.ShowErrorString(e.Message);
+                WindowManager.ShowErrorString(e.Message);
             }
         }
     }

@@ -20,7 +20,7 @@
 */
 
 using Amplitude.Models;
-using AmplitudeSoundboard;
+using Amplitude.ViewModels;
 using DynamicData;
 using ManagedBass;
 using ManagedBass.Mix;
@@ -35,8 +35,11 @@ namespace Amplitude.Helpers
 {
     class MSoundEngine : ISoundEngine
     {
-        private static MSoundEngine? _instance;
-        public static ISoundEngine Instance => _instance ??= new MSoundEngine();
+        private readonly Lazy<ConfigManager> _configManager;
+        private readonly Lazy<WindowManager> _windowManager;
+
+        private ConfigManager ConfigManager => _configManager.Value;
+        private WindowManager WindowManager => _windowManager.Value;
 
         private readonly object currentlyPlayingLock = new();
         private ObservableCollection<PlayingClip> _currentlyPlaying = [];
@@ -50,8 +53,9 @@ namespace Amplitude.Helpers
         private Collection<StreamToFree> _streamsToFree = [];
 
 
-        private const long TIMER_MS = 200;
-        private Timer timer = new(TIMER_MS)
+        private const long TIMER_MS = 100;
+        private const long TIMER_SLACK = 50;
+        private readonly Timer timer = new(TIMER_MS)
         {
             AutoReset = true,
         };
@@ -70,10 +74,10 @@ namespace Amplitude.Helpers
                         Bass.ChannelPlay(track.BassStreamId, true);
                     }
                 }
-                // might be off by 100ms, but oh well
-                else if (track.CurrentPos + 0.1d >= track.Length - (track.FadeOutMilis * 0.001d))
+                // might be off by 50ms, but oh well
+                else if (track.CurrentPos + (TIMER_SLACK * 0.001d) >= track.Length - (track.FadeOutMilis * 0.001d))
                 {
-                    var timeRemainingMilis = 1000 * (track.Length - track.CurrentPos - 0.1d);
+                    var timeRemainingMilis = 1000 * (track.Length - track.CurrentPos - (TIMER_SLACK * 0.001d));
                     var fadeOutDuration = timeRemainingMilis < track.FadeOutMilis ? timeRemainingMilis : track.FadeOutMilis;
                     StopPlaying(track.BassStreamId, track.RemainingMilis, track.FadeOutMilis);
                 }
@@ -154,8 +158,10 @@ namespace Amplitude.Helpers
             return null;
         }
 
-        private MSoundEngine()
+        public MSoundEngine(Lazy<ConfigManager> configManager, Lazy<WindowManager> windowManager)
         {
+            _configManager = configManager;
+            _windowManager = windowManager;
             timer.Elapsed += RefreshPlaybackProgressAndCheckQueue;
             timer.Start();
         }
@@ -179,7 +185,7 @@ namespace Amplitude.Helpers
             }
             foreach (var clip in CurrentlyPlaying.Where(clip => clip.SoundClipId == id).ToArray())
             {
-                StopPlaying(clip.BassStreamId, clip.RemainingMilis ,clip.FadeOutMilis);
+                StopPlaying(clip.BassStreamId, clip.RemainingMilis, clip.FadeOutMilis);
             }
         }
 
@@ -205,7 +211,7 @@ namespace Amplitude.Helpers
         public void Play(SoundClip source, bool fromQueue = false)
         {
             var tempId = source.Id ?? source.AudioFilePath;
-            if (!fromQueue && App.ConfigManager.Config.StopAudioOnRepeatTrigger && ClipPlayingOrQueued(tempId))
+            if (!fromQueue && ConfigManager.Config.StopAudioOnRepeatTrigger && ClipPlayingOrQueued(tempId))
             {
                 StopAndRemoveFromQueue(tempId);
                 return;
@@ -230,7 +236,7 @@ namespace Amplitude.Helpers
 
             if (!devId.HasValue)
             {
-                App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
+                WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["MissingDeviceString"], playerDeviceName));
                 return;
             }
 
@@ -275,7 +281,7 @@ namespace Amplitude.Helpers
                         }
                         catch (Exception)
                         {
-                            App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName));
+                            WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["FileBadFormatString"], fileName));
                         }
                     }
                     else
@@ -290,11 +296,11 @@ namespace Amplitude.Helpers
             }
             if (streamError)
             {
-                App.WindowManager.ShowErrorString($"Stream error: {Bass.LastError}");
+                WindowManager.ShowErrorString($"Stream error: {Bass.LastError}");
             }
             if (bassError)
             {
-                App.WindowManager.ShowErrorString($"ManagedBass error: {Bass.LastError}");
+                WindowManager.ShowErrorString($"ManagedBass error: {Bass.LastError}");
             }
         }
 
@@ -306,7 +312,7 @@ namespace Amplitude.Helpers
                 {
                     if (profile != null)
                     {
-                        App.WindowManager.ShowErrorOutputProfile(profile, ViewModels.ErrorListViewModel.OutputProfileErrorType.MISSING_DEVICE, settings.DeviceName);
+                        WindowManager.ShowErrorOutputProfile(profile, ErrorListViewModel.OutputProfileErrorType.MISSING_DEVICE, settings.DeviceName);
                     }
                 }
             }
@@ -326,9 +332,9 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void StopPlaying(int handle, double remainingMilis, int fadeOutMilis)
+        public void StopPlaying(int handle, double remainingMilis, int fadeOutMilis, bool stopped = false)
         {
-            if (fadeOutMilis == 0)
+            if (fadeOutMilis == 0 || stopped)
             {
                 Bass.StreamFree(handle);
                 lock (currentlyPlayingLock)
@@ -342,7 +348,7 @@ namespace Amplitude.Helpers
             }
             else
             {
-                int remainingFadeOut = (int)(remainingMilis < fadeOutMilis ? remainingMilis : fadeOutMilis); 
+                int remainingFadeOut = (int)(remainingMilis < fadeOutMilis ? remainingMilis : fadeOutMilis);
                 Bass.ChannelSlideAttribute(handle, ChannelAttribute.Volume, 0, remainingFadeOut);
                 _streamsToFree.Add(new StreamToFree(handle, DateTimeOffset.Now.ToUnixTimeMilliseconds() + remainingFadeOut));
             }
@@ -375,5 +381,5 @@ namespace Amplitude.Helpers
                 this.freeAtUnixTime = freeAtUnixTime;
             }
         }
-	}
+    }
 }

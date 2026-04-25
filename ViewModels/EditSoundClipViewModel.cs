@@ -20,7 +20,6 @@
 */
 
 using Amplitude.Models;
-using AmplitudeSoundboard;
 using Avalonia.Controls;
 using Avalonia.Media;
 using System.Collections.Generic;
@@ -194,7 +193,7 @@ namespace Amplitude.ViewModels
             if (e.AddedItems.Count > 0)
             {
                 var id = ((OutputProfile?)e.AddedItems[0])?.Id;
-                
+
                 if (id != null && id != Model.OutputProfileId)
                 {
                     Model.OutputProfileId = id;
@@ -236,7 +235,7 @@ namespace Amplitude.ViewModels
 
         public void StopAudio()
         {
-            App.SoundEngine.Reset();
+            SoundEngine.Reset();
         }
 
         public void SetClipAudioFilePath(string[]? url)
@@ -249,7 +248,7 @@ namespace Amplitude.ViewModels
 
         public void DeleteSoundClip()
         {
-            App.SoundClipManager.RemoveSoundClip(Model.Id);
+            SoundClipManager.RemoveSoundClip(Model.Id);
         }
 
         public void SetClipImageFilePath(string[]? url)
@@ -263,14 +262,14 @@ namespace Amplitude.ViewModels
         public void SaveClip()
         {
             SoundClip toSave = Model.ShallowCopy();
-            App.SoundClipManager.SaveClip(toSave);
+            SoundClipManager.SaveClip(toSave);
             // Copy back and forth to delay ID update until fully saved
             _model = toSave.ShallowCopy();
             OnPropertyChanged(nameof(Model));
 
             if (addToGridCell != null && addToGridCell.Value.row >= 0 && addToGridCell.Value.col >= 0 &&
-                addToGridCell.Value.row < App.ConfigManager.Config.GridRows &&
-                addToGridCell.Value.col < App.ConfigManager.Config.GridColumns)
+                addToGridCell.Value.row < ConfigManager.Config.GridRows &&
+                addToGridCell.Value.col < ConfigManager.Config.GridColumns)
             {
                 ConfigManager.Config.GridSoundClipIds[addToGridCell.Value.row][addToGridCell.Value.col] = Model.Id;
                 ConfigManager.SaveAndOverwriteConfig(ConfigManager.Config);
@@ -295,7 +294,7 @@ namespace Amplitude.ViewModels
             var previousHotkey = Model.Hotkey;
             Model.Hotkey = Localization.Localizer.Instance["HotkeyCancelPlaceholder"];
             WaitingForHotkey = true;
-            if (!App.HotkeysManager.RecordSoundClipHotkey(Model))
+            if (!HotkeysManager.RecordSoundClipHotkey(Model))
             {
                 Model.Hotkey = previousHotkey;
                 WaitingForHotkey = false;

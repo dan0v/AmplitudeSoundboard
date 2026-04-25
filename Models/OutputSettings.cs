@@ -20,7 +20,7 @@
 */
 
 using Amplitude.Helpers;
-using AmplitudeSoundboard;
+using Splat;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -88,9 +88,9 @@ namespace Amplitude.Models
         }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public List<string> DeviceList => App.SoundEngine.OutputDeviceListWithGlobal;
+        public List<string> DeviceList => Locator.Current.GetService<ISoundEngine>()!.OutputDeviceListWithGlobal;
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public List<string> DeviceListForGlobal => App.SoundEngine.OutputDeviceListWithoutGlobal;
+        public List<string> DeviceListForGlobal => Locator.Current.GetService<ISoundEngine>()!.OutputDeviceListWithoutGlobal;
 
         public OutputSettings ShallowCopy()
         {

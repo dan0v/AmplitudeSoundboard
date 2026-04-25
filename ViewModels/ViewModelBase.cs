@@ -20,8 +20,8 @@
 */
 
 using Amplitude.Helpers;
-using AmplitudeSoundboard;
 using ReactiveUI;
+using Splat;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -30,13 +30,13 @@ namespace Amplitude.ViewModels
 {
     public abstract class ViewModelBase : ReactiveObject, INotifyPropertyChanged, IDisposable
     {
-        public ThemeManager ThemeManager => App.ThemeManager;
-        public SoundClipManager SoundClipManager => App.SoundClipManager;
-        public ConfigManager ConfigManager => App.ConfigManager;
-        public OutputProfileManager OutputProfileManager => App.OutputProfileManager;
-        public WindowManager WindowManager => App.WindowManager;
-        public HotkeysManager HotkeysManager => App.HotkeysManager;
-        public ISoundEngine SoundEngine => App.SoundEngine;
+        public ThemeManager ThemeManager => Locator.Current.GetService<ThemeManager>()!;
+        public SoundClipManager SoundClipManager => Locator.Current.GetService<SoundClipManager>()!;
+        public ConfigManager ConfigManager => Locator.Current.GetService<ConfigManager>()!;
+        public OutputProfileManager OutputProfileManager => Locator.Current.GetService<OutputProfileManager>()!;
+        public WindowManager WindowManager => Locator.Current.GetService<WindowManager>()!;
+        public HotkeysManager HotkeysManager => Locator.Current.GetService<HotkeysManager>()!;
+        public ISoundEngine SoundEngine => Locator.Current.GetService<ISoundEngine>()!;
 
         public bool CanUseHotkeys => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.HOTKEYS);
         public double HotkeysOpacity => CanUseHotkeys ? 1 : 0.3d;

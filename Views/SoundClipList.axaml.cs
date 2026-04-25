@@ -19,9 +19,10 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
 using Amplitude.ViewModels;
-using AmplitudeSoundboard;
 using Avalonia.Controls;
+using Splat;
 
 namespace Amplitude.Views
 {
@@ -32,7 +33,7 @@ namespace Amplitude.Views
         public SoundClipList()
         {
             InitializeComponent();
-            App.WindowManager.SoundClipListWindow = this;
+            Locator.Current.GetService<WindowManager>()!.SoundClipListWindow = this;
 
             PositionChanged += SoundClipList_PositionChanged;
             EffectiveViewportChanged += SoundClipList_EffectiveViewportChanged;
@@ -40,17 +41,17 @@ namespace Amplitude.Views
 
         private void SoundClipList_EffectiveViewportChanged(object? sender, Avalonia.Layout.EffectiveViewportChangedEventArgs e)
         {
-            App.WindowManager.WindowSizesOrPositionsChanged();
+            Locator.Current.GetService<WindowManager>()!.WindowSizesOrPositionsChanged();
         }
 
         private void SoundClipList_PositionChanged(object? sender, PixelPointEventArgs e)
         {
-            App.WindowManager.WindowSizesOrPositionsChanged();
+            Locator.Current.GetService<WindowManager>()!.WindowSizesOrPositionsChanged();
         }
 
         protected override void OnClosing(WindowClosingEventArgs e)
         {
-            App.WindowManager.SoundClipListWindow = null;
+            Locator.Current.GetService<WindowManager>()!.SoundClipListWindow = null;
             PositionChanged -= SoundClipList_PositionChanged;
             EffectiveViewportChanged -= SoundClipList_EffectiveViewportChanged;
             ((SoundClipListViewModel?)DataContext)?.Dispose();

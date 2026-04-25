@@ -44,11 +44,24 @@ namespace Amplitude.Helpers
 
     public class WindowManager : INotifyPropertyChanged
     {
-        private static WindowManager? _instance;
-        public static WindowManager Instance => _instance ??= new WindowManager();
+        private readonly Lazy<JsonIoManager> _jsonIoManager;
+        private readonly Lazy<ConfigManager> _configManager;
+        private readonly Lazy<SoundClipManager> _soundClipManager;
+        private readonly Lazy<OutputProfileManager> _outputProfileManager;
 
-        public WindowManager()
+        private JsonIoManager JsonIoManager => _jsonIoManager.Value;
+        private ConfigManager ConfigManager => _configManager.Value;
+        private SoundClipManager SoundClipManager => _soundClipManager.Value;
+        private OutputProfileManager OutputProfileManager => _outputProfileManager.Value;
+
+        public double DesktopScaling => MainWindow?.DesktopScaling ?? 1.0;
+
+        public WindowManager(Lazy<JsonIoManager> jsonIoManager, Lazy<ConfigManager> configManager, Lazy<SoundClipManager> soundClipManager, Lazy<OutputProfileManager> outputProfileManager)
         {
+            _jsonIoManager = jsonIoManager;
+            _configManager = configManager;
+            _soundClipManager = soundClipManager;
+            _outputProfileManager = outputProfileManager;
             windowPositionAndScaleTimer.Elapsed += WindowPositionAndScaleTimerElapsed;
         }
 
@@ -95,8 +108,6 @@ namespace Amplitude.Helpers
             }
         }
 
-        public double DesktopScaling => MainWindow?.DesktopScaling ?? 1;
-
         public void OpenEditOutputProfileWindow(string? Id = null)
         {
             if (Id != null && EditOutputProfileWindows.TryGetValue(Id, out EditOutputProfile? window))
@@ -110,7 +121,7 @@ namespace Amplitude.Helpers
             else
             {
                 EditOutputProfile outputProf = new EditOutputProfile();
-                OutputProfile? profile = App.OutputProfileManager.GetOutputProfile(Id);
+                OutputProfile? profile = OutputProfileManager.GetOutputProfile(Id);
 
                 outputProf.DataContext = profile == null ? new EditOutputProfileViewModel() : new EditOutputProfileViewModel(profile);
 
@@ -160,7 +171,7 @@ namespace Amplitude.Helpers
             else
             {
                 Window sound = new EditSoundClip();
-                SoundClip? clip = App.SoundClipManager.GetClip(id);
+                SoundClip? clip = SoundClipManager.GetClip(id);
 
                 sound.DataContext = clip == null ? new EditSoundClipViewModel() : new EditSoundClipViewModel(clip);
 
@@ -517,8 +528,8 @@ namespace Amplitude.Helpers
 
                     try
                     {
-                        var json = App.JsonIoManager.ConvertObjectsToJSON(windowSizesAndPositions);
-                        App.JsonIoManager.SaveJSONToFile(WINDOW_POSITION_FILE_LOCATION, json);
+                        var json = JsonIoManager.ConvertObjectsToJSON(windowSizesAndPositions);
+                        JsonIoManager.SaveJSONToFile(WINDOW_POSITION_FILE_LOCATION, json);
                     }
                     catch { }
                 }
@@ -555,8 +566,8 @@ namespace Amplitude.Helpers
             {
                 try
                 {
-                    var saved = App.JsonIoManager.RetrieveJSONFromFile(WINDOW_POSITION_FILE_LOCATION);
-                    var processed = App.JsonIoManager.ConvertObjectsFromJSON<Dictionary<string, WindowSizeAndPosition>>(saved);
+                    var saved = JsonIoManager.RetrieveJSONFromFile(WINDOW_POSITION_FILE_LOCATION);
+                    var processed = JsonIoManager.ConvertObjectsFromJSON<Dictionary<string, WindowSizeAndPosition>>(saved);
 
                     if (processed != null)
                     {
@@ -632,14 +643,14 @@ namespace Amplitude.Helpers
             {
                 var newWindowSize = MainWindow.WindowSize;
 
-                if (App.ConfigManager.Config.AutoScaleTilesToWindow && lastMainWindowSize != newWindowSize)
+                if (ConfigManager.Config.AutoScaleTilesToWindow && lastMainWindowSize != newWindowSize)
                 {
                     lastMainWindowSize = newWindowSize;
-                    App.SoundClipManager.RescaleAllBackgroundImages();
+                    SoundClipManager.RescaleAllBackgroundImages();
                 }
             }
 
-            App.WindowManager.SaveWindowSizesAndPositions();
+            SaveWindowSizesAndPositions();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

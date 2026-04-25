@@ -37,16 +37,21 @@ namespace Amplitude.Helpers
 
     public class ThemeManager : INotifyPropertyChanged
     {
-        private static ThemeManager? _instance;
-        public static ThemeManager Instance => _instance ??= new ThemeManager();
+        private readonly JsonIoManager _jsonIoManager;
+        private readonly Lazy<WindowManager> _windowManager;
+
+        private JsonIoManager JsonIoManager => _jsonIoManager;
+        private WindowManager WindowManager => _windowManager.Value;
 
         private const string THEME_FILE_LOCATION = "theme.json";
 
         private Theme _theme = new();
         public Theme Theme => _theme;
 
-        private ThemeManager()
+        public ThemeManager(JsonIoManager jsonIoManager, Lazy<WindowManager> windowManager)
         {
+            _jsonIoManager = jsonIoManager;
+            _windowManager = windowManager;
             var theme = RetrieveThemeFromFile();
             if (theme != null)
             {
@@ -196,13 +201,13 @@ namespace Amplitude.Helpers
         {
             try
             {
-                var json = App.JsonIoManager.ConvertObjectsToJSON(theme);
-                App.JsonIoManager.SaveJSONToFile(THEME_FILE_LOCATION, json);
+                var json = JsonIoManager.ConvertObjectsToJSON(theme);
+                JsonIoManager.SaveJSONToFile(THEME_FILE_LOCATION, json);
                 _theme = theme;
             }
             catch (Exception e)
             {
-                App.WindowManager.ShowErrorString(e.Message);
+                WindowManager.ShowErrorString(e.Message);
             }
             OnPropertyChanged(nameof(Theme));
         }
@@ -211,15 +216,15 @@ namespace Amplitude.Helpers
         {
             try
             {
-                string json = App.JsonIoManager.RetrieveJSONFromFile(THEME_FILE_LOCATION);
+                string json = JsonIoManager.RetrieveJSONFromFile(THEME_FILE_LOCATION);
                 if (!string.IsNullOrEmpty(json))
                 {
-                    return App.JsonIoManager.ConvertObjectsFromJSON<Theme>(json);
+                    return JsonIoManager.ConvertObjectsFromJSON<Theme>(json);
                 }
             }
             catch (Exception e)
             {
-                App.WindowManager.ShowErrorString(e.Message);
+                WindowManager.ShowErrorString(e.Message);
             }
             return null;
         }

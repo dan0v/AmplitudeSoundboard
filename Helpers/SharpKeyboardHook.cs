@@ -1,4 +1,4 @@
-﻿/*
+/*
     AmplitudeSoundboard
     Copyright (C) 2021-2026 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
@@ -20,7 +20,6 @@
 */
 
 using Amplitude.Models;
-using AmplitudeSoundboard;
 using SharpHook;
 using SharpHook.Data;
 using SharpHook.Providers;
@@ -34,22 +33,29 @@ namespace Amplitude.Helpers
 {
     public class SharpKeyboardHook : IKeyboardHook
     {
+        private readonly Lazy<HotkeysManager> _hotkeysManager;
+        private readonly Lazy<SoundClipManager> _soundClipManager;
+        private readonly Lazy<WindowManager> _windowManager;
+
+        private HotkeysManager HotkeysManager => _hotkeysManager.Value;
+        private SoundClipManager SoundClipManager => _soundClipManager.Value;
+        private WindowManager WindowManager => _windowManager.Value;
+        
         private IGlobalHook? sharpHook;
         private Task? hookTask;
         private volatile bool hookAvailable;
         private volatile bool disposed;
-
         private static List<(SoundClip clip, Action<SoundClip, string> callback)> soundClipCallbacks = new();
         private static (Config? config, Action<Config, string> callback) globalStopCallback;
 
         private static readonly SortedSet<KeyCode> keySet = new();
         private readonly object keySetLock = new();
 
-        private static SharpKeyboardHook? _instance;
-        public static IKeyboardHook Instance => _instance ??= new SharpKeyboardHook();
-
-        private SharpKeyboardHook()
+        public SharpKeyboardHook(Lazy<HotkeysManager> hotkeysManager, Lazy<SoundClipManager> soundClipManager, Lazy<WindowManager> windowManager)
         {
+            _hotkeysManager = hotkeysManager;
+            _soundClipManager = soundClipManager;
+            _windowManager = windowManager;
             UioHookProvider.Instance.KeyTypedEnabled = false;
             StartHook();
         }
@@ -94,7 +100,7 @@ namespace Amplitude.Helpers
             }
             catch (Exception ex)
             {
-                App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["HotkeysStartError"], ex.Message));
+                WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["HotkeysStartError"], ex.Message));
             }
             return false;
         }
@@ -137,7 +143,7 @@ namespace Amplitude.Helpers
                 return;
             }
 #endif
-            App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["HotkeysStartError"], ex.Message));
+            WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["HotkeysStartError"], ex.Message));
         }
 
         private bool EnsureHookAvailable()
@@ -157,7 +163,7 @@ namespace Amplitude.Helpers
 
         private static void ShowMacOSAccessibilityError()
         {
-            App.WindowManager.ShowErrorString(Localization.Localizer.Instance["MacOSAccessibilityError"]);
+            WindowManager.ShowErrorString(Localization.Localizer.Instance["MacOSAccessibilityError"]);
         }
 
         private static void OpenAccessibilitySettings()
@@ -173,7 +179,7 @@ namespace Amplitude.Helpers
             }
             catch (Exception ex)
             {
-                App.WindowManager.ShowErrorString(ex.Message);
+                WindowManager.ShowErrorString(ex.Message);
             }
 #endif
         }
@@ -226,7 +232,7 @@ namespace Amplitude.Helpers
                 }
                 soundClipCallbacks.Clear();
             }
-            else if (currentKey != HotkeysManager.UNBIND_HOTKEY && App.HotkeysManager.Hotkeys.TryGetValue(fullKey, out List<string>? values))
+            else if (currentKey != HotkeysManager.UNBIND_HOTKEY && HotkeysManager.Hotkeys.TryGetValue(fullKey, out List<string>? values))
             {
                 // Go through and call all the Play methods on these id's
                 foreach (string item in values)
@@ -237,7 +243,7 @@ namespace Amplitude.Helpers
                     }
                     else
                     {
-                        var clip = App.SoundClipManager.GetClip(item);
+                        var clip = SoundClipManager.GetClip(item);
                         clip?.PlayAudio();
                     }
                 }

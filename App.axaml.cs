@@ -25,6 +25,7 @@ using Amplitude.Views;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Splat;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -39,6 +40,9 @@ namespace AmplitudeSoundboard
 {
     public class App : Application, INotifyPropertyChanged
     {
+        // Exposed for XAML data binding in App.axaml (FluentTheme accent color binding)
+        public ThemeManager ThemeManager => Locator.Current.GetService<ThemeManager>()!;
+
         private static string localApplicationDataPath = Path.Join(GetFolderPath(SpecialFolder.LocalApplicationData, SpecialFolderOption.DoNotVerify), "amplitude-soundboard");
         public static string APP_STORAGE
         {
@@ -52,16 +56,6 @@ namespace AmplitudeSoundboard
                 return localApplicationDataPath;
             }
         }
-
-        public static SoundClipManager SoundClipManager => SoundClipManager.Instance;
-        public static OutputProfileManager OutputProfileManager => OutputProfileManager.Instance;
-        public static HotkeysManager HotkeysManager => HotkeysManager.Instance;
-        public static ThemeManager ThemeManager => ThemeManager.Instance;
-        public static WindowManager WindowManager => WindowManager.Instance;
-        public static ConfigManager ConfigManager => ConfigManager.Instance;
-        public static ISoundEngine SoundEngine => MSoundEngine.Instance;
-        public static JsonIoManager JsonIoManager => JsonIoManager.Instance;
-        public static IKeyboardHook KeyboardHook => SharpKeyboardHook.Instance;
 
         public static string VERSION
         {
@@ -104,20 +98,17 @@ namespace AmplitudeSoundboard
                     DataContext = new MainWindowViewModel(),
                 };
 
-                // Initialize managers to make sure they are active
-                var e = SoundEngine;
-                var k = KeyboardHook;
-                var o = ConfigManager;
-                var p = OutputProfileManager;
-                var s = SoundClipManager;
-                var h = HotkeysManager;
-                var t = ThemeManager;
-                var w = WindowManager;
-                w.ReadWindowSizesAndPositions();
-                w.SetMainWindow((MainWindow)desktop.MainWindow);
+                // Initialize services - resolving SoundClipManager triggers the dependency chain
+                // which initializes all required services in the correct order
+                _ = Locator.Current.GetService<SoundClipManager>();
+
+                var windowManager = Locator.Current.GetService<WindowManager>()!;
+                windowManager.ReadWindowSizesAndPositions();
+                windowManager.SetMainWindow((MainWindow)desktop.MainWindow);
 
                 // Trigger UI redraw
-                ConfigManager.OnPropertyChanged(nameof(ConfigManager.Config));
+                var configManager = Locator.Current.GetService<ConfigManager>()!;
+                configManager.OnPropertyChanged(nameof(ConfigManager.Config));
 #if !DEBUG
 #if Windows
                 Task.Run(CleanupOldFiles);
@@ -159,7 +150,8 @@ namespace AmplitudeSoundboard
 
         private async void CheckForUpdates()
         {
-            if (!ConfigManager.Config.CheckForUpdates)
+            var configManager = Locator.Current.GetService<ConfigManager>()!;
+            if (!configManager.Config.CheckForUpdates)
             {
                 return;
             }
