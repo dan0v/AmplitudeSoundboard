@@ -35,7 +35,7 @@ namespace Amplitude.Helpers
         private readonly IKeyboardHook _keyboardHook;
         private readonly Lazy<SoundClipManager> _soundClipManager;
 
-        private IKeyboardHook KeyboardHook => _keyboardHook.Value;
+        private IKeyboardHook KeyboardHook => _keyboardHook;
         private SoundClipManager SoundClipManager => _soundClipManager.Value;
 
         public const string UNBIND_HOTKEY = "UNBIND_HOTKEY";

@@ -1,4 +1,4 @@
-/*
+﻿/*
     AmplitudeSoundboard
     Copyright (C) 2021-2026 dan0v
     https://git.dan0v.com/AmplitudeSoundboard
@@ -23,6 +23,7 @@ using Amplitude.Models;
 using SharpHook;
 using SharpHook.Data;
 using SharpHook.Providers;
+using Splat;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -163,7 +164,7 @@ namespace Amplitude.Helpers
 
         private static void ShowMacOSAccessibilityError()
         {
-            WindowManager.ShowErrorString(Localization.Localizer.Instance["MacOSAccessibilityError"]);
+			Locator.Current.GetService<WindowManager>()!.ShowErrorString(Localization.Localizer.Instance["MacOSAccessibilityError"]);
         }
 
         private static void OpenAccessibilitySettings()
