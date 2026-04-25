@@ -180,7 +180,7 @@ namespace Amplitude.Helpers
             }
             catch (Exception ex)
             {
-                WindowManager.ShowErrorString(ex.Message);
+                Locator.Current.GetService<WindowManager>()!.ShowErrorString(ex.Message);
             }
 #endif
         }
