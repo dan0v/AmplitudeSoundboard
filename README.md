@@ -2,7 +2,7 @@
 ![GitHub Logo](Branding/Banner.png)
 [![Release .NET Cross Platform App](https://github.com/dan0v/AmplitudeSoundboard/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/dan0v/AmplitudeSoundboard/actions/workflows/dotnet-desktop.yml)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # [Website](https://amplitude-soundboard.dan0v.com/index.html)
@@ -95,6 +95,7 @@ Many thanks to all these people! ([emoji key](https://allcontributors.org/docs/e
       <td align="center" valign="top" width="14.28%"><a href="https://chapien.net/"><img src="https://avatars.githubusercontent.com/u/2068976?v=4?s=100" width="100px;" alt="Chapien"/><br /><sub><b>Chapien</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/issues?q=author%3AChapien" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/deadnamedimmer"><img src="https://avatars.githubusercontent.com/u/43499958?v=4?s=100" width="100px;" alt="Dimmer"/><br /><sub><b>Dimmer</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=deadnamedimmer" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://jew.pizza/"><img src="https://avatars.githubusercontent.com/u/873944?v=4?s=100" width="100px;" alt="David Cooper"/><br /><sub><b>David Cooper</b></sub></a><br /><a href="#platform-dtcooper" title="Packaging/porting to new platform">📦</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/lucidboy1010"><img src="https://avatars.githubusercontent.com/u/98608811?v=4?s=100" width="100px;" alt="lucidboy1010"/><br /><sub><b>lucidboy1010</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=lucidboy1010" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
