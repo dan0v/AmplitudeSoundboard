@@ -35,7 +35,8 @@ jobs:
         sudo apt-get install -y zip unzip libfuse2
         cd Publish/Windows && /usr/bin/bash ./Windows.sh
         cd ../Linux && /usr/bin/bash ./Appimage.sh
-        cd ../MacOS && /usr/bin/bash ./MacOS.sh
+        cd ../MacOS && /usr/bin/bash ./MacOS.sh osx-x64
+        /usr/bin/bash ./MacOS.sh osx-arm64
         echo "VERSION=$(cat ../version.txt | sed 's/ *$//g' | sed 's/\r//' | sed ':a;N;$!ba;s/\n//g')" >> "$GITHUB_ENV"
 
     - name: Release
@@ -46,6 +47,7 @@ jobs:
         tag_name: "${{env.VERSION}}"
         files: |
           Publish/Amplitude_Soundboard-x86_64.AppImage
+          Publish/Amplitude_Soundboard_macOS_arm64.tar.gz
           Publish/Amplitude_Soundboard_macOS_x86_64.tar.gz
           Publish/Amplitude_Soundboard_win_x86_64.zip
           Publish/version.txt

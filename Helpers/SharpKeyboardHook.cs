@@ -22,8 +22,13 @@
 using Amplitude.Models;
 using SharpHook;
 using SharpHook.Data;
+using SharpHook.Providers;
+using Splat;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Amplitude.Helpers
 {
@@ -31,24 +36,153 @@ namespace Amplitude.Helpers
     {
         private readonly Lazy<HotkeysManager> _hotkeysManager;
         private readonly Lazy<SoundClipManager> _soundClipManager;
+        private readonly Lazy<WindowManager> _windowManager;
 
         private HotkeysManager HotkeysManager => _hotkeysManager.Value;
         private SoundClipManager SoundClipManager => _soundClipManager.Value;
-
-        private static IGlobalHook sharpHook = new TaskPoolGlobalHook();
+        private WindowManager WindowManager => _windowManager.Value;
+        
+        private IGlobalHook? sharpHook;
+        private Task? hookTask;
+        private volatile bool hookAvailable;
+        private volatile bool disposed;
         private static List<(SoundClip clip, Action<SoundClip, string> callback)> soundClipCallbacks = new();
         private static (Config? config, Action<Config, string> callback) globalStopCallback;
 
         private static readonly SortedSet<KeyCode> keySet = new();
         private readonly object keySetLock = new();
 
-        public SharpKeyboardHook(Lazy<HotkeysManager> hotkeysManager, Lazy<SoundClipManager> soundClipManager)
+        public SharpKeyboardHook(Lazy<HotkeysManager> hotkeysManager, Lazy<SoundClipManager> soundClipManager, Lazy<WindowManager> windowManager)
         {
             _hotkeysManager = hotkeysManager;
             _soundClipManager = soundClipManager;
-            sharpHook.KeyPressed += HandleKeyPressed;
-            sharpHook.KeyReleased += HandleKeyReleased;
-            sharpHook.RunAsync();
+            _windowManager = windowManager;
+            UioHookProvider.Instance.KeyTypedEnabled = false;
+            StartHook();
+        }
+
+        private bool StartHook()
+        {
+            if (disposed)
+            {
+                return false;
+            }
+
+            if (hookTask != null && !hookTask.IsCompleted)
+            {
+                return true;
+            }
+
+#if MacOS
+            if (!UioHookProvider.Instance.IsAxApiEnabled(true))
+            {
+                ShowMacOSAccessibilityError();
+                OpenAccessibilitySettings();
+                return false;
+            }
+#endif
+
+            try
+            {
+                sharpHook?.Dispose();
+                sharpHook = new EventLoopGlobalHook(GlobalHookType.Keyboard);
+                sharpHook.HookEnabled += HandleHookEnabled;
+                sharpHook.HookDisabled += HandleHookDisabled;
+                sharpHook.KeyPressed += HandleKeyPressed;
+                sharpHook.KeyReleased += HandleKeyReleased;
+
+                hookTask = sharpHook.RunAsync();
+                hookTask.ContinueWith(HandleHookFailure, TaskContinuationOptions.OnlyOnFaulted);
+                return true;
+            }
+            catch (HookException ex)
+            {
+                HandleHookException(ex);
+            }
+            catch (Exception ex)
+            {
+                WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["HotkeysStartError"], ex.Message));
+            }
+            return false;
+        }
+
+        private void HandleHookEnabled(object? sender, HookEventArgs e)
+        {
+            hookAvailable = true;
+        }
+
+        private void HandleHookDisabled(object? sender, HookEventArgs e)
+        {
+            hookAvailable = false;
+        }
+
+        private void HandleHookFailure(Task task)
+        {
+            hookAvailable = false;
+            if (task.Exception == null)
+            {
+                return;
+            }
+
+            foreach (var exception in task.Exception.Flatten().InnerExceptions)
+            {
+                if (exception is HookException hookException)
+                {
+                    HandleHookException(hookException);
+                }
+            }
+        }
+
+        private void HandleHookException(HookException ex)
+        {
+            hookAvailable = false;
+#if MacOS
+            if (ex.Result == UioHookResult.ErrorAxApiDisabled)
+            {
+                ShowMacOSAccessibilityError();
+                OpenAccessibilitySettings();
+                return;
+            }
+#endif
+            WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["HotkeysStartError"], ex.Message));
+        }
+
+        private bool EnsureHookAvailable()
+        {
+            if (disposed)
+            {
+                return false;
+            }
+
+            if (hookAvailable)
+            {
+                return true;
+            }
+
+            return StartHook();
+        }
+
+        private static void ShowMacOSAccessibilityError()
+        {
+			Locator.Current.GetService<WindowManager>()!.ShowErrorString(Localization.Localizer.Instance["MacOSAccessibilityError"]);
+        }
+
+        private static void OpenAccessibilitySettings()
+        {
+#if MacOS
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Locator.Current.GetService<WindowManager>()!.ShowErrorString(ex.Message);
+            }
+#endif
         }
 
         private void HandleKeyReleased(object? sender, KeyboardHookEventArgs e)
@@ -119,19 +253,15 @@ namespace Amplitude.Helpers
 
         private string FullKey(string currentKey)
         {
+            SortedSet<KeyCode> keySetCopy;
             lock (keySetLock)
             {
-                var keySetCopy = new SortedSet<KeyCode>(keySet);
+                keySetCopy = [.. keySet];
             }
 
-            if (keySet.Count > 0)
+            if (keySetCopy.Count > 0)
             {
-                string full = "";
-                foreach (KeyCode keyCode in keySet)
-                {
-                    full += GetFriendlyKeyName(keyCode) + "|";
-                }
-                return full + currentKey;
+                return string.Join("|", keySetCopy.Select(k => GetFriendlyKeyName(k))) + "|" + currentKey;
             }
             else
             {
@@ -225,21 +355,39 @@ namespace Amplitude.Helpers
             return keycode.ToString()[2..];
         }
 
-        public void SetSoundClipHotkey(SoundClip clip, Action<SoundClip, string> callback)
+        public bool SetSoundClipHotkey(SoundClip clip, Action<SoundClip, string> callback)
         {
+            if (!EnsureHookAvailable())
+            {
+                return false;
+            }
+
             soundClipCallbacks.Add((clip, callback));
+            return true;
         }
 
-        public void SetGlobalStopHotkey(Config config, Action<Config, string> callback)
+        public bool SetGlobalStopHotkey(Config config, Action<Config, string> callback)
         {
+            if (!EnsureHookAvailable())
+            {
+                return false;
+            }
+
             globalStopCallback = (config, callback);
+            return true;
         }
 
         public void Dispose()
         {
-            sharpHook.KeyPressed -= HandleKeyPressed;
-            sharpHook.KeyReleased -= HandleKeyReleased;
-            sharpHook.Dispose();
+            disposed = true;
+            if (sharpHook != null)
+            {
+                sharpHook.HookEnabled -= HandleHookEnabled;
+                sharpHook.HookDisabled -= HandleHookDisabled;
+                sharpHook.KeyPressed -= HandleKeyPressed;
+                sharpHook.KeyReleased -= HandleKeyReleased;
+                sharpHook.Dispose();
+            }
         }
     }
 }

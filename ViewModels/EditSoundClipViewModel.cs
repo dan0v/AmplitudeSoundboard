@@ -291,9 +291,14 @@ namespace Amplitude.ViewModels
 
         public void RecordHotkey()
         {
+            var previousHotkey = Model.Hotkey;
             Model.Hotkey = Localization.Localizer.Instance["HotkeyCancelPlaceholder"];
             WaitingForHotkey = true;
-            HotkeysManager.RecordSoundClipHotkey(Model);
+            if (!HotkeysManager.RecordSoundClipHotkey(Model))
+            {
+                Model.Hotkey = previousHotkey;
+                WaitingForHotkey = false;
+            }
         }
 
         public override void Dispose()

@@ -26,7 +26,7 @@ namespace Amplitude.Helpers
 {
     public interface IKeyboardHook : IDisposable
     {
-        public void SetSoundClipHotkey(SoundClip clip, Action<SoundClip, string> callback);
-        public void SetGlobalStopHotkey(Config config, Action<Config, string> callback);
+        public bool SetSoundClipHotkey(SoundClip clip, Action<SoundClip, string> callback);
+        public bool SetGlobalStopHotkey(Config config, Action<Config, string> callback);
     }
 }

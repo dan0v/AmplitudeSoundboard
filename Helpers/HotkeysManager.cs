@@ -34,18 +34,17 @@ namespace Amplitude.Helpers
     {
         private readonly IKeyboardHook _keyboardHook;
         private readonly Lazy<SoundClipManager> _soundClipManager;
-        private readonly ISoundEngine _soundEngine;
 
+        private IKeyboardHook KeyboardHook => _keyboardHook;
         private SoundClipManager SoundClipManager => _soundClipManager.Value;
 
         public const string UNBIND_HOTKEY = "UNBIND_HOTKEY";
         public const string MASTER_STOP_SOUND_HOTKEY = "MASTER_STOP_SOUND_HOTKEY";
 
-        public HotkeysManager(IKeyboardHook keyboardHook, Lazy<SoundClipManager> soundClipManager, ISoundEngine soundEngine)
+        public HotkeysManager(IKeyboardHook keyboardHook, Lazy<SoundClipManager> soundClipManager)
         {
             _keyboardHook = keyboardHook;
             _soundClipManager = soundClipManager;
-            _soundEngine = soundEngine;
         }
 
         public Dictionary<string, List<string>> Hotkeys = [];
@@ -68,9 +67,9 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void RecordGlobalStopSoundHotkey(Config config)
+        public bool RecordGlobalStopSoundHotkey(Config config)
         {
-            _keyboardHook.SetGlobalStopHotkey(config, RecordGlobalStopSoundHotkeyCallback);
+            return KeyboardHook.SetGlobalStopHotkey(config, RecordGlobalStopSoundHotkeyCallback);
         }
 
         public void RecordGlobalStopSoundHotkeyCallback(Config config, string hotkeyString)
@@ -93,9 +92,9 @@ namespace Amplitude.Helpers
             }
         }
 
-        public void RecordSoundClipHotkey(SoundClip clip)
+        public bool RecordSoundClipHotkey(SoundClip clip)
         {
-            _keyboardHook.SetSoundClipHotkey(clip, RecordSoundClipHotkeyCallback);
+            return KeyboardHook.SetSoundClipHotkey(clip, RecordSoundClipHotkeyCallback);
         }
 
         public void RecordSoundClipHotkeyCallback(SoundClip clip, string hotkeyString)
