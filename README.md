@@ -2,7 +2,7 @@
 ![GitHub Logo](Branding/Banner.png)
 [![Release .NET Cross Platform App](https://github.com/dan0v/AmplitudeSoundboard/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/dan0v/AmplitudeSoundboard/actions/workflows/dotnet-desktop.yml)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # [Website](https://amplitude-soundboard.dan0v.com/index.html)
@@ -36,8 +36,10 @@
 2. Run executable (`amplitude_soundboard.exe`).
 3. If you would like to play sound through an input device like a microphone, set up a program like [Virtual Audio Cable](https://vac.muzychenko.net/en/download.htm) and set the newly created virtual cable as your clip output device.
 
-### MacOS *(x64)*
-1. Download and unzip [latest MacOS build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/).
+### MacOS *(Apple Silicon / Intel)*
+1. Download the appropriate MacOS build from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/).
+ - Apple Silicon: `Amplitude_Soundboard_macOS_arm64.tar.gz`
+ - Intel: `Amplitude_Soundboard_macOS_x86_64.tar.gz`
 2. Run executable (`Amplitude Soundboard.app`).
  - If a security warning blocks the app from running, open `System Preferences -> Privacy & Security -> General` and click `Open Anyway`. This is due to not signing the app with an Apple Developer ID.
  - In order to use hotkeys, Amplitude Soundboard must be given accessibility permission to control your computer. This can be done under `System Preferences -> Privacy & Security -> Accessibility`. A popup should take you directly to this option at application startup. Amplitude Soundboard will need to be restarted after granting permissions for hotkeys to start working.
@@ -54,7 +56,7 @@
 A dialog automatically notifies users of available updates at application startup. To automatically update, click `Update`, or, to manually update, just download the [latest Windows build](https://git.dan0v.com/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_win_x86_64.zip) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `amplitude_soundboard.exe` with the new version.
 
 ### MacOS
-A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest MacOS build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard_macOS_x86_64.tar.gz) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude Soundboard.app` with the new version.
+A dialog automatically notifies users of available updates at application startup. To manually update, download the appropriate Apple Silicon or Intel MacOS build from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude Soundboard.app` with the new version.
 
 ### Linux
 A dialog automatically notifies users of available updates at application startup. To manually update, just download the [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard-x86_64.AppImage) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/) and replace your `Amplitude_Soundboard-x86_64.AppImage` with the new version. On Arch Linux, you can use the [`amplitude-soundboard-appimage`](https://aur.archlinux.org/packages/amplitude-soundboard-appimage) package in the AUR.
@@ -93,6 +95,7 @@ Many thanks to all these people! ([emoji key](https://allcontributors.org/docs/e
       <td align="center" valign="top" width="14.28%"><a href="https://chapien.net/"><img src="https://avatars.githubusercontent.com/u/2068976?v=4?s=100" width="100px;" alt="Chapien"/><br /><sub><b>Chapien</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/issues?q=author%3AChapien" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/deadnamedimmer"><img src="https://avatars.githubusercontent.com/u/43499958?v=4?s=100" width="100px;" alt="Dimmer"/><br /><sub><b>Dimmer</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=deadnamedimmer" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://jew.pizza/"><img src="https://avatars.githubusercontent.com/u/873944?v=4?s=100" width="100px;" alt="David Cooper"/><br /><sub><b>David Cooper</b></sub></a><br /><a href="#platform-dtcooper" title="Packaging/porting to new platform">📦</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/lucidboy1010"><img src="https://avatars.githubusercontent.com/u/98608811?v=4?s=100" width="100px;" alt="lucidboy1010"/><br /><sub><b>lucidboy1010</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/commits?author=lucidboy1010" title="Code">💻</a><a href="#platform-lucidboy1010" title="Packaging/porting to new platform">📦</a></td>
     </tr>
   </tbody>
 </table>

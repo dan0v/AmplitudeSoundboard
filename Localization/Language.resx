@@ -426,4 +426,13 @@
     <data name="OutputSettingsDeviceLabel" xml:space="preserve">
         <value>Output device</value>
     </data>
+    <data name="MacOSAccessibilityError" xml:space="preserve">
+        <value>Hotkeys need macOS Accessibility permission before Amplitude Soundboard can record or trigger keybinds. Open System Settings > Privacy and Security > Accessibility, enable Amplitude Soundboard, then restart the app.</value>
+    </data>
+    <data name="HotkeysStartError" xml:space="preserve">
+        <value>Hotkeys could not be started: {0}</value>
+    </data>
+    <data name="DefaultProfileCannotBeDeleted" xml:space="preserve">
+        <value>The default Output Profile cannot be deleted</value>
+    </data>
 </root>

@@ -19,10 +19,11 @@
     along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Amplitude.Helpers;
 using Amplitude.ViewModels;
-using AmplitudeSoundboard;
 using Avalonia;
 using Avalonia.Controls;
+using Splat;
 
 namespace Amplitude.Views
 {
@@ -50,7 +51,7 @@ namespace Amplitude.Views
             {
                 if (!string.IsNullOrEmpty((string?)e.NewValue) && e.NewValue != e.OldValue && modelId != null)
                 {
-                    App.WindowManager.OpenedEditOutputProfileWindow(modelId, this);
+                    Locator.Current.GetService<WindowManager>()!.OpenedEditOutputProfileWindow(modelId, this);
                 }
             }
         }
@@ -59,7 +60,7 @@ namespace Amplitude.Views
         {
             if (modelId != null)
             {
-                App.WindowManager.ClosedEditOutputProfileWindow(modelId);
+                Locator.Current.GetService<WindowManager>()!.ClosedEditOutputProfileWindow(modelId);
             }
             ((EditOutputProfileViewModel?)DataContext)?.Dispose();
             base.OnClosing(e);

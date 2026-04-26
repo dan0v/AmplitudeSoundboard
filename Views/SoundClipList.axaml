@@ -50,7 +50,7 @@
       <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" FontFamily="{Binding ThemeManager.TitleFont}" Classes="TITLE" Text="{i18n:Localize SoundClipListTitle}" FontWeight="Bold" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
       
       <Grid Margin="5,30,5,0" RowDefinitions="Auto,*,Auto" Name="styleroot">
-        <TextBox Grid.Row="0" Margin="10,0,10,5" Watermark="{i18n:Localize SoundClipListSearch}" Text="{Binding SoundClipManager.SoundClipListFilter}"></TextBox>
+        <TextBox Grid.Row="0" Margin="10,0,10,5" PlaceholderText="{i18n:Localize SoundClipListSearch}" Text="{Binding SoundClipManager.SoundClipListFilter}"></TextBox>
         <ScrollViewer Grid.Row="1">
           <StackPanel>
             <ItemsControl ItemsSource="{Binding SoundClipManager.FilteredSoundClipList}">

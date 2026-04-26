@@ -22,6 +22,7 @@
 using Amplitude.Helpers;
 using AmplitudeSoundboard;
 using Avalonia.Controls;
+using Splat;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -32,7 +33,7 @@ namespace Amplitude.Views
     {
         private readonly string projectUrl = "https://amplitude-soundboard.dan0v.com";
 
-        public ThemeManager ThemeManager => App.ThemeManager;
+        public ThemeManager ThemeManager => Locator.Current.GetService<ThemeManager>()!;
         public static bool CanUseCustomTitlebar => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.CUSTOM_TITLEBAR);
 
         public About()
@@ -60,7 +61,7 @@ Copyright (C) 2021-2026 dan0v";
             }
             catch (Exception ex)
             {
-                App.WindowManager.ShowErrorString(ex.Message);
+                Locator.Current.GetService<WindowManager>()!.ShowErrorString(ex.Message);
             }
         }
 
@@ -71,7 +72,7 @@ Copyright (C) 2021-2026 dan0v";
 
         protected override void OnClosing(WindowClosingEventArgs e)
         {
-            App.WindowManager.AboutWindow = null;
+            Locator.Current.GetService<WindowManager>()!.AboutWindow = null;
             this.txt_blk_URL.PointerPressed -= Txt_blk_URL_PointerPressed;
             base.OnClosing(e);
         }

@@ -21,6 +21,7 @@
 
 using Amplitude.Models;
 using AmplitudeSoundboard;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -35,8 +36,11 @@ namespace Amplitude.Helpers
 
     public class OutputProfileManager : INotifyPropertyChanged
     {
-        private static OutputProfileManager? _instance;
-        public static OutputProfileManager Instance => _instance ??= new OutputProfileManager();
+        private readonly JsonIoManager _jsonIoManager;
+        private readonly Lazy<WindowManager> _windowManager;
+
+        private JsonIoManager JsonIoManager => _jsonIoManager;
+        private WindowManager WindowManager => _windowManager.Value;
 
         private const string MIGRATED_PROFILES_NAME_BASE = "Migrated_Profile";
         private int migratedProfileCounter = 1;
@@ -49,8 +53,10 @@ namespace Amplitude.Helpers
 
         public List<OutputProfile> OutputProfilesList => OutputProfiles.Values.ToList();
 
-        private OutputProfileManager()
+        public OutputProfileManager(JsonIoManager jsonIoManager, Lazy<WindowManager> windowManager)
         {
+            _jsonIoManager = jsonIoManager;
+            _windowManager = windowManager;
             Dictionary<string, OutputProfile>? retrievedOutputProfiles = RetrieveSavedOutputProfiles();
 
             if (retrievedOutputProfiles != null)
@@ -137,9 +143,9 @@ namespace Amplitude.Helpers
 
         private void StoreSavedOutputProfiles()
         {
-            string profilesInJson = App.JsonIoManager.ConvertObjectsToJSON(OutputProfiles);
+            string profilesInJson = JsonIoManager.ConvertObjectsToJSON(OutputProfiles);
 
-            App.JsonIoManager.SaveJSONToFile(OUTPUTPROFILES_FILE, profilesInJson);
+            JsonIoManager.SaveJSONToFile(OUTPUTPROFILES_FILE, profilesInJson);
         }
 
         public void ValidateOutputProfile(OutputProfile? profile)
@@ -166,15 +172,15 @@ namespace Amplitude.Helpers
             }
             if (!ignoreErrors)
             {
-                App.WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["MissingOutputProfileString"], profileId));
+                WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["MissingOutputProfileString"], profileId));
             }
             return null;
         }
 
-        private static Dictionary<string, OutputProfile>? RetrieveSavedOutputProfiles()
+        private Dictionary<string, OutputProfile>? RetrieveSavedOutputProfiles()
         {
-            string? clipsInJson = App.JsonIoManager.RetrieveJSONFromFile(OUTPUTPROFILES_FILE);
-            var profiles = App.JsonIoManager.ConvertObjectsFromJSON<Dictionary<string, OutputProfile>>(clipsInJson);
+            string? clipsInJson = JsonIoManager.RetrieveJSONFromFile(OUTPUTPROFILES_FILE);
+            var profiles = JsonIoManager.ConvertObjectsFromJSON<Dictionary<string, OutputProfile>>(clipsInJson);
             foreach (var profile in profiles ?? [])
             {
                 profile.Value.InitializeId(profile.Key);

@@ -33,13 +33,22 @@ using System.Threading.Tasks;
 
 namespace Amplitude.Helpers
 {
-	[JsonSerializable(typeof(Dictionary<string, SoundClip>))]
+    [JsonSerializable(typeof(Dictionary<string, SoundClip>))]
     public partial class SoundClipManagerContext : JsonSerializerContext { }
 
     public class SoundClipManager : INotifyPropertyChanged
     {
-        private static SoundClipManager? _instance;
-        public static SoundClipManager Instance => _instance ??= new SoundClipManager();
+        private readonly OutputProfileManager _outputProfileManager;
+        private readonly Lazy<HotkeysManager> _hotkeysManager;
+        private readonly Lazy<WindowManager> _windowManager;
+        private readonly ISoundEngine _soundEngine;
+        private readonly JsonIoManager _jsonIoManager;
+
+        private OutputProfileManager OutputProfileManager => _outputProfileManager;
+        private HotkeysManager HotkeysManager => _hotkeysManager.Value;
+        private WindowManager WindowManager => _windowManager.Value;
+        private ISoundEngine SoundEngine => _soundEngine;
+        private JsonIoManager JsonIoManager => _jsonIoManager;
 
         private const string SOUNDCLIPS_FILE = "soundclips.json";
 
@@ -98,8 +107,14 @@ namespace Amplitude.Helpers
             await Task.WhenAll(rescaleTasks);
         }
 
-        private SoundClipManager()
+        public SoundClipManager(OutputProfileManager outputProfileManager, Lazy<HotkeysManager> hotkeysManager, Lazy<WindowManager> windowManager, ISoundEngine soundEngine, JsonIoManager jsonIoManager)
         {
+            _outputProfileManager = outputProfileManager;
+            _hotkeysManager = hotkeysManager;
+            _windowManager = windowManager;
+            _soundEngine = soundEngine;
+            _jsonIoManager = jsonIoManager;
+
             Dictionary<string, SoundClip>? retrievedClips = RetrieveSavedSoundClips();
 
             if (retrievedClips != null)
@@ -122,7 +137,7 @@ namespace Amplitude.Helpers
 
                 if (item.Value.OutputSettings.Any())
                 {
-                    item.Value.OutputProfileId = App.OutputProfileManager.FindOrCreateIdOfSimilarOutputProfile(item.Value.OutputSettings);
+                    item.Value.OutputProfileId = OutputProfileManager.FindOrCreateIdOfSimilarOutputProfile(item.Value.OutputSettings);
                     item.Value.OutputSettings = new ObservableCollection<OutputSettings>();
                 }
 
@@ -133,7 +148,7 @@ namespace Amplitude.Helpers
 
         private void RegisterSoundClipHotkey(SoundClip value)
         {
-            App.HotkeysManager.RegisterHotkeyAtStartup(value.Id, value.Hotkey);
+            HotkeysManager.RegisterHotkeyAtStartup(value.Id, value.Hotkey);
         }
 
         /// <summary>
@@ -144,24 +159,24 @@ namespace Amplitude.Helpers
         {
             if (!string.IsNullOrEmpty(clip.AudioFilePath) && !File.Exists(clip.AudioFilePath))
             {
-                App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.SoundClipErrorType.MISSING_AUDIO_FILE);
+                WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.SoundClipErrorType.MISSING_AUDIO_FILE);
             }
             if (!string.IsNullOrEmpty(clip.ImageFilePath) && !File.Exists(clip.ImageFilePath))
             {
-                App.WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.SoundClipErrorType.MISSING_IMAGE_FILE);
+                WindowManager.ShowErrorSoundClip(clip, ViewModels.ErrorListViewModel.SoundClipErrorType.MISSING_IMAGE_FILE);
             }
 
-            var profile = App.OutputProfileManager.GetOutputProfile(clip.OutputProfileId);
+            var profile = OutputProfileManager.GetOutputProfile(clip.OutputProfileId);
             if (profile == null)
             {
                 clip.OutputProfileId = OutputProfileManager.DEFAULT_OUTPUTPROFILE;
-                profile = App.OutputProfileManager.GetOutputProfile(clip.OutputProfileId);
+                profile = OutputProfileManager.GetOutputProfile(clip.OutputProfileId);
             }
 
-            App.OutputProfileManager.ValidateOutputProfile(profile);
+            OutputProfileManager.ValidateOutputProfile(profile);
             if (profile != null)
             {
-                App.SoundEngine.CheckDeviceExistsAndGenerateErrors(profile);
+                SoundEngine.CheckDeviceExistsAndGenerateErrors(profile);
             }
         }
 
@@ -183,23 +198,23 @@ namespace Amplitude.Helpers
                     SoundClips.Add(clip.Id, clip);
                     if (!string.IsNullOrEmpty(clip.Hotkey))
                     {
-                        App.HotkeysManager.RegisterHotkeyAtStartup(clip.Id, clip.Hotkey);
+                        HotkeysManager.RegisterHotkeyAtStartup(clip.Id, clip.Hotkey);
                     }
                 }
             }
             else if (SoundClips.TryGetValue(clip.Id, out SoundClip? oldClip))
             {
                 // Overwrite existing clip
-                App.HotkeysManager.RemoveHotkey(clip.Id, oldClip?.Hotkey);
+                HotkeysManager.RemoveHotkey(clip.Id, oldClip?.Hotkey);
                 if (!string.IsNullOrEmpty(clip.Hotkey))
                 {
-                    App.HotkeysManager.RegisterHotkeyAtStartup(clip.Id, clip.Hotkey);
+                    HotkeysManager.RegisterHotkeyAtStartup(clip.Id, clip.Hotkey);
                 }
                 SoundClips[clip.Id] = clip;
             }
             else
             {
-                App.WindowManager.ShowErrorString("SoundClip with ID: " + clip.Id + " could not be saved (does not exist)!");
+                WindowManager.ShowErrorString("SoundClip with ID: " + clip.Id + " could not be saved (does not exist)!");
             }
             ValidateSoundClip(clip);
             StoreSavedSoundClips();
@@ -216,7 +231,7 @@ namespace Amplitude.Helpers
 
             if (SoundClips.TryGetValue(id, out SoundClip? clip))
             {
-                App.HotkeysManager.RemoveHotkey(id, clip?.Hotkey);
+                HotkeysManager.RemoveHotkey(id, clip?.Hotkey);
 
                 SoundClips.Remove(id);
 
@@ -240,7 +255,7 @@ namespace Amplitude.Helpers
                     if (attempt / alphabet.Length >= alphabet.Length)
                     {
                         // Something has gone wrong, there has been easily enough time to find an Id
-                        App.WindowManager.ShowErrorString("A new Sound Clip could not be saved (could not generate Id, please try again later)!");
+                        WindowManager.ShowErrorString("A new Sound Clip could not be saved (could not generate Id, please try again later)!");
                         return false;
                     }
                     suf += alphabet[attempt / alphabet.Length] + alphabet[attempt % alphabet.Length];
@@ -269,21 +284,21 @@ namespace Amplitude.Helpers
             }
             if (!ignoreErrors)
             {
-                App.WindowManager.ShowErrorString("SoundClip with ID: " + id + " does not exist!");
+                WindowManager.ShowErrorString("SoundClip with ID: " + id + " does not exist!");
             }
             return null;
         }
 
-        private static Dictionary<string, SoundClip>? RetrieveSavedSoundClips()
+        private Dictionary<string, SoundClip>? RetrieveSavedSoundClips()
         {
-            var clipsInJson = App.JsonIoManager.RetrieveJSONFromFile(SOUNDCLIPS_FILE);
-            return App.JsonIoManager.ConvertObjectsFromJSON<Dictionary<string, SoundClip>>(clipsInJson);
+            var clipsInJson = JsonIoManager.RetrieveJSONFromFile(SOUNDCLIPS_FILE);
+            return JsonIoManager.ConvertObjectsFromJSON<Dictionary<string, SoundClip>>(clipsInJson);
         }
 
         private void StoreSavedSoundClips()
         {
-            var clipsInJson = App.JsonIoManager.ConvertObjectsToJSON(SoundClips);
-            App.JsonIoManager.SaveJSONToFile(SOUNDCLIPS_FILE, clipsInJson);
+            var clipsInJson = JsonIoManager.ConvertObjectsToJSON(SoundClips);
+            JsonIoManager.SaveJSONToFile(SOUNDCLIPS_FILE, clipsInJson);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

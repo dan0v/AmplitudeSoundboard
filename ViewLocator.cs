@@ -30,10 +30,10 @@ namespace Amplitude
     {
         public bool SupportsRecycling => false;
 
-        public Control Build(object data)
+        public Control Build(object? data)
         {
-            var name = data.GetType().FullName!.Replace("ViewModel", "View");
-            var type = Type.GetType(name);
+            var name = data?.GetType().FullName!.Replace("ViewModel", "View");
+            var type = name == null ? null : Type.GetType(name);
 
             if (type != null)
             {
@@ -45,7 +45,7 @@ namespace Amplitude
             }
         }
 
-        public bool Match(object data)
+        public bool Match(object? data)
         {
             return data is ViewModelBase;
         }
