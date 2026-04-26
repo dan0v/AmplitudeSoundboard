@@ -145,6 +145,15 @@
         "code",
         "platform"
       ]
+    },
+    {
+      "login": "cD1rtX3",
+      "name": "Coarse Rosinflower",
+      "avatar_url": "https://avatars.githubusercontent.com/u/113859223?v=4",
+      "profile": "https://github.com/cD1rtX3",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
