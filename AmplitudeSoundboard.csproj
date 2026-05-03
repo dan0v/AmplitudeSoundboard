@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <RootNamespace>Amplitude</RootNamespace>
     <NeutralLanguage>en</NeutralLanguage>
     <Platforms>AnyCPU;x64;ARM64</Platforms>
-    <Version>2.13.0</Version>
+    <Version>2.13.1</Version>
     <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>partial</TrimMode>

@@ -109,6 +109,6 @@ namespace Amplitude.Views
             base.OnClosing(e);
         }
 
-        Window GetWindow() => (Window?)this.VisualRoot ?? throw new NullReferenceException("Window should exist");
+        Window GetWindow() => TopLevel.GetTopLevel(this) as Window ?? throw new NullReferenceException("Window should exist");
     }
 }
