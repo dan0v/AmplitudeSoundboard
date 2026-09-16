@@ -38,6 +38,7 @@ namespace Amplitude.Localization
             { "Nederlands", "nl" },
             { "Polski", "pl" },
             { "Pусский", "ru" },
+            { "简体中文", "zh-Hans" },
         };
 
         private static Dictionary<string, string> inverseLanguages => Languages.ToDictionary(l => l.Value, l => l.Key);
@@ -77,6 +78,21 @@ namespace Amplitude.Localization
             {
                 ChangeLanguage(fullLang);
                 return fullLang;
+            }
+
+            // Some languages use script/region qualified culture codes (for example
+            // "zh-Hans"), which the two-letter lookup above cannot match. Walk up the
+            // culture chain so those system languages are still detected.
+            CultureInfo culture = CultureInfo.CurrentUICulture;
+            while (!string.IsNullOrEmpty(culture.Name))
+            {
+                if (inverseLanguages.TryGetValue(culture.Name, out string? qualifiedLang))
+                {
+                    ChangeLanguage(qualifiedLang);
+                    return qualifiedLang;
+                }
+
+                culture = culture.Parent;
             }
 
             ChangeLanguage(FALLBACK_LANGUAGE);
