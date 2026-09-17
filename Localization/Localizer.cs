@@ -84,14 +84,15 @@ namespace Amplitude.Localization
             // "zh-Hans"), which the two-letter lookup above cannot match. Walk up the
             // culture chain so those system languages are still detected.
             //
-            // Termination: the chain is short and finite, e.g.
-            // zh-CN -> zh-CHS -> zh-Hans -> zh -> InvariantCulture (4 steps max).
-            // CultureInfo.Name is never null, but it IS the empty string on the root
-            // culture, which is what ends the loop below. CultureInfo.Parent is never
-            // null either - the root culture is its own parent - so do NOT rewrite this
-            // as a null check on Parent: that would spin forever on unknown languages.
+            // The walk is bounded twice over: (a) the chain is short and finite,
+            // e.g. zh-CN -> zh-CHS -> zh-Hans -> zh -> InvariantCulture, where
+            // CultureInfo.Name is the empty string and so ends the loop; and (b) an
+            // explicit depth limit guarantees exit even if a platform ever reports an
+            // unexpected parent chain. Note CultureInfo.Name is never null and
+            // CultureInfo.Parent is never null either (the root culture is its own
+            // parent), so a null check on Parent would spin forever.
             CultureInfo culture = CultureInfo.CurrentUICulture;
-            while (!string.IsNullOrEmpty(culture.Name))
+            for (int depth = 0; depth < 8 && !string.IsNullOrEmpty(culture.Name); depth++)
             {
                 if (inverseLanguages.TryGetValue(culture.Name, out string? qualifiedLang))
                 {
