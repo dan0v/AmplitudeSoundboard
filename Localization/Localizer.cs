@@ -83,6 +83,13 @@ namespace Amplitude.Localization
             // Some languages use script/region qualified culture codes (for example
             // "zh-Hans"), which the two-letter lookup above cannot match. Walk up the
             // culture chain so those system languages are still detected.
+            //
+            // Termination: the chain is short and finite, e.g.
+            // zh-CN -> zh-CHS -> zh-Hans -> zh -> InvariantCulture (4 steps max).
+            // CultureInfo.Name is never null, but it IS the empty string on the root
+            // culture, which is what ends the loop below. CultureInfo.Parent is never
+            // null either - the root culture is its own parent - so do NOT rewrite this
+            // as a null check on Parent: that would spin forever on unknown languages.
             CultureInfo culture = CultureInfo.CurrentUICulture;
             while (!string.IsNullOrEmpty(culture.Name))
             {

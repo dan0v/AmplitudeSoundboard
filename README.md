@@ -28,7 +28,7 @@
   | - | - | - |
   | English | Español | Italiano |
   | Magyar | Nederlands | Polski |
-  | Pусский |  |  |
+  | Pусский | 简体中文 |  |
 
 ## Installation
 ### Windows *(x64)*
