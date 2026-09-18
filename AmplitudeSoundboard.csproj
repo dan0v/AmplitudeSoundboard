@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <RootNamespace>Amplitude</RootNamespace>
     <NeutralLanguage>en</NeutralLanguage>
     <Platforms>AnyCPU;x64;ARM64</Platforms>
-    <Version>2.13.1</Version>
+    <Version>2.14.0</Version>
     <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>partial</TrimMode>
@@ -35,16 +35,16 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="12.0.1" />
-    <PackageReference Include="Avalonia.Desktop" Version="12.0.1" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.1" />
-    <PackageReference Include="Avalonia.Controls.ColorPicker" Version="12.0.1" />
+    <PackageReference Include="Avalonia" Version="12.1.2" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.2" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.2" />
+    <PackageReference Include="Avalonia.Controls.ColorPicker" Version="12.1.2" />
     <PackageReference Include="ManagedBass" Version="4.0.2" />
     <PackageReference Include="ManagedBass.Flac" Version="4.0.2" />
     <PackageReference Include="ManagedBass.Mix" Version="4.0.2" />
     <PackageReference Include="ManagedBass.Opus" Version="4.0.2" />
-    <PackageReference Include="ReactiveUI.Avalonia" Version="12.0.1" />
-    <PackageReference Include="ReactiveUI.Avalonia.Microsoft.Extensions.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="ReactiveUI.Avalonia" Version="12.1.2" />
+    <PackageReference Include="ReactiveUI.Avalonia.Microsoft.Extensions.DependencyInjection" Version="12.1.2" />
     <PackageReference Include="SharpHook" Version="7.1.1" />
   </ItemGroup>
   <ItemGroup>
