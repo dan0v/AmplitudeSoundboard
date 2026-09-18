@@ -38,6 +38,7 @@ namespace Amplitude.Localization
             { "Nederlands", "nl" },
             { "Polski", "pl" },
             { "Pусский", "ru" },
+            { "简体中文", "zh-Hans" },
         };
 
         private static Dictionary<string, string> inverseLanguages => Languages.ToDictionary(l => l.Value, l => l.Key);
@@ -77,6 +78,29 @@ namespace Amplitude.Localization
             {
                 ChangeLanguage(fullLang);
                 return fullLang;
+            }
+
+            // Some languages use script/region qualified culture codes (for example
+            // "zh-Hans"), which the two-letter lookup above cannot match. Walk up the
+            // culture chain so those system languages are still detected.
+            //
+            // The walk is bounded twice over: (a) the chain is short and finite,
+            // e.g. zh-CN -> zh-CHS -> zh-Hans -> zh -> InvariantCulture, where
+            // CultureInfo.Name is the empty string and so ends the loop; and (b) an
+            // explicit depth limit guarantees exit even if a platform ever reports an
+            // unexpected parent chain. Note CultureInfo.Name is never null and
+            // CultureInfo.Parent is never null either (the root culture is its own
+            // parent), so a null check on Parent would spin forever.
+            CultureInfo culture = CultureInfo.CurrentUICulture;
+            for (int depth = 0; depth < 8 && !string.IsNullOrEmpty(culture.Name); depth++)
+            {
+                if (inverseLanguages.TryGetValue(culture.Name, out string? qualifiedLang))
+                {
+                    ChangeLanguage(qualifiedLang);
+                    return qualifiedLang;
+                }
+
+                culture = culture.Parent;
             }
 
             ChangeLanguage(FALLBACK_LANGUAGE);

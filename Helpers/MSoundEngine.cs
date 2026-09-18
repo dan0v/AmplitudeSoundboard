@@ -21,7 +21,6 @@
 
 using Amplitude.Models;
 using Amplitude.ViewModels;
-using DynamicData;
 using ManagedBass;
 using ManagedBass.Mix;
 using System;
@@ -50,7 +49,7 @@ namespace Amplitude.Helpers
         public ObservableCollection<SoundClip> Queued => _queued;
 
         private readonly object streamsToFreeLock = new();
-        private Collection<StreamToFree> _streamsToFree = [];
+        private Dictionary<int, StreamToFree> _streamsToFree = [];
 
 
         private const long TIMER_MS = 100;
@@ -94,12 +93,12 @@ namespace Amplitude.Helpers
             lock (streamsToFreeLock)
             {
                 var timeNow = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                var streamsToFreeAndRemove = _streamsToFree.Where(it => timeNow >= it.freeAtUnixTime).ToArray();
+                var streamsToFreeAndRemove = _streamsToFree.Values.Where(it => timeNow >= it.freeAtUnixTime).ToArray();
                 foreach (StreamToFree stream in streamsToFreeAndRemove)
                 {
                     StopPlaying(stream.bassStreamId, 0, 0);
+                    _streamsToFree.Remove(stream.bassStreamId);
                 }
-                _streamsToFree.RemoveMany(streamsToFreeAndRemove);
             }
         }
 
@@ -350,7 +349,7 @@ namespace Amplitude.Helpers
             {
                 int remainingFadeOut = (int)(remainingMilis < fadeOutMilis ? remainingMilis : fadeOutMilis);
                 Bass.ChannelSlideAttribute(handle, ChannelAttribute.Volume, 0, remainingFadeOut);
-                _streamsToFree.Add(new StreamToFree(handle, DateTimeOffset.Now.ToUnixTimeMilliseconds() + remainingFadeOut));
+                _streamsToFree.Add(handle, new StreamToFree(handle, DateTimeOffset.Now.ToUnixTimeMilliseconds() + remainingFadeOut));
             }
         }
 

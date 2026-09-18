@@ -1,0 +1,438 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="AboutTitle" xml:space="preserve">
+        <value>关于</value>
+    </data>
+    <data name="AcceptButton" xml:space="preserve">
+        <value>确定</value>
+    </data>
+    <data name="CancelButton" xml:space="preserve">
+        <value>取消</value>
+    </data>
+    <data name="ClearTile" xml:space="preserve">
+        <value>清除磁贴</value>
+    </data>
+    <data name="ClipAudioFilePathLabel" xml:space="preserve">
+        <value>音效片段文件路径</value>
+    </data>
+    <data name="ClipFilePathPlaceholder" xml:space="preserve">
+        <value>选择文件路径…</value>
+    </data>
+    <data name="ClipHotkeyLabel" xml:space="preserve">
+        <value>热键</value>
+    </data>
+    <data name="ClipImageFilePathLabel" xml:space="preserve">
+        <value>背景图片文件路径</value>
+    </data>
+    <data name="ClipNameLabel" xml:space="preserve">
+        <value>片段名称</value>
+    </data>
+    <data name="ClipNamePlaceholder" xml:space="preserve">
+        <value>输入名称…</value>
+    </data>
+    <data name="OutputVolumeLabel" xml:space="preserve">
+        <value>输出音量</value>
+    </data>
+    <data name="ColumnsPlaceholder" xml:space="preserve">
+        <value>列数</value>
+    </data>
+    <data name="CopyToClipboard" xml:space="preserve">
+        <value>复制到剪贴板</value>
+    </data>
+    <data name="DeleteSoundClipButton" xml:space="preserve">
+        <value>删除</value>
+    </data>
+    <data name="DeleteSoundClipConfirmationPrompt" xml:space="preserve">
+        <value>确定要删除音效片段“{0}”吗？</value>
+    </data>
+    <data name="DeleteSoundClipConfirmationTitle" xml:space="preserve">
+        <value>确认删除</value>
+    </data>
+    <data name="DismissWindow" xml:space="preserve">
+        <value>关闭</value>
+    </data>
+    <data name="EditSoundClipTitle" xml:space="preserve">
+        <value>编辑音效片段</value>
+    </data>
+    <data name="EditSoundClipTooltip" xml:space="preserve">
+        <value>编辑音效片段</value>
+    </data>
+    <data name="EmptyTilePrompt" xml:space="preserve">
+        <value>将音效片段拖到此处即可绑定！</value>
+    </data>
+    <data name="ErrorListTitle" xml:space="preserve">
+        <value>错误列表</value>
+    </data>
+    <data name="FileBadFormatString" xml:space="preserve">
+        <value>以下文件格式无法识别：“{0}”</value>
+    </data>
+    <data name="FileBrowseAudio" xml:space="preserve">
+        <value>选择音频文件…</value>
+    </data>
+    <data name="FileBrowseImage" xml:space="preserve">
+        <value>选择图片文件…</value>
+    </data>
+    <data name="FileMissingString" xml:space="preserve">
+        <value>找不到以下文件：“{0}”</value>
+    </data>
+    <data name="FilePathPlaceholder" xml:space="preserve">
+        <value>文件路径…</value>
+    </data>
+    <data name="GlobalSettingsTitle" xml:space="preserve">
+        <value>偏好设置</value>
+    </data>
+    <data name="GridSizeLabel" xml:space="preserve">
+        <value>网格尺寸</value>
+    </data>
+    <data name="GridTileSizeLabel" xml:space="preserve">
+        <value>网格磁贴大小</value>
+    </data>
+    <data name="GridTutorial" xml:space="preserve">
+        <value>从音效片段列表复制片段，右键粘贴到任意网格磁贴！</value>
+    </data>
+    <data name="HeightPlaceholder" xml:space="preserve">
+        <value>高度</value>
+    </data>
+    <data name="HideTutorial" xml:space="preserve">
+        <value>隐藏教程</value>
+    </data>
+    <data name="HotkeyPlaceholder" xml:space="preserve">
+        <value>按下按键组合进行录制…</value>
+    </data>
+    <data name="LicenseLabel" xml:space="preserve">
+        <value>许可证</value>
+    </data>
+    <data name="MasterVolumeLabel" xml:space="preserve">
+        <value>主音量</value>
+    </data>
+    <data name="MissingDeviceString" xml:space="preserve">
+        <value>输出设备“{0}”已丢失，无法用于播放！</value>
+    </data>
+    <data name="NewSoundClip" xml:space="preserve">
+        <value>新建音效片段</value>
+    </data>
+    <data name="NewVersionAvailable" xml:space="preserve">
+        <value>有新版本可用</value>
+    </data>
+    <data name="NewVersionCanBeDownloaded" xml:space="preserve">
+        <value>版本 {0} 可从 GitHub 的发布页面下载</value>
+    </data>
+    <data name="NewVersionCanBeInstalled" xml:space="preserve">
+        <value>版本 {0} 现在可以安装</value>
+    </data>
+    <data name="NoticeLabel" xml:space="preserve">
+        <value>声明</value>
+    </data>
+    <data name="OutputDeviceLabel" xml:space="preserve">
+        <value>输出设备</value>
+    </data>
+    <data name="PasteClip" xml:space="preserve">
+        <value>将片段粘贴到磁贴</value>
+    </data>
+    <data name="PlaySound" xml:space="preserve">
+        <value>播放音频</value>
+    </data>
+    <data name="RowsPlaceholder" xml:space="preserve">
+        <value>行数</value>
+    </data>
+    <data name="SaveButton" xml:space="preserve">
+        <value>保存</value>
+    </data>
+    <data name="SaveButtonDisabledTooltip" xml:space="preserve">
+        <value>请输入音效片段名称</value>
+    </data>
+    <data name="ShowNameOnGridTile" xml:space="preserve">
+        <value>在网格磁贴视图中显示名称</value>
+    </data>
+    <data name="SoundClipError" xml:space="preserve">
+        <value>音效片段“{0}”存在错误：\\n{1}</value>
+    </data>
+    <data name="SoundClipListSearch" xml:space="preserve">
+        <value>搜索…</value>
+    </data>
+    <data name="SoundClipListTitle" xml:space="preserve">
+        <value>音效片段列表</value>
+    </data>
+    <data name="StopAllAudio" xml:space="preserve">
+        <value>停止音频</value>
+    </data>
+    <data name="StopAllAudioHotkeyLabel" xml:space="preserve">
+        <value>停止全部音频热键</value>
+    </data>
+    <data name="TestSound" xml:space="preserve">
+        <value>测试音频</value>
+    </data>
+    <data name="ThemeLabel" xml:space="preserve">
+        <value>基础主题</value>
+    </data>
+    <data name="UpdateLabel" xml:space="preserve">
+        <value>更新</value>
+    </data>
+    <data name="UpdatePromptTitle" xml:space="preserve">
+        <value>有可用更新</value>
+    </data>
+    <data name="ViewReleases" xml:space="preserve">
+        <value>查看发布版本</value>
+    </data>
+    <data name="WidthPlaceholder" xml:space="preserve">
+        <value>宽度</value>
+    </data>
+    <data name="AddSoundClipOutput" xml:space="preserve">
+        <value>添加输出设备</value>
+    </data>
+    <data name="RemoveSoundClipOutput" xml:space="preserve">
+        <value>移除输出设备</value>
+    </data>
+    <data name="VolumeLabel" xml:space="preserve">
+        <value>音量</value>
+    </data>
+    <data name="LanguageLabel" xml:space="preserve">
+        <value>语言</value>
+    </data>
+    <data name="GlobalOutputDefaults" xml:space="preserve">
+        <value>全局输出设置</value>
+    </data>
+    <data name="CreateClipInPlace" xml:space="preserve">
+        <value>在此新建片段</value>
+    </data>
+    <data name="CacheAudioExplanation" xml:space="preserve">
+        <value>缓存需要重采样的音频以加快播放速度（消耗内存）</value>
+    </data>
+    <data name="CacheAudioLabel" xml:space="preserve">
+        <value>缓存重采样音频</value>
+    </data>
+    <data name="PreCacheAudioExplanation" xml:space="preserve">
+        <value>启动时缓存所有可能需要重采样的音频文件</value>
+    </data>
+    <data name="PreCacheAudioLabel" xml:space="preserve">
+        <value>启动时预缓存音频</value>
+    </data>
+    <data name="ResamplingAudioTooltip" xml:space="preserve">
+        <value>正在重采样音频</value>
+    </data>
+    <data name="ClearCache" xml:space="preserve">
+        <value>清除音频缓存以释放内存</value>
+    </data>
+    <data name="AutoScaleTilesToWindowLabel" xml:space="preserve">
+        <value>自动缩放磁贴以适应窗口</value>
+    </data>
+    <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
+        <value>允许磁贴拉伸以填满窗口可用空间，或设置自定义磁贴大小</value>
+    </data>
+    <data name="CustomTheme" xml:space="preserve">
+        <value>自定义</value>
+    </data>
+    <data name="DarkTheme" xml:space="preserve">
+        <value>深色</value>
+    </data>
+    <data name="InvalidThemeError" xml:space="preserve">
+        <value>所选主题超出范围：{0}</value>
+    </data>
+    <data name="LightTheme" xml:space="preserve">
+        <value>浅色</value>
+    </data>
+    <data name="HotkeyCancelPlaceholder" xml:space="preserve">
+        <value>按 ESC 清除此绑定…</value>
+    </data>
+    <data name="FeatureUnavailable" xml:space="preserve">
+        <value>此功能在你的平台上尚不可用</value>
+    </data>
+    <data name="AddClipToQueue" xml:space="preserve">
+        <value>添加到队列</value>
+    </data>
+    <data name="Remove" xml:space="preserve">
+        <value>移除</value>
+    </data>
+    <data name="ClearPositions" xml:space="preserve">
+        <value>重置窗口大小和位置</value>
+    </data>
+    <data name="ClearPositionsTooltip" xml:space="preserve">
+        <value>若窗口无法触及，可重置窗口大小和位置</value>
+    </data>
+    <data name="MissingOutputProfileString" xml:space="preserve">
+        <value>输出配置“{0}”已丢失，无法用于播放！</value>
+    </data>
+    <data name="OutputProfileError" xml:space="preserve">
+        <value>输出配置“{0}”存在错误：\\n{1}</value>
+    </data>
+    <data name="EditOutputProfileTitle" xml:space="preserve">
+        <value>编辑输出配置</value>
+    </data>
+    <data name="OutputProfileNameLabel" xml:space="preserve">
+        <value>输出配置名称</value>
+    </data>
+    <data name="OutputProfileLabel" xml:space="preserve">
+        <value>输出配置</value>
+    </data>
+    <data name="EditOutputProfileTooltip" xml:space="preserve">
+        <value>编辑输出配置</value>
+    </data>
+    <data name="NewOutputProfileTooltip" xml:space="preserve">
+        <value>新建输出配置</value>
+    </data>
+    <data name="LoopClipLabel" xml:space="preserve">
+        <value>循环播放片段</value>
+    </data>
+    <data name="LoopClipTooltip" xml:space="preserve">
+        <value>永久循环播放片段</value>
+    </data>
+    <data name="CheckForUpdates" xml:space="preserve">
+        <value>检查更新</value>
+    </data>
+    <data name="StopAudioOnRetrigger" xml:space="preserve">
+        <value>重复触发时切换音频播放状态</value>
+    </data>
+    <data name="AccentColorLabel" xml:space="preserve">
+        <value>强调色</value>
+    </data>
+    <data name="ResetThemeBaseTooltip" xml:space="preserve">
+        <value>重置主题设置</value>
+    </data>
+    <data name="SecondaryColorLabel" xml:space="preserve">
+        <value>次要颜色</value>
+    </data>
+    <data name="ThemeSettingsTitle" xml:space="preserve">
+        <value>主题设置</value>
+    </data>
+    <data name="WindowBackgroundColorLabel" xml:space="preserve">
+        <value>窗口背景颜色</value>
+    </data>
+    <data name="WindowBackgroundOpacityLabel" xml:space="preserve">
+        <value>窗口背景不透明度</value>
+    </data>
+    <data name="OpenThemeSettingsButton" xml:space="preserve">
+        <value>配置主题</value>
+    </data>
+    <data name="OutputSettingsFadeOutLabel" xml:space="preserve">
+        <value>音频播放淡出（毫秒）</value>
+    </data>
+    <data name="OutputSettingsDeviceLabel" xml:space="preserve">
+        <value>输出设备</value>
+    </data>
+    <data name="MacOSAccessibilityError" xml:space="preserve">
+        <value>热键需要 macOS 辅助功能权限，Amplitude Soundboard 才能录制或触发按键绑定。打开“系统设置”>“隐私与安全性”>“辅助功能”，启用 Amplitude Soundboard，然后重启应用。</value>
+    </data>
+    <data name="HotkeysStartError" xml:space="preserve">
+        <value>无法启动热键：{0}</value>
+    </data>
+    <data name="DefaultProfileCannotBeDeleted" xml:space="preserve">
+        <value>无法删除默认输出配置</value>
+    </data>
+</root>

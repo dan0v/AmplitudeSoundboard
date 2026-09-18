@@ -21,7 +21,6 @@
 
 using Amplitude.Helpers;
 using Amplitude.Models;
-using DynamicData;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -55,7 +54,10 @@ namespace Amplitude.ViewModels
 
             var newRows = ConfigManager.GetGridLayout();
             GridItemsRows.Clear();
-            GridItemsRows.AddRange(newRows);
+            foreach (var row in newRows)
+            {
+                GridItemsRows.Add(row);
+            }
             OnPropertyChanged(nameof(GridItemsRows));
         }
 
@@ -79,7 +81,10 @@ namespace Amplitude.ViewModels
 
                 var newRows = ConfigManager.GetGridLayout();
                 GridItemsRows.Clear();
-                GridItemsRows.AddRange(newRows);
+                foreach (var row in newRows)
+                {
+                    GridItemsRows.Add(row);
+                }
                 OnPropertyChanged(nameof(GridItemsRows));
             }
         }
