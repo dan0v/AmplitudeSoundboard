@@ -181,6 +181,20 @@ namespace Amplitude.Models
             }
         }
 
+        private bool _degradedX11InputMode = false;
+        public bool DegradedX11InputMode
+        {
+            get => _degradedX11InputMode;
+            set
+            {
+                if (value != _degradedX11InputMode)
+                {
+                    _degradedX11InputMode = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public Config()
         {
             Language = Localizer.Instance.TryUseSystemLanguageFallbackEnglish();

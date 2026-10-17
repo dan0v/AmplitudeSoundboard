@@ -1,0 +1,88 @@
+<!--
+    AmplitudeSoundboard
+    Copyright (C) 2021-2026 dan0v
+    https://git.dan0v.com/AmplitudeSoundboard
+
+    This file is part of AmplitudeSoundboard.
+
+    AmplitudeSoundboard is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    AmplitudeSoundboard is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with AmplitudeSoundboard.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="440" d:DesignHeight="420"
+        xmlns:i18n="clr-namespace:Amplitude.Localization"
+        x:Class="Amplitude.Views.WaylandHotkeysPrompt"
+        xmlns:vm="using:Amplitude.Views"
+        Icon="/Assets/Icon.ico"
+        Title="{i18n:Localize WaylandHotkeysPromptTitle}"
+        Width="440" Height="350" MinWidth="440" MinHeight="350" MaxWidth="440"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="{Binding CanUseCustomTitlebar}"
+        x:DataType="vm:WaylandHotkeysPrompt">
+
+  <Window.Styles>
+    <StyleInclude Source="/Styles/DefaultStyle.axaml" />
+    <Style Selector="Button">
+      <Setter Property="FontFamily" Value="{Binding ThemeManager.BodyFont}"/>
+      <Setter Property="Background">
+        <Setter.Value>
+          <SolidColorBrush Color="{Binding ThemeManager.Theme.AccentColor}"/>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </Window.Styles>
+
+  <Panel Name="styleroot">
+
+    <ExperimentalAcrylicBorder x:Name="Acrylic" IsHitTestVisible="False" Material="{Binding ThemeManager.Theme.Acrylic}">
+    </ExperimentalAcrylicBorder>
+
+    <TextBlock IsVisible="{Binding CanUseCustomTitlebar}" Text="{i18n:Localize WaylandHotkeysPromptTitle}" Classes="TITLE" FontWeight="Bold" FontFamily="{Binding ThemeManager.TitleFont}" Margin="10,10,10,10" HorizontalAlignment="Center" IsHitTestVisible="False" ></TextBlock>
+
+    <Grid RowDefinitions="*,Auto" Margin="0,30,0,0">
+      <ScrollViewer Grid.Row="0">
+        <StackPanel>
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5" IsVisible="{Binding !DegradedModeEnabled}">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
+            </Border.BorderBrush>
+            <StackPanel>
+              <TextBlock TextWrapping="Wrap" Margin="5" Text="{i18n:Localize LinuxInputPermissionsError}"></TextBlock>
+              <Button Command="{Binding OpenDocumentation}" Content="{i18n:Localize LinuxHotkeysDocsLinkButton}" HorizontalAlignment="Center" Margin="5,10,5,5" Cursor="Hand"/>
+              <TextBlock TextWrapping="Wrap" Margin="5,10,5,5" Text="{i18n:Localize LinuxDegradedModeExplanation}"></TextBlock>
+            </StackPanel>
+          </Border>
+          <Border BorderThickness="2" CornerRadius="5" Margin="5" Padding="5" IsVisible="{Binding DegradedModeEnabled}">
+            <Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ThemeManager.Theme.BorderColor}"/>
+            </Border.BorderBrush>
+            <TextBlock TextWrapping="Wrap" Margin="5" TextAlignment="Center" Text="{i18n:Localize LinuxDegradedModeEnabled}"></TextBlock>
+          </Border>
+        </StackPanel>
+      </ScrollViewer>
+      <Grid Grid.Row="1" ColumnDefinitions="*,Auto" IsVisible="{Binding !DegradedModeEnabled}">
+        <Button Grid.Column="0" Content="{i18n:Localize LinuxDegradedModeButton}" Command="{Binding EnableDegradedMode}" Cursor="Hand" HorizontalAlignment="Stretch" Margin="10"/>
+        <Button Grid.Column="1" Content="{i18n:Localize DismissWindow}" Command="{Binding Dismiss}" Cursor="Hand" HorizontalAlignment="Right" Margin="10"/>
+      </Grid>
+      <Grid Grid.Row="1" ColumnDefinitions="*" IsVisible="{Binding DegradedModeEnabled}">
+        <Button Content="{i18n:Localize DismissWindow}" Command="{Binding Dismiss}" Cursor="Hand" HorizontalAlignment="Stretch" Margin="10"/>
+      </Grid>
+    </Grid>
+  </Panel>
+
+</Window>

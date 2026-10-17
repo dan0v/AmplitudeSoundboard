@@ -429,6 +429,30 @@
     <data name="MacOSAccessibilityError" xml:space="preserve">
         <value>Hotkeys need macOS Accessibility permission before Amplitude Soundboard can record or trigger keybinds. Open System Settings > Privacy and Security > Accessibility, enable Amplitude Soundboard, then restart the app.</value>
     </data>
+    <data name="LinuxInputPermissionsError" xml:space="preserve">
+        <value>Hotkeys need permission to read input devices on Wayland. Add your user to the 'input' group or create a udev rule granting access to /dev/input, then restart the app.</value>
+    </data>
+    <data name="WaylandHotkeysPromptTitle" xml:space="preserve">
+        <value>Hotkeys unavailable</value>
+    </data>
+    <data name="LinuxHotkeysDocsLinkButton" xml:space="preserve">
+        <value>Open SharpHook documentation</value>
+    </data>
+    <data name="LinuxDegradedModeExplanation" xml:space="preserve">
+        <value>If you prefer not to grant these permissions, you can enable degraded X11 input mode here or later in Global Settings. It requires no permissions, but hotkeys will only be captured while an X11 (XWayland) application is focused.</value>
+    </data>
+    <data name="LinuxDegradedModeButton" xml:space="preserve">
+        <value>Run degraded X11 mode</value>
+    </data>
+    <data name="LinuxDegradedModeEnabled" xml:space="preserve">
+        <value>Degraded X11 input mode has been enabled. Please restart Amplitude Soundboard for it to take effect.</value>
+    </data>
+    <data name="LinuxDegradedModeLabel" xml:space="preserve">
+        <value>Degraded X11 input mode (Wayland)</value>
+    </data>
+    <data name="LinuxDegradedModeTooltip" xml:space="preserve">
+        <value>On Wayland, capture hotkeys through X11 (XWayland) instead of the native Wayland backend. Requires no elevated permissions, but hotkeys only work while an X11 window is focused. Takes effect after restart.</value>
+    </data>
     <data name="HotkeysStartError" xml:space="preserve">
         <value>Hotkeys could not be started: {0}</value>
     </data>

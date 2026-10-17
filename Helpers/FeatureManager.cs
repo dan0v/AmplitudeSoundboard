@@ -20,6 +20,7 @@
 */
 
 using Splat;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -94,6 +95,15 @@ namespace Amplitude.Helpers
                     { OSPlatform.OSX, true },
                     { OSPlatform.Linux, false },
                 }
+            },
+            {
+                Feature.WAYLAND_HOTKEYS,
+                new()
+                {
+                    { OSPlatform.Windows, false },
+                    { OSPlatform.OSX, false },
+                    { OSPlatform.Linux, IsWaylandSession() },
+                }
             }
         };
 
@@ -101,7 +111,14 @@ namespace Amplitude.Helpers
         {
             HOTKEYS,
             CUSTOM_TITLEBAR,
-            BACKGROUND_OPACTIY
+            BACKGROUND_OPACTIY,
+            WAYLAND_HOTKEYS
+        }
+
+        private static bool IsWaylandSession()
+        {
+            return !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WAYLAND_DISPLAY"))
+                || string.Equals(Environment.GetEnvironmentVariable("XDG_SESSION_TYPE"), "wayland", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

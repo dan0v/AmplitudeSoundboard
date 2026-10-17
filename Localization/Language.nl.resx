@@ -429,6 +429,30 @@
     <data name="MacOSAccessibilityError" xml:space="preserve">
         <value>Sneltoetsen hebben macOS Toegankelijkheidsmachtiging nodig voordat Amplitude Soundboard toetscombinaties kan opnemen of activeren. Open Systeeminstellingen > Privacy en beveiliging > Toegankelijkheid, schakel Amplitude Soundboard in en start de app opnieuw.</value>
     </data>
+    <data name="LinuxInputPermissionsError" xml:space="preserve">
+        <value>Sneltoetsen hebben op Wayland toestemming nodig om invoerapparaten te lezen. Voeg uw gebruiker toe aan de groep 'input' of maak een udev-regel die toegang tot /dev/input verleent, en start de app daarna opnieuw.</value>
+    </data>
+    <data name="WaylandHotkeysPromptTitle" xml:space="preserve">
+        <value>Sneltoetsen niet beschikbaar</value>
+    </data>
+    <data name="LinuxHotkeysDocsLinkButton" xml:space="preserve">
+        <value>SharpHook-documentatie openen</value>
+    </data>
+    <data name="LinuxDegradedModeExplanation" xml:space="preserve">
+        <value>Als u deze machtigingen liever niet verleent, kunt u de gedegradeerde X11-invoermodus hier of later in de algemene instellingen inschakelen. Deze vereist geen machtigingen, maar sneltoetsen worden alleen vastgelegd terwijl een X11-applicatie (XWayland) focus heeft.</value>
+    </data>
+    <data name="LinuxDegradedModeButton" xml:space="preserve">
+        <value>Gedegradeerde X11-modus gebruiken</value>
+    </data>
+    <data name="LinuxDegradedModeEnabled" xml:space="preserve">
+        <value>De gedegradeerde X11-invoermodus is ingeschakeld. Start Amplitude Soundboard opnieuw om dit toe te passen.</value>
+    </data>
+    <data name="LinuxDegradedModeLabel" xml:space="preserve">
+        <value>Gedegradeerde X11-invoermodus (Wayland)</value>
+    </data>
+    <data name="LinuxDegradedModeTooltip" xml:space="preserve">
+        <value>Op Wayland worden sneltoetsen via X11 (XWayland) vastgelegd in plaats van via de native Wayland-backend. Vereist geen verhoogde rechten, maar sneltoetsen werken alleen terwijl een X11-venster focus heeft. Wordt actief na herstart.</value>
+    </data>
     <data name="HotkeysStartError" xml:space="preserve">
         <value>Sneltoetsen konden niet worden gestart: {0}</value>
     </data>
