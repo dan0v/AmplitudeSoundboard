@@ -429,6 +429,30 @@
     <data name="MacOSAccessibilityError" xml:space="preserve">
         <value>A gyorsbillentyűk használatához macOS Akadálymentesítési engedély szükséges. Nyissa meg a Rendszerbeállítások > Adatvédelem és biztonság > Akadálymentesítés menüpontot, engedélyezze az Amplitude Soundboard alkalmazást, majd indítsa újra.</value>
     </data>
+    <data name="LinuxInputPermissionsError" xml:space="preserve">
+        <value>A gyorsbillentyűkhez Wayland alatt engedély szükséges a bemeneti eszközök olvasásához. Adja hozzá felhasználóját az 'input' csoporthoz, vagy hozzon létre udev-szabályt a /dev/input eléréséhez, majd indítsa újra az alkalmazást.</value>
+    </data>
+    <data name="WaylandHotkeysPromptTitle" xml:space="preserve">
+        <value>A gyorsbillentyűk nem érhetők el</value>
+    </data>
+    <data name="LinuxHotkeysDocsLinkButton" xml:space="preserve">
+        <value>SharpHook dokumentáció megnyitása</value>
+    </data>
+    <data name="LinuxDegradedModeExplanation" xml:space="preserve">
+        <value>Ha nem szeretné megadni ezeket az engedélyeket, itt vagy később a Globális beállításokban engedélyezheti a csökkentett működésű X11 bemeneti módot. Nem igényel engedélyeket, de a gyorsbillentyűk csak akkor működnek, ha egy X11 (XWayland) alkalmazás van fókuszban.</value>
+    </data>
+    <data name="LinuxDegradedModeButton" xml:space="preserve">
+        <value>Csökkentett X11 mód futtatása</value>
+    </data>
+    <data name="LinuxDegradedModeEnabled" xml:space="preserve">
+        <value>A csökkentett működésű X11 bemeneti mód engedélyezve. Az érvénybelépéshez indítsa újra az Amplitude Soundboardot.</value>
+    </data>
+    <data name="LinuxDegradedModeLabel" xml:space="preserve">
+        <value>Csökkentett X11 bemeneti mód (Wayland)</value>
+    </data>
+    <data name="LinuxDegradedModeTooltip" xml:space="preserve">
+        <value>Wayland alatt a gyorsbillentyűk rögzítése X11-en (XWayland) keresztül történik a natív Wayland háttérprogram helyett. Nem igényel emelt jogosultságokat, de a gyorsbillentyűk csak X11 ablak fókuszában működnek. Újraindítás után lép érvénybe.</value>
+    </data>
     <data name="HotkeysStartError" xml:space="preserve">
         <value>A gyorsbillentyűk nem indíthatók el: {0}</value>
     </data>

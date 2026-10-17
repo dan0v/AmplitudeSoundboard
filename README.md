@@ -2,7 +2,7 @@
 ![GitHub Logo](Branding/Banner.png)
 [![Release .NET Cross Platform App](https://github.com/dan0v/AmplitudeSoundboard/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/dan0v/AmplitudeSoundboard/actions/workflows/dotnet-desktop.yml)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-16-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # [Website](https://amplitude-soundboard.dan0v.com/index.html)
@@ -48,7 +48,7 @@
 ### Linux *(x64)*
 1. Download and unzip [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard-x86_64.AppImage) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/).
 2. Run executable (`Amplitude_Soundboard-x86_64.AppImage`).
- - Hotkeys will currently only work under x11, not Wayland, as supported by [SharpHook](https://github.com/TolikPylypchuk/SharpHook).
+  - Hotkeys are fully supported under x11. On Wayland, hotkeys are supported but require permission to read input devices: either add your user to the `input` group or [set up a udev rule](https://sharphook.tolik.io/articles/os-constraints.html#required-permissions) granting access to `/dev/input`, then restart the app. Alternatively, enable `Degraded X11 input mode` in Global Settings (or via the prompt shown when hotkeys fail to start) to capture hotkeys through X11/XWayland instead. No permissions are needed, but hotkeys only work while the application window is focused.
 3. If you would like to play sound through an input device like a microphone, [set up a sink in PulseAudio](https://www.onetransistor.eu/2017/10/virtual-audio-cable-in-linux-ubuntu.html) and set the monitor output of it to your desired input device.
 
 ## Updates
@@ -99,6 +99,7 @@ Many thanks to all these people! ([emoji key](https://allcontributors.org/docs/e
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/cD1rtX3"><img src="https://avatars.githubusercontent.com/u/113859223?v=4?s=100" width="100px;" alt="Coarse Rosinflower"/><br /><sub><b>Coarse Rosinflower</b></sub></a><br /><a href="https://github.com/dan0v/AmplitudeSoundboard/issues?q=author%3AcD1rtX3" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Pocky-sketch"><img src="https://avatars.githubusercontent.com/u/292086838?v=4?s=100" width="100px;" alt="张嘉怡"/><br /><sub><b>张嘉怡</b></sub></a><br /><a href="#translation-Pocky-sketch" title="Translation">🌍</a></td>
     </tr>
   </tbody>
 </table>

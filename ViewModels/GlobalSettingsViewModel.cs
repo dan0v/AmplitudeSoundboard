@@ -32,6 +32,8 @@ namespace Amplitude.ViewModels
         public Config Model => _model;
         public static string[] Languages => Localization.Localizer.Languages.Keys.ToArray();
 
+        public bool WaylandHotkeys => FeatureManager.IsFeatureEnabled(FeatureManager.Feature.WAYLAND_HOTKEYS);
+
         public GlobalSettingsViewModel()
         {
             _model = ConfigManager.Config.ShallowCopy();

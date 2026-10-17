@@ -37,28 +37,35 @@ namespace Amplitude.Helpers
         private readonly Lazy<HotkeysManager> _hotkeysManager;
         private readonly Lazy<SoundClipManager> _soundClipManager;
         private readonly Lazy<WindowManager> _windowManager;
+        private readonly Lazy<ConfigManager> _configManager;
 
         private HotkeysManager HotkeysManager => _hotkeysManager.Value;
         private SoundClipManager SoundClipManager => _soundClipManager.Value;
         private WindowManager WindowManager => _windowManager.Value;
-        
+        private ConfigManager ConfigManager => _configManager.Value;
+
         private IGlobalHook? sharpHook;
         private Task? hookTask;
         private volatile bool hookAvailable;
         private volatile bool disposed;
-        private static List<(SoundClip clip, Action<SoundClip, string> callback)> soundClipCallbacks = new();
-        private static (Config? config, Action<Config, string> callback) globalStopCallback;
+        private List<(SoundClip clip, Action<SoundClip, string> callback)> soundClipCallbacks = new();
+        private (Config? config, Action<Config, string> callback) globalStopCallback;
+        private readonly object hotkeyCallbacksLock = new();
 
         private static readonly SortedSet<KeyCode> keySet = new();
         private readonly object keySetLock = new();
 
-        public SharpKeyboardHook(Lazy<HotkeysManager> hotkeysManager, Lazy<SoundClipManager> soundClipManager, Lazy<WindowManager> windowManager)
+        public SharpKeyboardHook(Lazy<HotkeysManager> hotkeysManager, Lazy<SoundClipManager> soundClipManager, Lazy<WindowManager> windowManager, Lazy<ConfigManager> configManager)
         {
             _hotkeysManager = hotkeysManager;
             _soundClipManager = soundClipManager;
             _windowManager = windowManager;
-            UioHookProvider.Instance.KeyTypedEnabled = false;
-            StartHook();
+            _configManager = configManager;
+        }
+
+        public bool StartHotkeys()
+        {
+            return StartHook();
         }
 
         private bool StartHook()
@@ -73,6 +80,13 @@ namespace Amplitude.Helpers
                 return true;
             }
 
+#if Linux
+            if (!FeatureManager.IsFeatureEnabled(FeatureManager.Feature.WAYLAND_HOTKEYS) || ConfigManager.Config.DegradedX11InputMode)
+            {
+                UioHookProvider.Instance.SetLinuxMode(LinuxMode.XRecord);
+            }
+#endif
+
 #if MacOS
             if (!UioHookProvider.Instance.IsAxApiEnabled(true))
             {
@@ -85,13 +99,13 @@ namespace Amplitude.Helpers
             try
             {
                 sharpHook?.Dispose();
-                sharpHook = new EventLoopGlobalHook(GlobalHookType.Keyboard);
+                sharpHook = new EventLoopGlobalHook();
                 sharpHook.HookEnabled += HandleHookEnabled;
                 sharpHook.HookDisabled += HandleHookDisabled;
                 sharpHook.KeyPressed += HandleKeyPressed;
                 sharpHook.KeyReleased += HandleKeyReleased;
 
-                hookTask = sharpHook.RunAsync();
+                hookTask = sharpHook.RunAsync(GlobalHookType.Keyboard);
                 hookTask.ContinueWith(HandleHookFailure, TaskContinuationOptions.OnlyOnFaulted);
                 return true;
             }
@@ -101,6 +115,7 @@ namespace Amplitude.Helpers
             }
             catch (Exception ex)
             {
+                CancelPendingHotkeyRecorders();
                 WindowManager.ShowErrorString(string.Format(Localization.Localizer.Instance["HotkeysStartError"], ex.Message));
             }
             return false;
@@ -136,11 +151,19 @@ namespace Amplitude.Helpers
         private void HandleHookException(HookException ex)
         {
             hookAvailable = false;
+            CancelPendingHotkeyRecorders();
 #if MacOS
             if (ex.Result == UioHookResult.ErrorAxApiDisabled)
             {
                 ShowMacOSAccessibilityError();
                 OpenAccessibilitySettings();
+                return;
+            }
+#endif
+#if Linux
+            if (ex.Result == UioHookResult.ErrorLinuxNoInputDevices)
+            {
+                WindowManager.ShowLinuxWaylandHotkeysPrompt();
                 return;
             }
 #endif
@@ -164,7 +187,7 @@ namespace Amplitude.Helpers
 
         private static void ShowMacOSAccessibilityError()
         {
-			Locator.Current.GetService<WindowManager>()!.ShowErrorString(Localization.Localizer.Instance["MacOSAccessibilityError"]);
+            Locator.Current.GetService<WindowManager>()!.ShowErrorString(Localization.Localizer.Instance["MacOSAccessibilityError"]);
         }
 
         private static void OpenAccessibilitySettings()
@@ -220,18 +243,33 @@ namespace Amplitude.Helpers
         {
             var fullKey = FullKey(currentKey);
 
-            if (globalStopCallback.config != null)
+            (Config? config, Action<Config, string> callback)? globalStop = null;
+            List<(SoundClip clip, Action<SoundClip, string> callback)>? clipCallbacks = null;
+
+            lock (hotkeyCallbacksLock)
             {
-                globalStopCallback.callback(globalStopCallback.config, fullKey);
-                globalStopCallback.config = null;
+                if (globalStopCallback.config != null)
+                {
+                    globalStop = globalStopCallback;
+                    globalStopCallback = default;
+                }
+                else if (soundClipCallbacks.Count > 0)
+                {
+                    clipCallbacks = soundClipCallbacks;
+                    soundClipCallbacks = new();
+                }
             }
-            else if (soundClipCallbacks.Count > 0)
+
+            if (globalStop != null)
             {
-                foreach (var callback in soundClipCallbacks)
+                globalStop.Value.callback(globalStop.Value.config!, fullKey);
+            }
+            else if (clipCallbacks != null)
+            {
+                foreach (var callback in clipCallbacks)
                 {
                     callback.callback(callback.clip, fullKey);
                 }
-                soundClipCallbacks.Clear();
             }
             else if (currentKey != HotkeysManager.UNBIND_HOTKEY && HotkeysManager.Hotkeys.TryGetValue(fullKey, out List<string>? values))
             {
@@ -266,6 +304,21 @@ namespace Amplitude.Helpers
             else
             {
                 return currentKey;
+            }
+        }
+
+        private void CancelPendingHotkeyRecorders()
+        {
+            while (true)
+            {
+                lock (hotkeyCallbacksLock)
+                {
+                    if (globalStopCallback.config == null && soundClipCallbacks.Count == 0)
+                    {
+                        return;
+                    }
+                }
+                ProcessHotkey(HotkeysManager.UNBIND_HOTKEY);
             }
         }
 
@@ -362,7 +415,10 @@ namespace Amplitude.Helpers
                 return false;
             }
 
-            soundClipCallbacks.Add((clip, callback));
+            lock (hotkeyCallbacksLock)
+            {
+                soundClipCallbacks.Add((clip, callback));
+            }
             return true;
         }
 
@@ -373,7 +429,10 @@ namespace Amplitude.Helpers
                 return false;
             }
 
-            globalStopCallback = (config, callback);
+            lock (hotkeyCallbacksLock)
+            {
+                globalStopCallback = (config, callback);
+            }
             return true;
         }
 
