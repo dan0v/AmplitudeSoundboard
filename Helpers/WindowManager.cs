@@ -305,6 +305,39 @@ namespace Amplitude.Helpers
             }
         }
 
+        private WaylandHotkeysPrompt? _waylandHotkeysPromptWindow = null;
+
+        public void ShowLinuxWaylandHotkeysPrompt()
+        {
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                Dispatcher.UIThread.InvokeAsync(ShowLinuxWaylandHotkeysPrompt);
+                return;
+            }
+
+            if (_waylandHotkeysPromptWindow != null)
+            {
+                if (_waylandHotkeysPromptWindow.WindowState == WindowState.Minimized)
+                {
+                    _waylandHotkeysPromptWindow.WindowState = WindowState.Normal;
+                }
+                _waylandHotkeysPromptWindow.Activate();
+                return;
+            }
+
+            _waylandHotkeysPromptWindow = new WaylandHotkeysPrompt();
+            _waylandHotkeysPromptWindow.Closed += (_, _) => _waylandHotkeysPromptWindow = null;
+
+            PixelPoint? pos = MainWindow?.Position;
+            if (pos != null)
+            {
+                _waylandHotkeysPromptWindow.Position = new PixelPoint(pos.Value.X + 50, pos.Value.Y + 50);
+            }
+
+            _waylandHotkeysPromptWindow.Show();
+            _waylandHotkeysPromptWindow.Activate();
+        }
+
         public bool ErrorListWindowOpen = false;
         private ErrorList? _errorListWindow = null;
         public ErrorList ErrorListWindow

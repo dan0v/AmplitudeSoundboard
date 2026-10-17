@@ -429,6 +429,30 @@
     <data name="MacOSAccessibilityError" xml:space="preserve">
         <value>Skróty klawiszowe wymagają uprawnienia Dostępności macOS, aby Amplitude Soundboard mógł nagrywać lub aktywować kombinacje klawiszy. Otwórz Ustawienia systemu > Prywatność i bezpieczeństwo > Dostępność, włącz Amplitude Soundboard, a następnie uruchom ponownie aplikację.</value>
     </data>
+    <data name="LinuxInputPermissionsError" xml:space="preserve">
+        <value>Skróty klawiszowe wymagają na Wayland uprawnienia do odczytu urządzeń wejściowych. Dodaj swojego użytkownika do grupy 'input' lub utwórz regułę udev przyznającą dostęp do /dev/input, a następnie uruchom aplikację ponownie.</value>
+    </data>
+    <data name="WaylandHotkeysPromptTitle" xml:space="preserve">
+        <value>Skróty klawiszowe niedostępne</value>
+    </data>
+    <data name="LinuxHotkeysDocsLinkButton" xml:space="preserve">
+        <value>Otwórz dokumentację SharpHook</value>
+    </data>
+    <data name="LinuxDegradedModeExplanation" xml:space="preserve">
+        <value>Jeśli wolisz nie nadawać tych uprawnień, możesz włączyć zdegradowany tryb wejściowy X11 tutaj lub później w ustawieniach globalnych. Nie wymaga uprawnień, ale skróty klawiszowe będą rejestrowane tylko wtedy, gdy aplikacja X11 (XWayland) jest aktywna.</value>
+    </data>
+    <data name="LinuxDegradedModeButton" xml:space="preserve">
+        <value>Uruchom zdegradowany tryb X11</value>
+    </data>
+    <data name="LinuxDegradedModeEnabled" xml:space="preserve">
+        <value>Zdegradowany tryb wejściowy X11 został włączony. Uruchom Amplitude Soundboard ponownie, aby zastosować zmianę.</value>
+    </data>
+    <data name="LinuxDegradedModeLabel" xml:space="preserve">
+        <value>Zdegradowany tryb wejściowy X11 (Wayland)</value>
+    </data>
+    <data name="LinuxDegradedModeTooltip" xml:space="preserve">
+        <value>Na Wayland skróty klawiszowe są przechwytywane przez X11 (XWayland) zamiast natywnego backendu Wayland. Nie wymaga podwyższonych uprawnień, ale skróty działają tylko, gdy aktywne jest okno X11. Zmienia się po ponownym uruchomieniu.</value>
+    </data>
     <data name="HotkeysStartError" xml:space="preserve">
         <value>Nie można uruchomić skrótów klawiszowych: {0}</value>
     </data>

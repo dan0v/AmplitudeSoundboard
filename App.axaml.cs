@@ -107,8 +107,10 @@ namespace AmplitudeSoundboard
                 windowManager.SetMainWindow((MainWindow)desktop.MainWindow);
 
                 // Trigger UI redraw
-                var configManager = Locator.Current.GetService<ConfigManager>()!;
-                configManager.OnPropertyChanged(nameof(ConfigManager.Config));
+                Locator.Current.GetService<ConfigManager>()!.OnPropertyChanged(nameof(ConfigManager.Config));
+
+                // Start the global keyboard hook now that the config is loaded
+                Locator.Current.GetService<IKeyboardHook>()!.StartHotkeys();
 #if !DEBUG
 #if Windows
                 Task.Run(CleanupOldFiles);

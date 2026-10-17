@@ -429,6 +429,30 @@
     <data name="MacOSAccessibilityError" xml:space="preserve">
         <value>Горячие клавиши требуют разрешения Универсального доступа macOS, прежде чем Amplitude Soundboard сможет записывать или активировать сочетания клавиш. Откройте Системные настройки > Конфиденциальность и безопасность > Универсальный доступ, включите Amplitude Soundboard и перезапустите приложение.</value>
     </data>
+    <data name="LinuxInputPermissionsError" xml:space="preserve">
+        <value>Для горячих клавиш на Wayland требуется разрешение на чтение устройств ввода. Добавьте своего пользователя в группу 'input' или создайте правило udev, предоставляющее доступ к /dev/input, затем перезапустите приложение.</value>
+    </data>
+    <data name="WaylandHotkeysPromptTitle" xml:space="preserve">
+        <value>Горячие клавиши недоступны</value>
+    </data>
+    <data name="LinuxHotkeysDocsLinkButton" xml:space="preserve">
+        <value>Открыть документацию SharpHook</value>
+    </data>
+    <data name="LinuxDegradedModeExplanation" xml:space="preserve">
+        <value>Если вы не хотите выдавать эти разрешения, можно включить деградированный режим ввода X11 здесь или позже в общих настройках. Он не требует разрешений, но горячие клавиши будут перехватываться только при фокусе приложения X11 (XWayland).</value>
+    </data>
+    <data name="LinuxDegradedModeButton" xml:space="preserve">
+        <value>Запустить деградированный режим X11</value>
+    </data>
+    <data name="LinuxDegradedModeEnabled" xml:space="preserve">
+        <value>Деградированный режим ввода X11 включён. Перезапустите Amplitude Soundboard, чтобы он вступил в силу.</value>
+    </data>
+    <data name="LinuxDegradedModeLabel" xml:space="preserve">
+        <value>Деградированный режим ввода X11 (Wayland)</value>
+    </data>
+    <data name="LinuxDegradedModeTooltip" xml:space="preserve">
+        <value>В Wayland горячие клавиши перехватываются через X11 (XWayland) вместо встроенного бэкенда Wayland. Не требует повышенных прав, но горячие клавиши работают только при фокусе окна X11. Вступает в силу после перезапуска.</value>
+    </data>
     <data name="HotkeysStartError" xml:space="preserve">
         <value>Не удалось запустить горячие клавиши: {0}</value>
     </data>

@@ -48,7 +48,7 @@
 ### Linux *(x64)*
 1. Download and unzip [latest Linux build](https://github.com/dan0v/AmplitudeSoundboard/releases/latest/download/Amplitude_Soundboard-x86_64.AppImage) from the [Releases page](https://git.dan0v.com/AmplitudeSoundboard/releases/).
 2. Run executable (`Amplitude_Soundboard-x86_64.AppImage`).
- - Hotkeys will currently only work under x11, not Wayland, as supported by [SharpHook](https://github.com/TolikPylypchuk/SharpHook).
+  - Hotkeys are fully supported under x11. On Wayland, hotkeys are supported but require permission to read input devices: either add your user to the `input` group or [set up a udev rule](https://sharphook.tolik.io/articles/os-constraints.html#required-permissions) granting access to `/dev/input`, then restart the app. Alternatively, enable `Degraded X11 input mode` in Global Settings (or via the prompt shown when hotkeys fail to start) to capture hotkeys through X11/XWayland instead. No permissions are needed, but hotkeys only work while the application window is focused.
 3. If you would like to play sound through an input device like a microphone, [set up a sink in PulseAudio](https://www.onetransistor.eu/2017/10/virtual-audio-cable-in-linux-ubuntu.html) and set the monitor output of it to your desired input device.
 
 ## Updates

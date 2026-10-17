@@ -429,6 +429,30 @@
     <data name="MacOSAccessibilityError" xml:space="preserve">
         <value>热键需要 macOS 辅助功能权限，Amplitude Soundboard 才能录制或触发按键绑定。打开“系统设置”>“隐私与安全性”>“辅助功能”，启用 Amplitude Soundboard，然后重启应用。</value>
     </data>
+    <data name="LinuxInputPermissionsError" xml:space="preserve">
+        <value>在 Wayland 下使用热键需要读取输入设备的权限。请将您的用户加入 'input' 用户组，或创建授予 /dev/input 访问权限的 udev 规则，然后重启应用程序。</value>
+    </data>
+    <data name="WaylandHotkeysPromptTitle" xml:space="preserve">
+        <value>热键不可用</value>
+    </data>
+    <data name="LinuxHotkeysDocsLinkButton" xml:space="preserve">
+        <value>打开 SharpHook 文档</value>
+    </data>
+    <data name="LinuxDegradedModeExplanation" xml:space="preserve">
+        <value>如果您不想授予这些权限，可以在此处或稍后在全局设置中启用降级 X11 输入模式。该模式无需任何权限，但只有在 X11（XWayland）应用程序获得焦点时才能捕获热键。</value>
+    </data>
+    <data name="LinuxDegradedModeButton" xml:space="preserve">
+        <value>运行降级 X11 模式</value>
+    </data>
+    <data name="LinuxDegradedModeEnabled" xml:space="preserve">
+        <value>已启用降级 X11 输入模式。请重启 Amplitude Soundboard 以使其生效。</value>
+    </data>
+    <data name="LinuxDegradedModeLabel" xml:space="preserve">
+        <value>降级 X11 输入模式(Wayland)</value>
+    </data>
+    <data name="LinuxDegradedModeTooltip" xml:space="preserve">
+        <value>在 Wayland 下，通过 X11(XWayland)而非原生 Wayland 后端捕获热键。无需提升权限，但只有在 X11 窗口获得焦点时热键才有效。重启后生效。</value>
+    </data>
     <data name="HotkeysStartError" xml:space="preserve">
         <value>无法启动热键：{0}</value>
     </data>

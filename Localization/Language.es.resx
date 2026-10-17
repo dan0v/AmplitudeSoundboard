@@ -429,6 +429,30 @@
     <data name="MacOSAccessibilityError" xml:space="preserve">
         <value>Los atajos de teclado necesitan permiso de Accesibilidad de macOS antes de que Amplitude Soundboard pueda grabar o activar combinaciones de teclas. Abra Configuración del Sistema > Privacidad y Seguridad > Accesibilidad, habilite Amplitude Soundboard y luego reinicie la aplicación.</value>
     </data>
+    <data name="LinuxInputPermissionsError" xml:space="preserve">
+        <value>Las teclas rápidas necesitan permiso para leer los dispositivos de entrada en Wayland. Añada su usuario al grupo 'input' o cree una regla de udev que conceda acceso a /dev/input, y luego reinicie la aplicación.</value>
+    </data>
+    <data name="WaylandHotkeysPromptTitle" xml:space="preserve">
+        <value>Teclas rápidas no disponibles</value>
+    </data>
+    <data name="LinuxHotkeysDocsLinkButton" xml:space="preserve">
+        <value>Abrir la documentación de SharpHook</value>
+    </data>
+    <data name="LinuxDegradedModeExplanation" xml:space="preserve">
+        <value>Si prefiere no conceder estos permisos, puede activar el modo de entrada X11 degradado aquí o más tarde en la configuración global. No requiere permisos, pero las teclas rápidas solo se capturarán mientras una aplicación X11 (XWayland) tenga el foco.</value>
+    </data>
+    <data name="LinuxDegradedModeButton" xml:space="preserve">
+        <value>Ejecutar modo X11 degradado</value>
+    </data>
+    <data name="LinuxDegradedModeEnabled" xml:space="preserve">
+        <value>Se ha activado el modo de entrada X11 degradado. Reinicie Amplitude Soundboard para que surta efecto.</value>
+    </data>
+    <data name="LinuxDegradedModeLabel" xml:space="preserve">
+        <value>Modo de entrada X11 degradado (Wayland)</value>
+    </data>
+    <data name="LinuxDegradedModeTooltip" xml:space="preserve">
+        <value>En Wayland, captura las teclas rápidas a través de X11 (XWayland) en lugar del backend nativo de Wayland. No requiere permisos elevados, pero las teclas rápidas solo funcionan mientras una ventana X11 tiene el foco. Surte efecto tras reiniciar.</value>
+    </data>
     <data name="HotkeysStartError" xml:space="preserve">
         <value>No se pudieron iniciar los atajos de teclado: {0}</value>
     </data>

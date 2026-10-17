@@ -429,6 +429,30 @@
     <data name="MacOSAccessibilityError" xml:space="preserve">
         <value>I tasti rapidi richiedono l'autorizzazione Accessibilità di macOS prima che Amplitude Soundboard possa registrare o attivare combinazioni di tasti. Apri Impostazioni di Sistema > Privacy e Sicurezza > Accessibilità, abilita Amplitude Soundboard, quindi riavvia l'app.</value>
     </data>
+    <data name="LinuxInputPermissionsError" xml:space="preserve">
+        <value>I tasti rapidi richiedono l'autorizzazione a leggere i dispositivi di input su Wayland. Aggiungere il proprio utente al gruppo 'input' o creare una regola udev che conceda l'accesso a /dev/input, quindi riavviare l'applicazione.</value>
+    </data>
+    <data name="WaylandHotkeysPromptTitle" xml:space="preserve">
+        <value>Tasti rapidi non disponibili</value>
+    </data>
+    <data name="LinuxHotkeysDocsLinkButton" xml:space="preserve">
+        <value>Apri la documentazione di SharpHook</value>
+    </data>
+    <data name="LinuxDegradedModeExplanation" xml:space="preserve">
+        <value>Se preferisce non concedere queste autorizzazioni, può attivare la modalità di input X11 degradata qui o più tardi nelle impostazioni globali. Non richiede permessi, ma i tasti rapidi verranno registrati solo quando un'applicazione X11 (XWayland) è in primo piano.</value>
+    </data>
+    <data name="LinuxDegradedModeButton" xml:space="preserve">
+        <value>Esegui modalità X11 degradata</value>
+    </data>
+    <data name="LinuxDegradedModeEnabled" xml:space="preserve">
+        <value>La modalità di input X11 degradata è stata attivata. Riavviare Amplitude Soundboard perché abbia effetto.</value>
+    </data>
+    <data name="LinuxDegradedModeLabel" xml:space="preserve">
+        <value>Modalità di input X11 degradata (Wayland)</value>
+    </data>
+    <data name="LinuxDegradedModeTooltip" xml:space="preserve">
+        <value>Su Wayland, i tasti rapidi vengono catturati tramite X11 (XWayland) invece del backend Wayland nativo. Non richiede privilegi elevati, ma i tasti rapidi funzionano solo mentre una finestra X11 è attiva. Ha effetto dopo il riavvio.</value>
+    </data>
     <data name="HotkeysStartError" xml:space="preserve">
         <value>Impossibile avviare i tasti rapidi: {0}</value>
     </data>
