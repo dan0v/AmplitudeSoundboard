@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="AboutTitle" xml:space="preserve">
+        <value>À propos</value>
+    </data>
+    <data name="AcceptButton" xml:space="preserve">
+        <value>Accepter</value>
+    </data>
+    <data name="CancelButton" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
+    <data name="ClearTile" xml:space="preserve">
+        <value>Efface le carreau</value>
+    </data>
+    <data name="ClipAudioFilePathLabel" xml:space="preserve">
+        <value>Chemin d'accès au clip audio</value>
+    </data>
+    <data name="ClipFilePathPlaceholder" xml:space="preserve">
+        <value>Sélectionnez un chemin d'accès...</value>
+    </data>
+    <data name="ClipHotkeyLabel" xml:space="preserve">
+        <value>Raccourci clavier</value>
+    </data>
+    <data name="ClipImageFilePathLabel" xml:space="preserve">
+        <value>Chemin d'accès de l'image d'arrière-plan</value>
+    </data>
+    <data name="ClipNameLabel" xml:space="preserve">
+        <value>Nom du clip</value>
+    </data>
+    <data name="ClipNamePlaceholder" xml:space="preserve">
+        <value>Enter a name...</value>
+    </data>
+    <data name="OutputVolumeLabel" xml:space="preserve">
+        <value>Output volume</value>
+    </data>
+    <data name="ColumnsPlaceholder" xml:space="preserve">
+        <value>Columns</value>
+    </data>
+    <data name="CopyToClipboard" xml:space="preserve">
+        <value>Copy to clipboard</value>
+    </data>
+    <data name="DeleteSoundClipButton" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="DeleteSoundClipConfirmationPrompt" xml:space="preserve">
+        <value>Are you sure you want to delete the Sound Clip "{0}"?</value>
+    </data>
+    <data name="DeleteSoundClipConfirmationTitle" xml:space="preserve">
+        <value>Confirm Deletion</value>
+    </data>
+    <data name="DismissWindow" xml:space="preserve">
+        <value>Dismiss</value>
+    </data>
+    <data name="EditSoundClipTitle" xml:space="preserve">
+        <value>Edit Sound Clip</value>
+    </data>
+    <data name="EditSoundClipTooltip" xml:space="preserve">
+        <value>Edit sound clip</value>
+    </data>
+    <data name="EmptyTilePrompt" xml:space="preserve">
+        <value>Drag a Sound Clip here to bind it!</value>
+    </data>
+    <data name="ErrorListTitle" xml:space="preserve">
+        <value>Error List</value>
+    </data>
+    <data name="FileBadFormatString" xml:space="preserve">
+        <value>The following file is an unrecognized format: "{0}"</value>
+    </data>
+    <data name="FileBrowseAudio" xml:space="preserve">
+        <value>Select an audio file...</value>
+    </data>
+    <data name="FileBrowseImage" xml:space="preserve">
+        <value>Select an image file...</value>
+    </data>
+    <data name="FileMissingString" xml:space="preserve">
+        <value>The following file cannot be found: "{0}"</value>
+    </data>
+    <data name="FilePathPlaceholder" xml:space="preserve">
+        <value>File path...</value>
+    </data>
+    <data name="GlobalSettingsTitle" xml:space="preserve">
+        <value>Preferences</value>
+    </data>
+    <data name="GridSizeLabel" xml:space="preserve">
+        <value>Grid size</value>
+    </data>
+    <data name="GridTileSizeLabel" xml:space="preserve">
+        <value>Grid tiles size</value>
+    </data>
+    <data name="GridTutorial" xml:space="preserve">
+        <value>Copy a Sound Clip from the Sound Clip List and paste it into any Grid Tile using right click!</value>
+    </data>
+    <data name="HeightPlaceholder" xml:space="preserve">
+        <value>Height</value>
+    </data>
+    <data name="HideTutorial" xml:space="preserve">
+        <value>Hide tutorial</value>
+    </data>
+    <data name="HotkeyPlaceholder" xml:space="preserve">
+        <value>Record a key combination...</value>
+    </data>
+    <data name="LicenseLabel" xml:space="preserve">
+        <value>License</value>
+    </data>
+    <data name="MasterVolumeLabel" xml:space="preserve">
+        <value>Master volume</value>
+    </data>
+    <data name="MissingDeviceString" xml:space="preserve">
+        <value>The output device "{0}" is missing and cannot be used for playback!</value>
+    </data>
+    <data name="NewSoundClip" xml:space="preserve">
+        <value>New sound clip</value>
+    </data>
+    <data name="NewVersionAvailable" xml:space="preserve">
+        <value>There is a new version available</value>
+    </data>
+    <data name="NewVersionCanBeDownloaded" xml:space="preserve">
+        <value>Version {0} can be downloaded from the releases page on GitHub</value>
+    </data>
+    <data name="NewVersionCanBeInstalled" xml:space="preserve">
+        <value>Version {0} can be installed now</value>
+    </data>
+    <data name="NoticeLabel" xml:space="preserve">
+        <value>Notice</value>
+    </data>
+    <data name="OutputDeviceLabel" xml:space="preserve">
+        <value>Output device</value>
+    </data>
+    <data name="PasteClip" xml:space="preserve">
+        <value>Paste clip to tile</value>
+    </data>
+    <data name="PlaySound" xml:space="preserve">
+        <value>Play audio</value>
+    </data>
+    <data name="RowsPlaceholder" xml:space="preserve">
+        <value>Rows</value>
+    </data>
+    <data name="SaveButton" xml:space="preserve">
+        <value>Save</value>
+    </data>
+    <data name="SaveButtonDisabledTooltip" xml:space="preserve">
+        <value>Please enter a Sound Clip name</value>
+    </data>
+    <data name="ShowNameOnGridTile" xml:space="preserve">
+        <value>Show name in grid tile view</value>
+    </data>
+    <data name="SoundClipError" xml:space="preserve">
+        <value>The Sound Clip "{0}" has errors:\\n{1}</value>
+    </data>
+    <data name="SoundClipListSearch" xml:space="preserve">
+        <value>Search...</value>
+    </data>
+    <data name="SoundClipListTitle" xml:space="preserve">
+        <value>Sound Clip List</value>
+    </data>
+    <data name="StopAllAudio" xml:space="preserve">
+        <value>Stop audio</value>
+    </data>
+    <data name="StopAllAudioHotkeyLabel" xml:space="preserve">
+        <value>Stop all audio hotkey</value>
+    </data>
+    <data name="TestSound" xml:space="preserve">
+        <value>Test audio</value>
+    </data>
+    <data name="ThemeLabel" xml:space="preserve">
+        <value>Base theme</value>
+    </data>
+    <data name="UpdateLabel" xml:space="preserve">
+        <value>Update</value>
+    </data>
+    <data name="UpdatePromptTitle" xml:space="preserve">
+        <value>Update Available</value>
+    </data>
+    <data name="ViewReleases" xml:space="preserve">
+        <value>View releases</value>
+    </data>
+    <data name="WidthPlaceholder" xml:space="preserve">
+        <value>Width</value>
+    </data>
+    <data name="AddSoundClipOutput" xml:space="preserve">
+        <value>Add output device</value>
+    </data>
+    <data name="RemoveSoundClipOutput" xml:space="preserve">
+        <value>Remove output device</value>
+    </data>
+    <data name="VolumeLabel" xml:space="preserve">
+        <value>Volume</value>
+    </data>
+    <data name="LanguageLabel" xml:space="preserve">
+        <value>Language</value>
+    </data>
+    <data name="GlobalOutputDefaults" xml:space="preserve">
+        <value>Global output settings</value>
+    </data>
+    <data name="CreateClipInPlace" xml:space="preserve">
+        <value>Create new clip here</value>
+    </data>
+    <data name="CacheAudioExplanation" xml:space="preserve">
+        <value>Cache audio which requires resampling to speed up playback at the cost of RAM</value>
+    </data>
+    <data name="CacheAudioLabel" xml:space="preserve">
+        <value>Cache resampled audio</value>
+    </data>
+    <data name="PreCacheAudioExplanation" xml:space="preserve">
+        <value>Cache all audio files which may need resampling at application startup</value>
+    </data>
+    <data name="PreCacheAudioLabel" xml:space="preserve">
+        <value>Precache audio at startup</value>
+    </data>
+    <data name="ResamplingAudioTooltip" xml:space="preserve">
+        <value>Resampling audio</value>
+    </data>
+    <data name="ClearCache" xml:space="preserve">
+        <value>Clear audio cache to free RAM</value>
+    </data>
+    <data name="AutoScaleTilesToWindowLabel" xml:space="preserve">
+        <value>Auto scale tiles to fit window</value>
+    </data>
+    <data name="AutoScaleTilesToWindowTooltip" xml:space="preserve">
+        <value>Allow tiles to be stretched to fill available window space, or set a custom tile size</value>
+    </data>
+    <data name="CustomTheme" xml:space="preserve">
+        <value>Custom</value>
+    </data>
+    <data name="DarkTheme" xml:space="preserve">
+        <value>Dark</value>
+    </data>
+    <data name="InvalidThemeError" xml:space="preserve">
+        <value>Selected theme is out of range: {0}</value>
+    </data>
+    <data name="LightTheme" xml:space="preserve">
+        <value>Light</value>
+    </data>
+    <data name="HotkeyCancelPlaceholder" xml:space="preserve">
+        <value>Use ESC to clear this binding...</value>
+    </data>
+    <data name="FeatureUnavailable" xml:space="preserve">
+        <value>This feature is not yet available on your platform</value>
+    </data>
+    <data name="AddClipToQueue" xml:space="preserve">
+        <value>Add to queue</value>
+    </data>
+    <data name="Remove" xml:space="preserve">
+        <value>Remove</value>
+    </data>
+    <data name="ClearPositions" xml:space="preserve">
+        <value>Reset window sizes and positions</value>
+    </data>
+    <data name="ClearPositionsTooltip" xml:space="preserve">
+        <value>In case a window is out of reach, reset window sizes and positions</value>
+    </data>
+    <data name="MissingOutputProfileString" xml:space="preserve">
+        <value>The Output Profile "{0}" is missing and cannot be used for playback!</value>
+    </data>
+    <data name="OutputProfileError" xml:space="preserve">
+        <value>The Output Profile "{0}" has errors:\\n{1}</value>
+    </data>
+    <data name="EditOutputProfileTitle" xml:space="preserve">
+        <value>Edit Output Profile</value>
+    </data>
+    <data name="OutputProfileNameLabel" xml:space="preserve">
+        <value>Output profile name</value>
+    </data>
+    <data name="OutputProfileLabel" xml:space="preserve">
+        <value>Output Profile</value>
+    </data>
+    <data name="EditOutputProfileTooltip" xml:space="preserve">
+        <value>Edit output profile</value>
+    </data>
+    <data name="NewOutputProfileTooltip" xml:space="preserve">
+        <value>Create new output profile</value>
+    </data>
+    <data name="LoopClipLabel" xml:space="preserve">
+        <value>Repeat clip</value>
+    </data>
+    <data name="LoopClipTooltip" xml:space="preserve">
+        <value>Repeat clip forever</value>
+    </data>
+    <data name="CheckForUpdates" xml:space="preserve">
+        <value>Check for updates</value>
+    </data>
+    <data name="StopAudioOnRetrigger" xml:space="preserve">
+        <value>Toggle audio when triggered repeatedly</value>
+    </data>
+    <data name="AccentColorLabel" xml:space="preserve">
+        <value>Accent color</value>
+    </data>
+    <data name="ResetThemeBaseTooltip" xml:space="preserve">
+        <value>Reset theme settings</value>
+    </data>
+    <data name="SecondaryColorLabel" xml:space="preserve">
+        <value>Secondary color</value>
+    </data>
+    <data name="ThemeSettingsTitle" xml:space="preserve">
+        <value>Theme Settings</value>
+    </data>
+    <data name="WindowBackgroundColorLabel" xml:space="preserve">
+        <value>Window background color</value>
+    </data>
+    <data name="WindowBackgroundOpacityLabel" xml:space="preserve">
+        <value>Window background opacity</value>
+    </data>
+    <data name="OpenThemeSettingsButton" xml:space="preserve">
+        <value>Configure theme</value>
+    </data>
+    <data name="OutputSettingsFadeOutLabel" xml:space="preserve">
+        <value>Fade out sound playback (ms)</value>
+    </data>
+    <data name="OutputSettingsDeviceLabel" xml:space="preserve">
+        <value>Output device</value>
+    </data>
+    <data name="MacOSAccessibilityError" xml:space="preserve">
+        <value>Hotkeys need macOS Accessibility permission before Amplitude Soundboard can record or trigger keybinds. Open System Settings > Privacy and Security > Accessibility, enable Amplitude Soundboard, then restart the app.</value>
+    </data>
+    <data name="LinuxInputPermissionsError" xml:space="preserve">
+        <value>Hotkeys need permission to read input devices on Wayland. Add your user to the 'input' group or create a udev rule granting access to /dev/input, then restart the app.</value>
+    </data>
+    <data name="WaylandHotkeysPromptTitle" xml:space="preserve">
+        <value>Hotkeys unavailable</value>
+    </data>
+    <data name="LinuxHotkeysDocsLinkButton" xml:space="preserve">
+        <value>Open SharpHook documentation</value>
+    </data>
+    <data name="LinuxDegradedModeExplanation" xml:space="preserve">
+        <value>If you prefer not to grant these permissions, you can enable degraded X11 input mode here or later in Global Settings. It requires no permissions, but hotkeys will only be captured while an X11 (XWayland) application is focused.</value>
+    </data>
+    <data name="LinuxDegradedModeButton" xml:space="preserve">
+        <value>Run degraded X11 mode</value>
+    </data>
+    <data name="LinuxDegradedModeEnabled" xml:space="preserve">
+        <value>Degraded X11 input mode has been enabled. Please restart Amplitude Soundboard for it to take effect.</value>
+    </data>
+    <data name="LinuxDegradedModeLabel" xml:space="preserve">
+        <value>Degraded X11 input mode (Wayland)</value>
+    </data>
+    <data name="LinuxDegradedModeTooltip" xml:space="preserve">
+        <value>On Wayland, capture hotkeys through X11 (XWayland) instead of the native Wayland backend. Requires no elevated permissions, but hotkeys only work while an X11 window is focused. Takes effect after restart.</value>
+    </data>
+    <data name="HotkeysStartError" xml:space="preserve">
+        <value>Hotkeys could not be started: {0}</value>
+    </data>
+    <data name="DefaultProfileCannotBeDeleted" xml:space="preserve">
+        <value>The default Output Profile cannot be deleted</value>
+    </data>
+</root>
